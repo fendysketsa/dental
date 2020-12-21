@@ -72,7 +72,7 @@ class RegisterController extends Controller
             'api_token' => Str::random(60),
         ]);
 
-        $role = Role::find(1);
+        $role = Role::find(6);
         $user = User::find($lastId->id);
         return $user->assignRole($role);
     }

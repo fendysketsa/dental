@@ -187,16 +187,18 @@ class HomeController extends Controller
             ];
         }
 
+        $pie = Member::select(
+            DB::raw("CONCAT( "
+                . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Laki-laki'), ',', "
+                . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Perempuan'), ',', "
+                . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin is null) "
+                . ") AS memberPie")
+        )->take(1)->first();
+
         return view('content_home', [
             'data' => [
                 'member' => Member::where(DB::raw('YEAR(member.created_at)'), $year)->get()->count(),
-                'memberPie' => Member::select(
-                    DB::raw("CONCAT( "
-                        . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Laki-laki'), ',', "
-                        . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Perempuan'), ',', "
-                        . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin is null) "
-                        . ") AS memberPie")
-                )->take(1)->first()->memberPie,
+                'memberPie' => empty($pie) ? 0 : $pie->memberPie,
                 'cabang' => Cabang::select(
                     DB::raw("GROUP_CONCAT('?',nama,'?') AS cabangList")
                 )->take(1)->first()->cabangList,
