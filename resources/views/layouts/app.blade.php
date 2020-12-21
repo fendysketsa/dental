@@ -12,7 +12,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name_', 'Gula Salon') }}</title>
+    <title>{{ config('app.name_', 'Medina Dental') }}</title>
     <link rel="stylesheet" href="{{ asset('s-home/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/dist/css/offline-theme-default.css') }}" />
     <link rel="stylesheet" href="{{ asset('s-home/dist/css/offline-language-english.css') }}" />
@@ -71,8 +71,8 @@
         <header class="main-header">
             <a href="@role('kasir') {{ url('registrations') }} @endrole  @role('super-admin|owner|manager') {{ url('home') }} @endrole"
                 class="logo">
-                <span class="logo-mini"><b>G</b>S</span>
-                <span class="logo-lg"><b>Gula</b> SALON</span>
+                <span class="logo-mini"><b>M</b>D</span>
+                <span class="logo-lg"><b>Medina</b> Dental</span>
             </a>
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -371,7 +371,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; 2019 <a href="#">Gula Salon</a></strong>
+            <strong>Copyright &copy; 2019 <a href="#">Medina Dental</a></strong>
         </footer>
 
     </div>

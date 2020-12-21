@@ -190,7 +190,7 @@
 
                 <div class="mastfoot">
                     <div class="inner">
-                        <a target="_blank" href="https://www.gulawaxing.com">Gula Waxing</a>
+                        <a target="_blank" href="https://www.gulawaxing.com">Medina Dental</a>
                     </div>
                 </div>
             </div>
@@ -209,9 +209,9 @@
 
     @if(empty($messageFoot))
     <script>
-        setTimeout(function() { 
+        setTimeout(function() {
             window.close();
-        }, 1000);        
+        }, 1000);
     </script>
     @endif
 </body>

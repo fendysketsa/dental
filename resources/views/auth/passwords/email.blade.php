@@ -7,7 +7,7 @@
             <img src="{{ asset('s-login/images/left-pict.png') }}" alt="">
         </div>
         <form method="POST" action="{{ route('password.email') }}">
-            <h3>Gula Salon</h3>
+            <h3>Medina Dental</h3>
             <h4>Reset Your Password</h4>
             @error('email')
             <div class="notif-false">

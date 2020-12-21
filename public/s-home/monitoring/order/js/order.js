@@ -190,7 +190,7 @@ function rePrint(events, dataTrans, onsave) {
     printer.open().then(function () {
 
         printer.align('center')
-            .text('GULA Waxing - Make Up');
+            .text('Medina Dental - Make Up');
 
         if (operatorCbang == 2 || !operatorCbang) {
             printer.align('center').text('Jl. Gejayan No. 11').text('Yogyakarta').text('(0274)-589946');

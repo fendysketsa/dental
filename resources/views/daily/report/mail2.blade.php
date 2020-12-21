@@ -63,7 +63,7 @@
                                         style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif">
                                         <h1
                                             style="margin:0;padding:0;font-family:HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;line-height:1.1;margin-bottom:15px;color:#2c3e50;font-weight:800;font-size:30px;text-align:center;margin-top:10px">
-                                            Gula Waxing</h1>
+                                            Medina Dental</h1>
                                     </td>
                                 </tr>
                                 <tr>
