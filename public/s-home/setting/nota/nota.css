@@ -1,0 +1,126 @@
+.legal {
+  	text-align:center;
+    font-family:arial;
+  }
+
+@media print {
+    .page-break { display: block; page-break-before: always; }
+}
+      #invoice-POS {
+  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+  padding: 2mm;
+  margin: 0 auto;
+  width: 44mm;
+  background: #FFF;
+}
+#invoice-POS ::selection {
+  background: #f31544;
+  color: #FFF;
+}
+#invoice-POS ::moz-selection {
+  background: #f31544;
+  color: #FFF;
+}
+#invoice-POS h1 {
+  font-size: 1.5em;
+  color: #222;
+}
+#invoice-POS h2 {
+  font-size: .6em;
+  margin-top:2px !important;
+  margin-bottom:2px !important;
+}
+#invoice-POS h3 {
+  font-size: 1.2em;
+  font-weight: 300;
+  line-height: 2em;
+}
+#invoice-POS p {
+  font-size: .5em;
+  color: #666;
+  line-height: 1.2em;
+
+}
+#invoice-POS #top, #invoice-POS #mid, #invoice-POS #bot {
+  /* Targets all id with 'col-' */
+  border-bottom: 1px solid #EEE;
+}
+#invoice-POS #top {
+  min-height: 90px;
+}
+#invoice-POS #mid {
+  min-height: 50px;
+}
+#invoice-POS #bot {
+  min-height: 50px;
+}
+.point-contact p {
+    margin:0 0 3px;
+    line-height: 0% important;
+}
+#invoice-POS .info {
+  display: block;
+  margin-left: 0;
+}
+
+#invoice-POS .title {
+  float: right;
+}
+table td {
+	font-size:12px;
+}
+#invoice-POS .title p {
+  text-align: right;
+}
+#invoice-POS table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#invoice-POS .tabletitle {
+  font-size: .5em;
+  background: #EEE;
+}
+#invoice-POS .service {
+  border-bottom: 1px solid #EEE;
+}
+table td p.itemtext, td.payment h2 {
+	font-family: monospace;
+}
+#invoice-POS .item {
+  width: 24mm;
+  font-size:12px;
+}
+#invoice-POS .Hours {
+  width: 6mm;
+  font-size:12px;
+}
+#invoice-POS .Rate {
+  width: 10mm;
+  font-size:12px;
+}
+#invoice-POS .itemtext {
+  font-size: .5em;
+}
+#invoice-POS .itemtext {
+  margin:0 auto;
+  padding:2.5px;
+}
+#invoice-POS #legalcopy {
+  margin-top: 5mm;
+}
+
+.div-lebar {
+	width:100%;
+}
+
+.p-left {
+	width:50%;
+    float:left;
+    text-align:left;
+}
+
+.p-right {
+	width:50%;
+    float:right;
+    text-align:right;
+}

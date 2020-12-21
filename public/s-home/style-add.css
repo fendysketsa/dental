@@ -1,0 +1,277 @@
+.add-style {
+    resize: vertical;
+    min-height: 32px;
+}
+
+.f-s-20 {
+    font-size: 20px;
+}
+
+.bg-change-select {
+    margin-left: -1px;
+    background-color: lightgray;
+    text-align-last: center;
+    font-weight: bold;
+    color: black;
+}
+
+.ignielPelangi {
+    background: linear-gradient(45deg,
+            #fef3e2,
+            #fef2e4,
+            #f1f1f2,
+            #d6c6b9,
+            #e6ccd5,
+            #ddc5a2,
+            #e2c499,
+            #f4ebdb,
+            #f3d3f8,
+            #ffccbb,
+            #ffccac,
+            #dda288,
+            #ec96a4,
+            #ec94f4,
+            #f18d9e);
+    background-size: 500% 500%;
+    -webkit-animation: ignielGradient 60s ease infinite;
+    -moz-animation: ignielGradient 120s ease infinite;
+    animation: ignielGradient 30s ease infinite;
+}
+
+@-webkit-keyframes ignielGradient {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@-moz-keyframes ignielGradient {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@keyframes ignielGradient {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+.nav-cabang-bgcolor {
+    font-size: 13px;
+    background-color: #f7b5b4;
+}
+
+.fm-em {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fnt-15 {
+    font-size: 15px;
+    position: absolute;
+    right: 1px;
+}
+
+.rodok-lebar {
+    width: 118%;
+}
+
+.tinggi-filter-range-date {
+    margin-right: 10px !important;
+    margin-top: 2.8px !important;
+}
+
+.on-dutty-off {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.min-height-ta {
+    resize: none;
+    height: 32px !important;
+}
+
+.blocking-content {
+    opacity: 0.8;
+    z-index: -9999;
+}
+
+.td-height-img {
+    vertical-align: middle !important;
+}
+
+.mod-cont-blur {
+    z-index: -1;
+}
+
+.field-icon-show-member {
+    /* float: right; */
+    margin-left: -20px;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1000;
+}
+
+.mod-bod-blur {
+    opacity: 0.5;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.word-break {
+    word-break: break-all;
+}
+
+.app__user {
+    position: relative;
+    display: inline-block;
+}
+
+.app__user-photo img {
+    height: 100px;
+}
+
+.app__user-notif {
+    position: absolute;
+    top: 65%;
+    right: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    line-height: 3rem;
+    text-align: center;
+    background: #50D2C2;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.app__user-notif>label {
+    cursor: pointer;
+}
+
+.app__user-notif>input {
+    display: none;
+}
+
+.blocking-cancel {
+    width: 80%;
+    z-index: 10;
+    height: 35px;
+    position: absolute;
+    background: antiquewhite;
+    opacity: 0.7;
+    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), red, transparent calc(50% + 1px));
+}
+
+.blocking-loading-row {
+    width: 90%;
+    z-index: 10;
+    padding: 6px;
+    text-align: center;
+    height: 35px;
+    position: absolute;
+    background: transparent;
+    opacity: 0.7;
+}
+
+/* The container-radio */
+.container-radio {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container-radio:hover input~.checkmark-radio {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-radio input:checked~.checkmark-radio {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark-radio/indicator (hidden when not checked) */
+.checkmark-radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark-radio when checked */
+.container-radio input:checked~.checkmark-radio:after {
+    display: block;
+}
+
+/* Style the checkmark-radio/indicator */
+.container-radio .checkmark-radio:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.khususon-radio {
+    margin-bottom: -10px;
+}
