@@ -35,11 +35,11 @@
         html,
         body {
             height: 100%;
-            background-color: #fcd0cf;
+            background-color: #E8AD64;
         }
 
         body {
-            color: #ff9a9c;
+            color: #E38C4C;
             text-align: center;
             text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
         }

@@ -33,7 +33,7 @@ ul {
 }
 a {
 	text-decoration: none;
-	color: #ff9a9c;
+	color: #E38C4C;
 	transition: all 0.3s ease;
 	&:hover {
 		text-decoration: none;
@@ -62,12 +62,14 @@ a {
     -o-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 .image-holder {
-	width: 50%;
-	padding-right: 15px;
+	// width: 50%;
+    // padding-right: 15px;
+    margin: 10px;
 }
 form {
 	width: 50%;
-	padding-top: 77px;
+    // padding-top: 77px;
+    padding-top: 30px;
 	padding-right: 60px;
 	padding-left: 15px;
 }
@@ -76,7 +78,7 @@ h3 {
 	font-family: "ElMessiri-SemiBold";
 	text-align: center;
 	margin-bottom: 27px;
-	color: #ff9a9c;
+	color: #E38C4C;
 }
 .form-holder {
 	padding-left: 24px;
@@ -89,7 +91,7 @@ h3 {
 		width: 10px;
 		height: 10px;
 		border-radius: 50%;
-		border: 2px solid #ff9a9c;
+		border: 2px solid #E38C4C;
 		position: absolute;
 		left: 1px;
 		top: 50%;
@@ -98,7 +100,7 @@ h3 {
 	&.active {
 		&:before {
 	        border: 2px solid transparent;
-	        background: #ff9a9c;
+	        background: #E38C4C;
 		}
 	}
 }
@@ -113,25 +115,25 @@ h3 {
 	border: none;
 	background: #f7f7f7;
 	margin-bottom: 25px;
-	&::-webkit-input-placeholder { 
+	&::-webkit-input-placeholder {
 		font-size: 13px;
 		color: #808080;
 		text-transform: uppercase;
 		font-family: "Montserrat-Regular";
 	}
-	&::-moz-placeholder { 
+	&::-moz-placeholder {
 		font-size: 13px;
 		color: #808080;
 		text-transform: uppercase;
 		font-family: "Montserrat-Regular";
 	}
-	&:-ms-input-placeholder { 
+	&:-ms-input-placeholder {
 		font-size: 13px;
 		color: #808080;
 		text-transform: uppercase;
 		font-family: "Montserrat-Regular";
 	}
-	&:-moz-placeholder { 
+	&:-moz-placeholder {
 		font-size: 13px;
 		color: #808080;
 		text-transform: uppercase;
@@ -202,7 +204,7 @@ button {
 	align-items: center;
 	justify-content: center;
 	padding: 0;
-	background: #ff9a9c;
+	background: #E38C4C;
 	font-size: 15px;
 	color: #fff;
 	text-transform: uppercase;
@@ -255,7 +257,7 @@ button {
 		width: 4px;
 		height: 4px;
 		border-radius: 50%;
-		background: #ff9a9c;
+		background: #E38C4C;
 		position: absolute;
 		display: none;
 	}
@@ -265,11 +267,11 @@ button {
 	align-items: center;
 	margin-left: 23px;
 }
-@media (max-width: 1199px) { 
-	
+@media (max-width: 1199px) {
+
 }
 @media (max-width: 991px) {
-	
+
 }
 @media (max-width: 767px) {
 	.inner {
@@ -281,7 +283,8 @@ button {
 	}
 	form {
 		width: 100%;
-		padding: 0px 15px 70px;
+        // padding: 0px 15px 70px;
+        padding: 0px 15px 30px;
 	}
 	.wrapper {
 		background: none;

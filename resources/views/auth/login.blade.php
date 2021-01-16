@@ -4,7 +4,8 @@
 <div class="wrapper">
     <div class="inner">
         <div class="image-holder">
-            <img src="{{ asset('s-login/images/left-pict.png') }}" alt="">
+            <img src="{{ asset('s-login/images/dent-behel-1.png') }}" alt="">
+            {{-- <img src="https://hdmall.id/system/image_attachments/images/000/024/960/medium/Kawat_Gigi_Metal__Cetak_Gigi_dan_Pembersihan_Karang_Gigi_1x_di_AM_Dental_Care_%281%29.jpg" alt=""> --}}
         </div>
         <form method="POST" action="{{ route('login') }}">
             <h3>Medina Dental</h3>

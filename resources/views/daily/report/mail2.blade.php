@@ -1,6 +1,6 @@
 <div bgcolor="#fff" marginheight="0" marginwidth="0"
     style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif;height:100%;width:100%!important">
-    <table bgcolor="#EF6972"
+    <table bgcolor="#E8AD64"
         style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif;width:100%;border-radius:10px;">
         <tbody>
             <tr style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif">
