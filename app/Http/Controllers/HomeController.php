@@ -139,7 +139,7 @@ class HomeController extends Controller
                         'WHERE YEAR(DATE(t.created_at)) = ' . $year .
                         ' and m.layanan_id = ' . $servicesBar[9]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_9'
                 )
-            )->take(1)->get()[0];
+            )->take(1)->first();
         }
 
         $performaLine = [];
