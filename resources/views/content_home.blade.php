@@ -1,3 +1,7 @@
+<?php
+print_r($data);
+?>
+
 <div class="row">
     <section class="col-lg-12 connectedSortable">
         <div class="nav-tabs-custom">
