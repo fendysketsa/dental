@@ -102,7 +102,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $mess = null;
-        $roles = array('?', 'Super Admin', 'Manager', 'Terapis', 'Kasir', 'Owner');
+        $roles = array('?', 'Super Admin', 'Manager', '?', 'Kasir', 'Owner');
         $this->validated($mess, $request);
 
         try {
@@ -126,9 +126,13 @@ class ProfileController extends Controller
                     'email' => DB::table($this->table)->where('id', auth()->user()->id)->first()->email,
                 ];
             } else {
+                $jabatan = explode("-", auth()->user()->getRoleNames()[0]);
+
                 $mess['data'] = [
                     'nama' => $dataUser->first()->name,
                     'email' => $dataUser->first()->email,
+                    'jabatan' => count($jabatan) > 1 ? 'Administrator' : 'Pegawai',
+                    'role' => ucwords(str_replace("-", " ", auth()->user()->getRoleNames()[0])),
                 ];
             }
         } catch (Exception $ex) {

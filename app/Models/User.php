@@ -53,9 +53,10 @@ class User extends Authenticatable
         $imagesMember = empty($data->foto) ? asset('/images/brokenimage.jpg') : (Storage::disk('profile')->exists($data->foto) ? asset('/storage/master-data/employee/uploads/' . $data->foto) : asset('/images/brokenimage.jpg'));
 
         return [
-            'jabatan' => empty($data->jabatan) ? '' : $data->jabatan,
+            'jabatan' => empty($data->jabatan) ? 'Administrator' : $data->jabatan,
             'role' => $dataRole[$data_],
             'img' => empty($data->foto) ? asset('/images/noimage.jpg') : $imagesMember,
         ];
     }
+
 }
