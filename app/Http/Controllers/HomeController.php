@@ -107,7 +107,7 @@ class HomeController extends Controller
                 )
             )->take(1)->get();
 
-            $data_performa[] = empty($qry[$count]) ? array() : $qry[$count][0];
+            $data_performa[] = empty($qry[$count]) ? 0 : $qry[$count][0];
 
             $data_servicesSetData[$count] = Transaksi::select(
                 DB::raw(
