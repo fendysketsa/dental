@@ -187,13 +187,13 @@ class HomeController extends Controller
         //     ];
         // }
 
-        // $pie = Member::select(
-        //     DB::raw("CONCAT( "
-        //         . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Laki-laki'), ',', "
-        //         . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Perempuan'), ',', "
-        //         . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin is null) "
-        //         . ") AS memberPie")
-        // )->take(1)->first();
+        $pie = Member::select(
+            DB::raw("CONCAT( "
+                . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Laki-laki'), ',', "
+                . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin = 'Perempuan'), ',', "
+                . "(SELECT COUNT(*) FROM member where YEAR(member.created_at) = '$year' AND jenis_kelamin is null) "
+                . ") AS memberPie")
+        )->take(1)->first();
 
         return view('content_home', [
             'data' => [
@@ -203,7 +203,7 @@ class HomeController extends Controller
                     DB::raw("GROUP_CONCAT('?',nama,'?') AS cabangList")
                 )->take(1)->first()->cabangList,
                 'visit' => $visitPie,
-                // 'servicesLabel' => $servicesLabel,
+                'servicesLabel' => $servicesLabel,
                 // 'servicesSet' => json_encode($servicesSet),
                 // 'performa' => json_encode($performaLine),
             ],
