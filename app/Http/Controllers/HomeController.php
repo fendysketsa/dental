@@ -77,70 +77,70 @@ class HomeController extends Controller
                 ->take(1)->first()->count . $koma;
 
             $lok = ' and m.lokasi_id = ' . $lok_->id;
-        //     $data_performa[] = Transaksi::select(
-        //         DB::raw(
-        //             '(SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "1" ' . $lok . ') as jan, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "2" ' . $lok . ') as feb, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "3" ' . $lok . ') as mar, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "4" ' . $lok . ') as apr, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "5" ' . $lok . ') as mei, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "6" ' . $lok . ') as jun, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "7" ' . $lok . ') as jul, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "8" ' . $lok . ') as agu, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "9" ' . $lok . ') as sep, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "10" ' . $lok . ') as okt, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "11" ' . $lok . ') as nov, ",",
-        //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
-        //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "12" ' . $lok . ') as des'
-        //         )
-        //     )->first();
+            //     $data_performa[] = Transaksi::select(
+            //         DB::raw(
+            //             '(SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "1" ' . $lok . ') as jan, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "2" ' . $lok . ') as feb, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "3" ' . $lok . ') as mar, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "4" ' . $lok . ') as apr, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "5" ' . $lok . ') as mei, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "6" ' . $lok . ') as jun, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "7" ' . $lok . ') as jul, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "8" ' . $lok . ') as agu, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "9" ' . $lok . ') as sep, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "10" ' . $lok . ') as okt, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "11" ' . $lok . ') as nov, ",",
+            //             (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
+            //                 'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "12" ' . $lok . ') as des'
+            //         )
+            //     )->first();
 
-        //     $data_servicesSetData[$count] = Transaksi::select(
-        //         DB::raw(
-        //             '(SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[0]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_0,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[1]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_1,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[2]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_2,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[3]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_3,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[4]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_4,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[5]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_5,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[6]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_6,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[7]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_7,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[8]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_8,
-        //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
-        //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
-        //                 ' and m.layanan_id = ' . $servicesBar[9]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_9'
-        //         )
-        //     )->take(1)->first();
-        // }
+            //     $data_servicesSetData[$count] = Transaksi::select(
+            //         DB::raw(
+            //             '(SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[0]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_0,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[1]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_1,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[2]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_2,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[3]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_3,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[4]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_4,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[5]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_5,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[6]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_6,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[7]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_7,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[8]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_8,
+            //             (SELECT count(m.id) from transaksi_detail m LEFT JOIN transaksi t ON m.transaksi_id = t.id ' .
+            //                 'WHERE YEAR(DATE(t.created_at)) = ' . $year .
+            //                 ' and m.layanan_id = ' . $servicesBar[9]->layanan_id . ' and t.lokasi_id = ' . Cabang::all()[$count]->id . ') as fav_9'
+            //         )
+            //     )->take(1)->first();
+        }
 
         // $performaLine = [];
         // $servicesSet = [];

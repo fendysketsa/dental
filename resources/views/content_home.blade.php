@@ -1,5 +1,6 @@
 <?php
 print_r($data);
+die;
 ?>
 
 <div class="row">
