@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \UxWeb\SweetAlert\ConvertMessagesIntoSweetAlert::class,
+            \App\Http\Middleware\HttpsProtocolMiddleware::class
         ],
 
         'api' => [
