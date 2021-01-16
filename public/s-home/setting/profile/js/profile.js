@@ -176,7 +176,7 @@ function submit() {
                     case 200:
                         var images_ =
                             data.data.foto != null
-                                ? "/storage/back/manage/employee/uploads/" +
+                                ? "/storage/master-data/employee/uploads/" +
                                   data.data.foto
                                 : "/images/noimage.jpg";
 
