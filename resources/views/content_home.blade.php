@@ -1,8 +1,3 @@
-<?php
-print_r($data);
-die;
-?>
-
 <div class="row">
     <section class="col-lg-12 connectedSortable">
         <div class="nav-tabs-custom">
@@ -33,8 +28,8 @@ die;
             <div class="panel-body">
                 <canvas class="chart tab-pane active" id="services-chart"
                     data-cabang-bar="[{{ str_replace('?', '"', $data['cabang']) }}]"
-                    data-services-label="[{{ $data['servicesLabel'] }}]"
-                    data-services-set="{{ $data['servicesSet'] }}" style="position: relative; height: 300px;">
+                    data-services-label="[{{ $data['servicesLabel'] }}]" data-services-set="{{ $data['servicesSet'] }}"
+                    style="position: relative; height: 300px;">
                 </canvas>
             </div>
         </div>
