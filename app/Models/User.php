@@ -45,14 +45,16 @@ class User extends Authenticatable
     public function pegawaiBelongs()
     {
         $data = DB::table('pegawai')
-            ->where('user_id', auth()->user()->id)->first();
+        ->where('user_id', auth()->user()->id)->first();
         $data_ = !empty($data) ? $data->role : 1;
-        $dataRole = array('?', 'Super Admin', 'Manager', 'Terapis', 'Kasir', 'Owner');
+        $dataRole = array('?', 'Super Admin', 'Produksi', '?', 'Admin');
+
+        $imagesMember = Storage::disk('profile')->exists($data->foto) ? asset('/storage/back/manage/employee/uploads/' . $data->foto) : asset('/images/brokenimage.jpg');
 
         return [
             'jabatan' => empty($data->jabatan) ? '' : $data->jabatan,
             'role' => $dataRole[$data_],
-            'img' => empty($data->foto) ? asset('/images/noimage.jpg') : asset('/storage/master-data/employee/uploads/' . $data->foto),
+            'img' => empty($data->foto) ? asset('/images/noimage.jpg') : $imagesMember,
         ];
     }
 }
