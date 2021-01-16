@@ -195,14 +195,6 @@ class HomeController extends Controller
                 . ") AS memberPie")
         )->take(1)->first();
 
-        print_r($servicesLabel);
-        echo '<br>';
-        print_r($servicesSet);
-        echo '<br>';
-        print_r($performaLine);
-        echo '<br>';
-        die;
-
         return view('content_home', [
             'data' => [
                 'member' => Member::where(DB::raw('YEAR(member.created_at)'), $year)->get()->count(),
