@@ -326,7 +326,7 @@
 
                     @role('super-admin|owner')
                     <li class="bg-navy">
-                        <a href="https://akunting.gulawaxing.com" target="_blank"><i class="fa fa-balance-scale"></i>
+                        <a href="https://akunting.medinadental.clinic" target="_blank"><i class="fa fa-balance-scale"></i>
                             <span>Akunting</span></a></li>
                     @endrole
 

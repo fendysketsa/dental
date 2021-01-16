@@ -190,7 +190,7 @@
 
                 <div class="mastfoot">
                     <div class="inner">
-                        <a target="_blank" href="https://www.gulawaxing.com">Medina Dental</a>
+                        <a target="_blank" href="https://medinadental.clinic">Medina Dental</a>
                     </div>
                 </div>
             </div>
