@@ -4,7 +4,8 @@
 <div class="wrapper">
     <div class="inner">
         <div class="image-holder">
-            <img src="{{ asset('s-login/images/left-pict.png') }}" alt="">
+            {{-- <img src="{{ asset('s-login/images/left-pict.png') }}" alt=""> --}}
+            <img src="{{ asset('s-login/images/dent-behel-1.png') }}" alt="">
         </div>
         <form method="POST" action="{{ route('password.update') }}">
             <h3>Medina Dental</h3>
