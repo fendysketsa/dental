@@ -142,50 +142,50 @@ class HomeController extends Controller
             //     )->take(1)->first();
         }
 
-        // $performaLine = [];
-        // $servicesSet = [];
-        // $performaLineQuery = Cabang::all();
-        // foreach ($performaLineQuery as $countp => $perf) {
-        //     $performaLine[] = [
-        //         'label' => $perf->nama,
-        //         'fill' => false,
-        //         'backgroundColor' => Color($countp),
-        //         'borderColor' => Color($countp),
-        //         'data' => [
-        //             $data_performa[$countp]->jan,
-        //             $data_performa[$countp]->feb,
-        //             $data_performa[$countp]->mar,
-        //             $data_performa[$countp]->apr,
-        //             $data_performa[$countp]->mei,
-        //             $data_performa[$countp]->jun,
-        //             $data_performa[$countp]->jul,
-        //             $data_performa[$countp]->agu,
-        //             $data_performa[$countp]->sep,
-        //             $data_performa[$countp]->okt,
-        //             $data_performa[$countp]->nov,
-        //             $data_performa[$countp]->des
-        //         ]
-        //     ];
+        $performaLine = [];
+        $servicesSet = [];
+        $performaLineQuery = Cabang::all();
+        foreach ($performaLineQuery as $countp => $perf) {
+            $performaLine[] = [
+                'label' => $perf->nama,
+                'fill' => false,
+                'backgroundColor' => Color($countp),
+                'borderColor' => Color($countp),
+                'data' => [
+                    $data_performa[$countp]->jan,
+                    $data_performa[$countp]->feb,
+                    $data_performa[$countp]->mar,
+                    $data_performa[$countp]->apr,
+                    $data_performa[$countp]->mei,
+                    $data_performa[$countp]->jun,
+                    $data_performa[$countp]->jul,
+                    $data_performa[$countp]->agu,
+                    $data_performa[$countp]->sep,
+                    $data_performa[$countp]->okt,
+                    $data_performa[$countp]->nov,
+                    $data_performa[$countp]->des
+                ]
+            ];
 
-        //     $servicesSet[] = [
-        //         'label' => $perf->nama,
-        //         'backgroundColor' => Color($countp),
-        //         'borderColor' => Color($countp),
-        //         'borderWidth' => 1,
-        //         'data' => [
-        //             $data_servicesSetData[$countp]->fav_0,
-        //             $data_servicesSetData[$countp]->fav_1,
-        //             $data_servicesSetData[$countp]->fav_2,
-        //             $data_servicesSetData[$countp]->fav_3,
-        //             $data_servicesSetData[$countp]->fav_4,
-        //             $data_servicesSetData[$countp]->fav_5,
-        //             $data_servicesSetData[$countp]->fav_6,
-        //             $data_servicesSetData[$countp]->fav_7,
-        //             $data_servicesSetData[$countp]->fav_8,
-        //             $data_servicesSetData[$countp]->fav_9
-        //         ]
-        //     ];
-        // }
+            $servicesSet[] = [
+                'label' => $perf->nama,
+                'backgroundColor' => Color($countp),
+                'borderColor' => Color($countp),
+                'borderWidth' => 1,
+                'data' => [
+                    $data_servicesSetData[$countp]->fav_0,
+                    $data_servicesSetData[$countp]->fav_1,
+                    $data_servicesSetData[$countp]->fav_2,
+                    $data_servicesSetData[$countp]->fav_3,
+                    $data_servicesSetData[$countp]->fav_4,
+                    $data_servicesSetData[$countp]->fav_5,
+                    $data_servicesSetData[$countp]->fav_6,
+                    $data_servicesSetData[$countp]->fav_7,
+                    $data_servicesSetData[$countp]->fav_8,
+                    $data_servicesSetData[$countp]->fav_9
+                ]
+            ];
+        }
 
         $pie = Member::select(
             DB::raw("CONCAT( "
@@ -204,7 +204,7 @@ class HomeController extends Controller
                 )->take(1)->first()->cabangList,
                 'visit' => $visitPie,
                 'servicesLabel' => $servicesLabel,
-                // 'servicesSet' => json_encode($servicesSet),
+                'servicesSet' => json_encode($servicesSet),
                 // 'performa' => json_encode($performaLine),
             ],
         ]);
