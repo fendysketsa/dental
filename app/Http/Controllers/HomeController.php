@@ -77,8 +77,7 @@ class HomeController extends Controller
                 ->take(1)->first()->count . $koma;
 
             $lok = ' and m.lokasi_id = ' . $lok_->id;
-
-            $qry[] = Transaksi::select(
+            $data_performa[] = Transaksi::select(
                 DB::raw(
                     '(SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
                         'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "1" ' . $lok . ') as jan, ",",
@@ -105,11 +104,7 @@ class HomeController extends Controller
                     (SELECT count(DISTINCT(m.member_id)) from transaksi m ' .
                         'WHERE YEAR(DATE(created_at)) = "' . $year . '" and MONTH(m.created_at) = "12" ' . $lok . ') as des'
                 )
-            )->take(1)->get();
-
-            print_r($qry[$count]);
-
-            $data_performa[] = empty($qry[$count]) ? 0 : $qry[$count][0];
+            )->first();
 
             $data_servicesSetData[$count] = Transaksi::select(
                 DB::raw(
