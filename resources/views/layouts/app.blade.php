@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="{{ asset('s-home/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/style-add.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/plugins/toast/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('s-home/dist/upload_multi/css/image-uploader.min.css') }}">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -163,6 +164,9 @@
                         </a>
                         <ul class="treeview-menu" @if(!empty($attribute['m_data'])) style="display:block;" @endif>
                             @role('manager|super-admin|owner')
+                            <li class="{{ (!empty($attribute['menu_room']) ? $attribute['menu_room'] : null) }}">
+                                <a href="{{ route('rooms.index') }}"><i class="fa fa-check-circle-o"></i>
+                                    Ruangan</a></li>
                             <li
                                 class="{{ (!empty($attribute['menu_category']) ? $attribute['menu_category'] : null) }}">
                                 <a href="{{ route('categories.index') }}"><i class="fa fa-check-circle-o"></i>
@@ -325,8 +329,9 @@
                     @endrole
 
                     @role('super-admin|owner')
-                    <li class="bg-navy">
-                        <a href="https://akunting.medinadental.clinic" target="_blank"><i class="fa fa-balance-scale"></i>
+                    <li class="bg-hover-menu">
+                        <a href="https://akunting.medinadental.clinic" target="_blank"><i
+                                class="fa fa-balance-scale"></i>
                             <span>Akunting</span></a></li>
                     @endrole
 
@@ -420,6 +425,8 @@
         try{Typekit.load();}catch(e){}
     </script>
     <script src="{{ asset('s-home/dist/js/offline.min.js') }}"></script>
+
+    <script src="{{ asset('s-home/dist/upload_multi/js/image-uploader.min.js') }}"></script>
 
     <script>
         var token = `<?php echo csrf_field(); ?>`;

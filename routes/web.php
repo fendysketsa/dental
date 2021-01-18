@@ -89,6 +89,15 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
         'edit', 'show'
     ]);
     //-----------------------------------------------------------------------------
+    Route::get('rooms/add', 'Web\Master\RoomController@create')
+    ->name('rooms.create'); //form no mdal
+    Route::post('rooms/option', 'Web\Master\RoomController@_option');
+    Route::get('rooms/data', 'Web\Master\RoomController@_data');
+    Route::get('rooms/json', 'Web\Master\RoomController@_json');
+    Route::resource('rooms', 'Web\Master\RoomController')->except([
+        'edit', 'show'
+    ]);
+    //-----------------------------------------------------------------------------
     Route::get('categories/add', 'Web\Master\CategoryController@create')
         ->name('categories.create'); //form no mdal
     Route::get('categories/data', 'Web\Master\CategoryController@_data');
