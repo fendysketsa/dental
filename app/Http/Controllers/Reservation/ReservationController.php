@@ -76,7 +76,7 @@ class ReservationController extends Controller
         );
 
         $message_terapis = array(
-            'terapis' => 'not_in:0',
+            'ruangan' => 'not_in:0',
         );
 
         $message_reserv = array(
@@ -90,7 +90,7 @@ class ReservationController extends Controller
             'lokasi_reservasi.required' => 'Bidang pilihan :attribute wajib dipilih',
             'paket.required' => 'Bidang pilihan :attribute wajib dipilih',
             'layanan.required' => 'Bidang pilihan :attribute wajib dipilih',
-            'terapis.required' => 'Bidang pilihan :attribute wajib dipilih',
+            'ruangan.required' => 'Bidang pilihan :attribute wajib dipilih',
         ];
 
         $fail_form1 = $request->has('paket') ? array_merge($message_paket, $message_terapis) : array_merge($message_layanan, $message_terapis);
@@ -158,7 +158,9 @@ class ReservationController extends Controller
             return abort(403);
         }
 
-        if (in_array($request->table, array('layanan', 'terapis', 'paket'))) {
+        if (in_array($request->table, array('layanan', 'ruangan', 'paket'))) {
+            $data = array();
+
             if ($request->table == 'layanan') {
                 $datas = DB::table('kategori')
                     ->select('kategori.id', 'kategori.nama')
@@ -177,41 +179,43 @@ class ReservationController extends Controller
                     ];
                 }
             }
-            if ($request->table == 'terapis') {
-                $t_cabg_kasir = !empty(session('cabang_id')) ? base64_decode(session('cabang_id')) : 2;
-                $tanggal = empty($request->get('tgl_res')) ? date('Y-m-d') : DATE('Y-m-d', strtotime($request->get('tgl_res')));
-                $jam = empty($request->get('jam_res')) ? date('H:i') : $request->get('jam_res');
-                $cabang = empty($request->get('loc_res')) ? $t_cabg_kasir : $request->get('loc_res');
+            if ($request->table == 'ruangan') {
+                // $t_cabg_kasir = !empty(session('cabang_id')) ? base64_decode(session('cabang_id')) : 2;
+                // $tanggal = empty($request->get('tgl_res')) ? date('Y-m-d') : DATE('Y-m-d', strtotime($request->get('tgl_res')));
+                // $jam = empty($request->get('jam_res')) ? date('H:i') : $request->get('jam_res');
+                // $cabang = empty($request->get('loc_res')) ? $t_cabg_kasir : $request->get('loc_res');
 
-                $layanan = $request->get('layanan');
+                // $layanan = $request->get('layanan');
 
-                $data_ = DB::table('kualifikasi_terapis')
-                    ->leftJoin('layanan', 'layanan.id', '=', 'kualifikasi_terapis.layanan_id')
-                    ->leftJoin('pegawai', 'kualifikasi_terapis.pegawai_id', '=', 'pegawai.id')
-                    ->leftJoin(
-                        'kalendar_shift',
-                        'kalendar_shift.pegawai_id',
-                        '=',
-                        'pegawai.id'
-                    )
-                    ->leftJoin('shift', 'shift.id', '=', 'kalendar_shift.shift_id')
-                    ->where('kualifikasi_terapis.layanan_id', '=', $layanan)
-                    ->where('pegawai.role', '=', 3)
-                    ->where('kalendar_shift.ijin', '=', 0);
+                // $data_ = DB::table('kualifikasi_terapis')
+                //     ->leftJoin('layanan', 'layanan.id', '=', 'kualifikasi_terapis.layanan_id')
+                //     ->leftJoin('pegawai', 'kualifikasi_terapis.pegawai_id', '=', 'pegawai.id')
+                //     ->leftJoin(
+                //         'kalendar_shift',
+                //         'kalendar_shift.pegawai_id',
+                //         '=',
+                //         'pegawai.id'
+                //     )
+                //     ->leftJoin('shift', 'shift.id', '=', 'kalendar_shift.shift_id')
+                //     ->where('kualifikasi_terapis.layanan_id', '=', $layanan)
+                //     ->where('pegawai.role', '=', 3)
+                //     ->where('kalendar_shift.ijin', '=', 0);
 
-                if (empty($request->get('loaded'))) {
-                    $data_->where('kalendar_shift.cabang_id', '=', $cabang)
-                        ->where('kalendar_shift.tanggal', '=', $tanggal)
-                        ->WhereTime('shift.jam_akhir', '>', $jam);
-                }
+                // if (empty($request->get('loaded'))) {
+                //     $data_->where('kalendar_shift.cabang_id', '=', $cabang)
+                //         ->where('kalendar_shift.tanggal', '=', $tanggal)
+                //         ->WhereTime('shift.jam_akhir', '>', $jam);
+                // }
 
-                $data_->select(
-                    DB::raw("IF((SELECT COUNT(dtp.pegawai_id) from transaksi_detail dtp left join transaksi t ON t.id = dtp.transaksi_id where t.status_pembayaran != 'terbayar' AND t.status != 4 AND t.status != 1 AND dtp.pegawai_id = pegawai.id AND DATE(t.waktu_reservasi) = '" . $tanggal . "' AND TIME(t.waktu_reservasi) <= '" . $jam . "') > 0, 'true', 'false') as on_work"),
-                    DB::raw("IF(shift.jam_awal <= '$jam' AND shift.jam_akhir > '$jam', 'true', 'false') as available"),
-                    'pegawai.*'
-                )->groupBy('kalendar_shift.pegawai_id');
+                // $data_->select(
+                //     DB::raw("IF((SELECT COUNT(dtp.pegawai_id) from transaksi_detail dtp left join transaksi t ON t.id = dtp.transaksi_id where t.status_pembayaran != 'terbayar' AND t.status != 4 AND t.status != 1 AND dtp.pegawai_id = pegawai.id AND DATE(t.waktu_reservasi) = '" . $tanggal . "' AND TIME(t.waktu_reservasi) <= '" . $jam . "') > 0, 'true', 'false') as on_work"),
+                //     DB::raw("IF(shift.jam_awal <= '$jam' AND shift.jam_akhir > '$jam', 'true', 'false') as available"),
+                //     'pegawai.*'
+                // )->groupBy('kalendar_shift.pegawai_id');
 
-                $data = $data_->get();
+                // $data = $data_->get();
+
+                $data = DB::table('room')->select('room.price as harga', 'room.name as nama', 'room.*')->get();
             }
             if ($request->table == 'paket') {
                 $data = DB::table($this->table_paket)->get();

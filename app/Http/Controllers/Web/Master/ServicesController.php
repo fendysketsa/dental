@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Items;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
-use function GuzzleHttp\json_encode;
+use GuzzleHttp\json_encode;
 
 class ServicesController extends Controller
 {
@@ -127,21 +127,21 @@ class ServicesController extends Controller
             DB::transaction(function () use ($mess, $filename, $request) {
 
                 $tambahId = DB::table($this->table)->insertGetId($this->fields($request, $filename));
-                //set to db akunting
-                $dataItems = new Items;
-                $dataItems->setConnection('mysql_acc');
-                $dataItems->forceFill([
-                    'id' => $tambahId,
-                    'company_id' => '1', //cabang gulawaxing
-                    'name' => $request->nama,
-                    'description' => $request->deskripsi,
-                    'sale_price' => unRupiahFormat($request->harga),
-                    'purchase_price' => unRupiahFormat($request->harga),
-                    'quantity' => 1,
-                    'enabled' => 1
-                ]);
-                $dataItems->save();
-                //selesai set db akunting
+                // //set to db akunting
+                // $dataItems = new Items;
+                // $dataItems->setConnection('mysql_acc');
+                // $dataItems->forceFill([
+                //     'id' => $tambahId,
+                //     'company_id' => '1', //cabang gulawaxing
+                //     'name' => $request->nama,
+                //     'description' => $request->deskripsi,
+                //     'sale_price' => unRupiahFormat($request->harga),
+                //     'purchase_price' => unRupiahFormat($request->harga),
+                //     'quantity' => 1,
+                //     'enabled' => 1
+                // ]);
+                // $dataItems->save();
+                // //selesai set db akunting
 
                 if (!empty($request->brand)) {
                     $dataDetailIns = array();

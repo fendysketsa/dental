@@ -255,7 +255,7 @@ function form_attribut_right() {
         theme: "bootstrap"
     })
 
-    $('.f-terapis').select2({
+    $('.f-ruangan').select2({
         placeholder: "Please select!",
         theme: "bootstrap"
     });
@@ -334,7 +334,7 @@ function form_attribut_right() {
                 trs.each(function (e, f) {
                     $(trs[e]).find('td.nom-layanan').text(e + 1);
                     $(trs[e]).find('td.select-layanan').find('select').removeAttr('id').attr('id', 'on-select-layanan-' + (e + 1));
-                    $(trs[e]).find('td.select-terapis').find('select').removeAttr('id').attr('id', 'on-select-terapis-' + (e + 1));
+                    $(trs[e]).find('td.select-ruangan').find('select').removeAttr('id').attr('id', 'on-select-ruangan-' + (e + 1));
                 });
 
                 loadTotal()
@@ -383,7 +383,7 @@ function load_row_paket() {
                             <tr>
                                 <th class="text-center" style="width:5%;">No</th>
                                 <th class="text-left" style="width:55%;">Layanan</th>
-                                <th class="text-left" style="width:40%">Terapis</th>
+                                <th class="text-left" style="width:40%">Ruangan</th>
                             </tr>
                         </thead>
                         <tbody id="table-td" class="load-row-paketlayanan-` + numb + `">
@@ -413,7 +413,7 @@ function load_row_paket() {
                 load_avail_layanan_on_paket('layanan', numb, PktlayId);
             } else {
                 $(".load-more-paket-" + numb).addClass('hide')
-                var trps = $("#on-select-onpkt-terapis-" + numb);
+                var trps = $("#on-select-onpkt-ruangan-" + numb);
                 trps.attr('disabled', true);
                 trps.val('').trigger('change')
             }
@@ -435,9 +435,9 @@ function load_row_layanan() {
                     <select name="layanan[]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` + numb + `"></select>
                 </div>
             </td>`;
-    html += `<td class="select-terapis td-height-img">
+    html += `<td class="select-ruangan td-height-img">
                 <div class="input-group-sm">
-                    <select name="terapis[]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-terapis-` + numb + `"></select>
+                    <select name="ruangan[]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-ruangan-` + numb + `"></select>
                 </div>
             </td>`;
     html += `<td class="td-height-img text-center"><em class="fa fa-times remove-row-layanan text-danger"></em></td>`;
@@ -452,10 +452,10 @@ function load_row_layanan() {
             loadTotal(layId)
 
             if (layId) {
-                $("#on-select-terapis-" + numb).removeAttr('disabled')
-                load_avail_layanan('terapis', numb, layId);
+                $("#on-select-ruangan-" + numb).removeAttr('disabled')
+                load_avail_layanan('ruangan', numb, layId);
             } else {
-                var trps = $("#on-select-terapis-" + numb);
+                var trps = $("#on-select-ruangan-" + numb);
                 trps.attr('disabled', true);
                 trps.val('').trigger('change')
             }
@@ -469,26 +469,26 @@ function load_avail_playanant(table, numb, layanan) {
     var pID = layanan || 0;
 
     $.ajax({
-        url: base_url + "/registrations/opt-terapis/" + table + '?layanan=' + pID,
+        url: base_url + "/registrations/opt-ruangan/" + table + '?layanan=' + pID,
         method: "GET",
         dataType: 'json',
         success: function (data) {
 
             if (data.length === 0) {
-                $("select#on-select-paketlayananterapis-" + numb + '-lay-' + pID).attr('disabled', true).removeAttr('name,form');
-                $("div#on-input-paketlayananterapis-" + numb + '-lay-' + pID).html(`<input type="hidden" form="formRegistrasi" name="pkt_layanan_terapis[` + (numb - 1) + `][]" readonly value="0">`);
+                $("select#on-select-paketlayananruangan-" + numb + '-lay-' + pID).attr('disabled', true).removeAttr('name,form');
+                $("div#on-input-paketlayananruangan-" + numb + '-lay-' + pID).html(`<input type="hidden" form="formRegistrasi" name="pkt_layanan_ruangan[` + (numb - 1) + `][]" readonly value="0">`);
             } else {
-                $("select#on-select-paketlayananterapis-" + numb + '-lay-' + pID).removeAttr('disabled');
+                $("select#on-select-paketlayananruangan-" + numb + '-lay-' + pID).removeAttr('disabled');
             }
 
             var html = [];
             html += `<option></option>`;
             for (var i = 0; i < data.length; i++) {
                 html += `<option value='` + data[i].id + `'>` + data[i].nama + `</option>`;
-                $("select#on-select-paketlayananterapis-" + numb + '-lay-' + pID).html(html);
+                $("select#on-select-paketlayananruangan-" + numb + '-lay-' + pID).html(html);
             }
 
-            $("select#on-select-paketlayananterapis-" + numb + '-lay-' + pID).select2({
+            $("select#on-select-paketlayananruangan-" + numb + '-lay-' + pID).select2({
                 placeholder: "Please select!",
                 allowClear: true,
                 theme: "bootstrap"
@@ -531,7 +531,7 @@ function load_avail_layanan(table, numb, p_id) {
     var urlAdd = (resTag && resJam && resLoc ? '&tgl_res=' + resTag + '&jam_res=' + resJam + '&loc_res=' + resLoc : '');
 
     $.ajax({
-        url: base_url + "/registrations/opt/" + table + (table == 'terapis' ? '?layanan=' + pID + urlAdd : ''),
+        url: base_url + "/registrations/opt/" + table + (table == 'ruangan' ? '?layanan=' + pID + urlAdd : ''),
         method: "GET",
         dataType: 'json',
         success: function (data) {
@@ -551,7 +551,8 @@ function load_avail_layanan(table, numb, p_id) {
                 }
 
                 if (table != 'layanan') {
-                    var AvaliableTrps = table == 'paket' ? '' : (data[i].on_work == 'true' ? 'disabled' : (data[i].available == 'true' ? '' : 'disabled'));
+                    // var AvaliableTrps = table == 'paket' ? '' : (data[i].on_work == 'true' ? 'disabled' : (data[i].available == 'true' ? '' : 'disabled'));
+                    var AvaliableTrps = table == 'paket' ? '' : (data[i].on_work == 'true' ? 'disabled' : (data[i].available == 'true' ? '' : ''));
                     html += `<option ` + AvaliableTrps + ` ` + harga + ` value='` + data[i].id + `'>` + data[i].nama + `</option>`;
                 }
             }
@@ -584,10 +585,10 @@ function load_avail_layanan_on_paket(table, numb, p_id) {
                 html += `<td class="text-center">` + (i + 1) + `</td>`;
                 html += `<td>` + data[i].nama + `</td>`;
                 html += `<td>
-                            <div id="on-input-paketlayananterapis-` + numb + `-lay-` + data[i].id + `"></div>
+                            <div id="on-input-paketlayananruangan-` + numb + `-lay-` + data[i].id + `"></div>
                             <div class="input-group-sm">
-                                <select name="pkt_layanan_terapis[` + (numb - 1) + `][]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled
-                                    id="on-select-paketlayananterapis-` + numb + `-lay-` + data[i].id + `"></select>
+                                <select name="pkt_layanan_ruangan[` + (numb - 1) + `][]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled
+                                    id="on-select-paketlayananruangan-` + numb + `-lay-` + data[i].id + `"></select>
                             </div>
                         </td>`;
                 html += `</tr>`;
@@ -780,7 +781,7 @@ function select_(table, pkt) {
                 html += `<option ` + layanan_ + `value='` + data[i].id + `'>` + pegawai + data[i].nama + `</option>`;
 
             }
-            var table_ = table == 'pegawai' ? 'terapis' : table;
+            var table_ = table == 'pegawai' ? 'ruangan' : table;
             $("select.f-" + table_).html(html);
         },
         complete: function () {
@@ -904,7 +905,7 @@ function rePrint(events, dataTrans, onsave) {
                     .align('left').text(dataTrans.layanan[lyn].kategori.substring(0, 28))
                     .align('left').text(
                         sprintf('%s', ' 1 X ' + dataTrans.layanan[lyn].layanan.substring(0, 25) + '/' +
-                            (dataTrans.layanan[lyn].terapis ? dataTrans.layanan[lyn].terapis.substring(0, 8) : '-')
+                            (dataTrans.layanan[lyn].ruangan ? dataTrans.layanan[lyn].ruangan.substring(0, 8) : '-')
                         )
                     );
             }
@@ -918,7 +919,7 @@ function rePrint(events, dataTrans, onsave) {
                 }
                 printer.align('left').text(
                     ' - ' + sprintf('%s', dataTrans.paket[pketl].layanan.substring(0, 25) + '/' +
-                        (dataTrans.paket[pketl].terapis ? dataTrans.paket[pketl].terapis.substring(0, 8) : '-')
+                        (dataTrans.paket[pketl].ruangan ? dataTrans.paket[pketl].ruangan.substring(0, 8) : '-')
                     )
                 );
             }

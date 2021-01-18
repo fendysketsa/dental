@@ -13,7 +13,7 @@
                         <thead class="bg-navy disabled color-palette">
                             <th style="width:5%;" class="text-center">No</th>
                             <th style="width:60%;">Layanan</th>
-                            <th style="width:25%;">Terapis</th>
+                            <th style="width:25%;">Ruangan</th>
                             <th style="width:10%;" class="text-center">Action</th>
                         </thead>
                         <tbody class="load-row-layanan">
