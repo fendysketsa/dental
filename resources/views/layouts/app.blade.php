@@ -283,7 +283,8 @@
                             <li
                                 class="{{ (!empty($attribute['menu_setModal']) ? $attribute['menu_setModal'] : null) }}">
                                 <a href="{{ route('set.modals.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Set Modal Per Shift</a></li>
+                                    Set Modal</a>
+                            </li>
                             @role('owner|super-admin')
                             <li class="{{ (!empty($attribute['menu_buy']) ? $attribute['menu_buy'] : null) }}">
                                 <a href="{{ route('trans.purchases.index') }}"><i class="fa fa-check-circle-o"></i>
@@ -316,49 +317,49 @@
                                 class="{{ (!empty($attribute['menu_mntrg_visit']) ? $attribute['menu_mntrg_visit'] : null) }}">
                                 <a href="{{ route('visits.index') }}"><i class="fa fa-check-circle-o"></i>
                                     Kunjungan</a></li>
-                            <li
+                            {{-- <li
                                 class="{{ (!empty($attribute['menu_comm_terap']) ? $attribute['menu_comm_terap'] : null) }}">
-                                <a href="{{ route('therapists.fee.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Komisi Terapis</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_mntrg_member']) ? $attribute['menu_mntrg_member'] : null) }}">
-                                <a href="{{ route('mntrg.members.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Member</a></li>
-                        </ul>
-                    </li>
-                    @endrole
-
-                    @role('super-admin|owner')
-                    <li class="bg-hover-menu">
-                        <a href="https://akunting.medinadental.clinic" target="_blank"><i
-                                class="fa fa-balance-scale"></i>
-                            <span>Akunting</span></a></li>
-                    @endrole
-
-                    @role('super-admin|owner')
-                    <li
-                        class="treeview {{ (!empty($attribute['m_other']) ? 'active ' . $attribute['m_other'] : null) }}">
-                        <a href="#">
-                            <i class="fa fa-arrows"></i> <span>Lain-Lain</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu" @if(!empty($attribute['m_other'])) style="display:block;" @endif>
-                            <li
-                                class="{{ (!empty($attribute['menu_calshift']) ? $attribute['menu_calshift'] : null) }}">
-                                <a href="{{ route('calendars.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Kalendar Shift</a></li>
-                            <li class="{{ (!empty($attribute['menu_shift']) ? $attribute['menu_shift'] : null) }}">
-                                <a href="{{ route('shifts.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Setting Shift</a></li>
-                            {{-- <li class="{{ (!empty($attribute['menu_nota']) ? $attribute['menu_nota'] : null) }}"><a
-                                href="{{ route('notas.index') }}"><i class="fa fa-check-circle-o"></i>
-                                Setting Nota</a>
+                            <a href="{{ route('therapists.fee.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Komisi Terapis</a>
                     </li> --}}
-                    <li class="{{ (!empty($attribute['menu_stock']) ? $attribute['menu_stock'] : null) }}">
-                        <a href="{{ route('stocks.index') }}"><i class="fa fa-check-circle-o"></i>
-                            Stok Management</a></li>
+                    <li
+                        class="{{ (!empty($attribute['menu_mntrg_member']) ? $attribute['menu_mntrg_member'] : null) }}">
+                        <a href="{{ route('mntrg.members.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Member</a></li>
+                </ul>
+                </li>
+                @endrole
+
+                @role('super-admin|owner')
+                <li class="bg-hover-menu">
+                    <a href="https://akunting.medinadental.clinic" target="_blank"><i class="fa fa-balance-scale"></i>
+                        <span>Akunting</span></a></li>
+                @endrole
+
+                @role('super-admin|owner')
+                <li class="treeview {{ (!empty($attribute['m_other']) ? 'active ' . $attribute['m_other'] : null) }}">
+                    <a href="#">
+                        <i class="fa fa-arrows"></i> <span>Lain-Lain</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" @if(!empty($attribute['m_other'])) style="display:block;" @endif>
+                        {{-- <li
+                                class="{{ (!empty($attribute['menu_calshift']) ? $attribute['menu_calshift'] : null) }}">
+                        <a href="{{ route('calendars.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Kalendar Shift</a>
+                </li>
+                <li class="{{ (!empty($attribute['menu_shift']) ? $attribute['menu_shift'] : null) }}">
+                    <a href="{{ route('shifts.index') }}"><i class="fa fa-check-circle-o"></i>
+                        Setting Shift</a></li>
+                <li class="{{ (!empty($attribute['menu_nota']) ? $attribute['menu_nota'] : null) }}"><a
+                        href="{{ route('notas.index') }}"><i class="fa fa-check-circle-o"></i>
+                        Setting Nota</a>
+                </li> --}}
+                <li class="{{ (!empty($attribute['menu_stock']) ? $attribute['menu_stock'] : null) }}">
+                    <a href="{{ route('stocks.index') }}"><i class="fa fa-check-circle-o"></i>
+                        Stok Management</a></li>
                 </ul>
                 </li>
                 @endrole
