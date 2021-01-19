@@ -220,16 +220,16 @@ class ServicesController extends Controller
 
                     $affected = $elmTable->update($this->fields($request, $filename));
 
-                    //set to db akunting
-                    $dataItems = Items::find($request->id);
-                    $dataItems->setConnection('mysql_acc');
-                    $dataItems->company_id = 1;
-                    $dataItems->name = $request->nama;
-                    $dataItems->description = $request->deskripsi;
-                    $dataItems->sale_price = unRupiahFormat($request->harga);
-                    $dataItems->purchase_price = unRupiahFormat($request->harga);
-                    $dataItems->save();
-                    //selesai set db akunting
+                    // //set to db akunting
+                    // $dataItems = Items::find($request->id);
+                    // $dataItems->setConnection('mysql_acc');
+                    // $dataItems->company_id = 1;
+                    // $dataItems->name = $request->nama;
+                    // $dataItems->description = $request->deskripsi;
+                    // $dataItems->sale_price = unRupiahFormat($request->harga);
+                    // $dataItems->purchase_price = unRupiahFormat($request->harga);
+                    // $dataItems->save();
+                    // //selesai set db akunting
 
                     $mess['msg'] = 'Data sukses disimpan' . ($affected == 0 ? ", namun tidak ada perubahan" : " dan diubah");
                     $mess['cd'] = 200;
