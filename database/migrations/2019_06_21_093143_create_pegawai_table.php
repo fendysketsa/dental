@@ -20,7 +20,7 @@ class CreatePegawaiTable extends Migration
             $table->string('nama', 100);
             $table->string('jabatan', 100);
             $table->unsignedTinyInteger('role')
-                ->comment('1.Super Admin, 2.Manager, 3.Terapis, 4.Kasir, 5.Kasir');
+                ->comment('1.Super Admin, 2.Finance, 3.Terapis, 4.Kasir, 5.Kasir');
             $table->string('foto', 255)->nullable();
             $table->double('komisi')->nullable();
             $table->tinyInteger('status');

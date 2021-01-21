@@ -358,8 +358,8 @@ class EmployeeController extends Controller
             $cekRoleOnwer = DB::table($this->table)->where('role', 5)->count();
             $dataOld = array(
                 array('id' => 1, 'nama' => 'Super Admin'),
-                array('id' => 2, 'nama' => 'Manager'),
-                array('id' => 3, 'nama' => 'Terapis'),
+                array('id' => 2, 'nama' => 'Finance'),
+                array('id' => 3, 'nama' => 'Dokter'),
                 array('id' => 4, 'nama' => 'Kasir' . $request->role),
             );
 

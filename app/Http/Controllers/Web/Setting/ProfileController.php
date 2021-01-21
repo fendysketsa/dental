@@ -102,7 +102,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $mess = null;
-        $roles = array('?', 'Super Admin', 'Manager', '?', 'Kasir', 'Owner');
+        $roles = array('?', 'Super Admin', 'Finance', '?', 'Kasir', 'Owner');
         $this->validated($mess, $request);
 
         try {
