@@ -192,10 +192,10 @@ function loadTotal(idLayanan) {
         }
 
         if (
-            !isNaN(vvl) &&
+            !isNaN(vvl_ruangan) &&
             $("select#on-select-ruangan-" + vl).val() != "undefined"
         ) {
-            total_harga_ruangan += parseInt(vvl);
+            total_harga_ruangan += parseInt(vvl_ruangan);
             // if (idLayanan) {
             //     if (vvl2 === idLayanan) {
             //         toastr.warning('Oops!, Layanan telah dipesan, harga akan dikalkulasi per layanan', 'Peringatan!');
