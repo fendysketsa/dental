@@ -63,6 +63,9 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
+        print_r($servicesBar);
+        die;
+
         foreach ($servicesBar as $numS => $r) {
             $koma = (count($servicesBar) - 1) == $numS ? '' : ',';
             $servicesLabel .= '"' . $r->nama . '"' . $koma;
