@@ -195,7 +195,13 @@ function loadTotal(idLayanan) {
             !isNaN(vvl_ruangan) &&
             $("select#on-select-ruangan-" + vl).val() != "undefined"
         ) {
-            total_harga_ruangan += parseInt(vvl_ruangan);
+            if (!vvl_ruangan) {
+                vvl_ruangan = 0;
+
+                total_harga_ruangan += parseInt(vvl_ruangan);
+            } else {
+                total_harga_ruangan += parseInt(vvl_ruangan);
+            }
             // if (idLayanan) {
             //     if (vvl2 === idLayanan) {
             //         toastr.warning('Oops!, Layanan telah dipesan, harga akan dikalkulasi per layanan', 'Peringatan!');
@@ -203,6 +209,7 @@ function loadTotal(idLayanan) {
             //     }
             // }
         }
+
         // IdLayananNew.push(vvl3)
     }
 
@@ -229,6 +236,7 @@ function loadTotal(idLayanan) {
 
     var fullTotal =
         total_harga_paket + total_harga_layanan + total_harga_ruangan;
+
     $(".price-full").html(convertRupiah(fullTotal));
 }
 
@@ -575,6 +583,12 @@ function load_row_layanan() {
             if (layId) {
                 $("#on-select-ruangan-" + numb).removeAttr("disabled");
                 load_avail_layanan("ruangan", numb, layId);
+
+                $("#on-select-ruangan-" + numb).on("change", function (e) {
+                    var ruangId = $(this).val();
+
+                    loadTotal(ruangId);
+                });
             } else {
                 var trps = $("#on-select-ruangan-" + numb);
                 trps.attr("disabled", true);
@@ -702,6 +716,8 @@ function load_avail_layanan(table, numb, p_id) {
             for (i = 0; i < data.length; i++) {
                 var harga =
                     table == "paket"
+                        ? `data-harga='` + data[i].harga + `'`
+                        : table == "ruangan"
                         ? `data-harga='` + data[i].harga + `'`
                         : "";
 
