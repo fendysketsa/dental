@@ -91,8 +91,8 @@ class ServicesController extends Controller
             'attribute' => [
                 'm_data' => 'true',
                 'menu_services' => 'active menu-open',
-                'title_bc' => 'Master Data - Layanan',
-                'desc_bc' => 'Digunakan untuk media menampilkan, menambah, mengubah dan menghapus layanan',
+                'title_bc' => 'Master Data - Keluhan',
+                'desc_bc' => 'Digunakan untuk media menampilkan, menambah, mengubah dan menghapus keluhan',
             ]
         ]);
     }

@@ -17,4 +17,17 @@ class TransaksiModel extends Model
         }
         return $value;
     }
+
+    public static function getCodeUniqTransaksi($length)
+    {
+        $random = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
+
+        $cekRandom = DB::table('transaksi')->where('uniq_transaksi', $random)->orderBy('id', 'asc')->get()->last();
+
+        if (empty($cekRandom)) {
+            return $random;
+        } else {
+            return substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
+        }
+    }
 }

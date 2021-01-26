@@ -5,15 +5,15 @@
     <div class="col-md-12">
         <div class="box box-default display-future">
             <div class="box-header with-border bg-default">
-                <h3 class="box-title"><em class='fa fa-th-large'></em> Layanan</h3>
+                <h3 class="box-title"><em class='fa fa-th-large'></em> Keluhan</h3>
             </div>
             <div class="box-body clean-sheet on-dutty-off">
                 <div class="load-form-table-layanan">
                     <table class="table hover" width="100%" cellspacing="0">
                         <thead class="bg-navy disabled color-palette">
                             <th style="width:5%;" class="text-center">No</th>
-                            <th style="width:60%;">Layanan</th>
-                            <th style="width:25%;">Ruangan</th>
+                            <th style="width:85%;">Keluhan</th>
+                            {{-- <th style="width:25%;">Ruangan</th> --}}
                             <th style="width:10%;" class="text-center">Action</th>
                         </thead>
                         <tbody class="load-row-layanan">
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="box box-default clean-sheet on-dutty-off display-future">
+        {{-- <div class="box box-default clean-sheet on-dutty-off display-future">
             <div class="box-header with-border bg-default">
                 <h3 class="box-title"><em class='fa fa-th-large'></em> Paket</h3>
                 <div class="pull-right">
@@ -68,10 +68,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
-    <div class="col-md-12 clean-sheet on-dutty-off" style="margin-bottom:20px;">
+    {{-- <div class="col-md-12 clean-sheet on-dutty-off" style="margin-bottom:20px;">
         <div class="row">
             <div class="pull-right col-md-12 col-xs-12">
                 <div class="col-md-9 col-xs-9 bg-gray-light">
@@ -82,12 +82,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-md-6"></div>
-    <div class="col-md-6 clean-sheet on-dutty-off">
+    <div class="col-md-4"></div>
+    <div class="col-md-8 clean-sheet on-dutty-off">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 {{-- <div class="form-group">
                     <label>DP ? <em class="text-danger">*</em></label>
                     <div class="input-group input-group-sm col-xs-12 date">
@@ -98,8 +98,18 @@
                             form="formRegistrasi">
                     </div>
                 </div> --}}
+                <div class="form-group">
+                    <label>Pilih ruangan yang tersedia <em class="text-danger">*</em></label>
+                    <div class="input-group input-group-sm col-xs-12 date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-tag"></i>
+                        </div>
+                        <select name="room" class="select2 input-group-sm form-control f-room" style="width: 100%;"
+                            form="formRegistrasi"></select>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="form-group">
                     <label>Berapa orang ? <em class="text-danger">*</em></label>
                     <div class="input-group input-group-sm col-xs-12 date">

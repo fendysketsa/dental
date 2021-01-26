@@ -56,7 +56,9 @@
     <link rel="stylesheet" href="{{ asset('s-home/dist/css/preloader.css') }}">
 </head>
 
-<body class="hold-transition skin-blue fixed sidebar-mini sidebar-collapse">
+{{-- <body class="hold-transition skin-blue fixed sidebar-mini sidebar-collapse"> --}}
+
+<body class="hold-transition skin-blue fixed sidebar-mini">
 
     <div class="preloader">
         <div class="loading">
@@ -177,155 +179,148 @@
                             <li
                                 class="{{ (!empty($attribute['menu_services']) ? $attribute['menu_services'] : null) }}">
                                 <a href="{{ route('services.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Layanan</a></li>
-                            <li class="{{ (!empty($attribute['menu_package']) ? $attribute['menu_package'] : null) }}">
-                                <a href="{{ route('packages.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Paket</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_discount']) ? $attribute['menu_discount'] : null) }}">
-                                <a href="{{ route('discounts.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Diskon</a></li>
-                            <li class="{{ (!empty($attribute['menu_voucher']) ? $attribute['menu_voucher'] : null) }}">
-                                <a href="{{ route('vouchers.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Voucher</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_employee']) ? $attribute['menu_employee'] : null) }}">
-                                <a href="{{ route('employees.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Pegawai</a></li>
-                            @endrole
-
-                            @role('super-admin|owner')
-                            <li class="{{ (!empty($attribute['menu_member']) ? $attribute['menu_member'] : null) }}">
-                                <a href="{{ route('members.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Pelanggan</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_supplier']) ? $attribute['menu_supplier'] : null) }}">
-                                <a href="{{ route('suppliers.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Supplier</a></li>
-                            <li class="{{ (!empty($attribute['menu_bank']) ? $attribute['menu_bank'] : null) }}"><a
-                                    href="{{ route('banks.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Bank</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_location']) ? $attribute['menu_location'] : null) }}">
-                                <a href="{{ route('locations.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Lokasi</a></li>
-                            <li class="header"><em class="fa fa-th-large"></em> Other</li>
-                            <li class="{{ (!empty($attribute['menu_branch']) ? $attribute['menu_branch'] : null) }}">
-                                <a href="{{ route('branchs.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Cabang</a></li>
-                            <li class="{{ (!empty($attribute['menu_slide']) ? $attribute['menu_slide'] : null) }}">
-                                <a href="{{ route('slides.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Slider</a></li>
-                            <li class="{{ (!empty($attribute['menu_promo']) ? $attribute['menu_promo'] : null) }}">
-                                <a href="{{ route('promos.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Promo</a></li>
-                            <li class="{{ (!empty($attribute['menu_berita']) ? $attribute['menu_berita'] : null) }}">
-                                <a href="{{ route('news.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Berita</a></li>
-                            <li class="{{ (!empty($attribute['menu_brand']) ? $attribute['menu_brand'] : null) }}">
-                                <a href="{{ route('brands.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Brand</a></li>
-                            @endrole
-                        </ul>
-
-                    </li>
-                    @endrole
-                    @role('kasir|super-admin')
-                    <li class="{{ (!empty($attribute['menu_registrasi']) ? $attribute['menu_registrasi'] : null) }}">
-                        <a href="{{ route('registrations.index') }}"><i class="fa fa-keyboard-o"></i>
-                            <span>Pendaftaran</span></a></li>
-                    <li class="{{ (!empty($attribute['menu_orderM']) ? $attribute['menu_orderM'] : null) }}"><a
-                            href="{{ route('orders.index') }}"><i class="fa fa-search"></i>
-                            <span>Monitoring Order</span></a></li>
-                    <li class="{{ (!empty($attribute['menu_Cas']) ? $attribute['menu_Cas'] : null) }}">
-                        <a href="{{ route('cashiers.index') }}">
-                            <i class="fa fa-calculator"></i> <span>Pembayaran</span>
-                        </a>
-                    </li>
-                    @endrole
-                    @role('kasir|super-admin')
-                    <li class="treeview {{ (!empty($attribute['m_info']) ? 'active ' . $attribute['m_info'] : null) }}">
-                        <a href="#">
-                            <i class="fa fa-bookmark"></i> <span>Informasi</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu @if(!empty($attribute['m_info'])) style=" display:block;" @endif">
-                            <li
-                                class="{{ (!empty($attribute['menu_inf_member']) ? $attribute['menu_inf_member'] : null) }}">
-                                <a href="{{ route('members-info.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Member</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_inf_payment']) ? $attribute['menu_inf_payment'] : null) }}">
-                                <a href="{{ route('payments.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Pembayaran</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_salesProdServ']) ? $attribute['menu_salesProdServ'] : null) }}">
-                                <a href="{{ route('salesprodserv.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Layanan & Produk Terjual</a></li>
-                        </ul>
-                    </li>
-
-                    <li
-                        class="treeview {{ (!empty($attribute['m_transaction']) ? 'active ' . $attribute['m_transaction'] : null) }}">
-                        <a href="#">
-                            <i class="fa fa-calculator"></i> <span>Transaksi</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu" @if(!empty($attribute['m_transaction'])) style="display:block;"
-                            @endif>
-                            <li class="{{ (!empty($attribute['menu_sell']) ? $attribute['menu_sell'] : null) }}"><a
-                                    href="{{ route('trans.spends.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Pengeluaran</a></li>
-                            <li
-                                class="{{ (!empty($attribute['menu_setModal']) ? $attribute['menu_setModal'] : null) }}">
-                                <a href="{{ route('set.modals.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Set Modal</a>
-                            </li>
-                            @role('owner|super-admin')
-                            <li class="{{ (!empty($attribute['menu_buy']) ? $attribute['menu_buy'] : null) }}">
-                                <a href="{{ route('trans.purchases.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Pembelian</a></li>
-                            @endrole
-                        </ul>
-                    </li>
-                    @endrole
-                    @role('manager|super-admin|owner')
-                    <li
-                        class="treeview {{ (!empty($attribute['m_mntrg']) ? 'active ' . $attribute['m_mntrg'] : null) }}">
-                        <a href="#">
-                            <i class="fa fa-desktop"></i> <span>Monitoring</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu @if(!empty($attribute['m_mntrg'])) style=" display:block;" @endif">
-                            <li
-                                class="{{ (!empty($attribute['menu_mntrg_income']) ? $attribute['menu_mntrg_income'] : null) }}">
-                                <a href="{{ route('incomes.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Pendapatan</a></li>
-                            @role('super-admin|owner')
-                            <li
-                                class="{{ (!empty($attribute['menu_mntrg_sale']) ? $attribute['menu_mntrg_sale'] : null) }}">
-                                <a href="{{ route('sales.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Penjualan</a></li>
-                            @endrole
-                            <li
-                                class="{{ (!empty($attribute['menu_mntrg_visit']) ? $attribute['menu_mntrg_visit'] : null) }}">
-                                <a href="{{ route('visits.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Kunjungan</a></li>
-                            {{-- <li
-                                class="{{ (!empty($attribute['menu_comm_terap']) ? $attribute['menu_comm_terap'] : null) }}">
-                            <a href="{{ route('therapists.fee.index') }}"><i class="fa fa-check-circle-o"></i>
-                                Komisi Terapis</a>
+                                    Keluhan</a></li>
+                            {{-- <li class="{{ (!empty($attribute['menu_package']) ? $attribute['menu_package'] : null) }}">
+                            <a href="{{ route('packages.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Paket</a>
                     </li> --}}
-                    <li
-                        class="{{ (!empty($attribute['menu_mntrg_member']) ? $attribute['menu_mntrg_member'] : null) }}">
-                        <a href="{{ route('mntrg.members.index') }}"><i class="fa fa-check-circle-o"></i>
-                            Member</a></li>
+                    <li class="{{ (!empty($attribute['menu_discount']) ? $attribute['menu_discount'] : null) }}">
+                        <a href="{{ route('discounts.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Diskon</a></li>
+                    <li class="{{ (!empty($attribute['menu_voucher']) ? $attribute['menu_voucher'] : null) }}">
+                        <a href="{{ route('vouchers.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Voucher</a></li>
+                    <li class="{{ (!empty($attribute['menu_employee']) ? $attribute['menu_employee'] : null) }}">
+                        <a href="{{ route('employees.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Pegawai</a></li>
+                    @endrole
+
+                    @role('super-admin|owner')
+                    <li class="{{ (!empty($attribute['menu_member']) ? $attribute['menu_member'] : null) }}">
+                        <a href="{{ route('members.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Pelanggan</a></li>
+                    <li class="{{ (!empty($attribute['menu_supplier']) ? $attribute['menu_supplier'] : null) }}">
+                        <a href="{{ route('suppliers.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Supplier</a></li>
+                    <li class="{{ (!empty($attribute['menu_bank']) ? $attribute['menu_bank'] : null) }}"><a
+                            href="{{ route('banks.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Bank</a></li>
+                    <li class="{{ (!empty($attribute['menu_location']) ? $attribute['menu_location'] : null) }}">
+                        <a href="{{ route('locations.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Lokasi</a></li>
+                    <li class="header"><em class="fa fa-th-large"></em> Other</li>
+                    <li class="{{ (!empty($attribute['menu_branch']) ? $attribute['menu_branch'] : null) }}">
+                        <a href="{{ route('branchs.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Cabang</a></li>
+                    <li class="{{ (!empty($attribute['menu_slide']) ? $attribute['menu_slide'] : null) }}">
+                        <a href="{{ route('slides.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Slider</a></li>
+                    <li class="{{ (!empty($attribute['menu_promo']) ? $attribute['menu_promo'] : null) }}">
+                        <a href="{{ route('promos.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Promo</a></li>
+                    <li class="{{ (!empty($attribute['menu_berita']) ? $attribute['menu_berita'] : null) }}">
+                        <a href="{{ route('news.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Berita</a></li>
+                    <li class="{{ (!empty($attribute['menu_brand']) ? $attribute['menu_brand'] : null) }}">
+                        <a href="{{ route('brands.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Brand</a></li>
+                    @endrole
+                </ul>
+
+                </li>
+                @endrole
+                @role('kasir|super-admin')
+                <li class="{{ (!empty($attribute['menu_registrasi']) ? $attribute['menu_registrasi'] : null) }}">
+                    <a href="{{ route('registrations.index') }}"><i class="fa fa-keyboard-o"></i>
+                        <span>Pendaftaran</span></a></li>
+                <li class="{{ (!empty($attribute['menu_orderM']) ? $attribute['menu_orderM'] : null) }}"><a
+                        href="{{ route('orders.index') }}"><i class="fa fa-search"></i>
+                        <span>Monitoring Order</span></a></li>
+                <li class="{{ (!empty($attribute['menu_Cas']) ? $attribute['menu_Cas'] : null) }}">
+                    <a href="{{ route('cashiers.index') }}">
+                        <i class="fa fa-calculator"></i> <span>Pembayaran</span>
+                    </a>
+                </li>
+                @endrole
+                @role('kasir|super-admin')
+                <li class="treeview {{ (!empty($attribute['m_info']) ? 'active ' . $attribute['m_info'] : null) }}">
+                    <a href="#">
+                        <i class="fa fa-bookmark"></i> <span>Informasi</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu @if(!empty($attribute['m_info'])) style=" display:block;" @endif">
+                        <li
+                            class="{{ (!empty($attribute['menu_inf_member']) ? $attribute['menu_inf_member'] : null) }}">
+                            <a href="{{ route('members-info.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Member</a></li>
+                        <li
+                            class="{{ (!empty($attribute['menu_inf_payment']) ? $attribute['menu_inf_payment'] : null) }}">
+                            <a href="{{ route('payments.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Pembayaran</a></li>
+                        <li
+                            class="{{ (!empty($attribute['menu_salesProdServ']) ? $attribute['menu_salesProdServ'] : null) }}">
+                            <a href="{{ route('salesprodserv.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Layanan & Produk Terjual</a></li>
+                    </ul>
+                </li>
+
+                <li
+                    class="treeview {{ (!empty($attribute['m_transaction']) ? 'active ' . $attribute['m_transaction'] : null) }}">
+                    <a href="#">
+                        <i class="fa fa-calculator"></i> <span>Transaksi</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" @if(!empty($attribute['m_transaction'])) style="display:block;" @endif>
+                        <li class="{{ (!empty($attribute['menu_sell']) ? $attribute['menu_sell'] : null) }}"><a
+                                href="{{ route('trans.spends.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Pengeluaran</a></li>
+                        <li class="{{ (!empty($attribute['menu_setModal']) ? $attribute['menu_setModal'] : null) }}">
+                            <a href="{{ route('set.modals.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Set Modal</a>
+                        </li>
+                        @role('owner|super-admin')
+                        <li class="{{ (!empty($attribute['menu_buy']) ? $attribute['menu_buy'] : null) }}">
+                            <a href="{{ route('trans.purchases.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Pembelian</a></li>
+                        @endrole
+                    </ul>
+                </li>
+                @endrole
+                @role('manager|super-admin|owner')
+                <li class="treeview {{ (!empty($attribute['m_mntrg']) ? 'active ' . $attribute['m_mntrg'] : null) }}">
+                    <a href="#">
+                        <i class="fa fa-desktop"></i> <span>Monitoring</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu @if(!empty($attribute['m_mntrg'])) style=" display:block;" @endif">
+                        <li
+                            class="{{ (!empty($attribute['menu_mntrg_income']) ? $attribute['menu_mntrg_income'] : null) }}">
+                            <a href="{{ route('incomes.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Pendapatan</a></li>
+                        @role('super-admin|owner')
+                        <li
+                            class="{{ (!empty($attribute['menu_mntrg_sale']) ? $attribute['menu_mntrg_sale'] : null) }}">
+                            <a href="{{ route('sales.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Penjualan</a></li>
+                        @endrole
+                        <li
+                            class="{{ (!empty($attribute['menu_mntrg_visit']) ? $attribute['menu_mntrg_visit'] : null) }}">
+                            <a href="{{ route('visits.index') }}"><i class="fa fa-check-circle-o"></i>
+                                Kunjungan</a></li>
+                        {{-- <li
+                                class="{{ (!empty($attribute['menu_comm_terap']) ? $attribute['menu_comm_terap'] : null) }}">
+                        <a href="{{ route('therapists.fee.index') }}"><i class="fa fa-check-circle-o"></i>
+                            Komisi Terapis</a>
+                </li> --}}
+                <li class="{{ (!empty($attribute['menu_mntrg_member']) ? $attribute['menu_mntrg_member'] : null) }}">
+                    <a href="{{ route('mntrg.members.index') }}"><i class="fa fa-check-circle-o"></i>
+                        Member</a></li>
                 </ul>
                 </li>
                 @endrole
@@ -367,7 +362,7 @@
             </section>
         </aside>
 
-        <div class="content-wrapper ignielPelangi" data-simplebar>
+        <div class="content-wrapper ignielPelangi_ just-white" data-simplebar>
             @yield('content')
         </div>
         @yield('ext-modal')
@@ -377,7 +372,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; 2019 <a href="#">Medina Dental</a></strong>
+            <strong>Copyright &copy; 2021 <a href="#">Medina Dental</a></strong>
         </footer>
 
     </div>

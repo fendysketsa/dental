@@ -37,12 +37,14 @@ class ReservationController extends Controller
         return [
             'member_id' => $last_id,
             'no_transaksi' => Transaksi::getAutoNoTransaksi(),
+            'uniq_transaksi' => Transaksi::getCodeUniqTransaksi(15),
             'jumlah_orang' => $request->jumlah_orang,
             'lokasi_id' => !empty(session('cabang_id')) ? base64_decode(session('cabang_id')) : (!empty(session('cabang_session')) ? session('cabang_session') : $request->lokasi_reservasi),
             'waktu_reservasi' => $wak_res,
             'dp' => 0, //$request->dp,
             //'paket_id' => $request->paket,
             'agent' => 'Web Based',
+            'room_id' => $request->room,
             'status_pembayaran' => 'pendaftaran',
             'status' => 2,
         ];
@@ -54,17 +56,18 @@ class ReservationController extends Controller
             'sno_member' => 'no member',
             'ino_member' => 'no member',
             'lokasi_reservasi' => 'lokasi reservasi',
-
         );
 
         $message = array(
             'sno_member' => 'required|not_in:0',
             'jumlah_orang' => 'required',
+            'room' => 'required|not_in:0',
         );
 
         $message_inp = array(
             'ino_member' => 'required|unique:member,no_member',
             'jumlah_orang' => 'required',
+            'room' => 'required|not_in:0',
         );
 
         $message_paket = array(
@@ -91,6 +94,7 @@ class ReservationController extends Controller
             'paket.required' => 'Bidang pilihan :attribute wajib dipilih',
             'layanan.required' => 'Bidang pilihan :attribute wajib dipilih',
             'ruangan.required' => 'Bidang pilihan :attribute wajib dipilih',
+            'room.required' => 'Bidang pilihan ruangan wajib dipilih',
         ];
 
         $fail_form1 = $request->has('paket') ? array_merge($message_paket, $message_terapis) : array_merge($message_layanan, $message_terapis);
@@ -292,7 +296,7 @@ class ReservationController extends Controller
             return abort(403);
         }
 
-        if (in_array($request->table, array($this->table_lokasi, $this->table_member, $this->table_layanan, $this->table_paket, $this->table_pegawai))) {
+        if (in_array($request->table, array('room', $this->table_lokasi, $this->table_member, $this->table_layanan, $this->table_paket, $this->table_pegawai))) {
             if ($request->table == 'terapis') {
                 $data = DB::table($request->table)->where('role', 3)->get();
             } else {

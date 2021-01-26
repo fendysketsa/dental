@@ -283,6 +283,8 @@ function form_attribut_right() {
     select_("pegawai");
     select_("paket");
 
+    select_("room");
+
     $("button.collap-paket").on("click", function (e) {
         var exp = $(this).attr("aria-expanded");
         if (exp == "true") {
@@ -503,9 +505,10 @@ function load_row_paket() {
                         <thead class="bg-navy disabled color-palette">
                             <tr>
                                 <th class="text-center" style="width:5%;">No</th>
-                                <th class="text-left" style="width:55%;">Layanan</th>
-                                <th class="text-left" style="width:40%">Ruangan</th>
-                            </tr>
+                                <th class="text-left" style="width:55%;">Layanan</th>`;
+    // <th class="text-left" style="width:40%">Ruangan</th>
+    html +=
+        `</tr>
                         </thead>
                         <tbody id="table-td" class="load-row-paketlayanan-` +
         numb +
@@ -561,14 +564,15 @@ function load_row_layanan() {
         `"></select>
                 </div>
             </td>`;
-    html +=
-        `<td class="select-ruangan td-height-img">
-                <div class="input-group-sm">
-                    <select name="ruangan[]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-ruangan-` +
-        numb +
-        `"></select>
-                </div>
-            </td>`;
+    // html +=
+    //     `<td class="select-ruangan td-height-img">
+    //             <div class="input-group-sm">
+    //                 <select name="ruangan[]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-ruangan-` +
+    //     numb +
+    //     `"></select>
+    //             </div>
+    //         </td>`;
+
     html += `<td class="td-height-img text-center"><em class="fa fa-times remove-row-layanan text-danger"></em></td>`;
     html += `</tr>`;
 
@@ -834,6 +838,7 @@ function load_avail_layanan_on_paket(table, numb, p_id) {
 
 function form_attribut() {
     select_("member");
+
     $("select[name=sno_member]").select2({
         placeholder: "Please select!",
         allowClear: true,
@@ -1043,15 +1048,25 @@ function select_(table, pkt) {
                     table == "layanan" || table == "paket"
                         ? `data-harga="` + data[i].harga + `"`
                         : "";
-                html +=
-                    `<option ` +
-                    layanan_ +
-                    `value='` +
-                    data[i].id +
-                    `'>` +
-                    pegawai +
-                    data[i].nama +
-                    `</option>`;
+
+                if (table == "room") {
+                    html +=
+                        `<option value='` +
+                        data[i].id +
+                        `'>` +
+                        data[i].name +
+                        `</option>`;
+                } else {
+                    html +=
+                        `<option ` +
+                        layanan_ +
+                        `value='` +
+                        data[i].id +
+                        `'>` +
+                        pegawai +
+                        data[i].nama +
+                        `</option>`;
+                }
             }
             var table_ = table == "pegawai" ? "ruangan" : table;
             $("select.f-" + table_).html(html);
@@ -1059,6 +1074,13 @@ function select_(table, pkt) {
         complete: function () {
             if (table == "member") {
                 $(".noMember").removeClass("on-dutty-off loading-member-reg");
+            }
+
+            if (table == "room") {
+                $(".f-room").select2({
+                    placeholder: "Please select!",
+                    theme: "bootstrap",
+                });
             }
         },
     });

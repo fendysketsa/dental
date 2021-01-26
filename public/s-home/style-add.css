@@ -19,6 +19,10 @@
     color: black;
 }
 
+.just-white {
+    background-color: #fff;
+}
+
 .ignielPelangi {
     background: linear-gradient(
         45deg,

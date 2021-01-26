@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group input-group-sm">
-                                <label>Layanan: <em class="text-danger">*</em></label>
+                                <label>Keluhan: <em class="text-danger">*</em></label>
                                 <select name="layanan[]" class="form-control select2-multiple layanan"
                                     multiple="multiple" style="width: 100%;" form="formVoucher" @if(!empty($dataE))
                                     data-selected="{{ $dataE['layanan'] }}" @endif></select>
