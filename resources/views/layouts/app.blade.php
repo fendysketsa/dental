@@ -156,6 +156,31 @@
                     <li class="{{ (!empty($attribute['dashboard']) ? 'active ' . $attribute['dashboard'] : null) }}">
                         <a href="{{ url('home') }}"><i class="fa fa-area-chart"></i> <span>Dashboard</span></a></li>
                     @endrole
+
+                    @role('super-admin')
+                    <li
+                        class="treeview {{ (!empty($attribute['m_hp_data']) ? 'active ' . $attribute['m_hp_data'] : null) }}">
+                        <a href="#">
+                            <i class="fa fa-mortar-board"></i> <span>Home Page</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" @if(!empty($attribute['m_hp_data'])) style="display:block;" @endif>
+                            <li
+                                class="{{ (!empty($attribute['menu_homepage']) ? $attribute['menu_homepage'] : null) }}">
+                                <a href="{{ route('homepages.index') }}"><i class="fa fa-keyboard-o"></i>
+                                    <span>Content</span></a>
+                            </li>
+                            <li
+                                class="{{ (!empty($attribute['menu_gallery']) ? $attribute['menu_gallery'] : null) }}">
+                                <a href="{{ route('galleries.index') }}"><i class="fa fa-camera"></i>
+                                    <span>Gallery</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endrole
+
                     @role('manager|super-admin|owner')
                     <li class="treeview {{ (!empty($attribute['m_data']) ? 'active ' . $attribute['m_data'] : null) }}">
                         <a href="#">

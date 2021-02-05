@@ -122,11 +122,27 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
         'edit', 'show'
     ]);
     //-----------------------------------------------------------------------------
+    Route::get('galleries/add', 'Web\Master\GallerysController@create')
+    ->name('galleries.create'); //form no mdal
+    Route::get('galleries/data', 'Web\Master\GallerysController@_data');
+    Route::get('galleries/json', 'Web\Master\GallerysController@_json');
+    Route::resource('galleries', 'Web\Master\GallerysController')->except([
+        'edit', 'show'
+    ]);
+    //-----------------------------------------------------------------------------
     Route::get('news/add', 'Web\Master\BeritaController@create')
         ->name('news.create'); //form no mdal
     Route::get('news/data', 'Web\Master\BeritaController@_data');
     Route::get('news/json', 'Web\Master\BeritaController@_json');
     Route::resource('news', 'Web\Master\BeritaController')->except([
+        'edit', 'show'
+    ]);
+    //-----------------------------------------------------------------------------
+    Route::get('homepages/add', 'Web\Master\HomePagesController@create')
+    ->name('homepages.create'); //form no mdal
+    Route::get('homepages/data', 'Web\Master\HomePagesController@_data');
+    Route::get('homepages/json', 'Web\Master\HomePagesController@_json');
+    Route::resource('homepages', 'Web\Master\HomePagesController')->except([
         'edit', 'show'
     ]);
     //-----------------------------------------------------------------------------
