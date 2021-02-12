@@ -161,7 +161,7 @@
                     <li
                         class="treeview {{ (!empty($attribute['m_hp_data']) ? 'active ' . $attribute['m_hp_data'] : null) }}">
                         <a href="#">
-                            <i class="fa fa-mortar-board"></i> <span>Home Page</span>
+                            <i class="fa fa-home"></i> <span>Home Page</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
