@@ -1022,11 +1022,11 @@ function load_row_layanan(idLayanan, idTerapis) {
                     <select name="layanan[]" form="formKasir" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` + numb + `"></select>
                 </div>
             </td>`;
-    html += `<td class="select-terapis td-height-img">
-                <div class="input-group-sm">
-                    <select name="terapis[]" form="formKasir" class="select2 form-control input-group-sm" disabled id="on-select-terapis-` + numb + `"></select>
-                </div>
-            </td>`;
+    // html += `<td class="select-terapis td-height-img">
+    //             <div class="input-group-sm">
+    //                 <select name="terapis[]" form="formKasir" class="select2 form-control input-group-sm" disabled id="on-select-terapis-` + numb + `"></select>
+    //             </div>
+    //         </td>`;
     html += `<td class="td-height-img text-center"><em class="fa fa-times remove-row-layanan text-danger"></em></td>`;
     html += `</tr>`;
 

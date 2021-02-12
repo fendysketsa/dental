@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <div class="box box-info display-future">
             <div class="box-header with-border bg-warning">
                 <i class="fa fa-pencil-square-o"></i>
@@ -24,8 +24,7 @@
         </div>
     </div>
 
-
-    <div class="col-md-8">
+    <div class="col-md-7">
         <div class="box box-danger display-future">
             <div class="box-header with-border bg-info">
                 <i class="fa fa-list"></i>

@@ -11,7 +11,7 @@
                             <th style="width:5%;" class="text-center">No</th>
                             <th @if(!empty($_GET['loaded']) && $_GET['loaded']=='detail' ) style="width:70%;" @else
                                 style="width:60%;" @endif>Layanan</th>
-                            <th style="width:25%;">Terapis</th>
+                            {{-- <th style="width:25%;">Terapis</th> --}}
                             @if(empty($_GET['loaded']))
                             <th style="width:10%;" class="text-center">Action</th>
                             @endif
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="box box-default display-future fl-paket">
+        {{-- <div class="box box-default display-future fl-paket">
             <div class="box-header with-border bg-default">
                 <h3 class="box-title"><em class='fa fa-th-large'></em> Paket</h3>
                 @if(empty($_GET['loaded']))
@@ -77,6 +77,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>

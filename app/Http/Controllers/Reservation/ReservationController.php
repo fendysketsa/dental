@@ -296,7 +296,7 @@ class ReservationController extends Controller
             return abort(403);
         }
 
-        if (in_array($request->table, array('room', $this->table_lokasi, $this->table_member, $this->table_layanan, $this->table_paket, $this->table_pegawai))) {
+        if (in_array($request->table, array('agama', 'room', $this->table_lokasi, $this->table_member, $this->table_layanan, $this->table_paket, $this->table_pegawai))) {
             if ($request->table == 'terapis') {
                 $data = DB::table($request->table)->where('role', 3)->get();
             } else {
@@ -316,6 +316,15 @@ class ReservationController extends Controller
                         ->where('id', $request->harga)
                         ->select('layanan.harga')
                         ->first();
+                } else if ($request->table == "agama") {
+                    $data = array(
+                        ['id' => 1, 'name' => 'Islam'],
+                        ['id' => 2, 'name' => 'Kristen'],
+                        ['id' => 3, 'name' => 'Katholik'],
+                        ['id' => 4, 'name' => 'Hindu'],
+                        ['id' => 5, 'name' => 'Budha'],
+                        ['id' => 6, 'name' => 'Lainnya'],
+                    );
                 } else {
                     $data = DB::table($request->table)->get();
                 }
@@ -364,6 +373,21 @@ class ReservationController extends Controller
         return (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
     }
 
+    function uniq_referal_code()
+    {
+        $random = mt_rand(100000, 999999);
+
+        $refCode = DB::table($this->table_member)
+            ->where('referal_code', $random)
+            ->get();
+
+        if (!empty($refCode)) {
+            return mt_rand(100000, 999999);
+        }
+
+        return $random;
+    }
+
     public function store(Request $request)
     {
 
@@ -371,10 +395,9 @@ class ReservationController extends Controller
         $this->validated($mess, $request);
         $total_harga = 0;
         DB::transaction(function () use ($request, $mess, $total_harga) {
+
             if (!empty($request->ino_member)) {
-
                 if (!empty($request->email)) {
-
 
                     DB::transaction(function () use ($request) {
 
@@ -400,9 +423,9 @@ class ReservationController extends Controller
                     $string = str_shuffle($pin);
 
                     $UserMail = DB::table($this->table_user)->insertGetId([
-                        'name' => '-',
-                        'email' => 'membernew' . $string . '@layana.id',
-                        'password' => bcrypt('admin'),
+                        'name' => 'New Member',
+                        'email' => 'membernew' . $string . '@medinadental.clinic',
+                        'password' => bcrypt('newmember'),
                         'created_at' => date('Y-m-d H:i:s')
                     ]);
                 }
@@ -411,7 +434,14 @@ class ReservationController extends Controller
                     'no_member' => $request->ino_member,
                     'user_id' => $UserMail,
                     'nama' => $request->nama,
-                    'jenis_kelamin' => 'Perempuan',
+                    'jenis_kelamin' => $request->jenis_kelamin,
+                    'tgl_lahir' => empty($request->tanggal_lahir) ? null : DATE('Y-m-d', strtotime($request->tanggal_lahir)),
+                    'nik' => $request->nik,
+                    'agama' => $request->agama,
+                    'profesi' => $request->profesi,
+                    'instansi' => $request->instansi,
+                    'status_member' => $request->status_member,
+                    'referal_code' => $this->uniq_referal_code(),
                     'alamat' => $request->alamat,
                     'email' => empty($request->email) ? '' : $request->email,
                     'telepon' => $request->telepon,
@@ -420,29 +450,29 @@ class ReservationController extends Controller
 
                 $transId = DB::table($this->table)->insertGetId($this->fields($request, $last_id));
 
-                if ($request->has('paket')) {
-                    foreach ($request->paket as $numP => $pkt) {
-                        if (!empty($pkt)) {
-                            $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
-                            if ($paket_layanan->count() > 0) {
-                                $dataDetailIns1 = array();
-                                foreach ($paket_layanan->get() as $num => $pl) {
-                                    $dataDetailIns1[] = array(
-                                        'transaksi_id' => $transId,
-                                        'posisi' => $numP + 1,
-                                        'paket_id' => $pkt,
-                                        'layanan_id' => $pl->layanan_id,
-                                        'pegawai_id' => empty($request->pkt_layanan_terapis[$numP][$num]) ? null : $request->pkt_layanan_terapis[$numP][$num],
-                                        'kuantitas' => null,
-                                        'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
-                                        'created_at' => date("Y-m-d H:i:s"),
-                                    );
-                                }
-                                DB::table($this->table_detail)->insert($dataDetailIns1);
-                            }
-                        }
-                    }
-                }
+                // if ($request->has('paket')) {
+                //     foreach ($request->paket as $numP => $pkt) {
+                //         if (!empty($pkt)) {
+                //             $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
+                //             if ($paket_layanan->count() > 0) {
+                //                 $dataDetailIns1 = array();
+                //                 foreach ($paket_layanan->get() as $num => $pl) {
+                //                     $dataDetailIns1[] = array(
+                //                         'transaksi_id' => $transId,
+                //                         'posisi' => $numP + 1,
+                //                         'paket_id' => $pkt,
+                //                         'layanan_id' => $pl->layanan_id,
+                //                         'pegawai_id' => empty($request->pkt_layanan_terapis[$numP][$num]) ? null : $request->pkt_layanan_terapis[$numP][$num],
+                //                         'kuantitas' => null,
+                //                         'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
+                //                         'created_at' => date("Y-m-d H:i:s"),
+                //                     );
+                //                 }
+                //                 DB::table($this->table_detail)->insert($dataDetailIns1);
+                //             }
+                //         }
+                //     }
+                // }
 
                 if ($request->has('layanan')) {
                     foreach ($request->layanan as $num => $lay) {
@@ -523,6 +553,14 @@ class ReservationController extends Controller
                         if ($member->count() > 0) {
                             $member->update([
                                 'nama' => $request->nama,
+                                'jenis_kelamin' => $request->jenis_kelamin,
+                                'tgl_lahir' => empty($request->tanggal_lahir) ? null : DATE('Y-m-d', strtotime($request->tanggal_lahir)),
+                                'nik' => $request->nik,
+                                'agama' => $request->agama,
+                                'profesi' => $request->profesi,
+                                'instansi' => $request->instansi,
+                                'status_member' => $request->status_member,
+                                'referal_code' => $this->uniq_referal_code(),
                                 'email' => $request->email,
                                 'telepon' => $request->telepon,
                                 'alamat' => $request->alamat,
@@ -540,29 +578,29 @@ class ReservationController extends Controller
 
                             $transId = DB::table($this->table)->insertGetId($this->fields($request, $member->first()->id));
 
-                            if ($request->has('paket')) {
-                                foreach ($request->paket as $numP => $pkt) {
-                                    if (!empty($pkt)) {
-                                        $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
-                                        if ($paket_layanan->count() > 0) {
-                                            $dataDetailIns1 = array();
-                                            foreach ($paket_layanan->get() as $num => $pl) {
-                                                $dataDetailIns1[] = array(
-                                                    'transaksi_id' => $transId,
-                                                    'posisi' => $numP + 1,
-                                                    'paket_id' => $pkt,
-                                                    'layanan_id' => $pl->layanan_id,
-                                                    'pegawai_id' => empty($request->pkt_layanan_terapis[$numP][$num]) ? null : $request->pkt_layanan_terapis[$numP][$num],
-                                                    'kuantitas' => null,
-                                                    'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
-                                                    'created_at' => date("Y-m-d H:i:s"),
-                                                );
-                                            }
-                                            DB::table($this->table_detail)->insert($dataDetailIns1);
-                                        }
-                                    }
-                                }
-                            }
+                            // if ($request->has('paket')) {
+                            //     foreach ($request->paket as $numP => $pkt) {
+                            //         if (!empty($pkt)) {
+                            //             $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
+                            //             if ($paket_layanan->count() > 0) {
+                            //                 $dataDetailIns1 = array();
+                            //                 foreach ($paket_layanan->get() as $num => $pl) {
+                            //                     $dataDetailIns1[] = array(
+                            //                         'transaksi_id' => $transId,
+                            //                         'posisi' => $numP + 1,
+                            //                         'paket_id' => $pkt,
+                            //                         'layanan_id' => $pl->layanan_id,
+                            //                         'pegawai_id' => empty($request->pkt_layanan_terapis[$numP][$num]) ? null : $request->pkt_layanan_terapis[$numP][$num],
+                            //                         'kuantitas' => null,
+                            //                         'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
+                            //                         'created_at' => date("Y-m-d H:i:s"),
+                            //                     );
+                            //                 }
+                            //                 DB::table($this->table_detail)->insert($dataDetailIns1);
+                            //             }
+                            //         }
+                            //     }
+                            // }
 
                             if ($request->has('layanan')) {
                                 foreach ($request->layanan as $num => $lay) {

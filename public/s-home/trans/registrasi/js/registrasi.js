@@ -53,6 +53,10 @@ function input_member() {
     return html;
 }
 
+function addOn(date) {
+    $(".on-date input").val(date.format("DD-MM-YYYY"));
+}
+
 function f_member(data) {
     var html = "";
     html +=
@@ -100,6 +104,140 @@ function f_member(data) {
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-6 col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label>Jenis Kelamin: <em class="text-danger">*</em></label>
+                            <label class="container-radio"> Laki-laki
+                                <input type="radio" name="jenis_kelamin" ` +
+        (data
+            ? data.jenis_kelamin && data.jenis_kelamin == "Laki-laki"
+                ? 'checked="checked"'
+                : ""
+            : "") +
+        ` value="Laki-laki" form="formRegistrasi">
+                                <span class="checkmark-radio"></span>
+                            </label>
+                        </div>
+                    </div>
+                <div class="col-md-6 col-xs-6 col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label>&nbsp;</label>
+                        <label class="container-radio"> Perempuan
+                            <input type="radio" name="jenis_kelamin" ` +
+        (data
+            ? data.jenis_kelamin && data.jenis_kelamin == "Perempuan"
+                ? 'checked="checked"'
+                : ""
+            : 'checked="checked"') +
+        `
+                            value="Perempuan" form="formRegistrasi">
+                            <span class="checkmark-radio"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Tanggal Lahir:</label>
+                        <div class="input-group input-group-sm date on-date">
+                            <div class="input-group-addon add-on-daterpicker">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" name="tanggal_lahir" value="` +
+        (data ? (data.tgl_lahir ? data.tgl_lahir : "") : "") +
+        `" class="form-control" placeholder="Tanggal Lahir..." form="formRegistrasi" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>NIK:</label>
+                        <div class="input-group input-group-sm date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-tag"></i>
+                            </div>
+                            <input type="text" name="nik" maxlength="16" value="` +
+        (data ? (data.nik ? data.nik : "") : "") +
+        `" class="form-control" placeholder="NIK..." form="formRegistrasi">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Agama:</label>
+                        <div class="input-group input-group-sm date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                            <select name="agama" class="select2 input-group-sm form-control f-agama" style="width: 100%;"
+                            form="formRegistrasi"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Profesi:</label>
+                        <div class="input-group input-group-sm date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <input type="text" name="profesi" value="` +
+        (data ? (data.profesi ? data.profesi : "") : "") +
+        `" class="form-control" placeholder="Profesi..." form="formRegistrasi">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Instansi:</label>
+                        <div class="input-group input-group-sm date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-bank"></i>
+                            </div>
+                            <input type="text" name="instansi" value="` +
+        (data ? (data.instansi ? data.instansi : "") : "") +
+        `" class="form-control" placeholder="Instansi..." form="formRegistrasi">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-6 col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label>Member Status ? <em class="text-danger">*</em></label>
+                            <label class="container-radio"> Umum
+                                <input type="radio" name="status_member" ` +
+        (data
+            ? data.status_member && data.status_member == "Umum"
+                ? 'checked="checked"'
+                : ""
+            : 'checked="checked"') +
+        ` value="Umum" form="formRegistrasi">
+                                <span class="checkmark-radio"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6 col-sm-6">
+                        <div class="form-group input-group-sm">
+                            <label>&nbsp;</label>
+                            <label class="container-radio"> Cooperation
+                                <input type="radio" name="status_member" ` +
+        (data
+            ? data.status_member && data.status_member == "Cooperation"
+                ? 'checked="checked"'
+                : ""
+            : "") +
+        `
+                                value="Cooperation" form="formRegistrasi">
+                                <span class="checkmark-radio"></span>
+                            </label>
+                        </div>
+                    </div>
+            </div>
             <div class="form-group input-group-sm">
                 <label>Alamat:</label>
                     <div class="input-group date">
@@ -107,7 +245,7 @@ function f_member(data) {
                             <i class="fa fa-home"></i>
                         </div>
                     <textarea name="alamat" cols="15" rows="4" class="form-control input-sm add-style" form="formRegistrasi" placeholder="Alamat...">` +
-        (data ? data.alamat : "") +
+        (data ? (data.alamat ? data.alamat : "") : "") +
         `</textarea>
                 </div>
             </div>`;
@@ -874,6 +1012,24 @@ function form_attribut() {
                 success: function (data) {
                     $(".f-new-member").html(f_member(data[0]));
 
+                    var tgl_lahir = $("input[name=tanggal_lahir]");
+                    $(".add-on-daterpicker").daterangepicker(
+                        {
+                            singleDatePicker: true,
+                            autoUpdateInput: true,
+                            showDropdowns: true,
+                            startDate: !tgl_lahir.val()
+                                ? moment()
+                                : moment().add().format(tgl_lahir.val()),
+                            locale: {
+                                format: "DD-MM-YYYY",
+                            },
+                        },
+                        addOn
+                    );
+
+                    select_("agama");
+
                     $("div.date").delegate(
                         "div.on-edit-true",
                         "click",
@@ -897,6 +1053,24 @@ function form_attribut() {
         chg_.find("i").removeClass("fa-plus").addClass("fa-search");
         attr_.html(input_member());
         attr_m.html(f_member());
+
+        var tgl_lahir = $("input[name=tanggal_lahir]");
+        $(".add-on-daterpicker").daterangepicker(
+            {
+                singleDatePicker: true,
+                autoUpdateInput: true,
+                showDropdowns: true,
+                startDate: !tgl_lahir.val()
+                    ? moment()
+                    : moment().add().format(tgl_lahir.val()),
+                locale: {
+                    format: "DD-MM-YYYY",
+                },
+            },
+            addOn
+        );
+
+        select_("agama");
 
         var InMemb = $("input[name=ino_member]").val().length;
         if (InMemb <= 0) {
@@ -1049,7 +1223,7 @@ function select_(table, pkt) {
                         ? `data-harga="` + data[i].harga + `"`
                         : "";
 
-                if (table == "room") {
+                if (table == "room" || table == "agama") {
                     html +=
                         `<option value='` +
                         data[i].id +
@@ -1081,6 +1255,15 @@ function select_(table, pkt) {
                     placeholder: "Please select!",
                     theme: "bootstrap",
                 });
+            }
+
+            if (table == "agama") {
+                $(".f-agama").select2({
+                    placeholder: "Please select!",
+                    theme: "bootstrap",
+                });
+
+                $(".noMember").removeClass("on-dutty-off loading-member-reg");
             }
         },
     });

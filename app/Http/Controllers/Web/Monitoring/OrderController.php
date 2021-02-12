@@ -451,6 +451,21 @@ class OrderController extends Controller
         ];
     }
 
+    function uniq_referal_code()
+    {
+        $random = mt_rand(100000, 999999);
+
+        $refCode = DB::table($this->table_member)
+            ->where('referal_code', $random)
+            ->get();
+
+        if (!empty($refCode)) {
+            return mt_rand(100000, 999999);
+        }
+
+        return $random;
+    }
+
     public function store(Request $request)
     {
         $mess = null;
@@ -470,6 +485,14 @@ class OrderController extends Controller
                     'no_member' => $request->ino_member,
                     'user_id' => $UserMail,
                     'nama' => $request->nama,
+                    'jenis_kelamin' => $request->jenis_kelamin,
+                    'tgl_lahir' => empty($request->tanggal_lahir) ? null : DATE('Y-m-d', strtotime($request->tanggal_lahir)),
+                    'nik' => $request->nik,
+                    'agama' => $request->agama,
+                    'profesi' => $request->profesi,
+                    'instansi' => $request->instansi,
+                    'status_member' => $request->status_member,
+                    'referal_code' => $this->uniq_referal_code(),
                     'alamat' => $request->alamat,
                     'email' => $request->email,
                     'telepon' => $request->telepon,
@@ -480,33 +503,33 @@ class OrderController extends Controller
                     ->where('id', $request->id)
                     ->update($this->fields($request, $last_id));
 
-                if ($request->has('paket')) {
-                    DB::table('transaksi_detail')
-                        ->where('transaksi_id', $request->id)
-                        ->whereNotIn('paket_id')
-                        ->delete();
-                    foreach ($request->paket as $numP => $pkt) {
-                        if (!empty($pkt)) {
-                            $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
-                            if ($paket_layanan->count() > 0) {
-                                $dataDetailIns1 = array();
-                                foreach ($paket_layanan->get() as $num => $pl) {
-                                    $dataDetailIns1[] = array(
-                                        'transaksi_id' => $request->id,
-                                        'posisi' => $numP + 1,
-                                        'paket_id' => $pkt,
-                                        'layanan_id' => $pl->layanan_id,
-                                        'pegawai_id' => empty($request->pkt_layanan_terapis[$numP + 1][$num]) ? null : $request->pkt_layanan_terapis[$numP + 1][$num],
-                                        'kuantitas' => null,
-                                        'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
-                                        'created_at' => date("Y-m-d H:i:s"),
-                                    );
-                                }
-                                DB::table($this->table_detail)->insert($dataDetailIns1);
-                            }
-                        }
-                    }
-                }
+                // if ($request->has('paket')) {
+                //     DB::table('transaksi_detail')
+                //         ->where('transaksi_id', $request->id)
+                //         ->whereNotIn('paket_id')
+                //         ->delete();
+                //     foreach ($request->paket as $numP => $pkt) {
+                //         if (!empty($pkt)) {
+                //             $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
+                //             if ($paket_layanan->count() > 0) {
+                //                 $dataDetailIns1 = array();
+                //                 foreach ($paket_layanan->get() as $num => $pl) {
+                //                     $dataDetailIns1[] = array(
+                //                         'transaksi_id' => $request->id,
+                //                         'posisi' => $numP + 1,
+                //                         'paket_id' => $pkt,
+                //                         'layanan_id' => $pl->layanan_id,
+                //                         'pegawai_id' => empty($request->pkt_layanan_terapis[$numP + 1][$num]) ? null : $request->pkt_layanan_terapis[$numP + 1][$num],
+                //                         'kuantitas' => null,
+                //                         'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
+                //                         'created_at' => date("Y-m-d H:i:s"),
+                //                     );
+                //                 }
+                //                 DB::table($this->table_detail)->insert($dataDetailIns1);
+                //             }
+                //         }
+                //     }
+                // }
 
                 if ($request->has('layanan')) {
                     DB::table('transaksi_detail')
@@ -597,6 +620,14 @@ class OrderController extends Controller
                 if ($member->count() > 0) {
                     $member->update([
                         'nama' => $request->nama,
+                        'jenis_kelamin' => $request->jenis_kelamin,
+                        'tgl_lahir' => empty($request->tanggal_lahir) ? null : DATE('Y-m-d', strtotime($request->tanggal_lahir)),
+                        'nik' => $request->nik,
+                        'agama' => $request->agama,
+                        'profesi' => $request->profesi,
+                        'instansi' => $request->instansi,
+                        'status_member' => $request->status_member,
+                        'referal_code' => $this->uniq_referal_code(),
                         'email' => $request->email,
                         'telepon' => $request->telepon,
                         'alamat' => $request->alamat,
@@ -616,34 +647,34 @@ class OrderController extends Controller
                         ->where('id', $request->id)
                         ->update($this->fields($request, $member->first()->id));
 
-                    if ($request->has('paket')) {
-                        DB::table('transaksi_detail')
-                            ->where('transaksi_id', $request->id)
-                            ->whereNotNull('paket_id')
-                            ->delete();
-                        foreach ($request->paket as $numP => $pkt) {
-                            if (!empty($pkt)) {
-                                $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
-                                if ($paket_layanan->count() > 0) {
-                                    $dataDetailIns1 = array();
-                                    foreach ($paket_layanan->get() as $num => $pl) {
-                                        $dataDetailIns1[] = array(
-                                            'transaksi_id' => $request->id,
-                                            'posisi' => $numP + 1,
-                                            'paket_id' => $pkt,
-                                            'layanan_id' => $pl->layanan_id,
-                                            'pegawai_id' =>
-                                            empty($request->pkt_layanan_terapis[$numP + 1][$num]) ? null : $request->pkt_layanan_terapis[$numP + 1][$num],
-                                            'kuantitas' => null,
-                                            'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
-                                            'created_at' => date("Y-m-d H:i:s"),
-                                        );
-                                    }
-                                    DB::table($this->table_detail)->insert($dataDetailIns1);
-                                }
-                            }
-                        }
-                    }
+                    // if ($request->has('paket')) {
+                    //     DB::table('transaksi_detail')
+                    //         ->where('transaksi_id', $request->id)
+                    //         ->whereNotNull('paket_id')
+                    //         ->delete();
+                    //     foreach ($request->paket as $numP => $pkt) {
+                    //         if (!empty($pkt)) {
+                    //             $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
+                    //             if ($paket_layanan->count() > 0) {
+                    //                 $dataDetailIns1 = array();
+                    //                 foreach ($paket_layanan->get() as $num => $pl) {
+                    //                     $dataDetailIns1[] = array(
+                    //                         'transaksi_id' => $request->id,
+                    //                         'posisi' => $numP + 1,
+                    //                         'paket_id' => $pkt,
+                    //                         'layanan_id' => $pl->layanan_id,
+                    //                         'pegawai_id' =>
+                    //                         empty($request->pkt_layanan_terapis[$numP + 1][$num]) ? null : $request->pkt_layanan_terapis[$numP + 1][$num],
+                    //                         'kuantitas' => null,
+                    //                         'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
+                    //                         'created_at' => date("Y-m-d H:i:s"),
+                    //                     );
+                    //                 }
+                    //                 DB::table($this->table_detail)->insert($dataDetailIns1);
+                    //             }
+                    //         }
+                    //     }
+                    // }
 
                     if ($request->has('layanan')) {
                         DB::table('transaksi_detail')
