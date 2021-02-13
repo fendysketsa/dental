@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use App\Models\Transaction\TransaksiModel as Transaksi;
 use App\Models\MemberModel;
 use Symfony\Component\CssSelector\Node\SelectorNode;
+use Validator as Validasi;
 
 class ReservationController extends Controller
 {
@@ -361,11 +362,23 @@ class ReservationController extends Controller
         //
     }
 
-    public function rulesEmail($id)
+    public function rulesEmail($id = false)
     {
-        return [
-            'email' => 'string|email|unique:users,email,' . $id
-        ];
+        $validator = Validasi::make(['email' => $id], [
+            'email' => (!is_numeric($id) || empty($id)) ?  'string|email|unique:users,email' : 'string|email|unique:users,email,' . $id
+        ]);
+
+        if ($validator->fails()) {
+            $d_error = '<ul>';
+            foreach ($validator->errors()->all() as $row) {
+                $d_error .= '<li>' . $row . '</li>';
+            }
+            $d_error .= '</ul>';
+            $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
+            $mess['cd'] = 500;
+            echo json_encode($mess);
+            exit;
+        }
     }
 
     function valid_email($str)
@@ -397,24 +410,22 @@ class ReservationController extends Controller
         DB::transaction(function () use ($request, $mess, $total_harga) {
 
             if (!empty($request->ino_member)) {
+
                 if (!empty($request->email)) {
+                    $UserMail_ = null;
+                    DB::transaction(function () use ($request, &$UserMail_) {
 
-                    DB::transaction(function () use ($request) {
+                        $this->rulesEmail($request->email);
 
-                        if ($this->rulesEmail('')) {
-                            $mess['msg'] = 'Cek input Data Email!, silakan masukkan Email yang valid atau kosongkan saja!';
-                            $mess['cd'] = 500;
-                            echo json_encode($mess);
-                            die;
-                        }
-
-                        $UserMail = DB::table($this->table_user)->insertGetId([
+                        $UserMail_ = DB::table($this->table_user)->insertGetId([
                             'name' => $request->nama,
                             'email' => $request->email,
                             'password' => bcrypt($request->nama),
                             'created_at' => date('Y-m-d H:i:s')
                         ]);
                     });
+
+                    $UserMail = $UserMail_;
                 } else {
                     $characters = '1234567890';
                     $pin = mt_rand(0, 999999)

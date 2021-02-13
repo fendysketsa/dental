@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Validator as Validasi;
+use App\Models\User;
 
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
@@ -444,11 +446,23 @@ class OrderController extends Controller
         return (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
     }
 
-    public function rulesEmail($id)
+    public function rulesEmail($id = false)
     {
-        return [
-            'email' => 'string|email|unique:users,email,' . $id
-        ];
+        $validator = Validasi::make([(!is_numeric($id) || empty($id)) ? 'email' : 'id' => $id], [
+            'email' => (!is_numeric($id) || empty($id)) ?  'string|email|unique:users,email' : 'string|email|unique:users,email,' . $id
+        ]);
+
+        if ($validator->fails()) {
+            $d_error = '<ul>';
+            foreach ($validator->errors()->all() as $row) {
+                $d_error .= '<li>' . $row . '</li>';
+            }
+            $d_error .= '</ul>';
+            $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
+            $mess['cd'] = 500;
+            echo json_encode($mess);
+            exit;
+        }
     }
 
     function uniq_referal_code()
@@ -607,12 +621,7 @@ class OrderController extends Controller
                     } else {
 
                         if (!empty($request->email) && !empty($member->first()->user_id)) {
-                            if (!$this->rulesEmail($member->first()->user_id)) {
-                                $mess['msg'] = 'Email ini telah terdaftar dimember lain!';
-                                $mess['cd'] = 500;
-                                echo json_encode($mess);
-                                die;
-                            }
+                            $this->rulesEmail($member->first()->user_id);
                         }
                     }
                 }
