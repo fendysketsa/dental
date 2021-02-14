@@ -465,19 +465,23 @@ class OrderController extends Controller
         }
     }
 
-    function uniq_referal_code()
+    function uniq_referal_code($id)
     {
         $random = mt_rand(100000, 999999);
 
         $refCode = DB::table($this->table_member)
-            ->where('referal_code', $random)
-            ->get();
+            ->where('user_id', $id)
+            ->first();
 
-        if (!empty($refCode)) {
-            return mt_rand(100000, 999999);
+        if (empty($refCode)) {
+            return $random;
+        } else {
+            if (!empty($refCode) && !empty($refCode->referal_code)) {
+                return $refCode->referal_code;
+            } else {
+                return $random;
+            }
         }
-
-        return $random;
     }
 
     public function store(Request $request)
@@ -506,7 +510,7 @@ class OrderController extends Controller
                     'profesi' => $request->profesi,
                     'instansi' => $request->instansi,
                     'status_member' => $request->status_member,
-                    'referal_code' => $this->uniq_referal_code(),
+                    'referal_code' => $this->uniq_referal_code($UserMail),
                     'alamat' => $request->alamat,
                     'email' => $request->email,
                     'telepon' => $request->telepon,
@@ -636,7 +640,7 @@ class OrderController extends Controller
                         'profesi' => $request->profesi,
                         'instansi' => $request->instansi,
                         'status_member' => $request->status_member,
-                        'referal_code' => $this->uniq_referal_code(),
+                        'referal_code' => $this->uniq_referal_code($member->first()->user_id),
                         'email' => $request->email,
                         'telepon' => $request->telepon,
                         'alamat' => $request->alamat,
