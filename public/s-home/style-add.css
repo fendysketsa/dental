@@ -11,6 +11,19 @@
     background-color: #cc35ff !important;
 }
 
+.to-point-code {
+    padding: 1px 17px;
+    font-family: system-ui;
+    border: 2px solid;
+    border-radius: 12px;
+    font-weight: bolder;
+    font-size: 18px;
+    letter-spacing: 5px;
+    background-color: gold;
+    margin-top: 1px;
+    position: absolute;
+}
+
 .bg-change-select {
     margin-left: -1px;
     background-color: lightgray;

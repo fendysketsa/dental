@@ -2,6 +2,7 @@
 @csrf
 
 <div class="f-reservasi"></div>
+<div class="f-codereferal"></div>
 <div class="form-group change-to-field noMember" data-auto-nom="{{ $autoNom }}">
     <label>No Member: <em class="text-danger">*</em></label>
     <div class="input-group input-group-sm">

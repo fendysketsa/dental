@@ -73,6 +73,10 @@ function load_formEdit() {
                             '<div class="row"><div class="text-center"><em class="fa fa-spin fa-spinner"></em> loading...</div></div>'
                         );
 
+                        $(".f-codereferal").html(
+                            '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> code referal loading...</div>'
+                        );
+
                         setTimeout(() => {
                             var token = $("input[name=_token]").val();
                             $.ajax({
@@ -127,6 +131,16 @@ function load_formEdit() {
                                                     .val(data[0].agama)
                                                     .trigger("change");
                                             }, 1000);
+
+                                            $(".f-codereferal").css({
+                                                height: "40px",
+                                            });
+
+                                            $(".f-codereferal").html(
+                                                f_codereferal(
+                                                    data[0].referal_code
+                                                )
+                                            );
                                         }, 800);
                                     }, 500);
                                 },
@@ -227,6 +241,15 @@ function load_formEdit() {
             },
         });
     });
+}
+
+function f_codereferal(code) {
+    var html = "";
+
+    return (html +=
+        `<span class="text-info to-point-code">Code Referal: ` +
+        code +
+        `</span>`);
 }
 
 function currentDate() {
