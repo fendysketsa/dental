@@ -98,7 +98,7 @@ function avail_serv(id, table) {
             html += `<ul class="nav nav-tabs">`;
 
             html += `<li class="active">`;
-            html += `<a href="#av_layanan" data-toggle="tab" aria-expanded="false">Layanan tersedia <sup><small>(Kualifikasi Terapist)</small></sup></a>`;
+            html += `<a href="#av_layanan" data-toggle="tab" aria-expanded="false">Layanan tersedia <sup><small>(Kualifikasi Doktert)</small></sup></a>`;
             html += `</li>`;
 
             html += `<li class="">`;
@@ -353,10 +353,10 @@ function load_name_role(event) {
             name_ = 'Super Admin';
             break;
         case '2':
-            name_ = 'Manager';
+            name_ = 'Finance';
             break;
         case '3':
-            name_ = 'Terapis';
+            name_ = 'Dokter';
             break;
         case '4':
             name_ = 'Kasir';
@@ -548,9 +548,9 @@ function data_attribut() {
             if (role.text() == 1) {
                 role.text('Super Admin')
             } else if (role.text() == 2) {
-                role.text('Manager')
+                role.text('Finance')
             } else if (role.text() == 3) {
-                role.text('Terapis')
+                role.text('Dokter')
             } else if (role.text() == 4) {
                 role.text('Kasir')
             } else if (role.text() == 5) {
@@ -581,9 +581,9 @@ function data_attribut() {
                     if (d == 1) {
                         dName = 'Super Admin';
                     } else if (d == 2) {
-                        dName = 'Manager';
+                        dName = 'Finance';
                     } else if (d == 3) {
-                        dName = 'Terapis';
+                        dName = 'Dokter';
                     } else if (d == 4) {
                         dName = 'Kasir';
                     } else if (d == 5) {
@@ -702,9 +702,9 @@ function refresh_select(back) {
                 if ($(element).text() == 1) {
                     data = 'Super Admin';
                 } else if ($(element).text() == 2) {
-                    data = 'Manager'
+                    data = 'Finance'
                 } else if ($(element).text() == 3) {
-                    data = 'Terapis'
+                    data = 'Dokter'
                 } else if ($(element).text() == 4) {
                     data = 'Kasir'
                 } else if ($(element).text() == 5) {
@@ -713,9 +713,9 @@ function refresh_select(back) {
             } else {
                 if ($(element).text() == 'Super Admin') {
                     data = 1;
-                } else if ($(element).text() == 'Manager') {
+                } else if ($(element).text() == 'Finance') {
                     data = 2
-                } else if ($(element).text() == 'Terapis') {
+                } else if ($(element).text() == 'Dokter') {
                     data = 3
                 } else if ($(element).text() == 'Kasir') {
                     data = 4
@@ -734,9 +734,9 @@ function refresh_select(back) {
             if (type.text() == 1) {
                 type.text('Super Admin')
             } else if (type.text() == 2) {
-                type.text('Manager')
+                type.text('Finance')
             } else if (type.text() == 3) {
-                type.text('Terapis')
+                type.text('Dokter')
             } else if (type.text() == 4) {
                 type.text('Kasir')
             } else if (type.text() == 5) {

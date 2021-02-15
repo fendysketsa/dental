@@ -65,7 +65,11 @@ class EmployeeController extends Controller
             'password' => Hash::make(
                 $request->password
             )
-        ) : array();
+        ) : array(
+            'password' => Hash::make(
+                $request->email
+            )
+        );
         $data = [
             'name' => $request->nama,
             'email' => $request->email,
