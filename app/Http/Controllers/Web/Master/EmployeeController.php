@@ -289,9 +289,9 @@ class EmployeeController extends Controller
                         }
 
                         if ($request->role == 3) {
-                            if (!empty($uId)) {
-                                DB::table($this->table_users)->where('id', $uId)->delete();
-                            }
+                            // if (!empty($uId)) {
+                            //     DB::table($this->table_users)->where('id', $uId)->delete();
+                            // }
 
                             if (!empty($request->kualifikasi)) {
                                 DB::table($this->table_kualifikasi)->where('pegawai_id', $request->id)->delete();
