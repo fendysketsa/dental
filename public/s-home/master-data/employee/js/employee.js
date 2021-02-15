@@ -273,6 +273,7 @@ function load_more_edit(event) {
         }, 500);
 
     } else {
+        $(".load-more-acc-dokter").html(f_user_acc);
         $(".load-more-acc").html(f_user_acc);
         setTimeout(function () {
             $("input[name=email]").removeAttr('readonly');
@@ -300,6 +301,7 @@ function load_more(event) {
             break;
         default:
             $(".load-more-acc").html(f_user_acc);
+            $(".load-more-acc-dokter").html('');
             setTimeout(function () {
                 $("input[name=email]").removeAttr('readonly');
                 $("input[name=password]").removeAttr('readonly');
