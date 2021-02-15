@@ -391,6 +391,10 @@ class OrderController extends Controller
         }
     }
 
+    public function periksa($id)
+    {
+    }
+
     public function update($id)
     {
         if (!empty($id)) :
