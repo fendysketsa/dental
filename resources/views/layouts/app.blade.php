@@ -152,7 +152,7 @@
 
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
-                    @role('manager|super-admin|owner')
+                    @role('manager|super-admin|owner|dokter')
                     <li class="{{ (!empty($attribute['dashboard']) ? 'active ' . $attribute['dashboard'] : null) }}">
                         <a href="{{ url('home') }}"><i class="fa fa-area-chart"></i> <span>Dashboard</span></a></li>
                     @endrole
@@ -172,8 +172,7 @@
                                 <a href="{{ route('homepages.index') }}"><i class="fa fa-keyboard-o"></i>
                                     <span>Content</span></a>
                             </li>
-                            <li
-                                class="{{ (!empty($attribute['menu_gallery']) ? $attribute['menu_gallery'] : null) }}">
+                            <li class="{{ (!empty($attribute['menu_gallery']) ? $attribute['menu_gallery'] : null) }}">
                                 <a href="{{ route('galleries.index') }}"><i class="fa fa-camera"></i>
                                     <span>Gallery</span></a>
                             </li>
@@ -254,19 +253,27 @@
 
                 </li>
                 @endrole
+
                 @role('kasir|super-admin')
                 <li class="{{ (!empty($attribute['menu_registrasi']) ? $attribute['menu_registrasi'] : null) }}">
                     <a href="{{ route('registrations.index') }}"><i class="fa fa-keyboard-o"></i>
                         <span>Pendaftaran</span></a></li>
+                @endrole
+
+                @role('kasir|super-admin|dokter')
                 <li class="{{ (!empty($attribute['menu_orderM']) ? $attribute['menu_orderM'] : null) }}"><a
                         href="{{ route('orders.index') }}"><i class="fa fa-search"></i>
                         <span>Monitoring Order</span></a></li>
+                @endrole
+
+                @role('kasir|super-admin')
                 <li class="{{ (!empty($attribute['menu_Cas']) ? $attribute['menu_Cas'] : null) }}">
                     <a href="{{ route('cashiers.index') }}">
                         <i class="fa fa-calculator"></i> <span>Pembayaran</span>
                     </a>
                 </li>
                 @endrole
+
                 @role('kasir|super-admin')
                 <li class="treeview {{ (!empty($attribute['m_info']) ? 'active ' . $attribute['m_info'] : null) }}">
                     <a href="#">

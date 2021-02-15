@@ -266,6 +266,12 @@ function load_more_edit(event) {
     if (event === '' || event === 3) {
         avail_serv('', 'layanan');
 
+        $(".load-more-acc-dokter").html(f_user_acc);
+        setTimeout(function () {
+            $("input[name=email]").removeAttr("readonly");
+            $("input[name=password]").removeAttr("readonly");
+        }, 500);
+
     } else {
         $(".load-more-acc").html(f_user_acc);
         setTimeout(function () {
@@ -283,6 +289,13 @@ function load_more(event) {
             break;
         case '3':
             avail_serv('', 'layanan');
+
+            $(".load-more-acc-dokter").html(f_user_acc);
+            setTimeout(function () {
+                $("input[name=email]").removeAttr("readonly");
+                $("input[name=password]").removeAttr("readonly");
+            }, 500);
+
             break;
         default:
             $(".load-more-acc").html(f_user_acc);
@@ -455,8 +468,10 @@ function form_attribut(id, id2, id3) {
 function f_user_acc() {
     var evPegawai = $("input[name=id]");
     var idPegawai = evPegawai.val() || null;
+
     var elEmailValue = idPegawai ? "value='" + evPegawai.data('email') + "'" : '';
     var elPassword = !idPegawai ? `<em class="text-danger">*</em>` : '';
+
     var content_info = idPegawai ? `<blockquote><small>Apabila password tidak diisi, Email sebagai password!</small></blockquote>` : ``;
 
     var html = '';

@@ -22,4 +22,10 @@
         @include('monitoring.order.content.form.modal.index')
     </div>
 </div>
+
+<div id="formModalMontrgOrderPeriksa" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-xlg">
+        @include('monitoring.order.content.form.modal.index_periksa')
+    </div>
+</div>
 @endsection

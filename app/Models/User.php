@@ -48,7 +48,7 @@ class User extends Authenticatable
         $data = DB::table('pegawai')
             ->where('user_id', auth()->user()->id)->first();
         $data_ = !empty($data) ? $data->role : 1;
-        $dataRole = array('?', 'Super Admin', 'Produksi', '?', 'Admin');
+        $dataRole = array('?', 'Super Admin', 'Finance', 'Dokter', 'Kasir', 'Owner/Admin Pusat');
 
         $imagesMember = empty($data->foto) ? asset('/images/brokenimage.jpg') : (Storage::disk('profile')->exists($data->foto) ? asset('/storage/master-data/employee/uploads/' . $data->foto) : asset('/images/brokenimage.jpg'));
 
@@ -58,5 +58,4 @@ class User extends Authenticatable
             'img' => empty($data->foto) ? asset('/images/noimage.jpg') : $imagesMember,
         ];
     }
-
 }

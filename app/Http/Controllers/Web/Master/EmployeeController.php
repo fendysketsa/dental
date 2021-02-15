@@ -28,7 +28,7 @@ class EmployeeController extends Controller
         'nama' => 'required',
         'jabatan' => 'required',
         'role' => 'required|not_in:0',
-        'komisi' => 'numeric',
+        // 'komisi' => 'numeric',
         'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
     ];
 
@@ -128,7 +128,7 @@ class EmployeeController extends Controller
 
         if (!empty($request->id)) {
             $id = DB::table($this->table)->where('id', $request->id)->first()->user_id;
-            $message = ($request->role != 3 && $request->role != '') ?
+            $message = ($request->role == 3 || $request->role != '') ?
                 array_merge($this->validate_message, $this->rules_mail($id)) : $this->validate_message;
 
             $validator = \Validator::make($request->all(), $message);
@@ -173,7 +173,14 @@ class EmployeeController extends Controller
 
                     DB::transaction(function () use ($request, $filename) {
                         $mess_ = null;
-                        $Id = DB::table($this->table)->insertGetId($this->fields($request, $filename));
+
+                        $idUser = DB::table($this->table_users)->insertGetId($this->fields_user($request));
+
+                        $role = Role::find($request->role);
+                        $user = User::find($idUser);
+                        $user->assignRole($role);
+
+                        $Id = DB::table($this->table)->insertGetId($this->fields($request, $filename, $idUser));
 
                         if (!empty($request->kualifikasi)) {
                             $dataKualifikasi = array();
@@ -266,6 +273,21 @@ class EmployeeController extends Controller
                         $elmTable = DB::table($this->table)->where('id', $request->id);
                         $uId = $elmTable->get()->last()->user_id;
 
+                        if (!empty($uId)) {
+                            $affected_user = DB::table($this->table_users)->where('id', $uId)
+                                ->update($this->fields_user_update($request));
+
+                            $role = Role::find($request->role);
+                            $user = User::find($uId);
+                            $user->assignRole($role);
+                        } else {
+                            $uId = DB::table($this->table_users)->insertGetId($this->fields_user($request));
+
+                            $role = Role::find($request->role);
+                            $user = User::find($uId);
+                            $user->assignRole($role);
+                        }
+
                         if ($request->role == 3) {
                             if (!empty($uId)) {
                                 DB::table($this->table_users)->where('id', $uId)->delete();
@@ -298,7 +320,7 @@ class EmployeeController extends Controller
                             }
                         }
 
-                        $affected = DB::table($this->table)->where('id', $request->id)->update($this->fields($request, $filename));
+                        $affected = DB::table($this->table)->where('id', $request->id)->update($this->fields($request, $filename, $uId));
                         $mess['msg'] = 'Data sukses disimpan' . ($affected == 0 ? ", namun tidak ada perubahan" : " dan diubah");
                         $mess['cd'] = 200;
                         echo json_encode($mess);

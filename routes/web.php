@@ -90,7 +90,7 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
     ]);
     //-----------------------------------------------------------------------------
     Route::get('rooms/add', 'Web\Master\RoomController@create')
-    ->name('rooms.create'); //form no mdal
+        ->name('rooms.create'); //form no mdal
     Route::post('rooms/option', 'Web\Master\RoomController@_option');
     Route::get('rooms/data', 'Web\Master\RoomController@_data');
     Route::get('rooms/json', 'Web\Master\RoomController@_json');
@@ -123,7 +123,7 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
     ]);
     //-----------------------------------------------------------------------------
     Route::get('galleries/add', 'Web\Master\GallerysController@create')
-    ->name('galleries.create'); //form no mdal
+        ->name('galleries.create'); //form no mdal
     Route::get('galleries/data', 'Web\Master\GallerysController@_data');
     Route::get('galleries/json', 'Web\Master\GallerysController@_json');
     Route::resource('galleries', 'Web\Master\GallerysController')->except([
@@ -139,7 +139,7 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
     ]);
     //-----------------------------------------------------------------------------
     Route::get('homepages/add', 'Web\Master\HomePagesController@create')
-    ->name('homepages.create'); //form no mdal
+        ->name('homepages.create'); //form no mdal
     Route::get('homepages/data', 'Web\Master\HomePagesController@_data');
     Route::get('homepages/json', 'Web\Master\HomePagesController@_json');
     Route::resource('homepages', 'Web\Master\HomePagesController')->except([
@@ -303,6 +303,7 @@ Route::middleware(['auth' => 'role:super-admin|manager|owner'])->group(function 
         'edit', 'update', 'store'
     ]);
 });
+
 Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
     //MONITORING
     //-----------------------------------------------------------------------------
@@ -430,7 +431,8 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
     Route::resource('monitoring/order', 'Web\Monitoring\OrderController', [
         'names' => [
             'index' => 'orders.index',
-            'update' => 'monitoring.order.update'
+            'update' => 'monitoring.order.update',
+            'periksa' => 'monitoring.order.periksa'
         ]
     ])->except([
         'edit', 'show'
@@ -486,13 +488,35 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
     ]);
 });
 
+Route::middleware(['auth' => 'role:dokter'])->group(function () {
+    //-----------------------------------------------------------------------------
+    Route::post('monitoring/order/send', 'Web\Monitoring\OrderController@sendPembayaran')->name('monitoring.order.sendPembayaran');
+    Route::post('monitoring/order/void', 'Web\Monitoring\OrderController@voidPembayaran')->name('monitoring.order.voidPembayaran');
+    Route::post('monitoring/order/print', 'Web\Monitoring\OrderController@printOrder')->name('monitoring.order.printOut');
+    Route::get('monitoring/order/activ/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.actived');
+    Route::put('monitoring/order/buy/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.pembayaran');
+    Route::get('monitoring/order/reload', 'Web\Monitoring\OrderController@_reload');
+    Route::get('monitoring/order/det/{id}', 'Web\Monitoring\OrderController@detTrans');
+    Route::get('monitoring/order/data', 'Web\Monitoring\OrderController@_data');
+    Route::get('monitoring/order/json', 'Web\Monitoring\OrderController@_json');
+    Route::resource('monitoring/order', 'Web\Monitoring\OrderController', [
+        'names' => [
+            'index' => 'orders.index',
+            'update' => 'monitoring.order.update',
+            'periksa' => 'monitoring.order.periksa'
+        ]
+    ])->except([
+        'edit', 'show'
+    ]);
+});
+
 Route::middleware(['auth' => 'role:owner'])->group(function () {
     //LOAD CABANG
     //-----------------------------------------------------------------------------
     Route::post('branch/info/session/{id}', 'Web\Master\BranchController@_session')->name('session.branch');
 });
 
-Route::middleware(['auth' => 'role:super-admin|manager|owner'])->group(function () {
+Route::middleware(['auth' => 'role:super-admin|manager|owner|dokter'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/home/data', 'HomeController@data')->name('home.data');
 });
