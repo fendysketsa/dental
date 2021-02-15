@@ -286,6 +286,7 @@ function load_more(event) {
     switch (event) {
         case '':
             $(".load-more-acc").html('');
+            $(".load-more-acc-dokter").html('');
             break;
         case '3':
             avail_serv('', 'layanan');
