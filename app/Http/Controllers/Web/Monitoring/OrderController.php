@@ -391,8 +391,9 @@ class OrderController extends Controller
         }
     }
 
-    public function periksa($id)
+    public function periksas($id)
     {
+        return $id;
     }
 
     public function update($id)

@@ -424,6 +424,7 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
     Route::post('monitoring/order/print', 'Web\Monitoring\OrderController@printOrder')->name('monitoring.order.printOut');
     Route::get('monitoring/order/activ/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.actived');
     Route::put('monitoring/order/buy/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.pembayaran');
+    Route::put('monitoring/order/periksa/{id}', 'Web\Monitoring\OrderController@periksas')->name('monitoring.order.periksa');
     Route::get('monitoring/order/reload', 'Web\Monitoring\OrderController@_reload');
     Route::get('monitoring/order/det/{id}', 'Web\Monitoring\OrderController@detTrans');
     Route::get('monitoring/order/data', 'Web\Monitoring\OrderController@_data');
@@ -432,7 +433,6 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
         'names' => [
             'index' => 'orders.index',
             'update' => 'monitoring.order.update',
-            'periksa' => 'monitoring.order.periksa'
         ]
     ])->except([
         'edit', 'show'
@@ -495,6 +495,7 @@ Route::middleware(['auth' => 'role:super-admin|kasir|dokter'])->group(function (
     Route::post('monitoring/order/print', 'Web\Monitoring\OrderController@printOrder')->name('monitoring.order.printOut');
     Route::get('monitoring/order/activ/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.actived');
     Route::put('monitoring/order/buy/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.pembayaran');
+    Route::put('monitoring/order/periksa/{id}', 'Web\Monitoring\OrderController@periksas')->name('monitoring.order.periksa');
     Route::get('monitoring/order/reload', 'Web\Monitoring\OrderController@_reload');
     Route::get('monitoring/order/det/{id}', 'Web\Monitoring\OrderController@detTrans');
     Route::get('monitoring/order/data', 'Web\Monitoring\OrderController@_data');
@@ -503,7 +504,6 @@ Route::middleware(['auth' => 'role:super-admin|kasir|dokter'])->group(function (
         'names' => [
             'index' => 'orders.index',
             'update' => 'monitoring.order.update',
-            'periksa' => 'monitoring.order.periksa'
         ]
     ])->except([
         'edit', 'show'
