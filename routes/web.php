@@ -187,7 +187,7 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
     ]);
 });
 
-Route::middleware(['auth' => 'role:super-admin|manager|owner'])->group(function () {
+Route::middleware(['auth' => 'role:super-admin|finance|owner'])->group(function () {
     //MASTER DATA
     //-----------------------------------------------------------------------------
     Route::post('products/option', 'Web\Master\ProductController@_option');
@@ -255,7 +255,7 @@ Route::middleware(['auth'])->group(function () {
     ]);
 });
 
-Route::middleware(['auth' => 'role:super-admin|manager|owner'])->group(function () {
+Route::middleware(['auth' => 'role:super-admin|finance|owner'])->group(function () {
     //-----------------------------------------------------------------------------
     Route::get('incomes/json', 'Web\Monitoring\PendapatanController@_json');
     Route::get('incomes/data', 'Web\Monitoring\PendapatanController@_data');
@@ -488,7 +488,7 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
     ]);
 });
 
-Route::middleware(['auth' => 'role:dokter'])->group(function () {
+Route::middleware(['auth' => 'role:super-admin|kasir|dokter'])->group(function () {
     //-----------------------------------------------------------------------------
     Route::post('monitoring/order/send', 'Web\Monitoring\OrderController@sendPembayaran')->name('monitoring.order.sendPembayaran');
     Route::post('monitoring/order/void', 'Web\Monitoring\OrderController@voidPembayaran')->name('monitoring.order.voidPembayaran');
@@ -516,7 +516,7 @@ Route::middleware(['auth' => 'role:owner'])->group(function () {
     Route::post('branch/info/session/{id}', 'Web\Master\BranchController@_session')->name('session.branch');
 });
 
-Route::middleware(['auth' => 'role:super-admin|manager|owner|dokter'])->group(function () {
+Route::middleware(['auth' => 'role:super-admin|finance|owner|dokter'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/home/data', 'HomeController@data')->name('home.data');
 });
