@@ -254,6 +254,25 @@
                 </li>
                 @endrole
 
+                @role('super-admin')
+                <li
+                    class="treeview {{ (!empty($attribute['m_dokter_data']) ? 'active ' . $attribute['m_dokter_data'] : null) }}">
+                    <a href="#">
+                        <i class="fa fa-home"></i> <span>Master Dokter</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" @if(!empty($attribute['m_dokter_data'])) style="display:block;" @endif>
+                        <li
+                            class="{{ (!empty($attribute['menu_rekammedik']) ? $attribute['menu_rekammedik'] : null) }}">
+                            <a href="{{ route('rekams.index') }}"><i class="fa fa-keyboard-o"></i>
+                                <span>Rekam Medik</span></a>
+                        </li>
+                    </ul>
+                </li>
+                @endrole
+
                 @role('kasir|super-admin')
                 <li class="{{ (!empty($attribute['menu_registrasi']) ? $attribute['menu_registrasi'] : null) }}">
                     <a href="{{ route('registrations.index') }}"><i class="fa fa-keyboard-o"></i>

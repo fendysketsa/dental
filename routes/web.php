@@ -98,6 +98,15 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
         'edit', 'show'
     ]);
     //-----------------------------------------------------------------------------
+    Route::get('rekams/add', 'Web\MasterDokter\RekamController@create')
+        ->name('rekams.create'); //form no mdal
+    Route::post('rekams/option', 'Web\MasterDokter\RekamController@_option');
+    Route::get('rekams/data', 'Web\MasterDokter\RekamController@_data');
+    Route::get('rekams/json', 'Web\MasterDokter\RekamController@_json');
+    Route::resource('rekams', 'Web\MasterDokter\RekamController')->except([
+        'edit', 'show'
+    ]);
+    //-----------------------------------------------------------------------------
     Route::get('categories/add', 'Web\Master\CategoryController@create')
         ->name('categories.create'); //form no mdal
     Route::get('categories/data', 'Web\Master\CategoryController@_data');

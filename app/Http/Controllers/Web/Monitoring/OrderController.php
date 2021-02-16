@@ -393,7 +393,7 @@ class OrderController extends Controller
 
     public function periksas($id)
     {
-        return $id;
+        return view('monitoring.order.content.form.modal.index_periksa');
     }
 
     public function update($id)
