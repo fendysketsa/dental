@@ -26,7 +26,8 @@
         <textarea name="pilihan" class="form-control add-style" placeholder="Pilihan..." style="height:100px;"
             form="formRekam">{{ (!empty($dataE) ? $dataE->option : null) }}</textarea>
     </div>
-    <small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em> Tekan Enter untuk memisahkan masing - masing pilihan</small>
+    <small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em> Isikan pilihan,
+        tekan Enter untuk memisahkan pilihan apabila lebih dari satu.</small>
 </div>
 
 <div class="row">
