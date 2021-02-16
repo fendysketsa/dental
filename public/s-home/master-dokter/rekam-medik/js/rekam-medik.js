@@ -175,19 +175,27 @@ function contPlaceholder(val) {
 }
 
 function form_attribut(e) {
-    var edit = e || "";
-
     $("#tambahan").on("click", function () {
-        var isCek = $("input[name=input]").is(":checked");
+        var isCek = $("input[name=tambahan_input]").is(":checked");
 
         if (isCek == true) {
-            var val = edit.data("input-placeholder");
-
-            $(".more-placeholder").html(contPlaceholder(val));
+            $(".more-placeholder").html(contPlaceholder());
         } else {
             $(".more-placeholder").html("");
         }
     });
+
+    $("#status").on("click", function () {
+        var isCek = $("input[name=status]").is(":checked");
+
+        if (isCek == true) {
+            $(".status-desc").html("Aktif");
+        } else {
+            $(".status-desc").html("Tidak Aktif");
+        }
+    });
+
+    var edit = e || null;
 
     if (edit) {
         var isCek = edit.data("input");
@@ -205,25 +213,13 @@ function form_attribut(e) {
         var isCekSts = edit.data("status");
 
         if (isCekSts) {
-
             $("#status").prop("checked", true);
             $(".status-desc").html("Aktif");
         } else {
-
             $("#status").prop("checked", false);
             $(".status-desc").html("Tidak Aktif");
         }
     }
-
-    $("#status").on("click", function () {
-        var isCek = $("input[name=status]").is(":checked");
-
-        if (isCek == true) {
-            $(".status-desc").html("Aktif");
-        } else {
-            $(".status-desc").html("Tidak Aktif");
-        }
-    });
 }
 
 function convertOption(e) {

@@ -25,7 +25,7 @@ class RekamController extends Controller
         return [
             'nama' => $request->nama,
             'option' => $request->pilihan,
-            'more_input' => $request->input ? $request->input : NULL,
+            'more_input' => $request->tambahan_input ? $request->tambahan_input : NULL,
             'more_input_placeholder' => $request->placeholder ? $request->placeholder : NULL,
             'status' => $request->status,
         ];
@@ -33,7 +33,7 @@ class RekamController extends Controller
 
     public function validated($mess, $request)
     {
-        $message = empty($request->input) ? $this->validate_message : array_merge($this->validate_message, $this->validate_message_tambahan);
+        $message = empty($request->tambahan_input) ? $this->validate_message : array_merge($this->validate_message, $this->validate_message_tambahan);
 
         $validator = \Validator::make($request->all(), $message);
         if ($validator->fails()) {

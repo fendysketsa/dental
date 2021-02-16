@@ -34,7 +34,7 @@
     <div class="col-md-6 col-xs-6 col-sm-6">
         <div class="form-group input-group-sm">
             <label class="container-radio" for="tambahan"> Tambahan Input
-                <input type="checkbox" id="tambahan" name="input" value="1" class="form-control" form="formRekam">
+                <input type="checkbox" id="tambahan" name="tambahan_input" value="1" class="form-control" form="formRekam">
                 <span class="checkmark-radio"></span>
             </label>
         </div>
