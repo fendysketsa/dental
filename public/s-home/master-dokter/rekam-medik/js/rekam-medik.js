@@ -170,7 +170,7 @@ function contPlaceholder(val) {
                         <i class="fa fa-tag"></i>
                     </div>
                     <input type="text" name="placeholder" value="` +
-        (val.data("input-placeholder") ? val.data("input-placeholder") : "") +
+        (val && val.data("input-placeholder") ? val.data("input-placeholder") : "") +
         `" class="form-control"
                         placeholder="Placeholder..." form="formRekam">
                 </div>
@@ -185,7 +185,7 @@ function contPlaceholder(val) {
                     </div>
                     <textarea name="label" style="height:80px;" class="form-control"
                         placeholder="Label..." form="formRekam">` +
-        (val.data("input-label") ? val.data("input-label") : "") +
+        (val && val.data("input-label") ? val.data("input-label") : "") +
         `</textarea>
                 </div><small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em> Isikan label dan sesuaikan dengan pilihan, tekan Enter untuk memisahkan label apabila lebih dari satu.</small>
             </div>`;
