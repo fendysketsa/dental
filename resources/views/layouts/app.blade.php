@@ -418,6 +418,7 @@
         </div>
         @yield('ext-modal')
         @yield('ext-modal-1')
+        @yield('ext-modal-periksa')
 
         <footer class="main-footer">
             <div class="pull-right hidden-xs">

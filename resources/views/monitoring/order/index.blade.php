@@ -22,7 +22,9 @@
         @include('monitoring.order.content.form.modal.index')
     </div>
 </div>
+@endsection
 
+@section('ext-modal-periksa')
 <div id="formModalMontrgOrderPeriksa" class="modal fade" role="dialog">
     <div class="modal-dialog modal-xlg">
         @include('monitoring.order.content.form.modal.index_periksa')

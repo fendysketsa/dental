@@ -27,6 +27,8 @@ class RekamController extends Controller
             'option' => $request->pilihan,
             'more_input' => $request->tambahan_input ? $request->tambahan_input : NULL,
             'more_input_placeholder' => $request->placeholder ? $request->placeholder : NULL,
+            'more_input_label' => $request->label ? $request->label : NULL,
+            'set_input' => $request->set_input,
             'status' => $request->status,
         ];
     }
@@ -135,6 +137,7 @@ class RekamController extends Controller
                     $this->table . '.id',
                     $this->table . '.nama',
                     $this->table . '.option',
+                    $this->table . '.set_input',
                     $this->table . '.status'
                 )
                 ->get())

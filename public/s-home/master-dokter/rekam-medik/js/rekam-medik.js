@@ -131,6 +131,11 @@ function data_attribut() {
                 render: convertOption,
             },
             {
+                data: "set_input",
+                name: "set_input",
+                render: convertSetInput,
+            },
+            {
                 data: "status",
                 name: "status",
                 render: convertStatus,
@@ -165,10 +170,24 @@ function contPlaceholder(val) {
                         <i class="fa fa-tag"></i>
                     </div>
                     <input type="text" name="placeholder" value="` +
-        (val ? val : "") +
+        (val.data("input-placeholder") ? val.data("input-placeholder") : "") +
         `" class="form-control"
                         placeholder="Placeholder..." form="formRekam">
                 </div>
+            </div>`;
+
+    html +=
+        `<div class="form-group">
+                <label>Label: </label>
+                <div class="input-group input-group-sm date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-tag"></i>
+                    </div>
+                    <textarea name="label" style="height:80px;" class="form-control"
+                        placeholder="Label..." form="formRekam">` +
+        (val.data("input-label") ? val.data("input-label") : "") +
+        `</textarea>
+                </div><small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em> Isikan label dan sesuaikan dengan pilihan, tekan Enter untuk memisahkan label apabila lebih dari satu.</small>
             </div>`;
 
     return html;
@@ -195,16 +214,24 @@ function form_attribut(e) {
         }
     });
 
+    $("#set_input").on("click", function () {
+        var isCek = $("input[name=set_input]").is(":checked");
+
+        if (isCek == true) {
+            $(".set-input-desc").html("Single");
+        } else {
+            $(".set-input-desc").html("Multi");
+        }
+    });
+
     var edit = e || null;
 
     if (edit) {
         var isCek = edit.data("input");
 
         if (isCek) {
-            var val = edit.data("input-placeholder");
-
             $("#tambahan").prop("checked", true);
-            $(".more-placeholder").html(contPlaceholder(val));
+            $(".more-placeholder").html(contPlaceholder(edit));
         } else {
             $("#tambahan").prop("checked", false);
             $(".more-placeholder").html("");
@@ -218,6 +245,16 @@ function form_attribut(e) {
         } else {
             $("#status").prop("checked", false);
             $(".status-desc").html("Tidak Aktif");
+        }
+
+        var isCekSetInp = edit.data("set-input");
+
+        if (isCekSetInp) {
+            $("#set_input").prop("checked", true);
+            $(".set-input-desc").html("Single");
+        } else {
+            $("#set_input").prop("checked", false);
+            $(".set-input-desc").html("Multi");
         }
     }
 }
@@ -252,6 +289,23 @@ function convertStatus(e) {
     }
 
     return `<em class="badge ` + tc + `">` + stsDesc + `</em>`;
+}
+
+function convertSetInput(e) {
+    var setInp = e || "";
+
+    var setInpDesc = "";
+    var tc = "";
+
+    if (setInp == 1) {
+        setInpDesc = "Single";
+        tc = "label-success";
+    } else {
+        setInpDesc = "Multi";
+        tc = "label-info";
+    }
+
+    return `<em class="badge ` + tc + `">` + setInpDesc + `</em>`;
 }
 
 function remove() {

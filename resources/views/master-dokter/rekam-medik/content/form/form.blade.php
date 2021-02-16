@@ -2,9 +2,21 @@
 @if(!empty($dataE))
 <input type="hidden" name="id" value="{{ $dataE->id }}" form="formRekam">
 <div data-status="{{ $dataE->status }}" data-input="{{ $dataE->more_input }}"
-    data-input-placeholder="{{ $dataE->more_input_placeholder }}" class="edit-rekam"></div>
+    data-input-placeholder="{{ $dataE->more_input_placeholder }}" data-input-label="{{ $dataE->more_input_label }}"
+    data-set-input="{{ $dataE->set_input }}" class="edit-rekam"></div>
 @endif
 @csrf
+
+<div class="form-group input-group-sm">
+    <label class="container-radio" for="set_input"> Set Input
+        <input type="checkbox" id="set_input" name="set_input" checked="checked" value="1" class="form-control"
+            form="formRekam">
+        <span class="set-input-desc">Single</span>
+        <span class="checkmark-radio"></span>
+    </label>
+    <small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em> Untuk mengeset single / multi
+        choise</small>
+</div>
 
 <div class="form-group">
     <label>Pertanyaan: <em class="text-danger">*</em></label>
@@ -34,7 +46,8 @@
     <div class="col-md-6 col-xs-6 col-sm-6">
         <div class="form-group input-group-sm">
             <label class="container-radio" for="tambahan"> Tambahan Input
-                <input type="checkbox" id="tambahan" name="tambahan_input" value="1" class="form-control" form="formRekam">
+                <input type="checkbox" id="tambahan" name="tambahan_input" value="1" class="form-control"
+                    form="formRekam">
                 <span class="checkmark-radio"></span>
             </label>
         </div>
@@ -50,6 +63,8 @@
             </label>
         </div>
     </div>
+
+
 </div>
 
 <div class="more-placeholder"></div>

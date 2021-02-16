@@ -241,6 +241,64 @@ function load_formEdit() {
             },
         });
     });
+
+    $("tbody").delegate(".periksa", "click", function () {
+        $(".load-form-modal-periksa").html("");
+        var event = $(this);
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        $.ajax({
+            type: "PUT",
+            url: event.data("route"),
+            success: function (result) {
+                $(".load-form-modal-periksa").html(result);
+                $(".modal-title").html(
+                    '<em class="fa fa-pencil-square-o"></em> Form Periksa Rekam Medik'
+                );
+                load_formLeft();
+
+                setTimeout(function () {
+                    setTimeout(function () {
+                        $(".f-new-member").html(
+                            '<div class="row"><div class="text-center"><em class="fa fa-spin fa-spinner"></em> loading...</div></div>'
+                        );
+
+                        $(".f-codereferal").html(
+                            '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> code referal loading...</div>'
+                        );
+
+                        setTimeout(() => {
+                            var token = $("input[name=_token]").val();
+                            $.ajax({
+                                url: base_url + "/registrations/member/explore",
+                                method: "POST",
+                                data: {
+                                    id: inputId.data("member-id"),
+                                    _token: token,
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    setTimeout(() => {
+                                        //
+                                    }, 500);
+                                },
+                            });
+                        }, 2500);
+                    }, 500);
+                }, 500);
+            },
+            error: function () {
+                toastr.error("Gagal mengambil data", "Oops!", {
+                    timeOut: 2000,
+                });
+            },
+        });
+    });
 }
 
 function f_codereferal(code) {
@@ -1134,11 +1192,11 @@ function form_attribut_right() {
                             .find("select")
                             .removeAttr("id")
                             .attr("id", "on-select-layanan-" + (e + 1));
-                        $(trs[e])
-                            .find("td.select-terapis")
-                            .find("select")
-                            .removeAttr("id")
-                            .attr("id", "on-select-terapis-" + (e + 1));
+                        // $(trs[e])
+                        //     .find("td.select-terapis")
+                        //     .find("select")
+                        //     .removeAttr("id")
+                        //     .attr("id", "on-select-terapis-" + (e + 1));
                     });
 
                     loadTotal();
@@ -1421,12 +1479,12 @@ function load_row_layanan(idLayanan, idTerapis) {
             var layId = $(this).val();
             loadTotal(layId);
             if (layId) {
-                $("#on-select-terapis-" + numb).removeAttr("disabled");
-                load_avail_layanan("terapis", numb, layId);
+                // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                // load_avail_layanan("terapis", numb, layId);
             } else {
-                var trps = $("#on-select-terapis-" + numb);
-                trps.attr("disabled", true);
-                trps.val("").trigger("change");
+                // var trps = $("#on-select-terapis-" + numb);
+                // trps.attr("disabled", true);
+                // trps.val("").trigger("change");
             }
         });
     }, 500);
@@ -1597,7 +1655,7 @@ function load_avail_layanan(table, numb, p_id, p_terps) {
                 .addClass("hide");
             $("#on-select-" + table + "-" + numb).removeAttr("disabled");
             if (table == "layanan" && pID) {
-                $("#on-select-terapis-" + numb).removeAttr("disabled");
+                // $("#on-select-terapis-" + numb).removeAttr("disabled");
             }
 
             $("select#on-select-" + table + "-" + numb).select2({

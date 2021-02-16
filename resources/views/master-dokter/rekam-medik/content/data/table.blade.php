@@ -2,8 +2,9 @@
     <thead class="bg-navy disabled color-palette">
         <tr>
             <th style="width:5%;" class="text-center">No</th>
-            <th style="width:35%;">Pertanyaan</th>
+            <th style="width:30%;">Pertanyaan</th>
             <th style="width:25%;">Pilihan</th>
+            <th style="width:10%;">Set Input</th>
             <th style="width:15%;">Status</th>
             <th style="width:15%;" class="text-center">Action</th>
         </tr>
