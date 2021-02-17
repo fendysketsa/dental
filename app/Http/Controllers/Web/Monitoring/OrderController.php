@@ -393,7 +393,15 @@ class OrderController extends Controller
 
     public function periksas($id)
     {
-        return view('monitoring.order.content.form.modal.index_periksa');
+        if (!empty($id)) :
+            $dataTrans = DB::table($this->table)
+                ->where('id', $id)->get();
+        endif;
+
+        return view('monitoring.order.content.form.modal.index_periksa', [
+            'data' => !empty($id) ? $dataTrans : null,
+            'action' => route('registrations.update', $id)
+        ]);
     }
 
     public function update($id)

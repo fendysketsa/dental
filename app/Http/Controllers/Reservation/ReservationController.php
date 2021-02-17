@@ -157,6 +157,13 @@ class ReservationController extends Controller
         ]);
     }
 
+    public function _explore_rekam()
+    {
+        $data = DB::table('rekam_medik')->where('status', 1)->get();
+
+        echo json_encode($data, true);
+    }
+
     public function _opt(Request $request)
     {
         if (empty($request->table)) {

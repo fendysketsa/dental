@@ -266,37 +266,34 @@ function load_formEdit() {
                 $(".modal-title").html(
                     '<em class="fa fa-pencil-square-o"></em> Form Periksa Rekam Medik'
                 );
-                load_formLeft();
+
+                load_formLeftPeriksa();
 
                 setTimeout(function () {
-                    setTimeout(function () {
-                        $(".f-new-member").html(
-                            '<div class="row"><div class="text-center"><em class="fa fa-spin fa-spinner"></em> loading...</div></div>'
-                        );
+                    loadRekamMedik();
+                }, 1500);
 
-                        $(".f-codereferal").html(
-                            '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> code referal loading...</div>'
-                        );
+                var inputId = $("input[name=id]");
 
-                        setTimeout(() => {
-                            var token = $("input[name=_token]").val();
-                            $.ajax({
-                                url: base_url + "/registrations/member/explore",
-                                method: "POST",
-                                data: {
-                                    id: inputId.data("member-id"),
-                                    _token: token,
-                                },
-                                dataType: "json",
-                                success: function (data) {
-                                    setTimeout(() => {
-                                        //
-                                    }, 500);
-                                },
-                            });
-                        }, 2500);
-                    }, 500);
-                }, 500);
+                setTimeout(() => {
+                    var token = $("input[name=_token]").val();
+                    $.ajax({
+                        url: base_url + "/registrations/member/explore",
+                        method: "POST",
+                        data: {
+                            id: inputId.data("member-id"),
+                            _token: token,
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            setTimeout(() => {
+                                $(".load-informasi-right-periksa").html(
+                                    content_info_member(data[0])
+                                );
+                            }, 500);
+                        },
+                    });
+                }, 2500);
             },
             error: function () {
                 toastr.error("Gagal mengambil data", "Oops!", {
@@ -305,6 +302,240 @@ function load_formEdit() {
             },
         });
     });
+}
+
+function content_rekam_medik(data) {
+    var html = ``;
+    var newHtml = ``;
+
+    if (data) {
+        $.each(data, function (e, i) {
+            var typeInput = !i.set_input ? "checkbox" : "radio";
+            var plcInput = !i.more_input_placeholder
+                ? ""
+                : i.more_input_placeholder;
+            var Option = "";
+            var labelInput = !i.more_input_label
+                ? ""
+                : `<small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em> ` +
+                  i.more_input_label +
+                  `</small>`;
+
+            var moreInput = !i.more_input
+                ? ""
+                : "<input type='text' class='form-control mt-5' placeholder='" +
+                  plcInput +
+                  "' name='more_name[" +
+                  e +
+                  "]'>";
+
+            if (i.option) {
+                $.each(i.option.split("\n"), function (f, g) {
+                    Option +=
+                        `<input style="margin-right:10px;" ` +
+                        (typeInput == "radio" && f == 0
+                            ? "checked class='on-label-click'"
+                            : "") +
+                        ` type="` +
+                        typeInput +
+                        `" name="nama[` +
+                        e +
+                        `]" value="` +
+                        g +
+                        ` form="formBank"> <label style="margin-right:20px;" for="` +
+                        e +
+                        `">` +
+                        g +
+                        `</label>`;
+                });
+            }
+
+            newHtml +=
+                `<div class="form-group">
+                            <label>` +
+                i.nama +
+                `</label>
+                            <div class="input-group input-group-sm date">` +
+                Option +
+                `
+                            </div>
+` +
+                labelInput +
+                moreInput +
+                `
+                        </div>`;
+        });
+    }
+
+    html +=
+        `<div class="col-md-12">
+                    <div class="row box-header with-border">
+                        <i class="fa fa-list"></i>
+                        <h3 class="box-title">Data Rekam Medik</h3>
+                    </div>
+                    <div class="box-body">
+                        ` +
+        newHtml +
+        `
+                    </div>
+                </div>`;
+
+    return html;
+}
+
+function loadRekamMedik() {
+    $.ajax({
+        url: base_url + "/registrations/rekam-medik/explore",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            setTimeout(() => {
+                $("#f-load-rekam-medik").html(content_rekam_medik(data));
+            }, 500);
+        },
+    });
+}
+
+function content_info_member(data) {
+    var html = ``;
+
+    html +=
+        `<div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                    ` +
+        getImg(data.foto) +
+        `</div>
+                </div>
+                <div class="col-md-12">
+                    <h4 class="text-center">
+                    ` +
+        data.nama +
+        `
+                    </h4>
+                </div>
+                <div class="col-md-12 mt-10">
+                    <p><em class="fa fa-envelope mr-2"></em> ` +
+        data.email +
+        `</p>
+                    <p><em class="fa fa-phone mr-2"></em> ` +
+        data.telepon +
+        `</p>
+                    <hr class="bdr-infor">
+                </div>
+
+                <div class="col-md-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border bg-info">
+                            <i class="fa fa-info"></i>
+                            <h3 class="box-title">Data Pribadi</h3>
+                        </div>
+                        <div class="box-body">
+                            <div>
+                                <p class="text-muted">Tempat Lahir</p>
+                                <p class="text-bold">` +
+        data.tempat_lahir +
+        `</p>
+                            </div>
+                            <div>
+                                <p class="text-muted">Tanggal Lahir</p>
+                                <p class="text-bold">` +
+        data.tgl_lahir +
+        `</p>
+                            </div>
+                            <div>
+                                <p class="text-muted">Kepala Keluarga (KK)</p>
+                                <p class="text-bold">` +
+        data.nik +
+        `</p>
+                            </div>
+                            <div>
+                                <p class="text-muted">Alamat / Domisili</p>
+                                <p class="text-bold">` +
+        data.alamat +
+        "<br>" +
+        data.domisili +
+        `</p>
+                            </div>
+                            <div>
+                                <p class="text-muted">Agama</p>
+                                <p class="text-bold">` +
+        convertAgama(data.agama) +
+        `</p>
+                            </div>
+                            <div>
+                                <p class="text-muted">Status</p>
+                                <p class="text-bold">` +
+        data.status_member +
+        `</p>
+                            </div>
+                        </div>
+                        <div class="button-action box-footer bg-gray-light">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 col-sm-6">
+                                    <a role="button" data-dismiss="modal"
+                                        class="btn btn-warning col-md-12 col-xs-12 col-sm-12 cancel-form"><em
+                                            class="fa fa-undo"></em>
+                                        Batal</a>
+                                </div>
+                                <div class="col-md-6 col-xs-6 col-sm-6">
+                                    <button name="next_one" type="button"
+                                        class="btn btn-info col-md-12 col-xs-12 col-sm-12" form="formRegistrasi"><em
+                                            class="fa fa-envelope"></em> Lanjutkan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+    return html;
+}
+
+function convertAgama(agama) {
+    var hearth;
+
+    switch (agama) {
+        case "1":
+            hearth = "Islam";
+            break;
+        case "2":
+            hearth = "Kristen";
+            break;
+        case "3":
+            hearth = "Katholik";
+            break;
+        case "4":
+            hearth = "Hindu";
+            break;
+        case "5":
+            hearth = "Budha";
+            break;
+        default:
+            hearth = "Nothing!";
+    }
+
+    return hearth;
+}
+
+function imgError(image) {
+    image.onerror = "";
+    image.src = "/images/brokenimage.jpg";
+    image.alt = "Images corrupt!";
+    image.title = "Images corrupt!";
+    return true;
+}
+
+function getImg(data, type, full, meta) {
+    var img = !data
+        ? "/images/noimage.jpg"
+        : "/storage/master-data/member/uploads/" + data;
+    return (
+        '<img onerror="imgError(this);" style="border-radius:50%;" width="90" height="90" src="' +
+        base_url +
+        img +
+        '">'
+    );
 }
 
 function f_codereferal(code) {
@@ -2098,6 +2329,32 @@ function load_formLeft() {
             form_attribut();
         }
     });
+}
+
+function load_formLeftPeriksa() {
+    var cont = $(".load-form-left-periksa");
+    $(".display-future").addClass("blocking-content");
+    cont.load(
+        base_url + "/registrations/create?form=left_periksa",
+        function (e, s, f) {
+            if (s == "error") {
+                var fls = "Gagal memuat form!";
+                toastr.error(fls, "Oops!", {
+                    timeOut: 2000,
+                });
+                cont.html(fls);
+            } else {
+                $(".display-future").removeClass("blocking-content");
+                $(".button-action").removeClass("hide");
+
+                $("#f-load-rekam-medik").html(
+                    '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
+                );
+
+                form_attribut();
+            }
+        }
+    );
 }
 
 function load_formRight(evv) {

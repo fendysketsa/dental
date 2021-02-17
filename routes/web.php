@@ -478,6 +478,7 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
     Route::get('registrations/opts/{table}', 'Reservation\ReservationController@_opts');
     Route::get('registrations/opt-terapis/{table}', 'Reservation\ReservationController@_optss');
     Route::post('registrations/member/explore', 'Reservation\ReservationController@_detail');
+    Route::get('registrations/rekam-medik/explore', 'Reservation\ReservationController@_explore_rekam');
     Route::post('registrations/member/generate', 'Reservation\ReservationController@_gen');
     Route::resource('registrations', 'Reservation\ReservationController', [
         'names' => [
