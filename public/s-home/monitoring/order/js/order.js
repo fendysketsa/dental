@@ -1260,7 +1260,7 @@ function form_attribut_right() {
                     );
                     trs.each(function (e, f) {
                         $(trs[e])
-                            .find("td.nom-layanan")
+                            .find("td.nom-layanan-tambahan")
                             .text(e + 1);
                         $(trs[e])
                             .find("td.input-layanan-tambahan")
