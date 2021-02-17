@@ -148,6 +148,8 @@ function load_formEdit() {
                         }, 2500);
 
                         $(".load-row-layanan").html("");
+                        $(".load-row-layanan-tambahan").html("");
+
                         $(".load-row-paket").html("");
 
                         $(".load-form-left").append(
@@ -162,6 +164,10 @@ function load_formEdit() {
                             $(".load-row-layanan").append(load_row_layanan(rL));
                         }
                         $(".load-row-layanan").append(load_row_layanan);
+
+                        $(".load-row-layanan-tambahan").append(
+                            load_row_layanan_tambahan
+                        );
 
                         for (
                             var rP = 1;
@@ -336,6 +342,35 @@ function convertRupiah(bilangan_) {
         rupiah += separator + ribuan.join(".");
     }
     return !bilangan_ ? 0 : rupiah;
+}
+
+function onInputRupiah() {
+    $("input[type=rupiah]").on("input", function (e) {
+        var inpValue = $(this)
+            .val()
+            .replace(/[^,\d]/g, "")
+            .toString();
+
+        if (isNaN(inpValue)) {
+            $(this).val("0");
+            return false;
+        }
+
+        if (inpValue < 1) {
+            $(this).val("");
+            toastr.warning(
+                "Tidak diperkenankan input angka 0 di depan!",
+                "Ooopps!",
+                {
+                    timeOut: 2000,
+                }
+            );
+            return false;
+        }
+
+        var Inp = inpValue.replace(/^0/gi, "");
+        $(this).val(convertRupiah(Inp));
+    });
 }
 
 function rePrint(events, dataTrans, onsave) {
@@ -1166,6 +1201,10 @@ function form_attribut_right() {
         $(".load-row-layanan").append(load_row_layanan);
     });
 
+    $(".add-row-layanan-tambahan").on("click", function () {
+        $(".load-row-layanan-tambahan").append(load_row_layanan_tambahan);
+    });
+
     $(".add-row-paket").on("click", function () {
         $(".load-row-paket").append(load_row_paket);
     });
@@ -1197,6 +1236,42 @@ function form_attribut_right() {
                         //     .find("select")
                         //     .removeAttr("id")
                         //     .attr("id", "on-select-terapis-" + (e + 1));
+                    });
+
+                    loadTotal();
+                });
+        }
+    );
+
+    $("table tbody.load-row-layanan-tambahan").delegate(
+        "tr > td > em.remove-row-layanan-tambahan",
+        "click",
+        function (e) {
+            $(this)
+                .parents("tr")
+                .html(
+                    '<td colspan="4" class="text-center"><em class="fa fa-spinner fa-spin"></em> Loading...</td>'
+                )
+                .fadeOut("slow", function (e) {
+                    $(this).remove();
+
+                    var trs = $(
+                        ".load-row-layanan-tambahan tr.n-f-layanan-tambahan"
+                    );
+                    trs.each(function (e, f) {
+                        $(trs[e])
+                            .find("td.nom-layanan")
+                            .text(e + 1);
+                        $(trs[e])
+                            .find("td.input-layanan-tambahan")
+                            .find("input")
+                            .removeAttr("id")
+                            .attr("id", "on-input-layanan-tambahan-" + (e + 1));
+                        $(trs[e])
+                            .find("td.input-layanan-harga")
+                            .find("input")
+                            .removeAttr("id")
+                            .attr("id", "on-input-harga-tambahan-" + (e + 1));
                     });
 
                     loadTotal();
@@ -1478,6 +1553,89 @@ function load_row_layanan(idLayanan, idTerapis) {
         $("#on-select-layanan-" + numb).on("change", function (e) {
             var layId = $(this).val();
             loadTotal(layId);
+            if (layId) {
+                // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                // load_avail_layanan("terapis", numb, layId);
+            } else {
+                // var trps = $("#on-select-terapis-" + numb);
+                // trps.attr("disabled", true);
+                // trps.val("").trigger("change");
+            }
+        });
+    }, 500);
+
+    return html;
+}
+
+function load_row_layanan_tambahan(idLayanan, idTerapis) {
+    var thisElem = $(".n-f-layanan-tambahan");
+    var numb = thisElem.length + 1;
+
+    var html = `<tr class="n-f-layanan-tambahan">`;
+    html +=
+        `<td class="nom-layanan-tambahan td-height-img text-center">` +
+        numb +
+        `</td>`;
+    html +=
+        `<td class="input-layanan-tambahan td-height-img">
+                <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
+                <div class="input-group-sm">
+                    <input type="text" ` +
+        (!idLayanan ? ` name="layanan_tambahan[]" ` : "") +
+        ` form="formRegistrasi" placeholder="layanan tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
+        numb +
+        `">` +
+        `
+                </div>
+            </td>`;
+
+    html +=
+        `<td class="input-layanan-harga td-height-img">
+                <div class="input-group-sm">
+                    <input type="rupiah" placeholder="harga..." name="harga_tambahan[]" disabled form="formRegistrasi" class="form-control input-group-sm" id="on-input-harga-tambahan-` +
+        numb +
+        `">
+                </div>
+            </td>`;
+
+    html += `<td class="td-height-img text-center"><em class="fa fa-times remove-row-layanan-tambahan text-danger"></em></td>`;
+    html += `</tr>`;
+
+    setTimeout(() => {
+        $(".input-layanan-tambahan")
+            .find("div#block")
+            .removeClass("blocking-loading-row")
+            .addClass("hide");
+
+        $(".n-f-layanan-tambahan").find("input").removeAttr("disabled");
+
+        onInputRupiah();
+
+        if (idLayanan) {
+            // load_avail_layanan(
+            //     "layanan",
+            //     numb,
+            //     $("input[name=id]").data("layanan")[idLayanan - 1]
+            // );
+            // load_avail_layanan(
+            //     "terapis",
+            //     numb,
+            //     $("input[name=id]").data("layanan")[idLayanan - 1],
+            //     $("input[name=id]").data("terapis")[idLayanan - 1]
+            // );
+            // setTimeout(() => {
+            //     $("#on-select-layanan-" + idLayanan).attr("disabled", true);
+            //     $("#inpt-select-" + numb).val(
+            //         $("#on-select-layanan-" + idLayanan).val()
+            //     );
+            // }, 2000);
+        } else {
+            // load_avail_layanan("layanan", numb);
+        }
+
+        $("#on-select-layanan-" + numb).on("change", function (e) {
+            var layId = $(this).val();
+            // loadTotal(layId);
             if (layId) {
                 // $("#on-select-terapis-" + numb).removeAttr("disabled");
                 // load_avail_layanan("terapis", numb, layId);
@@ -1957,6 +2115,11 @@ function load_formRight(evv) {
             } else {
                 $(".display-future").removeClass("blocking-content");
                 $(".button-action").removeClass("hide");
+
+                $(".f-layanan-tambahan")
+                    .removeClass("hide")
+                    .removeAttr("style");
+
                 form_attribut_right();
                 submit(evv);
             }

@@ -35,6 +35,38 @@
             </div>
         </div>
 
+        <div class="box box-default display-future hide f-layanan-tambahan" style="display: none;">
+            <div class="box-header with-border bg-default">
+                <h3 class="box-title"><em class='fa fa-th-large'></em> Keluhan Tambahan</h3>
+            </div>
+            <div class="box-body clean-sheet on-dutty-off">
+                <div class="load-form-table-layanan-tambahan">
+                    <table class="table hover" width="100%" cellspacing="0">
+                        <thead class="bg-navy disabled color-palette">
+                            <th style="width:5%;" class="text-center">No</th>
+                            <th style="width:60%;">Keluhan tambahan</th>
+                            <th style="width:25%;">Harga</th>
+                            <th style="width:10%;" class="text-center">Action</th>
+                        </thead>
+                        <tbody class="load-row-layanan-tambahan">
+                            <tr>
+                                <td colspan="4">
+                                    <em class='fa fa-spin fa-spinner'></em> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <button class="col-md-3 btn btn-xs btn-info add-row-layanan-tambahan" type="button"><em
+                                    class="fa fa-plus"></em>
+                                Baris</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- <div class="box box-default clean-sheet on-dutty-off display-future">
             <div class="box-header with-border bg-default">
                 <h3 class="box-title"><em class='fa fa-th-large'></em> Paket</h3>
