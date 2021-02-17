@@ -33,7 +33,7 @@ class RekamController extends Controller
 
         $dataChoise = !empty($request->set_input) ? [
             'set_input' => $request->set_input,
-        ] : [];
+        ] : (empty($request->set_input) && empty($request->tambahan_input) ? ['set_input' => NULL] : []);
 
         return array_merge($data, $dataChoise);
     }
