@@ -22,15 +22,20 @@ class RekamController extends Controller
 
     public function fields($request)
     {
-        return [
+        $data = [
             'nama' => $request->nama,
             'option' => $request->pilihan,
             'more_input' => $request->tambahan_input ? $request->tambahan_input : NULL,
             'more_input_placeholder' => $request->placeholder ? $request->placeholder : NULL,
             'more_input_label' => $request->label ? $request->label : NULL,
-            'set_input' => $request->set_input,
             'status' => $request->status,
         ];
+
+        $dataChoise = !empty($request->set_input) ? [
+            'set_input' => $request->set_input,
+        ] : [];
+
+        return array_merge($data, $dataChoise);
     }
 
     public function validated($mess, $request)
