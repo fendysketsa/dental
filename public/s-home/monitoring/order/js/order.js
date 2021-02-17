@@ -290,6 +290,17 @@ function load_formEdit() {
                                 $(".load-informasi-right-periksa").html(
                                     content_info_member(data[0])
                                 );
+
+                                $(".on-label-click").on("click", function () {
+                                    var num = $(this).data("ck");
+                                    var pos = $(this).data("ck-on");
+                                    var desc = $(this).data("ck-desc");
+
+                                    $(".info-small-" + pos).html(
+                                        `<em class="fa fa-info-circle"></em> ` +
+                                            desc.split("\n")[num]
+                                    );
+                                });
                             }, 500);
                         },
                     });
@@ -315,10 +326,13 @@ function content_rekam_medik(data) {
                 ? ""
                 : i.more_input_placeholder;
             var Option = "";
+
             var labelInput = !i.more_input_label
                 ? ""
-                : `<small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em> ` +
-                  i.more_input_label +
+                : `<small id="emailHelp" class="form-text info-small-` +
+                  e +
+                  ` text-info"><em class="fa fa-info-circle"></em> ` +
+                  i.more_input_label.split("\n")[0] +
                   `</small>`;
 
             var moreInput = !i.more_input
@@ -332,17 +346,23 @@ function content_rekam_medik(data) {
             if (i.option) {
                 $.each(i.option.split("\n"), function (f, g) {
                     Option +=
-                        `<input style="margin-right:10px;" ` +
-                        (typeInput == "radio" && f == 0
-                            ? "checked class='on-label-click'"
-                            : "") +
+                        `<input ` +
+                        (typeInput == "radio" ? "class='on-label-click'" : "") +
+                        ` style="margin-right:10px;" ` +
+                        (typeInput == "radio" && f == 0 ? "checked" : "") +
                         ` type="` +
                         typeInput +
                         `" name="nama[` +
                         e +
                         `]" value="` +
                         g +
-                        ` form="formBank"> <label style="margin-right:20px;" for="` +
+                        `" data-ck="` +
+                        f +
+                        `" data-ck-on="` +
+                        e +
+                        `" data-ck-desc="` +
+                        (!i.more_input_label ? "" : i.more_input_label) +
+                        `" form="formBank"> <label style="margin-right:20px;" for="` +
                         e +
                         `">` +
                         g +

@@ -170,7 +170,9 @@ function contPlaceholder(val) {
                         <i class="fa fa-tag"></i>
                     </div>
                     <input type="text" name="placeholder" value="` +
-        (val && val.data("input-placeholder") ? val.data("input-placeholder") : "") +
+        (val && val.data("input-placeholder")
+            ? val.data("input-placeholder")
+            : "") +
         `" class="form-control"
                         placeholder="Placeholder..." form="formRekam">
                 </div>
@@ -198,9 +200,17 @@ function form_attribut(e) {
         var isCek = $("input[name=tambahan_input]").is(":checked");
 
         if (isCek == true) {
+            $("#set_input").prop("disabled", true);
             $(".more-placeholder").html(contPlaceholder());
+
+            $("#set_input").prop("disabled", true);
+            $("#set_input").prop("checked", true);
+            $(".set-input-desc").html("Single");
         } else {
+            $("#set_input").prop("disabled", false);
             $(".more-placeholder").html("");
+
+            $("#set_input").prop("disabled", false);
         }
     });
 
@@ -213,6 +223,18 @@ function form_attribut(e) {
             $(".status-desc").html("Tidak Aktif");
         }
     });
+
+    $("#set_input")
+        .closest("label.container-radio")
+        .on("click", function () {
+            var isDis = $("input[name=set_input]").is(":disabled");
+
+            if (isDis == true) {
+                toastr.warning(
+                    "Apabila mode tambahan input tidak diperkenankan mengganti set multi choise!"
+                );
+            }
+        });
 
     $("#set_input").on("click", function () {
         var isCek = $("input[name=set_input]").is(":checked");
@@ -231,9 +253,11 @@ function form_attribut(e) {
 
         if (isCek) {
             $("#tambahan").prop("checked", true);
+            $("#set_input").prop("disabled", true);
             $(".more-placeholder").html(contPlaceholder(edit));
         } else {
             $("#tambahan").prop("checked", false);
+            $("#set_input").prop("disabled", false);
             $(".more-placeholder").html("");
         }
 
