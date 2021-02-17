@@ -269,6 +269,10 @@
                             <a href="{{ route('rekams.index') }}"><i class="fa fa-keyboard-o"></i>
                                 <span>Rekam Medik</span></a>
                         </li>
+                        <li class="{{ (!empty($attribute['menu_diagnosis']) ? $attribute['menu_diagnosis'] : null) }}">
+                            <a href="{{ route('diagnosis.index') }}"><i class="fa fa-check-circle-o"></i>
+                                <span>Diagnosis</span></a>
+                        </li>
                     </ul>
                 </li>
                 @endrole

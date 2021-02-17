@@ -115,6 +115,14 @@ Route::middleware(['auth' => 'role:super-admin|owner'])->group(function () {
         'edit', 'show'
     ]);
     //-----------------------------------------------------------------------------
+    Route::get('diagnosis/add', 'Web\MasterDokter\DiagnosisController@create')
+        ->name('diagnosis.create'); //form no mdal
+    Route::get('diagnosis/data', 'Web\MasterDokter\DiagnosisController@_data');
+    Route::get('diagnosis/json', 'Web\MasterDokter\DiagnosisController@_json');
+    Route::resource('diagnosis', 'Web\MasterDokter\DiagnosisController')->except([
+        'edit', 'show'
+    ]);
+    //-----------------------------------------------------------------------------
     Route::get('branchs/add', 'Web\Master\BranchController@create')
         ->name('branchs.create'); //form no mdal
     Route::get('branchs/data', 'Web\Master\BranchController@_data');
