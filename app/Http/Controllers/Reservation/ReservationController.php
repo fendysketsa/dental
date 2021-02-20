@@ -155,7 +155,7 @@ class ReservationController extends Controller
         }
 
         if (!empty($form)) {
-            if (in_array($form, array('left_periksa', 'left_periksa_gigi'))) {
+            if (in_array($form, array('left_periksa', 'left_periksa_gigi', 'left', 'right'))) {
                 return view('trans.registrasi.content.form.form_' . $form, [
                     'autoNom' => MemberModel::getAutoNoMember(),
                     'action' => route('registrations.store')
