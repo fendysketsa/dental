@@ -2448,11 +2448,56 @@ function load_formLeftPeriksaGigi() {
                 $(".display-future").removeClass("blocking-content");
                 $(".button-action").removeClass("hide");
 
-                $("table").css({'border-collapse':'unset !important'})
+                $("table").css({ "border-collapse": "unset !important" });
 
+                load_gigi("permanen");
             }
         }
     );
+}
+
+function load_gigi(param) {
+    var cont = $(".load-content-gigi-img");
+
+    $(".display-future").addClass("blocking-content");
+
+    cont.load(
+        base_url + "/registrations/create?load=gigi_" + param,
+        function (e, s, f) {
+            if (s == "error") {
+                var fls = "Gagal memuat form!";
+                toastr.error(fls, "Oops!", {
+                    timeOut: 2000,
+                });
+                cont.html(fls);
+            } else {
+                $(".display-future").removeClass("blocking-content");
+                $(".button-action").removeClass("hide");
+
+                $("table").css({ "border-collapse": "unset !important" });
+
+                $(".load-content-gigi-img").html(e);
+
+                switch_gigi();
+
+                setTimeout(function  () {
+                        $(".opt-gigi").prop("disabled", false);
+                }, 1000);
+            }
+        }
+    );
+}
+
+function switch_gigi() {
+    $(".form-group").delegate(".opt-gigi", "click", function (e) {
+        var gigi = $(this).data("gigi");
+
+        $(".opt-gigi").removeClass("active-gigi").prop("disabled", true);
+
+        $(this).addClass("active-gigi");
+
+        load_gigi(gigi);
+    });
 }
 
 function load_formRight(evv) {

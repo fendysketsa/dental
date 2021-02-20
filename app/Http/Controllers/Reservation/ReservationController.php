@@ -148,13 +148,30 @@ class ReservationController extends Controller
     public function create()
     {
         $form = Input::get('form');
-        if (empty($form)) {
+        $load = Input::get('load');
+
+        if (empty($form) && empty($load)) {
             return abort(403);
         }
-        return view('trans.registrasi.content.form.form_' . $form, [
-            'autoNom' => MemberModel::getAutoNoMember(),
-            'action' => route('registrations.store')
-        ]);
+
+        if (!empty($form)) {
+            if (in_array($form, array('left_periksa', 'left_periksa_gigi'))) {
+                return view('trans.registrasi.content.form.form_' . $form, [
+                    'autoNom' => MemberModel::getAutoNoMember(),
+                    'action' => route('registrations.store')
+                ]);
+            } else {
+                return abort(403);
+            }
+        }
+
+        if (!empty($load)) {
+            if (in_array($load, array('gigi_permanen', 'gigi_susu'))) {
+                return view('trans.registrasi.content.load.load_' . $load);
+            } else {
+                return abort(403);
+            }
+        }
     }
 
     public function _explore_rekam()
