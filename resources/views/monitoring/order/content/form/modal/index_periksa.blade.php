@@ -12,7 +12,7 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-9" style="border-right:1px solid #E0E0E0">
                     <div class="box box-info display-future">
                         <div class="box-header with-border bg-warning">
                             <i class="fa fa-pencil-square-o"></i>

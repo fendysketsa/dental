@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="{{ asset('s-home/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/style-add.css') }}">
+    <link rel="stylesheet" href="{{ asset('s-home/style-add-2.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/plugins/toast/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/dist/upload_multi/css/image-uploader.min.css') }}">
 
