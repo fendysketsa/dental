@@ -7,34 +7,34 @@
     </tr>
     <tr>
         <td class="center-div">
-            <div class="square-number">55</div>
+            <div class="square-number labeling-gigi" data-number-gigi="55">55</div>
         </td>
         <td class="center-div">
-            <div class="square-number">54</div>
+            <div class="square-number labeling-gigi" data-number-gigi="54">54</div>
         </td>
         <td class="center-div">
-            <div class="square-number">53</div>
+            <div class="square-number labeling-gigi" data-number-gigi="53">53</div>
         </td>
         <td class="center-div">
-            <div class="square-number">52</div>
+            <div class="square-number labeling-gigi" data-number-gigi="52">52</div>
         </td>
         <td class="center-div">
-            <div class="square-number">51</div>
+            <div class="square-number labeling-gigi" data-number-gigi="51">51</div>
         </td>
         <td class="center-div">
-            <div class="square-number">61</div>
+            <div class="square-number labeling-gigi" data-number-gigi="61">61</div>
         </td>
         <td class="center-div">
-            <div class="square-number">62</div>
+            <div class="square-number labeling-gigi" data-number-gigi="62">62</div>
         </td>
         <td class="center-div">
-            <div class="square-number">63</div>
+            <div class="square-number labeling-gigi" data-number-gigi="63">63</div>
         </td>
         <td class="center-div">
-            <div class="square-number">64</div>
+            <div class="square-number labeling-gigi" data-number-gigi="64">64</div>
         </td>
         <td class="center-div">
-            <div class="square-number">65</div>
+            <div class="square-number labeling-gigi" data-number-gigi="65">65</div>
         </td>
     </tr>
     <tr>
@@ -53,7 +53,35 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-55 susu no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1 area-posisi-gigi"></td>
+                            <td class="border-2 area-posisi-gigi"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3 area-posisi-gigi"></td>
+                            <td class="border-4 area-posisi-gigi"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single area-posisi-gigi-part"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle area-54 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -81,7 +109,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-53 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -109,7 +137,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-52 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -137,7 +165,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-51 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -165,7 +193,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-61 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -193,7 +221,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-62 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -221,7 +249,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-63 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -249,7 +277,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-64 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -277,35 +305,7 @@
 
         <td>
 
-            <div class="content-circle susu">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle susu">
+            <div class="content-circle area-65 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -342,7 +342,7 @@
     <tr>
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-85 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -370,7 +370,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-84 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -398,7 +398,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-83 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -426,7 +426,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-82 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -454,7 +454,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-81 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -482,7 +482,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-71 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -510,7 +510,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-72 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -538,7 +538,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-73 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -566,7 +566,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-74 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -594,7 +594,7 @@
 
         <td>
 
-            <div class="content-circle susu">
+            <div class="content-circle area-75 susu no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -647,34 +647,34 @@
 
     <tr>
         <td class="center-div">
-            <div class="square-number-bawah">85</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="85">85</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">84</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="84">84</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">83</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="83">83</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">82</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="82">82</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">81</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="81">81</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">71</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="71">71</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">72</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="72">72</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">73</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="73">73</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">74</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="74">74</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah">75</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="75">75</div>
         </td>
 
     </tr>
@@ -684,7 +684,8 @@
                 Gigi yang telah dipilih:
             </div>
             <div class="row col-md-3 mt-20">
-                <button class="btn btn-info col-md-12">Pilih Tindakan</button>
+                <button class="btn btn-info col-md-12" data-toggle="modal" href="#formModalMontrgOrderPeriksaGigi">Pilih
+                    Tindakan</button>
             </div>
         </td>
     </tr>

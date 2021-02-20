@@ -2480,8 +2480,75 @@ function load_gigi(param) {
 
                 switch_gigi();
 
-                setTimeout(function  () {
-                        $(".opt-gigi").prop("disabled", false);
+                setTimeout(function () {
+                    $(".opt-gigi").prop("disabled", false);
+
+                    $(".main-table-gigi").delegate(
+                        ".labeling-gigi",
+                        "click",
+                        function (e) {
+                            var itm = $(this);
+                            itm.addClass("sn-active");
+
+                            var sn = itm.data("number-gigi");
+
+                            $(".area-" + sn).removeClass("no-action-posisi");
+                        }
+                    );
+
+                    $(".main-table-gigi").delegate(
+                        ".sn-active",
+                        "click",
+                        function (e) {
+                            var itm = $(this);
+                            itm.removeClass("sn-active");
+
+                            var sn = itm.data("number-gigi");
+
+                            $(".area-" + sn).addClass("no-action-posisi");
+
+                            $(".area-" + sn)
+                                .find("td")
+                                .removeClass("ar-gg-active")
+                                .removeClass("ar-gg-active-part");
+                        }
+                    );
+
+                    $(".content-circle").delegate(
+                        ".area-posisi-gigi",
+                        "click",
+                        function (e) {
+                            var itm = $(this);
+                            itm.addClass("ar-gg-active");
+                        }
+                    );
+
+                    $(".content-circle").delegate(
+                        ".ar-gg-active",
+                        "click",
+                        function (e) {
+                            var itm = $(this);
+                            itm.removeClass("ar-gg-active");
+                        }
+                    );
+
+                    $(".content-circle").delegate(
+                        ".area-posisi-gigi-part",
+                        "click",
+                        function (e) {
+                            var itm = $(this);
+                            itm.addClass("ar-gg-active-part");
+                        }
+                    );
+
+                    $(".content-circle").delegate(
+                        ".ar-gg-active-part",
+                        "click",
+                        function (e) {
+                            var itm = $(this);
+                            itm.removeClass("ar-gg-active-part");
+                        }
+                    );
                 }, 1000);
             }
         }

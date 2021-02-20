@@ -197,6 +197,11 @@
     margin-left: 0px;
 }
 
+.no-action-posisi {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .square-number {
     padding: 6px;
     border: 3px solid #bd66da;
@@ -206,6 +211,21 @@
     text-align: center;
     display: inline-flex;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.sn-active {
+    background: #bd66da;
+    color: #fff;
+}
+
+.ar-gg-active-part {
+    background-color: red;
+    border-color: red !important;
+}
+
+.ar-gg-active {
+    background-color: red;
 }
 
 .square-number-bawah {
@@ -218,6 +238,7 @@
     display: inline-flex;
     font-weight: bold;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 .center-div {
@@ -233,6 +254,10 @@
     border: 0px;
     background: #f6f7f8;
     border-radius: 15px;
+}
+
+.add-style-ta {
+    height: 100px !important;
 }
 
 .label-gigi {

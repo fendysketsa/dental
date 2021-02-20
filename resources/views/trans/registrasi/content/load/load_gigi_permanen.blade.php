@@ -75,7 +75,7 @@
     </tr>
     <tr>
         <td>
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -103,7 +103,7 @@
         </td>
 
         <td>
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -131,316 +131,7 @@
         </td>
 
         <td>
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-1-sub"></td>
-                            <td class="border-2-sub"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -469,7 +160,287 @@
 
         <td>
 
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -498,7 +469,36 @@
 
         <td>
 
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-1-sub"></td>
+                            <td class="border-2-sub"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -534,7 +534,7 @@
 
     <tr>
         <td>
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -562,7 +562,7 @@
         </td>
 
         <td>
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -590,316 +590,7 @@
         </td>
 
         <td>
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-1-sub"></td>
-                            <td class="border-2-sub"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
-
-                <table border="1" cellspacing="0" class="table-main">
-                    <tbody>
-                        <tr>
-                            <td class="border-1"></td>
-                            <td class="border-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border-3"></td>
-                            <td class="border-4"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table border="1" cellspacing="0" class="table-part">
-                    <tbody>
-                        <tr>
-                            <td class="border-single"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </td>
-
-        <td>
-
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -928,7 +619,287 @@
 
         <td>
 
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-single"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -957,7 +928,36 @@
 
         <td>
 
-            <div class="content-circle permanen">
+            <div class="content-circle permanen no-action-posisi">
+
+                <table border="1" cellspacing="0" class="table-main">
+                    <tbody>
+                        <tr>
+                            <td class="border-1"></td>
+                            <td class="border-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-3"></td>
+                            <td class="border-4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="1" cellspacing="0" class="table-part">
+                    <tbody>
+                        <tr>
+                            <td class="border-1-sub"></td>
+                            <td class="border-2-sub"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </td>
+
+        <td>
+
+            <div class="content-circle permanen no-action-posisi">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
@@ -1076,7 +1076,7 @@
                 Gigi yang telah dipilih:
             </div>
             <div class="row col-md-3 mt-20">
-                <button class="btn btn-info col-md-12">Pilih Tindakan</button>
+                <button class="btn btn-info col-md-12" data-toggle="modal" href="#formModalMontrgOrderPeriksaGigi">Pilih Tindakan</button>
             </div>
         </td>
     </tr>

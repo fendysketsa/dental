@@ -424,6 +424,7 @@
         @yield('ext-modal')
         @yield('ext-modal-1')
         @yield('ext-modal-periksa')
+        @yield('ext-modal-periksa-gigi')
 
         <footer class="main-footer">
             <div class="pull-right hidden-xs">

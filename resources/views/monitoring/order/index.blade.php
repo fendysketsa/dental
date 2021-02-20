@@ -31,3 +31,11 @@
     </div>
 </div>
 @endsection
+
+@section('ext-modal-periksa-gigi')
+<div id="formModalMontrgOrderPeriksaGigi" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        @include('monitoring.order.content.form.modal.index_periksa_gigi')
+    </div>
+</div>
+@endsection
