@@ -345,6 +345,10 @@ function load_formEdit() {
                                         $(this)
                                             .removeClass("next-two-info")
                                             .addClass("next-three-info");
+
+                                        $(this).html(
+                                            `<em class="fa fa-envelope"></em> Simpan`
+                                        );
                                     }
                                 );
 
