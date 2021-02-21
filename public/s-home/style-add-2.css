@@ -245,6 +245,10 @@
     text-align: center !important;
 }
 
+.m-b-2 {
+    margin-bottom: 20px;
+}
+
 .label-title {
     padding: 0px 0px 25px 10px;
 }

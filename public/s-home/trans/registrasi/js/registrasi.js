@@ -1384,6 +1384,7 @@ function loadRekamMedik() {
         dataType: "json",
         success: function (data) {
             setTimeout(() => {
+                $("#f-load-rekam-medik").removeClass("m-b-2");
                 $("#f-load-rekam-medik").html(content_rekam_medik(data));
             }, 500);
         },
@@ -1407,7 +1408,9 @@ function load_formRight() {
                 $(".button-action").removeClass("hide");
                 form_attribut_right();
 
-                cont.prepend('<div id="f-load-rekam-medik"></div>');
+                cont.prepend(
+                    '<div id="f-load-rekam-medik" class="m-b-2"><em class="fa fa-spin fa-spinner"></em> Loading...</div>'
+                );
 
                 setTimeout(function () {
                     loadRekamMedik();
