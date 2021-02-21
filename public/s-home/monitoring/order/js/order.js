@@ -470,17 +470,20 @@ function loadRekamMedik(ck) {
                     $(".load-form-right").prepend(
                         '<div id="f-load-rekam-medik" class="m-b-2"><em class="fa fa-spin fa-spinner"></em> Loading...</div>'
                     );
-                }
 
-                setTimeout(function () {
-                    $("#f-load-rekam-medik").removeClass("m-b-2");
+                    setTimeout(function () {
+                        $("#f-load-rekam-medik").removeClass("m-b-2");
+                        $("#f-load-rekam-medik").html(
+                            content_rekam_medik(data)
+                        );
+
+                        if (ck && ck == "form-load") {
+                            $(".clean-sheet").removeClass("on-dutty-off");
+                        }
+                    }, 1500);
+                } else {
                     $("#f-load-rekam-medik").html(content_rekam_medik(data));
-
-                    if (ck && ck == "form-load") {
-                        $(".clean-sheet").removeClass("on-dutty-off");
-                    }
-                }, 1500);
-
+                }
             }, 500);
         },
     });
