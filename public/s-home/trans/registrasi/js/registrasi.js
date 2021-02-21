@@ -1290,6 +1290,106 @@ function load_formLeft() {
     });
 }
 
+function content_rekam_medik(data) {
+    var html = ``;
+    var newHtml = ``;
+
+    if (data) {
+        $.each(data, function (e, i) {
+            var typeInput = !i.set_input ? "checkbox" : "radio";
+            var plcInput = !i.more_input_placeholder
+                ? ""
+                : i.more_input_placeholder;
+            var Option = "";
+
+            var labelInput = !i.more_input_label
+                ? ""
+                : `<small id="emailHelp" class="form-text info-small-` +
+                  e +
+                  ` text-info"><em class="fa fa-info-circle"></em> ` +
+                  i.more_input_label.split("\n")[0] +
+                  `</small>`;
+
+            var moreInput = !i.more_input
+                ? ""
+                : "<input type='text' class='form-control mt-5' placeholder='" +
+                  plcInput +
+                  "' name='more_name[" +
+                  e +
+                  "]'>";
+
+            if (i.option) {
+                $.each(i.option.split("\n"), function (f, g) {
+                    Option +=
+                        `<input ` +
+                        (typeInput == "radio" ? "class='on-label-click'" : "") +
+                        ` style="margin-right:10px;" ` +
+                        (typeInput == "radio" && f == 0 ? "checked" : "") +
+                        ` type="` +
+                        typeInput +
+                        `" name="nama[` +
+                        e +
+                        `]" value="` +
+                        g +
+                        `" data-ck="` +
+                        f +
+                        `" data-ck-on="` +
+                        e +
+                        `" data-ck-desc="` +
+                        (!i.more_input_label ? "" : i.more_input_label) +
+                        `" form="formBank"> <label style="margin-right:20px;" for="` +
+                        e +
+                        `">` +
+                        g +
+                        `</label>`;
+                });
+            }
+
+            newHtml +=
+                `<div class="form-group">
+                            <label>` +
+                i.nama +
+                `</label>
+                            <div class="input-group input-group-sm date">` +
+                Option +
+                `
+                            </div>
+` +
+                labelInput +
+                moreInput +
+                `
+                        </div>`;
+        });
+    }
+
+    html +=
+        `<div class="col-md-12">
+                    <div class="row box box-header with-border bg-default display-future">
+                        <h3 class="box-title"><em class="fa fa-pencil"></em> Data Rekam Medik</h3>
+                    </div>
+                    <div class="box-body clean-sheet on-dutty-off">
+                        ` +
+        newHtml +
+        `
+                    </div>
+                </div>`;
+
+    return html;
+}
+
+function loadRekamMedik() {
+    $.ajax({
+        url: base_url + "/registrations/rekam-medik/explore",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            setTimeout(() => {
+                $("#f-load-rekam-medik").html(content_rekam_medik(data));
+            }, 500);
+        },
+    });
+}
+
 function load_formRight() {
     var cont = $(".load-form-right");
     $(".display-future").addClass("blocking-content");
@@ -1306,6 +1406,12 @@ function load_formRight() {
                 $(".display-future").removeClass("blocking-content");
                 $(".button-action").removeClass("hide");
                 form_attribut_right();
+
+                cont.prepend('<div id="f-load-rekam-medik"></div>');
+
+                setTimeout(function () {
+                    loadRekamMedik();
+                }, 1500);
 
                 setTimeout(() => {
                     submit();

@@ -250,6 +250,7 @@ function load_formEdit() {
 
     $("tbody").delegate(".periksa", "click", function () {
         $(".load-form-modal-periksa").html("");
+
         var event = $(this);
 
         $.ajaxSetup({
@@ -267,17 +268,21 @@ function load_formEdit() {
                     '<em class="fa fa-pencil-square-o"></em> Form Periksa Rekam Medik'
                 );
 
-                load_formLeftPeriksa();
+                var inputId = $("input[name=id]");
+
+                load_formLeftPeriksa(inputId);
 
                 $("#f-load-rekam-medik-gigi").html(
+                    '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
+                );
+
+                $("#f-load-ubah").html(
                     '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
                 );
 
                 setTimeout(function () {
                     loadRekamMedik();
                 }, 1500);
-
-                var inputId = $("input[name=id]");
 
                 setTimeout(() => {
                     var token = $("input[name=_token]").val();
@@ -295,16 +300,53 @@ function load_formEdit() {
                                     content_info_member(data[0])
                                 );
 
-                                $(".next-one-info").on("click", function () {
-                                    $("#f-load-rekam-medik")
-                                        .removeClass("show")
-                                        .addClass("hide");
-                                    $("#f-load-rekam-medik-gigi")
-                                        .removeClass("hide")
-                                        .addClass("show");
+                                $(".load-informasi-right-periksa").delegate(
+                                    ".next-one-info",
+                                    "click",
+                                    function () {
+                                        $("#f-load-rekam-medik")
+                                            .removeClass("show")
+                                            .addClass("hide");
 
-                                    $("li.st-2").addClass("active_order");
-                                });
+                                        $("#f-load-rekam-medik-gigi")
+                                            .removeClass("hide")
+                                            .addClass("show");
+
+                                        $("#f-load-ubah")
+                                            .removeClass("show")
+                                            .addClass("hide");
+
+                                        $("li.st-2").addClass("active_order");
+
+                                        $(this)
+                                            .removeClass("next-one-info")
+                                            .addClass("next-two-info");
+                                    }
+                                );
+
+                                $(".load-informasi-right-periksa").delegate(
+                                    ".next-two-info",
+                                    "click",
+                                    function () {
+                                        $("#f-load-rekam-medik")
+                                            .removeClass("show")
+                                            .addClass("hide");
+
+                                        $("#f-load-rekam-medik-gigi")
+                                            .removeClass("show")
+                                            .addClass("hide");
+
+                                        $("#f-load-ubah")
+                                            .removeClass("hide")
+                                            .addClass("show");
+
+                                        $("li.st-3").addClass("active_order");
+
+                                        $(this)
+                                            .removeClass("next-two-info")
+                                            .addClass("next-three-info");
+                                    }
+                                );
 
                                 $(".on-label-click").on("click", function () {
                                     var num = $(this).data("ck");
@@ -404,11 +446,10 @@ function content_rekam_medik(data) {
 
     html +=
         `<div class="col-md-12">
-                    <div class="row box-header with-border">
-                        <i class="fa fa-list"></i>
-                        <h3 class="box-title">Data Rekam Medik</h3>
+                    <div class="row box box-header with-border bg-default display-future">
+                        <h3 class="box-title"><em class="fa fa-pencil"></em> Data Rekam Medik</h3>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body clean-sheet on-dutty-off">
                         ` +
         newHtml +
         `
@@ -426,6 +467,7 @@ function loadRekamMedik() {
         success: function (data) {
             setTimeout(() => {
                 $("#f-load-rekam-medik").html(content_rekam_medik(data));
+                $(".clean-sheet").removeClass("on-dutty-off");
             }, 500);
         },
     });
@@ -516,7 +558,7 @@ function content_info_member(data) {
                                 <div class="col-md-6 col-xs-6 col-sm-6">
                                     <button name="next_one" type="button"
                                         class="btn btn-info col-md-12 col-xs-12 col-sm-12 next-one-info" form="formRegistrasi"><em
-                                            class="fa fa-envelope"></em> Lanjutkan</button>
+                                            class="fa fa-arrow-right"></em> Lanjutkan</button>
                                 </div>
                             </div>
                         </div>
@@ -2366,9 +2408,10 @@ function load_formLeft() {
     });
 }
 
-function load_formLeftPeriksa() {
+function load_formLeftPeriksa(input) {
     var cont = $(".load-form-left-periksa");
     $(".display-future").addClass("blocking-content");
+
     cont.load(
         base_url + "/registrations/create?form=left_periksa",
         function (e, s, f) {
@@ -2396,6 +2439,19 @@ function load_formLeftPeriksa() {
                                 $("#f-load-rekam-medik-gigi")
                                     .removeClass("show")
                                     .addClass("hide");
+                                $("#f-load-ubah")
+                                    .removeClass("show")
+                                    .addClass("hide");
+
+                                $("button[name=next_one]")
+                                    .removeClass(
+                                        "next-two-info next-three-info"
+                                    )
+                                    .addClass("next-one-info");
+
+                                $("button[name=next_one]").html(
+                                    `<em class="fa fa-arrow-right"></em> Lanjutkan`
+                                );
                             } else if (li == 2) {
                                 $("#f-load-rekam-medik")
                                     .removeClass("show")
@@ -2403,6 +2459,33 @@ function load_formLeftPeriksa() {
                                 $("#f-load-rekam-medik-gigi")
                                     .removeClass("hide")
                                     .addClass("show");
+                                $("#f-load-ubah")
+                                    .removeClass("show")
+                                    .addClass("hide");
+
+                                $("button[name=next_one]")
+                                    .removeClass("next-one-info next-three-info")
+                                    .addClass("next-two-info");
+
+                                $("button[name=next_one]").html(
+                                    `<em class="fa fa-arrow-right"></em> Lanjutkan`
+                                );
+                            } else if (li == 3) {
+                                $("#f-load-rekam-medik")
+                                    .removeClass("show")
+                                    .addClass("hide");
+                                $("#f-load-rekam-medik-gigi")
+                                    .removeClass("show")
+                                    .addClass("hide");
+                                $("#f-load-ubah")
+                                    .removeClass("hide")
+                                    .addClass("show");
+
+                                $("button[name=next_one]")
+                                    .removeClass("next-one-info next-two-info")
+                                    .addClass("next-three-info");
+
+                                $("button[name=next_one]").html(`<em class="fa fa-envelope"></em> Simpan`)
                             }
 
                             $(".progressbar_order")
@@ -2416,6 +2499,7 @@ function load_formLeftPeriksa() {
                     );
 
                     load_formLeftPeriksaGigi();
+                    load_formUbahStep(input);
                 }, 500);
 
                 $("#f-load-rekam-medik").html(
@@ -2426,7 +2510,132 @@ function load_formLeftPeriksa() {
                     '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
                 );
 
+                $("#f-load-ubah").html(
+                    '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
+                );
+
                 form_attribut();
+            }
+        }
+    );
+}
+
+function load_formUbahStep(inputId) {
+    var cont = $("#f-load-ubah");
+    $(".display-future").addClass("blocking-content");
+    cont.load(
+        base_url + "/registrations/create?form=right",
+        function (e, s, f) {
+            if (s == "error") {
+                var fls = "Gagal memuat form!";
+                toastr.error(fls, "Oops!", {
+                    timeOut: 2000,
+                });
+                cont.html(fls);
+            } else {
+                $(".display-future").removeClass("blocking-content");
+                $(".button-action").removeClass("hide");
+
+                $(".load-row-layanan").html("");
+                $(".load-row-layanan-tambahan").html("");
+
+                setTimeout(function () {
+                    $(".load-form-left").find("form").remove();
+                    $(".clean-sheet").removeClass("on-dutty-off");
+                }, 1500);
+
+                $(".f-layanan-tambahan")
+                    .removeClass("hide")
+                    .removeAttr("style");
+
+                setTimeout(function () {
+                    //halo
+
+                    $(".load-form-left").append(
+                        '<div class="price-layanan-unique"></div>'
+                    );
+
+                    for (
+                        var rL = 1;
+                        rL <= inputId.data("layanan").length;
+                        rL++
+                    ) {
+                        $(".load-row-layanan").append(load_row_layanan(rL));
+                    }
+                    $(".load-row-layanan").append(load_row_layanan);
+
+                    $(".load-row-layanan-tambahan").append(
+                        load_row_layanan_tambahan
+                    );
+
+                    $("input[name=jumlah_orang]")
+                        .val(inputId.data("jum_org"))
+                        .trigger("change");
+
+                    $("select[name=room]")
+                        .val(inputId.data("ruang"))
+                        .trigger("change");
+
+                    $("input[name=dp]")
+                        .val(inputId.data("dp"))
+                        .trigger("change");
+                    $(".price-full")
+                        .html(inputId.data("total-biaya"))
+                        .trigger("change");
+
+                    setTimeout(function () {
+                        $(".select2-container").css({
+                            width: "100%",
+                        });
+                    }, 1000);
+
+                    if (inputId.data("reservasi") !== "") {
+                        var attr_ = $("button#show");
+                        attr_.attr("id", "hide");
+                        attr_
+                            .find("em")
+                            .removeClass("fa-question-circle")
+                            .trigger("change")
+                            .addClass("fa-check-circle");
+                        attr_
+                            .removeClass("btn-default")
+                            .trigger("change")
+                            .addClass("btn-success");
+
+                        $(".f-reservasi").html(f_reservasi());
+
+                        $(".datepicker").datepicker({
+                            format: "dd-mm-yyyy",
+                            startDate: "today",
+                        });
+                        var waktu = inputId.data("reservasi").split(" ");
+                        $("input[name=jam_reservasi]")
+                            .timepicker({
+                                showInputs: false,
+                                showMeridian: false,
+                                timeFormat: "HH:mm",
+                                step: 15,
+                            })
+                            .val(formatTime(waktu[1]))
+                            .trigger("change");
+                        select_("lokasi");
+                        $("select[name=lokasi_reservasi]").select2({
+                            placeholder: "Please select!",
+                            allowClear: true,
+                            theme: "bootstrap",
+                        });
+                        $("input[name=tgl_reservasi]")
+                            .val(formatDate(waktu[0]))
+                            .trigger("change");
+                        setTimeout(function () {
+                            $("select[name=lokasi_reservasi]")
+                                .val(inputId.data("lokasi"))
+                                .trigger("change");
+                        }, 700);
+                    }
+                }, 1000);
+
+                form_attribut_right();
             }
         }
     );
@@ -2549,7 +2758,58 @@ function load_gigi(param) {
                             itm.removeClass("ar-gg-active-part");
                         }
                     );
+
+                    $(".load-form-left-periksa").delegate(
+                        ".load-f-per-gigi",
+                        "click",
+                        function () {
+                            $("#formModalMontrgOrderPeriksaGigi").modal({
+                                backdrop: "static",
+                                keyboard: false,
+                            });
+
+                            load_formUbah();
+                        }
+                    );
                 }, 1000);
+            }
+        }
+    );
+}
+
+function load_formUbah() {
+    var cont = $(".load-form-periksa-gigi");
+    $(".display-future").addClass("blocking-content");
+
+    cont.load(
+        base_url + "/registrations/create?form=left_tindakan",
+        function (e, s, f) {
+            if (s == "error") {
+                var fls = "Gagal memuat form!";
+                toastr.error(fls, "Oops!", {
+                    timeOut: 2000,
+                });
+                cont.html(fls);
+            } else {
+                $(".display-future").removeClass("blocking-content");
+                $(".button-action").removeClass("hide");
+
+                setTimeout(function () {
+                    $(".select2-tindakan").select2({
+                        placeholder: "Please select!",
+                        allowClear: true,
+                        theme: "bootstrap",
+                    });
+
+                    $(".cancel-form-tindakan").on("click", function () {
+                        $("#formModalMontrgOrderPeriksaGigi").modal("hide");
+
+                        $(".modal").css({
+                            "overflow-x": "hidden",
+                            "overflow-y": "auto",
+                        });
+                    });
+                }, 800);
             }
         }
     );
@@ -2588,6 +2848,13 @@ function load_formRight(evv) {
                     .removeAttr("style");
 
                 form_attribut_right();
+
+                cont.prepend('<div id="f-load-rekam-medik"></div>');
+
+                setTimeout(function () {
+                    loadRekamMedik();
+                }, 1500);
+
                 submit(evv);
             }
         }
@@ -3068,6 +3335,11 @@ function data_attribut() {
     $("#newFilterStatusOrder").on("change", function () {
         getStatus_field_daterange();
     });
+
+    $("tbody").delegate(".to-change-content-serv", "click", function () {
+        $(".load-row-layanan").html("");
+        $(".load-row-layanan-tambahan").html("");
+    });
 }
 
 function fill_field_daterange(picker) {
@@ -3201,4 +3473,10 @@ $(document).ready(function () {
         .attr("data-date-end", rangeDate(1, "back"));
 
     load_data();
+});
+
+$("#formModalMontrgOrderPeriksaGigi").click(function (e) {
+    if (!$(e.target).closest(".modal").length) {
+        alert("click outside!");
+    }
 });

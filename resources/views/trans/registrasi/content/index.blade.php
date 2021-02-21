@@ -28,7 +28,7 @@
         <div class="box box-danger display-future">
             <div class="box-header with-border bg-info">
                 <i class="fa fa-list"></i>
-                <h3 class="box-title">Keluhan Tersedia <em class="text-danger">*</em></h3>
+                <h3 class="box-title">Keluhan Tersedia & Rekam Medik Umum <em class="text-danger">*</em></h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                             class="fa fa-minus"></i></button>

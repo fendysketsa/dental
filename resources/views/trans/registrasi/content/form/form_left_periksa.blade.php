@@ -15,3 +15,4 @@
 
 <div id="f-load-rekam-medik"></div>
 <div id="f-load-rekam-medik-gigi" class="hide"></div>
+<div id="f-load-ubah" class="hide"></div>

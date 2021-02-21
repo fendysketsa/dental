@@ -396,10 +396,20 @@ class OrderController extends Controller
         if (!empty($id)) :
             $dataTrans = DB::table($this->table)
                 ->where('id', $id)->get();
+
+            $dataLayanan = DB::table($this->table_detail)
+                ->select(
+                    DB::raw('GROUP_CONCAT(IF(layanan_id, layanan_id, 0)) as layanan'),
+                    DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
+                )
+                ->whereNull('paket_id')
+                ->where('transaksi_id', $id)->get();
+
         endif;
 
         return view('monitoring.order.content.form.modal.index_periksa', [
             'data' => !empty($id) ? $dataTrans : null,
+            'services' => !empty($id) ? $dataLayanan : null,
             'action' => route('registrations.update', $id)
         ]);
     }

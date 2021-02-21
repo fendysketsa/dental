@@ -1,7 +1,11 @@
 <form action="{{ $action }}" id="formRegistrasi"></form>
 @if(!empty($data))
-<input type="hidden" name="id" value="{{ $data[0]->id }}" data-member-id="{{ $data[0]->member_id }}"
-    form="formRegistrasi">
+<input type="hidden" name="id" value="{{ $data[0]->id }}" data-layanan="[{{ $services[0]->layanan }}]"
+    data-terapis="[{{ $services[0]->terapis }}]" data-lokasi="{{ $data[0]->lokasi_id }}"
+    data-reservasi="{{ $data[0]->waktu_reservasi }}" data-dp="{{ $data[0]->dp }}"
+    data-jum_org="{{ $data[0]->jumlah_orang }}" data-ruang="{{ $data[0]->room_id }}"
+    data-total-biaya="{{ RupiahFormat($data[0]->total_biaya) }}" data-member-id="{{ $data[0]->member_id }}"
+form="formRegistrasi">
 @endif
 
 <div class="load-form-modal-periksa">

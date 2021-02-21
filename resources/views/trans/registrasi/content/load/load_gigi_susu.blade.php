@@ -684,7 +684,7 @@
                 Gigi yang telah dipilih:
             </div>
             <div class="row col-md-3 mt-20">
-                <button class="btn btn-info col-md-12" data-toggle="modal" href="#formModalMontrgOrderPeriksaGigi">Pilih
+                <button class="btn btn-info col-md-12 load-f-per-gigi" data-toggle="modal" >Pilih
                     Tindakan</button>
             </div>
         </td>
