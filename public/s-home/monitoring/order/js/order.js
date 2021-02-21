@@ -459,15 +459,24 @@ function content_rekam_medik(data) {
     return html;
 }
 
-function loadRekamMedik() {
+function loadRekamMedik(ck) {
     $.ajax({
         url: base_url + "/registrations/rekam-medik/explore",
         method: "GET",
         dataType: "json",
         success: function (data) {
             setTimeout(() => {
+                if (ck && ck == "form-load") {
+                    $(".load-form-right").prepend(
+                        '<div id="f-load-rekam-medik"></div>'
+                    );
+                }
+
                 $("#f-load-rekam-medik").html(content_rekam_medik(data));
-                $(".clean-sheet").removeClass("on-dutty-off");
+
+                if (ck && ck == "form-load") {
+                    $(".clean-sheet").removeClass("on-dutty-off");
+                }
             }, 500);
         },
     });
@@ -2464,7 +2473,9 @@ function load_formLeftPeriksa(input) {
                                     .addClass("hide");
 
                                 $("button[name=next_one]")
-                                    .removeClass("next-one-info next-three-info")
+                                    .removeClass(
+                                        "next-one-info next-three-info"
+                                    )
                                     .addClass("next-two-info");
 
                                 $("button[name=next_one]").html(
@@ -2485,7 +2496,9 @@ function load_formLeftPeriksa(input) {
                                     .removeClass("next-one-info next-two-info")
                                     .addClass("next-three-info");
 
-                                $("button[name=next_one]").html(`<em class="fa fa-envelope"></em> Simpan`)
+                                $("button[name=next_one]").html(
+                                    `<em class="fa fa-envelope"></em> Simpan`
+                                );
                             }
 
                             $(".progressbar_order")
@@ -2849,10 +2862,8 @@ function load_formRight(evv) {
 
                 form_attribut_right();
 
-                cont.prepend('<div id="f-load-rekam-medik"></div>');
-
                 setTimeout(function () {
-                    loadRekamMedik();
+                    loadRekamMedik("form-load");
                 }, 1500);
 
                 submit(evv);
