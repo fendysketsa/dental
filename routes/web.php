@@ -527,9 +527,19 @@ Route::middleware(['auth' => 'role:super-admin|kasir|dokter'])->group(function (
         'edit', 'show'
     ]);
     //-----------------------------------------------------------------------------
+    Route::post('registrations/option', 'Reservation\ReservationController@_option');
+    Route::post('registrations/option/group', 'Reservation\ReservationController@_option_group');
+    Route::get('registrations/opt/{table}', 'Reservation\ReservationController@_opt');
+    Route::get('registrations/opts/{table}', 'Reservation\ReservationController@_opts');
+    Route::get('registrations/opt-terapis/{table}', 'Reservation\ReservationController@_optss');
+    Route::post('registrations/member/explore', 'Reservation\ReservationController@_detail');
+    Route::get('registrations/rekam-medik/explore', 'Reservation\ReservationController@_explore_rekam');
+    Route::post('registrations/member/generate', 'Reservation\ReservationController@_gen');
     Route::resource('registrations', 'Reservation\ReservationController', [
         'names' => [
+            'index' => 'registrations.index',
             'create' => 'registrations.create',
+            'update' => 'registrations.update'
         ]
     ])->except([
         'edit', 'show'
