@@ -526,6 +526,14 @@ Route::middleware(['auth' => 'role:super-admin|kasir|dokter'])->group(function (
     ])->except([
         'edit', 'show'
     ]);
+    //-----------------------------------------------------------------------------
+    Route::resource('registrations', 'Reservation\ReservationController', [
+        'names' => [
+            'create' => 'registrations.create',
+        ]
+    ])->except([
+        'edit', 'show'
+    ]);
 });
 
 Route::middleware(['auth' => 'role:owner'])->group(function () {
