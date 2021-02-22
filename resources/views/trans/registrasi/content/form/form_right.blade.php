@@ -116,10 +116,21 @@
         </div>
     </div> --}}
 
-    <div class="col-md-4"></div>
-    <div class="col-md-8 clean-sheet on-dutty-off">
+    <div class="col-md-12 clean-sheet on-dutty-off">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Pilih dokter ? <em class="text-danger">*</em></label>
+                    <div class="input-group input-group-sm col-xs-12 date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <select name="dokter" class="select2 input-group-sm form-control f-dokter" style="width: 100%;"
+                            form="formRegistrasi"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
                 {{-- <div class="form-group">
                     <label>DP ? <em class="text-danger">*</em></label>
                     <div class="input-group input-group-sm col-xs-12 date">
@@ -141,7 +152,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Berapa orang ? <em class="text-danger">*</em></label>
                     <div class="input-group input-group-sm col-xs-12 date">

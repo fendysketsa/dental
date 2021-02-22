@@ -422,6 +422,7 @@ function form_attribut_right() {
     select_("paket");
 
     select_("room");
+    select_("dokter");
 
     $("button.collap-paket").on("click", function (e) {
         var exp = $(this).attr("aria-expanded");
@@ -1223,7 +1224,7 @@ function select_(table, pkt) {
                         ? `data-harga="` + data[i].harga + `"`
                         : "";
 
-                if (table == "room" || table == "agama") {
+                if ((table == "room" || table == "agama" || table == "dokter")) {
                     html +=
                         `<option value='` +
                         data[i].id +
@@ -1252,6 +1253,13 @@ function select_(table, pkt) {
 
             if (table == "room") {
                 $(".f-room").select2({
+                    placeholder: "Please select!",
+                    theme: "bootstrap",
+                });
+            }
+
+            if (table == "dokter") {
+                $(".f-dokter").select2({
                     placeholder: "Please select!",
                     theme: "bootstrap",
                 });
@@ -1312,11 +1320,9 @@ function content_rekam_medik(data) {
 
             var moreInput = !i.more_input
                 ? ""
-                : "<input type='text' class='form-control mt-5' placeholder='" +
+                : `<input type="text" class="form-control mt-5"  form="formRegistrasi" placeholder="` +
                   plcInput +
-                  "' name='more_name[" +
-                  e +
-                  "]'>";
+                  `" name="rekam_more[` + e + `]" >`;
 
             if (i.option) {
                 $.each(i.option.split("\n"), function (f, g) {
@@ -1327,7 +1333,7 @@ function content_rekam_medik(data) {
                         (typeInput == "radio" && f == 0 ? "checked" : "") +
                         ` type="` +
                         typeInput +
-                        `" name="nama[` +
+                        `" name="rekam[` +
                         e +
                         `]" value="` +
                         g +
@@ -1337,7 +1343,7 @@ function content_rekam_medik(data) {
                         e +
                         `" data-ck-desc="` +
                         (!i.more_input_label ? "" : i.more_input_label) +
-                        `" form="formBank"> <label style="margin-right:20px;" for="` +
+                        `" form="formRegistrasi"> <label style="margin-right:20px;" for="` +
                         e +
                         `">` +
                         g +

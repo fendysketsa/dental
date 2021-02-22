@@ -41,6 +41,8 @@ class OrderController extends Controller
             'lokasi_id' => $request->lokasi_reservasi,
             'waktu_reservasi' => $wak_res,
             'dp' => 0,
+            'room_id' => $request->room,
+            'dokter_id' => $request->dokter,
             //'paket_id' => $request->paket,
             'status' => 2,
         ];
@@ -58,11 +60,15 @@ class OrderController extends Controller
         $message = array(
             'sno_member' => 'required|not_in:0',
             'jumlah_orang' => 'required',
+            'dokter' => 'required|not_in:0',
+            'room' => 'required|not_in:0',
         );
 
         $message_inp = array(
             'ino_member' => 'required|unique:member,no_member',
             'jumlah_orang' => 'required',
+            'dokter' => 'required|not_in:0',
+            'room' => 'required|not_in:0',
         );
 
         $message_paket = array(
@@ -89,6 +95,8 @@ class OrderController extends Controller
             'paket.required' => 'Bidang pilihan :attribute wajib dipilih',
             'layanan.required' => 'Bidang pilihan :attribute wajib dipilih',
             'terapis.required' => 'Bidang pilihan :attribute wajib dipilih',
+            'dokter.required' => 'Bidang pilihan dokter wajib dipilih',
+            'room.required' => 'Bidang pilihan ruangan wajib dipilih',
         ];
 
         $fail_form1 = $request->has('paket') ? array_merge($message_paket, $message_terapis) : array_merge($message_layanan, $message_terapis);

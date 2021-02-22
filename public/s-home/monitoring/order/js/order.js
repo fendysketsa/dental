@@ -182,6 +182,10 @@ function load_formEdit() {
                             .val(inputId.data("jum_org"))
                             .trigger("change");
 
+                        $("select[name=dokter]")
+                            .val(inputId.data("dokter"))
+                            .trigger("change");
+
                         $("select[name=room]")
                             .val(inputId.data("ruang"))
                             .trigger("change");
@@ -1713,6 +1717,7 @@ function form_attribut_right() {
     );
 
     select_("room");
+    select_("dokter");
 }
 
 function load_row_paket(idPket) {
@@ -2385,13 +2390,25 @@ function select_(table, pkt) {
                     id_ +
                     `'>` +
                     pegawai +
-                    (table == "agama" || table == "room"
+                    (table == "agama" || table == "room" || table == "dokter" || table == 'diagnosis' || table == 'tindakan'
                         ? data[i].name
                         : data[i].nama) +
                     `</option>`;
             }
             var table_ = table == "pegawai" ? "terapis" : table;
-            $("select.f-" + table_).html(html);
+
+            if (table == 'diagnosis' || table == 'tindakan') {
+                $("select[name=" + table_ + "]").html(html);
+            } else {
+                $("select.f-" + table_).html(html);
+            }
+
+            if (table == "dokter") {
+                $(".f-dokter").select2({
+                    placeholder: "Please select!",
+                    theme: "bootstrap",
+                });
+            }
 
             if (table == "room") {
                 $(".f-room").select2({
@@ -2594,6 +2611,10 @@ function load_formUbahStep(inputId) {
 
                     $("input[name=jumlah_orang]")
                         .val(inputId.data("jum_org"))
+                        .trigger("change");
+
+                    $("select[name=dokter]")
+                        .val(inputId.data("dokter"))
                         .trigger("change");
 
                     $("select[name=room]")
@@ -2819,6 +2840,9 @@ function load_formUbah() {
                 $(".button-action").removeClass("hide");
 
                 setTimeout(function () {
+                    select_('diagnosis')
+                    select_('tindakan')
+
                     $(".select2-tindakan").select2({
                         placeholder: "Please select!",
                         allowClear: true,

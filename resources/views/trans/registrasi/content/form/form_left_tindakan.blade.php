@@ -12,14 +12,14 @@
                             <div class="col-md-12">
                                 <div class="form-group input-group-sm">
                                     <label>Diagnosis: <em class="text-danger">*</em></label>
-                                    <select name="cabang" class="form-control select2-tindakan" style="width: 100%;"
+                                    <select name="diagnosis" class="form-control select2-tindakan" style="width: 100%;"
                                         form="formProduk"></select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group input-group-sm">
                                     <label>Tindakan: <em class="text-danger">*</em></label>
-                                    <select name="kategori" class="form-control select2-tindakan" style="width: 100%;"
+                                    <select name="tindakan" class="form-control select2-tindakan" style="width: 100%;"
                                         form="formProduk"></select>
                                 </div>
                             </div>

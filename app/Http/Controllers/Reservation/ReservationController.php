@@ -18,6 +18,8 @@ class ReservationController extends Controller
     protected $table_detail = 'transaksi_detail';
 
     protected $table_member = 'member';
+    protected $table_diagnosis = 'diagnosis';
+    protected $table_rekam = 'transaksi_rekam';
     protected $table_layanan = 'layanan';
     protected $table_lokasi = 'lokasi';
     protected $table_paket = 'paket';
@@ -46,6 +48,7 @@ class ReservationController extends Controller
             //'paket_id' => $request->paket,
             'agent' => 'Web Based',
             'room_id' => $request->room,
+            'dokter_id' => $request->dokter,
             'status_pembayaran' => 'pendaftaran',
             'status' => 2,
         ];
@@ -62,12 +65,14 @@ class ReservationController extends Controller
         $message = array(
             'sno_member' => 'required|not_in:0',
             'jumlah_orang' => 'required',
+            'dokter' => 'required|not_in:0',
             'room' => 'required|not_in:0',
         );
 
         $message_inp = array(
             'ino_member' => 'required|unique:member,no_member',
             'jumlah_orang' => 'required',
+            'dokter' => 'required|not_in:0',
             'room' => 'required|not_in:0',
         );
 
@@ -80,7 +85,7 @@ class ReservationController extends Controller
         );
 
         $message_terapis = array(
-            'ruangan' => 'not_in:0',
+            'terapis' => 'not_in:0',
         );
 
         $message_reserv = array(
@@ -94,7 +99,8 @@ class ReservationController extends Controller
             'lokasi_reservasi.required' => 'Bidang pilihan :attribute wajib dipilih',
             'paket.required' => 'Bidang pilihan :attribute wajib dipilih',
             'layanan.required' => 'Bidang pilihan :attribute wajib dipilih',
-            'ruangan.required' => 'Bidang pilihan :attribute wajib dipilih',
+            'terapis.required' => 'Bidang pilihan :attribute wajib dipilih',
+            'dokter.required' => 'Bidang pilihan dokter wajib dipilih',
             'room.required' => 'Bidang pilihan ruangan wajib dipilih',
         ];
 
@@ -321,9 +327,36 @@ class ReservationController extends Controller
             return abort(403);
         }
 
-        if (in_array($request->table, array('agama', 'room', $this->table_lokasi, $this->table_member, $this->table_layanan, $this->table_paket, $this->table_pegawai))) {
+        if (in_array($request->table, array('tindakan', 'diagnosis', 'agama', 'room', 'dokter', $this->table_lokasi, $this->table_member, $this->table_layanan, $this->table_paket, $this->table_pegawai))) {
             if ($request->table == 'terapis') {
                 $data = DB::table($request->table)->where('role', 3)->get();
+            } else if ($request->table == 'dokter') {
+                $get_data = DB::table($this->table_pegawai)->where('role', 3)->get();
+                $data = array();
+                foreach ($get_data as $row) {
+                    array_push($data, [
+                        'id' => $row->id,
+                        'name' => $row->nama
+                    ]);
+                }
+            } else if ($request->table == 'diagnosis') {
+                $get_data = DB::table($this->table_diagnosis)->where('status', 1)->get();
+                $data = array();
+                foreach ($get_data as $row) {
+                    array_push($data, [
+                        'id' => $row->id,
+                        'name' => $row->nama
+                    ]);
+                }
+            } else if ($request->table == 'tindakan') {
+                $get_data = DB::table($this->table_layanan)->get();
+                $data = array();
+                foreach ($get_data as $row) {
+                    array_push($data, [
+                        'id' => $row->id,
+                        'name' => $row->nama
+                    ]);
+                }
             } else {
                 if ($request->table == 'layanan' & !empty($request->paket_id)) {
                     $data_paket_layanan = DB::table($request->table)
@@ -549,6 +582,24 @@ class ReservationController extends Controller
                     'created_at' => date("Y-m-d H:i:s"),
                 ]);
 
+                if (!empty($_POST['rekam'])) {
+                    $newP = [];
+                    foreach ($_POST['rekam'] as $index => $p) {
+                        $dataRekam = array();
+                        $newP[$index] .= $p;
+
+                        if ($newP[$index]) {
+                            $dataRekam[] = array(
+                                'transaksi_id' => $transId,
+                                'name' => $newP[$index],
+                                'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
+                                'created_at' => date("Y-m-d H:i:s"),
+                            );
+                            DB::table($this->table_rekam)->insert($dataRekam);
+                        }
+                    }
+                }
+
                 if ($transId) {
                     $mess['msg'] = 'Data sukses ditambahkan';
                     $mess['cd'] = 200;
@@ -674,6 +725,19 @@ class ReservationController extends Controller
                                 'hutang_biaya' => $total_harga - $request->dp,
                                 'created_at' => date("Y-m-d H:i:s"),
                             ]);
+
+                            if (!empty($_POST['rekam'])) {
+                                foreach ($_POST['rekam'] as $index => $p) {
+                                    $dataRekam = array();
+                                    $dataRekam[] = array(
+                                        'transaksi_id' => $transId,
+                                        'name' => $p,
+                                        'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
+                                        'created_at' => date("Y-m-d H:i:s"),
+                                    );
+                                    DB::table($this->table_rekam)->insert($dataRekam);
+                                }
+                            }
 
                             if ($transId) {
                                 $mess['msg'] = 'Data sukses ditambahkan';
