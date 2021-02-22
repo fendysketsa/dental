@@ -583,12 +583,12 @@ class ReservationController extends Controller
                 ]);
 
                 if (!empty($_POST['rekam'])) {
-                    $newP = [];
+                    // $newP = [];
                     foreach ($_POST['rekam'] as $index => $p) {
                         $dataRekam = array();
-                        $newP[$index] .= $p;
+                        // $newP[$index] .= $p;
 
-                        if ($newP[$index]) {
+                        // if ($newP[$index]) {
                             $dataRekam[] = array(
                                 'transaksi_id' => $transId,
                                 'name' => $newP[$index],
@@ -596,7 +596,7 @@ class ReservationController extends Controller
                                 'created_at' => date("Y-m-d H:i:s"),
                             );
                             DB::table($this->table_rekam)->insert($dataRekam);
-                        }
+                        // }
                     }
                 }
 
