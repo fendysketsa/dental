@@ -356,6 +356,20 @@ function load_formEdit() {
                                     }
                                 );
 
+                                setTimeout(function () {
+                                    $(".load-informasi-right-periksa").delegate(
+                                        ".next-three-info",
+                                        "click",
+                                        function () {
+                                            $(this).on("click", function () {
+                                                $(
+                                                    "#formModalMontrgOrderPeriksa"
+                                                ).modal("hide");
+                                            });
+                                        }
+                                    );
+                                }, 500);
+
                                 $(".on-label-click").on("click", function () {
                                     var num = $(this).data("ck");
                                     var pos = $(this).data("ck-on");
@@ -1827,6 +1841,8 @@ function load_row_layanan(idLayanan, idTerapis) {
     var thisElem = $(".n-f-layanan");
     var numb = thisElem.length + 1;
 
+    var cekTh = thisElem.closest(".load-form-table-layanan").find(".opt-harga");
+
     var html = `<tr class="n-f-layanan">`;
     html +=
         `<td class="nom-layanan td-height-img text-center">` + numb + `</td>`;
@@ -1848,14 +1864,17 @@ function load_row_layanan(idLayanan, idTerapis) {
         `
                 </div>
             </td>`;
-    // html +=
-    //     `<td class="select-terapis td-height-img">
-    //             <div class="input-group-sm">
-    //                 <select name="terapis[]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-terapis-` +
-    //     numb +
-    //     `"></select>
-    //             </div>
-    //         </td>`;
+
+    if (cekTh) {
+        html +=
+            `<td class="select-terapis td-height-img">
+                    <div class="input-group-sm">
+                        <input name="terapis[]" placeholder="Harga" type="rupiah" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-terapis-` +
+            numb +
+            `"></select>
+                    </div>
+                </td>`;
+    }
 
     html += `<td class="td-height-img text-center"><em class="fa fa-times remove-row-layanan text-danger"></em></td>`;
     html += `</tr>`;
@@ -2390,14 +2409,18 @@ function select_(table, pkt) {
                     id_ +
                     `'>` +
                     pegawai +
-                    (table == "agama" || table == "room" || table == "dokter" || table == 'diagnosis' || table == 'tindakan'
+                    (table == "agama" ||
+                    table == "room" ||
+                    table == "dokter" ||
+                    table == "diagnosis" ||
+                    table == "tindakan"
                         ? data[i].name
                         : data[i].nama) +
                     `</option>`;
             }
             var table_ = table == "pegawai" ? "terapis" : table;
 
-            if (table == 'diagnosis' || table == 'tindakan') {
+            if (table == "diagnosis" || table == "tindakan") {
                 $("select[name=" + table_ + "]").html(html);
             } else {
                 $("select.f-" + table_).html(html);
@@ -2565,7 +2588,7 @@ function load_formUbahStep(inputId) {
     var cont = $("#f-load-ubah");
     $(".display-future").addClass("blocking-content");
     cont.load(
-        base_url + "/registrations/create?form=right",
+        base_url + "/registrations/create?form=right&step=ya",
         function (e, s, f) {
             if (s == "error") {
                 var fls = "Gagal memuat form!";
@@ -2840,8 +2863,8 @@ function load_formUbah() {
                 $(".button-action").removeClass("hide");
 
                 setTimeout(function () {
-                    select_('diagnosis')
-                    select_('tindakan')
+                    select_("diagnosis");
+                    select_("tindakan");
 
                     $(".select2-tindakan").select2({
                         placeholder: "Please select!",
@@ -2888,7 +2911,7 @@ function load_formRight(evv) {
     var cont = $(".load-form-right");
     $(".display-future").addClass("blocking-content");
     cont.load(
-        base_url + "/registrations/create?form=right",
+        base_url + "/registrations/create?form=right&step=ya",
         function (e, s, f) {
             if (s == "error") {
                 var fls = "Gagal memuat form!";
