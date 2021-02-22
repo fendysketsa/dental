@@ -422,7 +422,7 @@ class ReservationController extends Controller
     public function rulesEmail($id = false)
     {
         $validator = Validasi::make(['email' => $id], [
-            'email' => (!is_numeric($id) || empty($id)) ?  'email|unique:users,email' : 'email|unique:users,email,' . $id
+            'email' => (!is_numeric($id) || empty($id)) ?  'unique:users,email' : 'unique:users,email,' . $id
         ]);
 
         if ($validator->fails()) {

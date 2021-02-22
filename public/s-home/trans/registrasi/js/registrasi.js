@@ -865,10 +865,10 @@ function load_avail_layanan(table, numb, p_id) {
                         : "";
 
                 if (table == "layanan") {
-                    html += `<optgroup label="` + data[i].nama + `">`;
-                    for (var ii = 0; ii < data[i].data.length; ii++) {
+                    // html += `<optgroup label="` + data[i].nama + `">`;
+                    // for (var ii = 0; ii < data[i].data.length; ii++) {
                         var harga_ =
-                            table == "layanan"
+                            table == "layanan_"
                                 ? `data-harga='` + data[i].data[ii].harga + `'`
                                 : "";
                         html +=
@@ -877,12 +877,14 @@ function load_avail_layanan(table, numb, p_id) {
                             ` alt="` +
                             data[i].nama +
                             `" value='` +
-                            data[i].data[ii].id +
+                            // data[i].data[ii].id +
+                            data[i].id +
                             `'>` +
-                            data[i].data[ii].nama +
+                            // data[i].data[ii].nama +
+                            data[i].nama +
                             `</option>`;
-                    }
-                    html += `</optgroup>`;
+                    // }
+                    // html += `</optgroup>`;
                 }
 
                 if (table != "layanan") {
