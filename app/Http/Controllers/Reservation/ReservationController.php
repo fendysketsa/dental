@@ -589,13 +589,13 @@ class ReservationController extends Controller
                         // $newP[$index] .= $p;
 
                         // if ($newP[$index]) {
-                            $dataRekam[] = array(
-                                'transaksi_id' => $transId,
-                                'name' => $p,
-                                'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
-                                'created_at' => date("Y-m-d H:i:s"),
-                            );
-                            DB::table($this->table_rekam)->insert($dataRekam);
+                        $dataRekam[] = array(
+                            'transaksi_id' => $transId,
+                            'name' => $p,
+                            'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
+                            'created_at' => date("Y-m-d H:i:s"),
+                        );
+                        DB::table($this->table_rekam)->insert($dataRekam);
                         // }
                     }
                 }
@@ -622,21 +622,23 @@ class ReservationController extends Controller
                         die;
                     }
 
-                    if ($cekMailUser->count() > 0 and !empty($cekMailUser->first()->email != $request->email)) {
+                    if ($cekMailUser->count() > 0 && (!empty($cekMailUser->first()->email) && $cekMailUser->first()->email != $request->email)) {
                         $mess['msg'] = 'Email telah terdaftar sebagai member!.<br>Tidak diperkenankan merubah email!.';
                         $mess['cd'] = 500;
                         echo json_encode($mess);
                         return false;
                     } else {
 
-                        if (!empty($request->email) && !empty($cekMailUser->first()->user_id)) {
-                            if (!$this->rulesEmail($cekMailUser->first()->user_id)) {
-                                $mess['msg'] = 'Email ini telah terdaftar dimember lain!';
-                                $mess['cd'] = 500;
-                                echo json_encode($mess);
-                                die;
-                            }
-                        }
+                        $this->rulesEmail($cekMailUser->first()->user_id);
+
+                        // if (!empty($request->email) && !empty($cekMailUser->first()->user_id)) {
+                        //     if ($this->rulesEmail($cekMailUser->first()->user_id)) {
+                        //         $mess['msg'] = 'Email ini telah terdaftar dimember lain!';
+                        //         $mess['cd'] = 500;
+                        //         echo json_encode($mess);
+                        //         die;
+                        //     }
+                        // }
 
                         $member = DB::table($this->table_member)->where('id', $request->sno_member);
 
