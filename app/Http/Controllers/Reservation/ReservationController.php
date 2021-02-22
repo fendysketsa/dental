@@ -591,7 +591,7 @@ class ReservationController extends Controller
                         // if ($newP[$index]) {
                             $dataRekam[] = array(
                                 'transaksi_id' => $transId,
-                                'name' => $newP[$index],
+                                'name' => $p,
                                 'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
                                 'created_at' => date("Y-m-d H:i:s"),
                             );
