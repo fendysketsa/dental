@@ -2857,6 +2857,15 @@ function load_formUbah() {
                             "overflow-y": "auto",
                         });
                     });
+
+                    $(".save-form-tindakan").on("click", function () {
+                        $("#formModalMontrgOrderPeriksaGigi").modal("hide");
+
+                        $(".modal").css({
+                            "overflow-x": "hidden",
+                            "overflow-y": "auto",
+                        });
+                    });
                 }, 800);
             }
         }

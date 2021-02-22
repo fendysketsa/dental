@@ -66,7 +66,7 @@
                                         Cancel</a>
                                 </div>
                                 <div class="col-md-6 col-xs-6 col-sm-6">
-                                    <button type="submit" class="btn btn-info col-md-12 col-xs-12 col-sm-12"
+                                    <button type="submit" class="btn btn-info col-md-12 col-xs-12 col-sm-12 save-form-tindakan"
                                         form="formSlide"><em class="fa fa-envelope"></em> Save</button>
                                 </div>
                             </div>
