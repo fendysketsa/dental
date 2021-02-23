@@ -1416,15 +1416,14 @@ function load_formRight() {
                 $(".button-action").removeClass("hide");
                 form_attribut_right();
 
+                $(".noMember").addClass("on-dutty-off loading-member-reg");
+
                 cont.prepend(
                     '<div id="f-load-rekam-medik" class="m-b-2"><em class="fa fa-spin fa-spinner"></em> Loading...</div>'
                 );
 
-                setTimeout(function () {
-                    loadRekamMedik();
-                }, 1500);
-
                 setTimeout(() => {
+                    loadRekamMedik();
                     submit();
                 }, 500);
             }
