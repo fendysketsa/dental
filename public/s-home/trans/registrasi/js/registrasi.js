@@ -619,6 +619,10 @@ function form_attribut_right() {
                 });
         }
     );
+
+    setTimeout(function () {
+        $(".noMember").addClass("on-dutty-off loading-member-reg");
+    }, 500);
 }
 
 function load_row_paket() {
@@ -867,22 +871,22 @@ function load_avail_layanan(table, numb, p_id) {
                 if (table == "layanan") {
                     // html += `<optgroup label="` + data[i].nama + `">`;
                     // for (var ii = 0; ii < data[i].data.length; ii++) {
-                        var harga_ =
-                            table == "layanan_"
-                                ? `data-harga='` + data[i].data[ii].harga + `'`
-                                : "";
-                        html +=
-                            `<option ` +
-                            harga_ +
-                            ` alt="` +
-                            data[i].nama +
-                            `" value='` +
-                            // data[i].data[ii].id +
-                            data[i].id +
-                            `'>` +
-                            // data[i].data[ii].nama +
-                            data[i].nama +
-                            `</option>`;
+                    var harga_ =
+                        table == "layanan_"
+                            ? `data-harga='` + data[i].data[ii].harga + `'`
+                            : "";
+                    html +=
+                        `<option ` +
+                        harga_ +
+                        ` alt="` +
+                        data[i].nama +
+                        `" value='` +
+                        // data[i].data[ii].id +
+                        data[i].id +
+                        `'>` +
+                        // data[i].data[ii].nama +
+                        data[i].nama +
+                        `</option>`;
                     // }
                     // html += `</optgroup>`;
                 }
@@ -1226,7 +1230,7 @@ function select_(table, pkt) {
                         ? `data-harga="` + data[i].harga + `"`
                         : "";
 
-                if ((table == "room" || table == "agama" || table == "dokter")) {
+                if (table == "room" || table == "agama" || table == "dokter") {
                     html +=
                         `<option value='` +
                         data[i].id +
@@ -1324,7 +1328,9 @@ function content_rekam_medik(data) {
                 ? ""
                 : `<input type="text" class="form-control mt-5"  form="formRegistrasi" placeholder="` +
                   plcInput +
-                  `" name="rekam_more[` + e + `]" >`;
+                  `" name="rekam_more[` +
+                  e +
+                  `]" >`;
 
             if (i.option) {
                 $.each(i.option.split("\n"), function (f, g) {
@@ -1394,6 +1400,8 @@ function loadRekamMedik() {
             setTimeout(() => {
                 $("#f-load-rekam-medik").removeClass("m-b-2");
                 $("#f-load-rekam-medik").html(content_rekam_medik(data));
+
+                $(".noMember").removeClass("on-dutty-off loading-member-reg");
             }, 500);
         },
     });
@@ -1415,8 +1423,6 @@ function load_formRight() {
                 $(".display-future").removeClass("blocking-content");
                 $(".button-action").removeClass("hide");
                 form_attribut_right();
-
-                $(".noMember").addClass("on-dutty-off loading-member-reg");
 
                 cont.prepend(
                     '<div id="f-load-rekam-medik" class="m-b-2"><em class="fa fa-spin fa-spinner"></em> Loading...</div>'
