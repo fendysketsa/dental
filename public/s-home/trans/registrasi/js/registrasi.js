@@ -1341,9 +1341,10 @@ function content_rekam_medik(data) {
                         (typeInput == "radio" && f == 0 ? "checked" : "") +
                         ` type="` +
                         typeInput +
-                        `" name="rekam[` +
-                        e +
-                        `]" value="` +
+                        (typeInput == "radio"
+                            ? `" name="rekam[` + e + `]" `
+                            : `" name="rekam[` + e + `][` + f + `]" `) +
+                        `value="` +
                         g +
                         `" data-ck="` +
                         f +

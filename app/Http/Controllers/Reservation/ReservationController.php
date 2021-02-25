@@ -464,7 +464,6 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
-
         $mess = null;
         $this->validated($mess, $request);
         $total_harga = 0;
@@ -582,22 +581,28 @@ class ReservationController extends Controller
                     'created_at' => date("Y-m-d H:i:s"),
                 ]);
 
+                $dataRekam = array();
                 if (!empty($_POST['rekam'])) {
-                    // $newP = [];
                     foreach ($_POST['rekam'] as $index => $p) {
-                        $dataRekam = array();
-                        // $newP[$index] .= $p;
+                        $Name[$index] = null;
+                        if (is_array($_POST['rekam'][$index]) && count($_POST['rekam'][$index]) > 1) {
+                            foreach ($_POST['rekam'][$index] as $rekam) {
+                                $Name[$index] .= $rekam;
+                            }
+                            $Name[$index] = json_encode($Name[$index], true);
+                        } else {
+                            $Name[$index] = $p;
+                        }
 
-                        // if ($newP[$index]) {
-                        $dataRekam[] = array(
+                        array_push($dataRekam, array(
                             'transaksi_id' => $transId,
-                            'name' => $p,
+                            'name' => $Name[$index],
                             'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
                             'created_at' => date("Y-m-d H:i:s"),
-                        );
-                        DB::table($this->table_rekam)->insert($dataRekam);
-                        // }
+                        ));
                     }
+
+                    DB::table($this->table_rekam)->insert($dataRekam);
                 }
 
                 if ($transId) {
@@ -728,17 +733,28 @@ class ReservationController extends Controller
                                 'created_at' => date("Y-m-d H:i:s"),
                             ]);
 
+                            $dataRekam = array();
                             if (!empty($_POST['rekam'])) {
                                 foreach ($_POST['rekam'] as $index => $p) {
-                                    $dataRekam = array();
-                                    $dataRekam[] = array(
+                                    $Name[$index] = null;
+                                    if (is_array($_POST['rekam'][$index]) && count($_POST['rekam'][$index]) > 1) {
+                                        foreach ($_POST['rekam'][$index] as $rekam) {
+                                            $Name[$index] .= $rekam;
+                                        }
+                                        $Name[$index] = json_encode($Name[$index], true);
+                                    } else {
+                                        $Name[$index] = $p;
+                                    }
+
+                                    array_push($dataRekam, array(
                                         'transaksi_id' => $transId,
-                                        'name' => $p,
+                                        'name' => $Name[$index],
                                         'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
                                         'created_at' => date("Y-m-d H:i:s"),
-                                    );
-                                    DB::table($this->table_rekam)->insert($dataRekam);
+                                    ));
                                 }
+
+                                DB::table($this->table_rekam)->insert($dataRekam);
                             }
 
                             if ($transId) {
