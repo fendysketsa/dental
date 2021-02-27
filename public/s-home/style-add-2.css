@@ -54,6 +54,14 @@
     padding: 20px;
 }
 
+.main-table-gigi-susu {
+    width: 580px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    border-collapse: unset;
+    padding: 20px;
+}
+
 .table-main {
     transform: rotate(45deg);
     width: 44px;
@@ -147,9 +155,22 @@
     text-align: center;
 }
 
-.img-gigi img {
-    width: 45px;
-    height: 115px;
+.img-gigi-bottom {
+    vertical-align: bottom;
+    height: 100px;
+}
+
+.img-gigi-top {
+    vertical-align: top;
+    height: 140px;
+}
+
+.main-susu-margin {
+    margin: 17px 4px !important;
+}
+
+.part-susu-margin {
+    margin: 26.5px 13.5px !important;
 }
 
 .table-part {

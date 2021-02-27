@@ -19,6 +19,8 @@ class OrderController extends Controller
     protected $table = 'transaksi';
     protected $table_produk = 'produk';
     protected $table_detail = 'transaksi_detail';
+    protected $table_tambahan = 'transaksi_tambahan';
+    protected $table_rekam = 'transaksi_rekam';
     protected $table_member = 'member';
     protected $table_pegawai = 'pegawai';
     protected $table_layanan = 'layanan';
@@ -45,6 +47,16 @@ class OrderController extends Controller
             'dokter_id' => $request->dokter,
             //'paket_id' => $request->paket,
             'status' => 2,
+        ];
+    }
+
+    public function fieldsPeriksa($request)
+    {
+        return [
+            'jumlah_orang' => $request->jumlah_orang,
+            'dp' => 0,
+            'room_id' => $request->room,
+            'dokter_id' => $request->dokter,
         ];
     }
 
@@ -408,17 +420,37 @@ class OrderController extends Controller
             $dataLayanan = DB::table($this->table_detail)
                 ->select(
                     DB::raw('GROUP_CONCAT(IF(layanan_id, layanan_id, 0)) as layanan'),
+                    DB::raw('GROUP_CONCAT(IF(harga_fix, harga_fix, 0)) as price_fix'),
                     DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
                 )
                 ->whereNull('paket_id')
                 ->where('transaksi_id', $id)->get();
+
+            $dataLayananTambahan = DB::table($this->table_tambahan)
+                ->select('name', 'price')
+                ->where('transaksi_id', $id)->get();
+
+            $dataRekam_ = DB::table($this->table_rekam)
+                ->select('id', 'name', 'more_keterangan', 'position')
+                ->where('transaksi_id', $id)
+                ->orderBy('position', 'ASC')
+                ->get();
+
+            $dataRekam = array();
+            foreach ($dataRekam_ as $r) {
+                $dataRekam[$r->position]['position'] = $r->position;
+                $dataRekam[$r->position]['name'] = $r->name;
+                $dataRekam[$r->position]['more'] = $r->more_keterangan;
+            }
 
         endif;
 
         return view('monitoring.order.content.form.modal.index_periksa', [
             'data' => !empty($id) ? $dataTrans : null,
             'services' => !empty($id) ? $dataLayanan : null,
-            'action' => route('registrations.update', $id)
+            'services_add' => !empty($id) ? $dataLayananTambahan : null,
+            'rekam' => !empty($id) ? json_encode($dataRekam, true) : null,
+            'action' => ""
         ]);
     }
 
@@ -431,10 +463,28 @@ class OrderController extends Controller
             $dataLayanan = DB::table($this->table_detail)
                 ->select(
                     DB::raw('GROUP_CONCAT(IF(layanan_id, layanan_id, 0)) as layanan'),
+                    DB::raw('GROUP_CONCAT(IF(harga_fix, harga_fix, 0)) as price_fix'),
                     DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
                 )
                 ->whereNull('paket_id')
                 ->where('transaksi_id', $id)->get();
+
+            $dataLayananTambahan = DB::table($this->table_tambahan)
+                ->select('name', 'price')
+                ->where('transaksi_id', $id)->get();
+
+            $dataRekam_ = DB::table($this->table_rekam)
+                ->select('id', 'name', 'more_keterangan', 'position')
+                ->where('transaksi_id', $id)
+                ->orderBy('position', 'ASC')
+                ->get();
+
+            $dataRekam = array();
+            foreach ($dataRekam_ as $r) {
+                $dataRekam[$r->position]['position'] = $r->position;
+                $dataRekam[$r->position]['name'] = $r->name;
+                $dataRekam[$r->position]['more'] = $r->more_keterangan;
+            }
 
             $dataPaketLayanan = DB::table($this->table_detail)
                 ->select(
@@ -465,6 +515,8 @@ class OrderController extends Controller
         return view('monitoring.order.content.form.modal.index', [
             'data' => !empty($id) ? $dataTrans : null,
             'services' => !empty($id) ? $dataLayanan : null,
+            'services_add' => !empty($id) ? $dataLayananTambahan : null,
+            'rekam' => !empty($id) ? json_encode($dataRekam, true) : null,
             'posisi' => !empty($id) ? $dataPaketLayananPosisi : null,
             'pktservices' => !empty($id) ? $dataPaketLayanan : null,
             'paket' => !empty($id) ? $dataPaket : null,
@@ -513,6 +565,146 @@ class OrderController extends Controller
                 return $random;
             }
         }
+    }
+
+    public function storePeriksa(Request $request)
+    {
+        $mess = null;
+
+        $total_harga = 0;
+        DB::transaction(function () use ($request, $mess, $total_harga) {
+
+            DB::table($this->table)
+                ->where('id', $request->id)
+                ->update($this->fieldsPeriksa($request));
+
+            if ($request->has('layanan')) {
+                DB::table('transaksi_detail')
+                    ->where('transaksi_id', $request->id)
+                    ->whereNull('paket_id')
+                    ->delete();
+                foreach ($request->layanan as $num => $lay) {
+                    if (!empty($lay)) {
+                        $dataDetailIns2 = array();
+                        $dataDetailIns2[] = array(
+                            'transaksi_id' => $request->id,
+                            'layanan_id' => $lay,
+                            'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
+                            'kuantitas' => null,
+                            'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
+                            'harga_fix' => empty($request->harga_custom[$num]) ? null : unRupiahFormat($request->harga_custom[$num]),
+                            'created_at' => date("Y-m-d H:i:s"),
+                        );
+                        DB::table($this->table_detail)->insert($dataDetailIns2);
+                    }
+                }
+            }
+
+            if (!empty($request->layanan_tambahan)) {
+                DB::table('transaksi_tambahan')
+                    ->where('transaksi_id', $request->id)
+                    ->delete();
+
+                foreach ($request->layanan_tambahan as $num => $layTam) {
+                    if (!empty($layTam)) {
+                        $dataTambahan = array();
+                        $dataTambahan[] = array(
+                            'transaksi_id' => $request->id,
+                            'name' => $layTam,
+                            'price' => empty($request->harga_tambahan[$num]) ? null : unRupiahFormat($request->harga_tambahan[$num]),
+                            'created_at' => date("Y-m-d H:i:s"),
+                            'updated_at' => date("Y-m-d H:i:s"),
+                        );
+                        DB::table($this->table_tambahan)->insert($dataTambahan);
+                    }
+                }
+            }
+
+            $harga_transaksi = DB::table($this->table_detail)
+                // ->select(DB::raw('DISTINCT(layanan_id), harga'))
+                ->select(DB::raw('layanan_id, harga'))
+                ->where('transaksi_id', $request->id)
+                ->get();
+
+            foreach ($harga_transaksi as $harga) {
+                $total_harga += $harga->harga;
+            }
+
+            $transId = DB::table($this->table)->where('id', $request->id)->update([
+                'total_biaya' => $total_harga,
+                'hutang_biaya' => $total_harga - $request->dp,
+                'created_at' => date("Y-m-d H:i:s"),
+            ]);
+
+            $dataRekam = array();
+            if (!empty($_POST['rekam'])) {
+                $cekRekam = DB::table($this->table_rekam)->where('transaksi_id', $request->id)->count();
+
+                $dRekam = DB::table('rekam_medik')->where('status', 1)->get();
+
+                foreach ($dRekam as $p) {
+                    $Name[$p->id] = null;
+
+                    if (!empty($_POST['rekam'][$p->id])) {
+                        if (is_array($_POST['rekam'][$p->id]) && count($_POST['rekam'][$p->id]) > 0) {
+                            foreach ($_POST['rekam'][$p->id] as $rekam) {
+                                $Name[$p->id] .= $rekam;
+                            }
+                            $Name[$p->id] = $Name[$p->id];
+                        } else {
+                            $Name[$p->id] = $_POST['rekam'][$p->id];
+                        }
+                    }
+
+                    if ($cekRekam > 0) {
+
+                        $cekRekam_[$p->id] = DB::table($this->table_rekam)
+                            ->where('transaksi_id', $request->id)
+                            ->where('position', $p->id);
+
+                        if ($cekRekam_[$p->id]->count() > 0) {
+                            $cekRekam_[$p->id]->update([
+                                'name' => $Name[$p->id],
+                                'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                'updated_at' => date("Y-m-d H:i:s"),
+                            ]);
+                        } else {
+                            $dataRekamm[$p->id] = [
+                                'transaksi_id' => $request->id,
+                                'position' => $p->id,
+                                'name' => $Name[$p->id],
+                                'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                'created_at' => date("Y-m-d H:i:s"),
+                                'position' => $p->id,
+                            ];
+
+                            DB::table($this->table_rekam)->insert($dataRekamm[$p->id]);
+                        }
+                    }
+
+                    array_push($dataRekam, array(
+                        'transaksi_id' => $request->id,
+                        'name' => $Name[$p->id],
+                        'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'position' => $p->id,
+                    ));
+                }
+
+                if ($cekRekam == 0) {
+                    DB::table($this->table_rekam)->insert($dataRekam);
+                }
+            }
+
+            if ($transId) {
+                $mess['msg'] = 'Data sukses disimpan' . ($transId == 0 ? ", namun tidak ada perubahan" : " dan diubah");
+                $mess['cd'] = 200;
+            } else {
+                $mess['msg'] = 'Data gagal disimpan';
+                $mess['cd'] = 500;
+            }
+            echo json_encode($mess);
+        });
     }
 
     public function store(Request $request)
@@ -594,9 +786,30 @@ class OrderController extends Controller
                                 'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
                                 'kuantitas' => null,
                                 'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
+                                'harga_fix' => empty($request->harga_custom[$num]) ? null : unRupiahFormat($request->harga_custom[$num]),
                                 'created_at' => date("Y-m-d H:i:s"),
                             );
                             DB::table($this->table_detail)->insert($dataDetailIns2);
+                        }
+                    }
+                }
+
+                if (!empty($request->layanan_tambahan)) {
+                    DB::table('transaksi_tambahan')
+                        ->where('transaksi_id', $request->id)
+                        ->delete();
+
+                    foreach ($request->layanan_tambahan as $num => $layTam) {
+                        if (!empty($layTam)) {
+                            $dataTambahan = array();
+                            $dataTambahan[] = array(
+                                'transaksi_id' => $request->id,
+                                'name' => $layTam,
+                                'price' => empty($request->harga_tambahan[$num]) ? null : unRupiahFormat($request->harga_tambahan[$num]),
+                                'created_at' => date("Y-m-d H:i:s"),
+                                'updated_at' => date("Y-m-d H:i:s"),
+                            );
+                            DB::table($this->table_tambahan)->insert($dataTambahan);
                         }
                     }
                 }
@@ -616,6 +829,66 @@ class OrderController extends Controller
                     'hutang_biaya' => $total_harga - $request->dp,
                     'created_at' => date("Y-m-d H:i:s"),
                 ]);
+
+                $dataRekam = array();
+                if (!empty($_POST['rekam'])) {
+                    $cekRekam = DB::table($this->table_rekam)->where('transaksi_id', $request->id)->count();
+
+                    $dRekam = DB::table('rekam_medik')->where('status', 1)->get();
+
+                    foreach ($dRekam as $p) {
+                        $Name[$p->id] = null;
+
+                        if (!empty($_POST['rekam'][$p->id])) {
+                            if (is_array($_POST['rekam'][$p->id]) && count($_POST['rekam'][$p->id]) > 0) {
+                                foreach ($_POST['rekam'][$p->id] as $rekam) {
+                                    $Name[$p->id] .= $rekam;
+                                }
+                                $Name[$p->id] = $Name[$p->id];
+                            } else {
+                                $Name[$p->id] = $_POST['rekam'][$p->id];
+                            }
+                        }
+
+                        if ($cekRekam > 0) {
+
+                            $cekRekam_[$p->id] = DB::table($this->table_rekam)
+                                ->where('transaksi_id', $request->id)
+                                ->where('position', $p->id);
+
+                            if ($cekRekam_[$p->id]->count() > 0) {
+                                $cekRekam_[$p->id]->update([
+                                    'name' => $Name[$p->id],
+                                    'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                    'updated_at' => date("Y-m-d H:i:s"),
+                                ]);
+                            } else {
+                                $dataRekamm[$p->id] = [
+                                    'transaksi_id' => $request->id,
+                                    'position' => $p->id,
+                                    'name' => $Name[$p->id],
+                                    'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                    'created_at' => date("Y-m-d H:i:s"),
+                                    'position' => $p->id,
+                                ];
+
+                                DB::table($this->table_rekam)->insert($dataRekamm[$p->id]);
+                            }
+                        }
+
+                        array_push($dataRekam, array(
+                            'transaksi_id' => $request->id,
+                            'name' => $Name[$p->id],
+                            'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                            'created_at' => date("Y-m-d H:i:s"),
+                            'position' => $p->id,
+                        ));
+                    }
+
+                    if ($cekRekam == 0) {
+                        DB::table($this->table_rekam)->insert($dataRekam);
+                    }
+                }
 
                 if ($transId) {
                     $mess['msg'] = 'Data sukses disimpan' . ($transId == 0 ? ", namun tidak ada perubahan" : " dan diubah");
@@ -734,9 +1007,31 @@ class OrderController extends Controller
                                     'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
                                     'kuantitas' => null,
                                     'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
+                                    'harga_fix' => empty($request->harga_custom[$num]) ? null : unRupiahFormat($request->harga_custom[$num]),
                                     'created_at' => date("Y-m-d H:i:s"),
                                 );
                                 DB::table($this->table_detail)->insert($dataDetailIns2);
+                            }
+                        }
+                    }
+
+                    if (!empty($request->layanan_tambahan)) {
+
+                        DB::table('transaksi_tambahan')
+                            ->where('transaksi_id', $request->id)
+                            ->delete();
+
+                        foreach ($request->layanan_tambahan as $num => $layTam) {
+                            if (!empty($layTam)) {
+                                $dataTambahan = array();
+                                $dataTambahan[] = array(
+                                    'transaksi_id' => $request->id,
+                                    'name' => $layTam,
+                                    'price' => empty($request->harga_tambahan[$num]) ? null : unRupiahFormat($request->harga_tambahan[$num]),
+                                    'created_at' => date("Y-m-d H:i:s"),
+                                    'updated_at' => date("Y-m-d H:i:s"),
+                                );
+                                DB::table($this->table_tambahan)->insert($dataTambahan);
                             }
                         }
                     }
@@ -756,6 +1051,66 @@ class OrderController extends Controller
                         'hutang_biaya' => $total_harga - $request->dp,
                         'created_at' => date("Y-m-d H:i:s"),
                     ]);
+
+                    $dataRekam = array();
+                    if (!empty($_POST['rekam'])) {
+                        $cekRekam = DB::table($this->table_rekam)->where('transaksi_id', $request->id)->count();
+
+                        $dRekam = DB::table('rekam_medik')->where('status', 1)->get();
+
+                        foreach ($dRekam as $p) {
+                            $Name[$p->id] = null;
+
+                            if (!empty($_POST['rekam'][$p->id])) {
+                                if (is_array($_POST['rekam'][$p->id]) && count($_POST['rekam'][$p->id]) > 0) {
+                                    foreach ($_POST['rekam'][$p->id] as $rekam) {
+                                        $Name[$p->id] .= $rekam;
+                                    }
+                                    $Name[$p->id] = $Name[$p->id];
+                                } else {
+                                    $Name[$p->id] = $_POST['rekam'][$p->id];
+                                }
+                            }
+
+                            if ($cekRekam > 0) {
+
+                                $cekRekam_[$p->id] = DB::table($this->table_rekam)
+                                    ->where('transaksi_id', $request->id)
+                                    ->where('position', $p->id);
+
+                                if ($cekRekam_[$p->id]->count() > 0) {
+                                    $cekRekam_[$p->id]->update([
+                                        'name' => $Name[$p->id],
+                                        'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                        'updated_at' => date("Y-m-d H:i:s"),
+                                    ]);
+                                } else {
+                                    $dataRekamm[$p->id] = [
+                                        'transaksi_id' => $request->id,
+                                        'position' => $p->id,
+                                        'name' => $Name[$p->id],
+                                        'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                        'created_at' => date("Y-m-d H:i:s"),
+                                        'position' => $p->id,
+                                    ];
+
+                                    DB::table($this->table_rekam)->insert($dataRekamm[$p->id]);
+                                }
+                            }
+
+                            array_push($dataRekam, array(
+                                'transaksi_id' => $request->id,
+                                'name' => $Name[$p->id],
+                                'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                'created_at' => date("Y-m-d H:i:s"),
+                                'position' => $p->id,
+                            ));
+                        }
+
+                        if ($cekRekam == 0) {
+                            DB::table($this->table_rekam)->insert($dataRekam);
+                        }
+                    }
 
                     $mess['msg'] = 'Data sukses disimpan' . ($transId == 0 ? ", namun tidak ada perubahan" : " dan diubah");
                     $mess['cd'] = 200;

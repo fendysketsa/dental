@@ -161,7 +161,7 @@ class ReservationController extends Controller
         }
 
         if (!empty($form)) {
-            if (in_array($form, array('left_periksa', 'left_periksa_gigi', 'left_tindakan', 'left', 'right'))) {
+            if (in_array($form, array('left_periksa', 'left_periksa_gigi', 'left_tindakan', 'left', 'right', 'right_periksa'))) {
                 return view('trans.registrasi.content.form.form_' . $form, [
                     'autoNom' => MemberModel::getAutoNoMember(),
                     'action' => route('registrations.store')
@@ -551,10 +551,11 @@ class ReservationController extends Controller
                             $dataDetailIns2 = array();
                             $dataDetailIns2[] = array(
                                 'transaksi_id' => $transId,
-                                'layanan_id' => $lay,
+                                'category_id' => $lay,
                                 'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
                                 'kuantitas' => null,
-                                'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
+                                'harga' => 0,
+                                'harga_fix' => 0,
                                 'created_at' => date("Y-m-d H:i:s"),
                             );
                             DB::table($this->table_detail)->insert($dataDetailIns2);
@@ -583,21 +584,27 @@ class ReservationController extends Controller
 
                 $dataRekam = array();
                 if (!empty($_POST['rekam'])) {
-                    foreach ($_POST['rekam'] as $index => $p) {
-                        $Name[$index] = null;
-                        if (is_array($_POST['rekam'][$index]) && count($_POST['rekam'][$index]) > 1) {
-                            foreach ($_POST['rekam'][$index] as $rekam) {
-                                $Name[$index] .= $rekam;
+                    $dRekam = DB::table('rekam_medik')->where('status', 1)->get();
+
+                    foreach ($dRekam as $p) {
+                        $Name[$p->id] = null;
+
+                        if (!empty($_POST['rekam'][$p->id])) {
+                            if (is_array($_POST['rekam'][$p->id]) && count($_POST['rekam'][$p->id]) > 0) {
+                                foreach ($_POST['rekam'][$p->id] as $rekam) {
+                                    $Name[$p->id] .= $rekam;
+                                }
+                                $Name[$p->id] = $Name[$p->id];
+                            } else {
+                                $Name[$p->id] = $_POST['rekam'][$p->id];
                             }
-                            $Name[$index] = json_encode($Name[$index], true);
-                        } else {
-                            $Name[$index] = $p;
                         }
 
                         array_push($dataRekam, array(
                             'transaksi_id' => $transId,
-                            'name' => $Name[$index],
-                            'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
+                            'name' => $Name[$p->id],
+                            'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                            'position' => $p->id,
                             'created_at' => date("Y-m-d H:i:s"),
                         ));
                     }
@@ -705,10 +712,11 @@ class ReservationController extends Controller
                                         $dataDetailIns2 = array();
                                         $dataDetailIns2[] = array(
                                             'transaksi_id' => $transId,
-                                            'layanan_id' => $lay,
+                                            'category_id' => $lay,
                                             'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
                                             'kuantitas' => null,
-                                            'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
+                                            'harga' => 0,
+                                            'harga_fix' => 0,
                                             'created_at' => date("Y-m-d H:i:s"),
                                         );
                                         DB::table($this->table_detail)->insert($dataDetailIns2);
@@ -735,21 +743,27 @@ class ReservationController extends Controller
 
                             $dataRekam = array();
                             if (!empty($_POST['rekam'])) {
-                                foreach ($_POST['rekam'] as $index => $p) {
-                                    $Name[$index] = null;
-                                    if (is_array($_POST['rekam'][$index]) && count($_POST['rekam'][$index]) > 1) {
-                                        foreach ($_POST['rekam'][$index] as $rekam) {
-                                            $Name[$index] .= $rekam;
+                                $dRekam = DB::table('rekam_medik')->where('status', 1)->get();
+
+                                foreach ($dRekam as $p) {
+                                    $Name[$p->id] = null;
+
+                                    if (!empty($_POST['rekam'][$p->id])) {
+                                        if (is_array($_POST['rekam'][$p->id]) && count($_POST['rekam'][$p->id]) > 0) {
+                                            foreach ($_POST['rekam'][$p->id] as $rekam) {
+                                                $Name[$p->id] .= $rekam;
+                                            }
+                                            $Name[$p->id] = $Name[$p->id];
+                                        } else {
+                                            $Name[$p->id] = $_POST['rekam'][$p->id];
                                         }
-                                        $Name[$index] = json_encode($Name[$index], true);
-                                    } else {
-                                        $Name[$index] = $p;
                                     }
 
                                     array_push($dataRekam, array(
                                         'transaksi_id' => $transId,
-                                        'name' => $Name[$index],
-                                        'more_keterangan' => empty($request->rekam_more[$index]) ? null : $request->rekam_more[$index],
+                                        'name' => $Name[$p->id],
+                                        'more_keterangan' => empty($request->rekam_more[$p->id]) ? null : $request->rekam_more[$p->id],
+                                        'position' => $p->id,
                                         'created_at' => date("Y-m-d H:i:s"),
                                     ));
                                 }

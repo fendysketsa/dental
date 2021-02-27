@@ -21,7 +21,7 @@
                 class="btn @if($status==4 || $status==1) btn-default btn-disabled @else periksa @endif btn-xs btn-3d "
                 @if($status>1
                 && $status<4) data-toggle="modal" data-target="#formModalMontrgOrderPeriksa" data-backdrop="static"
-                    data-keyboard="false" data-route="{{ route('monitoring.order.periksa', $id) }}" @endif><em
+                    data-keyboard="false" data-routes="{{ route('monitoring.order.saveperiksa') }}" data-route="{{ route('monitoring.order.periksa', $id) }}" @endif><em
                         class="fa fa-search"></em>
                     Periksa</a>
         </li>

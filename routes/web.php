@@ -508,6 +508,7 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
 
 Route::middleware(['auth' => 'role:super-admin|kasir|dokter'])->group(function () {
     //-----------------------------------------------------------------------------
+    Route::post('monitoring/order/periksa', 'Web\Monitoring\OrderController@storePeriksa')->name('monitoring.order.saveperiksa');
     Route::post('monitoring/order/send', 'Web\Monitoring\OrderController@sendPembayaran')->name('monitoring.order.sendPembayaran');
     Route::post('monitoring/order/void', 'Web\Monitoring\OrderController@voidPembayaran')->name('monitoring.order.voidPembayaran');
     Route::post('monitoring/order/print', 'Web\Monitoring\OrderController@printOrder')->name('monitoring.order.printOut');

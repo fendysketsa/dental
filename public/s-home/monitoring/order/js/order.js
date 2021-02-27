@@ -34,6 +34,148 @@ function addOn(date) {
     $(".on-date input").val(date.format("DD-MM-YYYY"));
 }
 
+function load_formPeriksa() {
+    $("tbody").delegate(".periksa", "click", function () {
+        $(".load-form-modal-periksa").html("");
+
+        var event = $(this);
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        $.ajax({
+            type: "PUT",
+            url: event.data("route"),
+            success: function (result) {
+                $(".load-form-modal-periksa")
+                    .closest(".modal-dialog")
+                    .find("form")
+                    .remove();
+
+                $(".load-form-modal-periksa").html(result);
+                $(".modal-title").html(
+                    '<em class="fa fa-pencil-square-o"></em> Form Periksa Rekam Medik'
+                );
+
+                savePeriksa(event);
+
+                var inputId = $("input[name=id]");
+
+                load_formLeftPeriksa(inputId);
+
+                $("#f-load-rekam-medik-periksa-gigi").html(
+                    '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
+                );
+
+                $("#f-load-ubah").html(
+                    '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
+                );
+
+                setTimeout(function () {
+                    loadRekamMedikPeriksa("form-load");
+                }, 1500);
+
+                setTimeout(() => {
+                    var token = $("input[name=_token]").val();
+                    $.ajax({
+                        url: base_url + "/registrations/member/explore",
+                        method: "POST",
+                        data: {
+                            id: inputId.data("member-id"),
+                            _token: token,
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            setTimeout(() => {
+                                $(".load-informasi-right-periksa").html(
+                                    content_info_member(data[0])
+                                );
+
+                                $(".load-informasi-right-periksa").delegate(
+                                    ".next-one-info",
+                                    "click",
+                                    function () {
+                                        $("#f-load-rekam-medik-periksa")
+                                            .removeClass("show")
+                                            .addClass("hide");
+
+                                        $("#f-load-rekam-medik-periksa-gigi")
+                                            .removeClass("hide")
+                                            .addClass("show");
+
+                                        $("#f-load-ubah")
+                                            .removeClass("show")
+                                            .addClass("hide");
+
+                                        $("li.st-2").addClass("active_order");
+
+                                        $(this)
+                                            .removeClass("next-one-info")
+                                            .addClass("next-two-info");
+                                    }
+                                );
+
+                                $(".load-informasi-right-periksa").delegate(
+                                    ".next-two-info",
+                                    "click",
+                                    function () {
+                                        $("#f-load-rekam-medik-periksa")
+                                            .removeClass("show")
+                                            .addClass("hide");
+
+                                        $("#f-load-rekam-medik-periksa-gigi")
+                                            .removeClass("show")
+                                            .addClass("hide");
+
+                                        $("#f-load-ubah")
+                                            .removeClass("hide")
+                                            .addClass("show");
+
+                                        $("li.st-3").addClass("active_order");
+
+                                        $(this)
+                                            .removeClass("next-two-info")
+                                            .addClass("next-three-info");
+
+                                        $(this).html(
+                                            `<em class="fa fa-envelope"></em> Simpan`
+                                        );
+
+                                        setTimeout(function () {
+                                            $(".load-informasi-right-periksa")
+                                                .find(".next-three-info")
+                                                .prop("type", "submit");
+                                        }, 500);
+                                    }
+                                );
+
+                                $(".on-label-click").on("click", function () {
+                                    var num = $(this).data("ck");
+                                    var pos = $(this).data("ck-on");
+                                    var desc = $(this).data("ck-desc");
+
+                                    $(".info-small-" + pos).html(
+                                        `<em class="fa fa-info-circle"></em> ` +
+                                            desc.split("\n")[num]
+                                    );
+                                });
+                            }, 500);
+                        },
+                    });
+                }, 2500);
+            },
+            error: function () {
+                toastr.error("Gagal mengambil data", "Oops!", {
+                    timeOut: 2000,
+                });
+            },
+        });
+    });
+}
+
 function load_formEdit() {
     $("tbody").delegate(".edit", "click", function () {
         $(".load-form-modal").html("");
@@ -165,6 +307,15 @@ function load_formEdit() {
                         }
                         $(".load-row-layanan").append(load_row_layanan);
 
+                        for (
+                            var rL = 1;
+                            rL <= inputId.data("layanan-tambahan").length;
+                            rL++
+                        ) {
+                            $(".load-row-layanan-tambahan").append(
+                                load_row_layanan_tambahan(rL)
+                            );
+                        }
                         $(".load-row-layanan-tambahan").append(
                             load_row_layanan_tambahan
                         );
@@ -251,152 +402,13 @@ function load_formEdit() {
             },
         });
     });
-
-    $("tbody").delegate(".periksa", "click", function () {
-        $(".load-form-modal-periksa").html("");
-
-        var event = $(this);
-
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-
-        $.ajax({
-            type: "PUT",
-            url: event.data("route"),
-            success: function (result) {
-                $(".load-form-modal-periksa").html(result);
-                $(".modal-title").html(
-                    '<em class="fa fa-pencil-square-o"></em> Form Periksa Rekam Medik'
-                );
-
-                var inputId = $("input[name=id]");
-
-                load_formLeftPeriksa(inputId);
-
-                $("#f-load-rekam-medik-gigi").html(
-                    '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
-                );
-
-                $("#f-load-ubah").html(
-                    '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
-                );
-
-                setTimeout(function () {
-                    loadRekamMedik();
-                }, 1500);
-
-                setTimeout(() => {
-                    var token = $("input[name=_token]").val();
-                    $.ajax({
-                        url: base_url + "/registrations/member/explore",
-                        method: "POST",
-                        data: {
-                            id: inputId.data("member-id"),
-                            _token: token,
-                        },
-                        dataType: "json",
-                        success: function (data) {
-                            setTimeout(() => {
-                                $(".load-informasi-right-periksa").html(
-                                    content_info_member(data[0])
-                                );
-
-                                $(".load-informasi-right-periksa").delegate(
-                                    ".next-one-info",
-                                    "click",
-                                    function () {
-                                        $("#f-load-rekam-medik")
-                                            .removeClass("show")
-                                            .addClass("hide");
-
-                                        $("#f-load-rekam-medik-gigi")
-                                            .removeClass("hide")
-                                            .addClass("show");
-
-                                        $("#f-load-ubah")
-                                            .removeClass("show")
-                                            .addClass("hide");
-
-                                        $("li.st-2").addClass("active_order");
-
-                                        $(this)
-                                            .removeClass("next-one-info")
-                                            .addClass("next-two-info");
-                                    }
-                                );
-
-                                $(".load-informasi-right-periksa").delegate(
-                                    ".next-two-info",
-                                    "click",
-                                    function () {
-                                        $("#f-load-rekam-medik")
-                                            .removeClass("show")
-                                            .addClass("hide");
-
-                                        $("#f-load-rekam-medik-gigi")
-                                            .removeClass("show")
-                                            .addClass("hide");
-
-                                        $("#f-load-ubah")
-                                            .removeClass("hide")
-                                            .addClass("show");
-
-                                        $("li.st-3").addClass("active_order");
-
-                                        $(this)
-                                            .removeClass("next-two-info")
-                                            .addClass("next-three-info");
-
-                                        $(this).html(
-                                            `<em class="fa fa-envelope"></em> Simpan`
-                                        );
-                                    }
-                                );
-
-                                setTimeout(function () {
-                                    $(".load-informasi-right-periksa").delegate(
-                                        ".next-three-info",
-                                        "click",
-                                        function () {
-                                            $(this).on("click", function () {
-                                                $(
-                                                    "#formModalMontrgOrderPeriksa"
-                                                ).modal("hide");
-                                            });
-                                        }
-                                    );
-                                }, 500);
-
-                                $(".on-label-click").on("click", function () {
-                                    var num = $(this).data("ck");
-                                    var pos = $(this).data("ck-on");
-                                    var desc = $(this).data("ck-desc");
-
-                                    $(".info-small-" + pos).html(
-                                        `<em class="fa fa-info-circle"></em> ` +
-                                            desc.split("\n")[num]
-                                    );
-                                });
-                            }, 500);
-                        },
-                    });
-                }, 2500);
-            },
-            error: function () {
-                toastr.error("Gagal mengambil data", "Oops!", {
-                    timeOut: 2000,
-                });
-            },
-        });
-    });
 }
 
-function content_rekam_medik(data) {
+function content_rekam_medik_periksa(data) {
     var html = ``;
     var newHtml = ``;
+
+    var ccK = $("input[name=id]").data("rekam-medik");
 
     if (data) {
         $.each(data, function (e, i) {
@@ -416,24 +428,38 @@ function content_rekam_medik(data) {
 
             var moreInput = !i.more_input
                 ? ""
-                : "<input type='text' class='form-control mt-5' placeholder='" +
+                : "<input type='text' class='form-control mt-5' form='formPeriksa' placeholder='" +
                   plcInput +
-                  "' name='more_name[" +
-                  e +
+                  "' name='rekam_more[" +
+                  i.id +
                   "]'>";
 
             if (i.option) {
                 $.each(i.option.split("\n"), function (f, g) {
+                    var selctTd =
+                        typeInput == "radio" && f == 0 ? "checked" : "";
+
                     Option +=
                         `<input ` +
-                        (typeInput == "radio" ? "class='on-label-click'" : "") +
+                        (typeInput == "radio"
+                            ? "class='on-label-click rek-name-" +
+                              i.id +
+                              "-" +
+                              g.split(" ").join("-").trim() +
+                              "'"
+                            : "class='rek-name-" +
+                              i.id +
+                              "-" +
+                              g.split(" ").join("-").trim() +
+                              "'") +
                         ` style="margin-right:10px;" ` +
-                        (typeInput == "radio" && f == 0 ? "checked" : "") +
+                        selctTd +
                         ` type="` +
                         typeInput +
-                        `" name="nama[` +
-                        e +
-                        `]" value="` +
+                        (typeInput == "radio"
+                            ? `" name="rekam[` + i.id + `]" `
+                            : `" name="rekam[` + i.id + `][` + f + `]" `) +
+                        `value="` +
                         g +
                         `" data-ck="` +
                         f +
@@ -441,11 +467,39 @@ function content_rekam_medik(data) {
                         e +
                         `" data-ck-desc="` +
                         (!i.more_input_label ? "" : i.more_input_label) +
-                        `" form="formBank"> <label style="margin-right:20px;" for="` +
+                        `" form="formPeriksa"> <label style="margin-right:20px;" for="` +
                         e +
                         `">` +
                         g +
                         `</label>`;
+
+                    setTimeout(function () {
+                        if (ccK[i.id].name.split("\n").length > 1) {
+                            $.each(ccK[i.id].name.split("\n"), function (s, b) {
+                                if (
+                                    i.id == ccK[i.id].position &&
+                                    b.split(" ").join("-").trim() ==
+                                        g.split(" ").join("-").trim()
+                                ) {
+                                    $(
+                                        "input.rek-name-" +
+                                            i.id +
+                                            "-" +
+                                            b.split(" ").join("-").trim()
+                                    ).prop("checked", true);
+                                }
+                            });
+                        } else if (
+                            i.id == ccK[i.id].position &&
+                            ccK[i.id].name.split(" ").join("-").trim() ==
+                                g.split(" ").join("-").trim()
+                        ) {
+                            $("input.rek-name-" + i.id + "-" + g.trim()).prop(
+                                "checked",
+                                true
+                            );
+                        }
+                    }, 500);
                 });
             }
 
@@ -479,6 +533,166 @@ function content_rekam_medik(data) {
                 </div>`;
 
     return html;
+}
+
+function content_rekam_medik(data) {
+    var html = ``;
+    var newHtml = ``;
+
+    var ccK = $("input[name=id]").data("rekam-medik");
+
+    if (data) {
+        $.each(data, function (e, i) {
+            var typeInput = !i.set_input ? "checkbox" : "radio";
+            var plcInput = !i.more_input_placeholder
+                ? ""
+                : i.more_input_placeholder;
+            var Option = "";
+
+            var labelInput = !i.more_input_label
+                ? ""
+                : `<small id="emailHelp" class="form-text info-small-` +
+                  e +
+                  ` text-info"><em class="fa fa-info-circle"></em> ` +
+                  i.more_input_label.split("\n")[0] +
+                  `</small>`;
+
+            var moreInput = !i.more_input
+                ? ""
+                : "<input type='text' class='form-control mt-5' form='formRegistrasi' placeholder='" +
+                  plcInput +
+                  "' name='rekam_more[" +
+                  i.id +
+                  "]'>";
+
+            if (i.option) {
+                $.each(i.option.split("\n"), function (f, g) {
+                    var selctTd =
+                        typeInput == "radio" && f == 0 ? "checked" : "";
+
+                    Option +=
+                        `<input ` +
+                        (typeInput == "radio"
+                            ? "class='on-label-click rek-name-" +
+                              i.id +
+                              "-" +
+                              g.split(" ").join("-").trim() +
+                              "'"
+                            : "class='rek-name-" +
+                              i.id +
+                              "-" +
+                              g.split(" ").join("-").trim() +
+                              "'") +
+                        ` style="margin-right:10px;" ` +
+                        selctTd +
+                        ` type="` +
+                        typeInput +
+                        (typeInput == "radio"
+                            ? `" name="rekam[` + i.id + `]" `
+                            : `" name="rekam[` + i.id + `][` + f + `]" `) +
+                        `value="` +
+                        g +
+                        `" data-ck="` +
+                        f +
+                        `" data-ck-on="` +
+                        e +
+                        `" data-ck-desc="` +
+                        (!i.more_input_label ? "" : i.more_input_label) +
+                        `" form="formRegistrasi"> <label style="margin-right:20px;" for="` +
+                        e +
+                        `">` +
+                        g +
+                        `</label>`;
+
+                    setTimeout(function () {
+                        if (ccK[i.id].name.split("\n").length > 1) {
+                            $.each(ccK[i.id].name.split("\n"), function (s, b) {
+                                if (
+                                    i.id == ccK[i.id].position &&
+                                    b.split(" ").join("-").trim() ==
+                                        g.split(" ").join("-").trim()
+                                ) {
+                                    $(
+                                        "input.rek-name-" +
+                                            i.id +
+                                            "-" +
+                                            b.split(" ").join("-").trim()
+                                    ).prop("checked", true);
+                                }
+                            });
+                        } else if (
+                            i.id == ccK[i.id].position &&
+                            ccK[i.id].name.split(" ").join("-").trim() ==
+                                g.split(" ").join("-").trim()
+                        ) {
+                            $("input.rek-name-" + i.id + "-" + g.trim()).prop(
+                                "checked",
+                                true
+                            );
+                        }
+                    }, 500);
+                });
+            }
+
+            newHtml +=
+                `<div class="form-group">
+                            <label>` +
+                i.nama +
+                `</label>
+                            <div class="input-group input-group-sm date">` +
+                Option +
+                `
+                            </div>
+` +
+                labelInput +
+                moreInput +
+                `
+                        </div>`;
+        });
+    }
+
+    html +=
+        `<div class="col-md-12">
+                    <div class="row box box-header with-border bg-default display-future">
+                        <h3 class="box-title"><em class="fa fa-pencil"></em> Data Rekam Medik</h3>
+                    </div>
+                    <div class="box-body clean-sheet on-dutty-off">
+                        ` +
+        newHtml +
+        `
+                    </div>
+                </div>`;
+
+    return html;
+}
+
+function loadRekamMedikPeriksa(ck) {
+    $.ajax({
+        url: base_url + "/registrations/rekam-medik/explore",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            setTimeout(() => {
+                if (ck && ck == "form-load") {
+
+                    setTimeout(function () {
+                        $("#f-load-rekam-medik-periksa").removeClass("m-b-2");
+                        $("#f-load-rekam-medik-periksa").html(
+                            content_rekam_medik_periksa(data)
+                        );
+
+                        if (ck && ck == "form-load") {
+                            $(".clean-sheet").removeClass("on-dutty-off");
+                        }
+                    }, 1500);
+                } else {
+                    $("#f-load-rekam-medik-periksa").html(
+                        content_rekam_medik_periksa(data)
+                    );
+                }
+            }, 500);
+        },
+    });
 }
 
 function loadRekamMedik(ck) {
@@ -595,7 +809,7 @@ function content_info_member(data) {
                                 </div>
                                 <div class="col-md-6 col-xs-6 col-sm-6">
                                     <button name="next_one" type="button"
-                                        class="btn btn-info col-md-12 col-xs-12 col-sm-12 next-one-info" form="formRegistrasi"><em
+                                        class="btn btn-info col-md-12 col-xs-12 col-sm-12 next-one-info" form="formPeriksa"><em
                                             class="fa fa-arrow-right"></em> Lanjutkan</button>
                                 </div>
                             </div>
@@ -1221,7 +1435,9 @@ function f_member(data) {
                             </div>
                         <input type="email" name="email" value="` +
         (data.email ? data.email : "") +
-        `" class="form-control" placeholder="Email..." form="formRegistrasi">
+        `" class="form-control"  ` +
+        (data.email ? "readonly" : "") +
+        ` placeholder="Email..." form="formRegistrasi">
                         </div>
                     </div>
                 </div>
@@ -1547,6 +1763,10 @@ function form_attribut_right() {
         $(".load-row-layanan").append(load_row_layanan);
     });
 
+    $(".add-row-layanan-periksa").on("click", function () {
+        $(".load-row-layanan-periksa").append(load_row_layanan_periksa);
+    });
+
     $(".add-row-layanan-tambahan").on("click", function () {
         $(".load-row-layanan-tambahan").append(load_row_layanan_tambahan);
     });
@@ -1582,6 +1802,54 @@ function form_attribut_right() {
                         //     .find("select")
                         //     .removeAttr("id")
                         //     .attr("id", "on-select-terapis-" + (e + 1));
+
+                        $(trs[e])
+                            .find("td.input-price-custom")
+                            .find("input")
+                            .removeAttr("id")
+                            .attr("id", "on-select-price-custom-" + (e + 1));
+                    });
+
+                    loadTotal();
+                });
+        }
+    );
+
+    $("table tbody.load-row-layanan-periksa").delegate(
+        "tr > td > em.remove-row-layanan-periksa",
+        "click",
+        function (e) {
+            $(this)
+                .parents("tr")
+                .html(
+                    '<td colspan="4" class="text-center"><em class="fa fa-spinner fa-spin"></em> Loading...</td>'
+                )
+                .fadeOut("slow", function (e) {
+                    $(this).remove();
+
+                    var trs = $(
+                        ".load-row-layanan-periksa tr.n-f-layanan-periksa"
+                    );
+                    trs.each(function (e, f) {
+                        $(trs[e])
+                            .find("td.nom-layanan")
+                            .text(e + 1);
+                        $(trs[e])
+                            .find("td.select-layanan")
+                            .find("select")
+                            .removeAttr("id")
+                            .attr("id", "on-select-layanan-" + (e + 1));
+                        // $(trs[e])
+                        //     .find("td.select-terapis")
+                        //     .find("select")
+                        //     .removeAttr("id")
+                        //     .attr("id", "on-select-terapis-" + (e + 1));
+
+                        $(trs[e])
+                            .find("td.input-price-custom")
+                            .find("input")
+                            .removeAttr("id")
+                            .attr("id", "on-select-price-custom-" + (e + 1));
                     });
 
                     loadTotal();
@@ -1603,6 +1871,42 @@ function form_attribut_right() {
 
                     var trs = $(
                         ".load-row-layanan-tambahan tr.n-f-layanan-tambahan"
+                    );
+                    trs.each(function (e, f) {
+                        $(trs[e])
+                            .find("td.nom-layanan-tambahan")
+                            .text(e + 1);
+                        $(trs[e])
+                            .find("td.input-layanan-tambahan")
+                            .find("input")
+                            .removeAttr("id")
+                            .attr("id", "on-input-layanan-tambahan-" + (e + 1));
+                        $(trs[e])
+                            .find("td.input-layanan-harga")
+                            .find("input")
+                            .removeAttr("id")
+                            .attr("id", "on-input-harga-tambahan-" + (e + 1));
+                    });
+
+                    loadTotal();
+                });
+        }
+    );
+
+    $("table tbody.load-row-layanan-tambahan-periksa").delegate(
+        "tr > td > em.remove-row-layanan-tambahan-periksa",
+        "click",
+        function (e) {
+            $(this)
+                .parents("tr")
+                .html(
+                    '<td colspan="4" class="text-center"><em class="fa fa-spinner fa-spin"></em> Loading...</td>'
+                )
+                .fadeOut("slow", function (e) {
+                    $(this).remove();
+
+                    var trs = $(
+                        ".load-row-layanan-tambahan-periksa tr.n-f-layanan-tambahan-periksa"
                     );
                     trs.each(function (e, f) {
                         $(trs[e])
@@ -1867,9 +2171,9 @@ function load_row_layanan(idLayanan, idTerapis) {
 
     if (cekTh) {
         html +=
-            `<td class="select-terapis td-height-img">
+            `<td class="select-terapis input-price-custom td-height-img">
                     <div class="input-group-sm">
-                        <input name="terapis[]" placeholder="Harga" type="rupiah" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-terapis-` +
+                        <input name="harga_custom[]" placeholder="Harga" type="rupiah" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-price-custom-` +
             numb +
             `"></select>
                     </div>
@@ -1892,8 +2196,18 @@ function load_row_layanan(idLayanan, idTerapis) {
                 $("input[name=id]").data("layanan")[idLayanan - 1],
                 $("input[name=id]").data("terapis")[idLayanan - 1]
             );
+
+            var DataPrcCus = $("input[name=id]").data("price-layanan")[
+                idLayanan - 1
+            ];
+
+            $("#on-select-price-custom-" + numb).val(convertRupiah(DataPrcCus));
+
+            onInputRupiah();
+
             setTimeout(() => {
                 $("#on-select-layanan-" + idLayanan).attr("disabled", true);
+                $("#on-select-price-custom-" + numb).removeAttr("disabled");
                 $("#inpt-select-" + numb).val(
                     $("#on-select-layanan-" + idLayanan).val()
                 );
@@ -1907,11 +2221,115 @@ function load_row_layanan(idLayanan, idTerapis) {
             loadTotal(layId);
             if (layId) {
                 // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                $("#on-select-price-custom-" + numb).removeAttr("disabled");
                 // load_avail_layanan("terapis", numb, layId);
             } else {
                 // var trps = $("#on-select-terapis-" + numb);
                 // trps.attr("disabled", true);
                 // trps.val("").trigger("change");
+
+                var prc_cus = $("#on-select-price-custom-" + numb);
+                prc_cus.attr("disabled", true);
+                prc_cus.val("").trigger("change");
+            }
+        });
+    }, 500);
+
+    return html;
+}
+
+function load_row_layanan_periksa(idLayanan, idTerapis) {
+    var thisElem = $(".n-f-layanan-periksa");
+    var numb = thisElem.length + 1;
+
+    var cekTh = thisElem
+        .closest(".load-form-table-layanan-periksa")
+        .find(".opt-harga");
+
+    var html = `<tr class="n-f-layanan-periksa">`;
+    html +=
+        `<td class="nom-layanan td-height-img text-center">` + numb + `</td>`;
+    html +=
+        `<td class="select-layanan td-height-img">
+                <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
+                <div class="input-group-sm">
+                    <select ` +
+        (!idLayanan ? ` name="layanan[]" ` : "") +
+        ` form="formPeriksa" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
+        numb +
+        `"></select>
+                    ` +
+        (idLayanan
+            ? `<input id="inpt-select-` +
+              numb +
+              `" name="layanan[]" form="formPeriksa" type="hidden">`
+            : "") +
+        `
+                </div>
+            </td>`;
+
+    if (cekTh) {
+        html +=
+            `<td class="select-terapis input-price-custom td-height-img">
+                    <div class="input-group-sm">
+                        <input name="harga_custom[]" placeholder="Harga" type="rupiah" form="formPeriksa" class="select2 form-control input-group-sm" disabled id="on-select-price-custom-` +
+            numb +
+            `"></select>
+                    </div>
+                </td>`;
+    }
+
+    html += `<td class="td-height-img text-center"><em class="fa fa-times remove-row-layanan-periksa text-danger"></em></td>`;
+    html += `</tr>`;
+
+    setTimeout(() => {
+        if (idLayanan) {
+            load_avail_layanan(
+                "layanan",
+                numb,
+                $("input[name=id]").data("layanan")[idLayanan - 1]
+            );
+            load_avail_layanan(
+                "terapis",
+                numb,
+                $("input[name=id]").data("layanan")[idLayanan - 1],
+                $("input[name=id]").data("terapis")[idLayanan - 1]
+            );
+
+            var DataPrcCus = $("input[name=id]").data("price-layanan")[
+                idLayanan - 1
+            ];
+
+            $("#on-select-price-custom-" + numb).val(convertRupiah(DataPrcCus));
+
+            onInputRupiah();
+
+            setTimeout(() => {
+                $("#on-select-layanan-" + idLayanan).attr("disabled", true);
+                $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                $("#inpt-select-" + numb).val(
+                    $("#on-select-layanan-" + idLayanan).val()
+                );
+            }, 2000);
+        } else {
+            load_avail_layanan("layanan", numb);
+        }
+
+        $("#on-select-layanan-" + numb).on("change", function (e) {
+            var layId = $(this).val();
+            loadTotal(layId);
+            if (layId) {
+                // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                // load_avail_layanan("terapis", numb, layId);
+            } else {
+                // var trps = $("#on-select-terapis-" + numb);
+                // trps.attr("disabled", true);
+                // trps.val("").trigger("change");
+
+                var prc_cus = $("#on-select-price-custom-" + numb);
+                prc_cus.attr("disabled", true);
+                prc_cus.val("").trigger("change");
             }
         });
     }, 500);
@@ -1932,9 +2350,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
         `<td class="input-layanan-tambahan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
                 <div class="input-group-sm">
-                    <input type="text" ` +
-        (!idLayanan ? ` name="layanan_tambahan[]" ` : "") +
-        ` form="formRegistrasi" placeholder="layanan tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
+                    <input type="text" name="layanan_tambahan[]" form="formRegistrasi" placeholder="layanan tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
         numb +
         `">` +
         `
@@ -1959,7 +2375,10 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
             .removeClass("blocking-loading-row")
             .addClass("hide");
 
-        $(".n-f-layanan-tambahan").find("input").removeAttr("disabled");
+        $(".n-f-layanan-tambahan")
+            .find("input")
+            .removeAttr("disabled")
+            .prop("required", true);
 
         onInputRupiah();
 
@@ -1981,6 +2400,20 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
             //         $("#on-select-layanan-" + idLayanan).val()
             //     );
             // }, 2000);
+
+            $(".n-f-layanan-tambahan")
+                .find("input")
+                .removeAttr("disabled")
+                .prop("required", true);
+
+            var DataTambahan = $("input[name=id]").data("layanan-tambahan")[
+                idLayanan - 1
+            ];
+
+            $("#on-input-layanan-tambahan-" + numb).val(DataTambahan.name);
+            $("#on-input-harga-tambahan-" + numb).val(
+                convertRupiah(DataTambahan.price)
+            );
         } else {
             // load_avail_layanan("layanan", numb);
         }
@@ -1990,11 +2423,119 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
             // loadTotal(layId);
             if (layId) {
                 // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                $("#on-select-price-custom-" + numb).removeAttr("disabled");
                 // load_avail_layanan("terapis", numb, layId);
             } else {
                 // var trps = $("#on-select-terapis-" + numb);
                 // trps.attr("disabled", true);
                 // trps.val("").trigger("change");
+
+                var prc_cus = $("#on-select-price-custom-" + numb);
+                prc_cus.attr("disabled", true);
+                prc_cus.val("").trigger("change");
+            }
+        });
+    }, 500);
+
+    return html;
+}
+
+function load_row_layanan_tambahan_periksa(idLayanan, idTerapis) {
+    var thisElem = $(".n-f-layanan-tambahan-periksa");
+    var numb = thisElem.length + 1;
+
+    var html = `<tr class="n-f-layanan-tambahan-periksa">`;
+    html +=
+        `<td class="nom-layanan-tambahan-periksa td-height-img text-center">` +
+        numb +
+        `</td>`;
+    html +=
+        `<td class="input-layanan-tambahan td-height-img">
+                <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
+                <div class="input-group-sm">
+                    <input type="text" name="layanan_tambahan[]" form="formPeriksa" placeholder="layanan tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
+        numb +
+        `">` +
+        `
+                </div>
+            </td>`;
+
+    html +=
+        `<td class="input-layanan-harga td-height-img">
+                <div class="input-group-sm">
+                    <input type="rupiah" placeholder="harga..." name="harga_tambahan[]" disabled form="formPeriksa" class="form-control input-group-sm" id="on-input-harga-tambahan-` +
+        numb +
+        `">
+                </div>
+            </td>`;
+
+    html += `<td class="td-height-img text-center"><em class="fa fa-times remove-row-layanan-tambahan-periksa text-danger"></em></td>`;
+    html += `</tr>`;
+
+    setTimeout(() => {
+        $(".input-layanan-tambahan")
+            .find("div#block")
+            .removeClass("blocking-loading-row")
+            .addClass("hide");
+
+        $(".n-f-layanan-tambahan-periksa")
+            .find("input")
+            .removeAttr("disabled")
+            .prop("required", true);
+
+        onInputRupiah();
+
+        if (idLayanan) {
+            // load_avail_layanan(
+            //     "layanan",
+            //     numb,
+            //     $("input[name=id]").data("layanan")[idLayanan - 1]
+            // );
+            // load_avail_layanan(
+            //     "terapis",
+            //     numb,
+            //     $("input[name=id]").data("layanan")[idLayanan - 1],
+            //     $("input[name=id]").data("terapis")[idLayanan - 1]
+            // );
+            // setTimeout(() => {
+            //     $("#on-select-layanan-" + idLayanan).attr("disabled", true);
+            //     $("#inpt-select-" + numb).val(
+            //         $("#on-select-layanan-" + idLayanan).val()
+            //     );
+            // }, 2000);
+
+            $(".n-f-layanan-tambahan")
+                .find("input")
+                .removeAttr("disabled")
+                .prop("required", true);
+
+            var DataTambahan = $("input[name=id]").data("layanan-tambahan")[
+                idLayanan - 1
+            ];
+
+            $("#on-input-layanan-tambahan-" + numb).val(DataTambahan.name);
+            $("#on-input-harga-tambahan-" + numb).val(
+                convertRupiah(DataTambahan.price)
+            );
+        } else {
+            // load_avail_layanan("layanan", numb);
+        }
+
+        $("#on-select-layanan-" + numb).on("change", function (e) {
+            var layId = $(this).val();
+            // loadTotal(layId);
+            if (layId) {
+                // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                // load_avail_layanan("terapis", numb, layId);
+            } else {
+                // var trps = $("#on-select-terapis-" + numb);
+                // trps.attr("disabled", true);
+                // trps.val("").trigger("change");
+
+                var prc_cus = $("#on-select-price-custom-" + numb);
+                prc_cus.attr("disabled", true);
+                prc_cus.val("").trigger("change");
             }
         });
     }, 500);
@@ -2493,10 +3034,10 @@ function load_formLeftPeriksa(input) {
                             var li = $(this).data("step");
 
                             if (li == 1) {
-                                $("#f-load-rekam-medik")
+                                $("#f-load-rekam-medik-periksa")
                                     .removeClass("hide")
                                     .addClass("show");
-                                $("#f-load-rekam-medik-gigi")
+                                $("#f-load-rekam-medik-periksa-gigi")
                                     .removeClass("show")
                                     .addClass("hide");
                                 $("#f-load-ubah")
@@ -2513,10 +3054,10 @@ function load_formLeftPeriksa(input) {
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
                             } else if (li == 2) {
-                                $("#f-load-rekam-medik")
+                                $("#f-load-rekam-medik-periksa")
                                     .removeClass("show")
                                     .addClass("hide");
-                                $("#f-load-rekam-medik-gigi")
+                                $("#f-load-rekam-medik-periksa-gigi")
                                     .removeClass("hide")
                                     .addClass("show");
                                 $("#f-load-ubah")
@@ -2533,10 +3074,10 @@ function load_formLeftPeriksa(input) {
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
                             } else if (li == 3) {
-                                $("#f-load-rekam-medik")
+                                $("#f-load-rekam-medik-periksa")
                                     .removeClass("show")
                                     .addClass("hide");
-                                $("#f-load-rekam-medik-gigi")
+                                $("#f-load-rekam-medik-periksa-gigi")
                                     .removeClass("show")
                                     .addClass("hide");
                                 $("#f-load-ubah")
@@ -2550,6 +3091,10 @@ function load_formLeftPeriksa(input) {
                                 $("button[name=next_one]").html(
                                     `<em class="fa fa-envelope"></em> Simpan`
                                 );
+
+                                $(".load-informasi-right-periksa")
+                                    .find(".next-three-info")
+                                    .prop("type", "submit");
                             }
 
                             $(".progressbar_order")
@@ -2566,11 +3111,11 @@ function load_formLeftPeriksa(input) {
                     load_formUbahStep(input);
                 }, 500);
 
-                $("#f-load-rekam-medik").html(
+                $("#f-load-rekam-medik-periksa").html(
                     '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
                 );
 
-                $("#f-load-rekam-medik-gigi").html(
+                $("#f-load-rekam-medik-periksa-gigi").html(
                     '<div class="text-left"><em class="fa fa-spin fa-spinner"></em> loading...</div>'
                 );
 
@@ -2588,7 +3133,7 @@ function load_formUbahStep(inputId) {
     var cont = $("#f-load-ubah");
     $(".display-future").addClass("blocking-content");
     cont.load(
-        base_url + "/registrations/create?form=right&step=ya",
+        base_url + "/registrations/create?form=right_periksa&step=ya",
         function (e, s, f) {
             if (s == "error") {
                 var fls = "Gagal memuat form!";
@@ -2600,15 +3145,16 @@ function load_formUbahStep(inputId) {
                 $(".display-future").removeClass("blocking-content");
                 $(".button-action").removeClass("hide");
 
-                $(".load-row-layanan").html("");
-                $(".load-row-layanan-tambahan").html("");
+                $(".load-row-layanan-periksa").html("");
+                $(".load-row-layanan-tambahan-periksa").html("");
 
                 setTimeout(function () {
                     $(".load-form-left").find("form").remove();
+                    $("#f-load-ubah").find("form").remove();
                     $(".clean-sheet").removeClass("on-dutty-off");
                 }, 1500);
 
-                $(".f-layanan-tambahan")
+                $(".f-layanan-tambahan-periksa")
                     .removeClass("hide")
                     .removeAttr("style");
 
@@ -2624,12 +3170,26 @@ function load_formUbahStep(inputId) {
                         rL <= inputId.data("layanan").length;
                         rL++
                     ) {
-                        $(".load-row-layanan").append(load_row_layanan(rL));
+                        $(".load-row-layanan-periksa").append(
+                            load_row_layanan_periksa(rL)
+                        );
                     }
-                    $(".load-row-layanan").append(load_row_layanan);
+                    $(".load-row-layanan-periksa").append(
+                        load_row_layanan_periksa
+                    );
 
-                    $(".load-row-layanan-tambahan").append(
-                        load_row_layanan_tambahan
+                    for (
+                        var rL = 1;
+                        rL <= inputId.data("layanan-tambahan").length;
+                        rL++
+                    ) {
+                        $(".load-row-layanan-tambahan-periksa").append(
+                            load_row_layanan_tambahan_periksa(rL)
+                        );
+                    }
+
+                    $(".load-row-layanan-tambahan-periksa").append(
+                        load_row_layanan_tambahan_periksa
                     );
 
                     $("input[name=jumlah_orang]")
@@ -2710,7 +3270,7 @@ function load_formUbahStep(inputId) {
 }
 
 function load_formLeftPeriksaGigi() {
-    var cont = $("#f-load-rekam-medik-gigi");
+    var cont = $("#f-load-rekam-medik-periksa-gigi");
     $(".display-future").addClass("blocking-content");
     cont.load(
         base_url + "/registrations/create?form=left_periksa_gigi",
@@ -2760,7 +3320,7 @@ function load_gigi(param) {
                 setTimeout(function () {
                     $(".opt-gigi").prop("disabled", false);
 
-                    $(".main-table-gigi").delegate(
+                    $(".load-content-gigi-img").delegate(
                         ".labeling-gigi",
                         "click",
                         function (e) {
@@ -2773,7 +3333,7 @@ function load_gigi(param) {
                         }
                     );
 
-                    $(".main-table-gigi").delegate(
+                    $(".load-content-gigi-img").delegate(
                         ".sn-active",
                         "click",
                         function (e) {
@@ -2937,6 +3497,86 @@ function load_formRight(evv) {
             }
         }
     );
+}
+
+function savePeriksa(ev) {
+    $("form#formPeriksa").submit(function (e) {
+        e.preventDefault();
+
+        var event = $(this)[0];
+
+        $(".preloader").fadeIn();
+        $(".display-future").addClass("blocking-content");
+
+        var data = new FormData(event);
+        var url = ev.data('routes')
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('input[name="_token"]').val(),
+            },
+        });
+
+        $.ajax({
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                switch (data.cd) {
+                    case 200:
+                        toastr.success(data.msg, "Success!", {
+                            timeOut: 2000,
+                            onHidden: function () {
+                                location.reload();
+                            },
+                        });
+                        break;
+                    default:
+                        $(".preloader").fadeOut();
+                        $(".display-future").removeClass("blocking-content");
+                        toastr.warning(data.msg, "Peringatan!", {
+                            timeOut: 2000,
+                        });
+                        break;
+                }
+            },
+            error: function () {
+                var timer = 5; // timer in seconds
+                (function customSwal() {
+                    swal({
+                        title: "Kesalahan sistem!",
+                        text:
+                            "Sistem error, menutup otomatis pada " +
+                            timer +
+                            " detik !",
+                        timer: timer * 1000,
+                        button: false,
+                        icon: base_url + "/images/icons/loader.gif",
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                    }).then(() => {
+                        setTimeout(function () {
+                            $(".preloader").fadeOut();
+                            $(".display-future").removeClass(
+                                "blocking-content"
+                            );
+                            swal.close();
+                        }, 1000);
+                    });
+
+                    if (timer) {
+                        timer--;
+                        if (timer > 0) {
+                            setTimeout(customSwal, 1000);
+                        }
+                    }
+                })();
+            },
+        });
+    });
 }
 
 function saveIt() {
@@ -3369,6 +4009,7 @@ function data_attribut() {
     $("#data-table-view_filter").append(html_);
 
     load_formEdit();
+    load_formPeriksa();
     load_Activation();
     load_printCase();
     load_sendPembayaranCase();

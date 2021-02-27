@@ -13,6 +13,6 @@
     </div>
 </div>
 
-<div id="f-load-rekam-medik"></div>
-<div id="f-load-rekam-medik-gigi" class="hide"></div>
+<div id="f-load-rekam-medik-periksa"></div>
+<div id="f-load-rekam-medik-periksa-gigi" class="hide"></div>
 <div id="f-load-ubah" class="hide"></div>

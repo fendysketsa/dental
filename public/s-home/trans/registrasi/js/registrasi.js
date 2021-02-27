@@ -1329,7 +1329,7 @@ function content_rekam_medik(data) {
                 : `<input type="text" class="form-control mt-5"  form="formRegistrasi" placeholder="` +
                   plcInput +
                   `" name="rekam_more[` +
-                  e +
+                  i.id +
                   `]" >`;
 
             if (i.option) {
@@ -1342,8 +1342,8 @@ function content_rekam_medik(data) {
                         ` type="` +
                         typeInput +
                         (typeInput == "radio"
-                            ? `" name="rekam[` + e + `]" `
-                            : `" name="rekam[` + e + `][` + f + `]" `) +
+                            ? `" name="rekam[` + i.id + `]" `
+                            : `" name="rekam[` + i.id + `][` + f + `]" `) +
                         `value="` +
                         g +
                         `" data-ck="` +

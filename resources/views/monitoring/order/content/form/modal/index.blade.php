@@ -1,13 +1,15 @@
 <form action="{{ $action }}" id="formRegistrasi"></form>
+
 @if(!empty($data))
-<input type="hidden" name="id" value="{{ $data[0]->id }}" data-layanan="[{{ $services[0]->layanan }}]"
+<input type="hidden" name="id" value="{{ $data[0]->id }}" data-layanan-tambahan="{{ $services_add }}"
+    data-layanan="[{{ $services[0]->layanan }}]" data-price-layanan="[{{ $services[0]->price_fix }}]"
     data-terapis="[{{ $services[0]->terapis }}]" data-lokasi="{{ $data[0]->lokasi_id }}"
     data-reservasi="{{ $data[0]->waktu_reservasi }}" data-dp="{{ $data[0]->dp }}"
-    data-jum_org="{{ $data[0]->jumlah_orang }}" data-ruang="{{ $data[0]->room_id }}" data-dokter="{{ $data[0]->dokter_id }}"
-    data-total-biaya="{{ RupiahFormat($data[0]->total_biaya) }}" data-paket="[{{ $paket[0]->paket }}]" @foreach($posisi
-    as $numpos=> $pos)
+    data-jum_org="{{ $data[0]->jumlah_orang }}" data-ruang="{{ $data[0]->room_id }}"
+    data-dokter="{{ $data[0]->dokter_id }}" data-total-biaya="{{ RupiahFormat($data[0]->total_biaya) }}"
+    data-paket="[{{ $paket[0]->paket }}]" @foreach($posisi as $numpos=> $pos)
 data-paket-terapis-{{ $pos->posisi }}="[{{ $pktservices[$numpos]->terapis }}]" @endforeach
-data-member-id="{{ $data[0]->member_id }}" form="formRegistrasi">
+data-member-id="{{ $data[0]->member_id }}" data-rekam-medik="{{ $rekam }}" form="formRegistrasi">
 @endif
 
 <div class="load-form-modal">
@@ -47,7 +49,8 @@ data-member-id="{{ $data[0]->member_id }}" form="formRegistrasi">
                     <div class="box box-danger display-future">
                         <div class="box-header with-border bg-info">
                             <i class="fa fa-list"></i>
-                            <h3 class="box-title">Keluhan Tersedia & Rekam Medik Umum <em class="text-danger">*</em></h3>
+                            <h3 class="box-title">Keluhan Tersedia & Rekam Medik Umum <em class="text-danger">*</em>
+                            </h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool right-to" data-widget="collapse"><i
                                         class="fa fa-minus"></i></button>
