@@ -152,16 +152,20 @@ function load_formPeriksa() {
                                     }
                                 );
 
-                                $(".on-label-click").on("click", function () {
-                                    var num = $(this).data("ck");
-                                    var pos = $(this).data("ck-on");
-                                    var desc = $(this).data("ck-desc");
+                                $("#f-load-rekam-medik-periksa").delegate(
+                                    ".on-label-click",
+                                    "click",
+                                    function () {
+                                        var num = $(this).data("ck");
+                                        var pos = $(this).data("ck-on");
+                                        var desc = $(this).data("ck-desc");
 
-                                    $(".info-small-" + pos).html(
-                                        `<em class="fa fa-info-circle"></em> ` +
-                                            desc.split("\n")[num]
-                                    );
-                                });
+                                        $(".info-small-" + pos).html(
+                                            `<em class="fa fa-info-circle"></em> ` +
+                                                desc.split("\n")[num]
+                                        );
+                                    }
+                                );
                             }, 500);
                         },
                     });
@@ -421,14 +425,16 @@ function content_rekam_medik_periksa(data) {
             var labelInput = !i.more_input_label
                 ? ""
                 : `<small id="emailHelp" class="form-text info-small-` +
-                  e +
+                  i.id +
                   ` text-info"><em class="fa fa-info-circle"></em> ` +
                   i.more_input_label.split("\n")[0] +
                   `</small>`;
 
             var moreInput = !i.more_input
                 ? ""
-                : "<input type='text' class='form-control mt-5' form='formPeriksa' placeholder='" +
+                : "<input type='text' class='form-control mt-5 rek-more-name-" +
+                  i.id +
+                  "' form='formPeriksa' placeholder='" +
                   plcInput +
                   "' name='rekam_more[" +
                   i.id +
@@ -464,7 +470,7 @@ function content_rekam_medik_periksa(data) {
                         `" data-ck="` +
                         f +
                         `" data-ck-on="` +
-                        e +
+                        i.id +
                         `" data-ck-desc="` +
                         (!i.more_input_label ? "" : i.more_input_label) +
                         `" form="formPeriksa"> <label style="margin-right:20px;" for="` +
@@ -474,6 +480,8 @@ function content_rekam_medik_periksa(data) {
                         `</label>`;
 
                     setTimeout(function () {
+                        $("input.rek-more-name-" + i.id).val(ccK[i.id].more);
+
                         if (ccK[i.id].name.split("\n").length > 1) {
                             $.each(ccK[i.id].name.split("\n"), function (s, b) {
                                 if (
@@ -497,6 +505,21 @@ function content_rekam_medik_periksa(data) {
                             $("input.rek-name-" + i.id + "-" + g.trim()).prop(
                                 "checked",
                                 true
+                            );
+
+                            var num = $(
+                                "input.rek-name-" + i.id + "-" + g.trim()
+                            ).data("ck");
+                            var pos = $(
+                                "input.rek-name-" + i.id + "-" + g.trim()
+                            ).data("ck-on");
+                            var desc = $(
+                                "input.rek-name-" + i.id + "-" + g.trim()
+                            ).data("ck-desc");
+
+                            $(".info-small-" + pos).html(
+                                `<em class="fa fa-info-circle"></em> ` +
+                                    desc.split("\n")[num]
                             );
                         }
                     }, 500);
@@ -552,14 +575,16 @@ function content_rekam_medik(data) {
             var labelInput = !i.more_input_label
                 ? ""
                 : `<small id="emailHelp" class="form-text info-small-` +
-                  e +
+                  i.id +
                   ` text-info"><em class="fa fa-info-circle"></em> ` +
                   i.more_input_label.split("\n")[0] +
                   `</small>`;
 
             var moreInput = !i.more_input
                 ? ""
-                : "<input type='text' class='form-control mt-5' form='formRegistrasi' placeholder='" +
+                : "<input type='text' class='form-control mt-5 rek-more-name-" +
+                  i.id +
+                  "' form='formRegistrasi' placeholder='" +
                   plcInput +
                   "' name='rekam_more[" +
                   i.id +
@@ -595,7 +620,7 @@ function content_rekam_medik(data) {
                         `" data-ck="` +
                         f +
                         `" data-ck-on="` +
-                        e +
+                        i.id +
                         `" data-ck-desc="` +
                         (!i.more_input_label ? "" : i.more_input_label) +
                         `" form="formRegistrasi"> <label style="margin-right:20px;" for="` +
@@ -605,6 +630,8 @@ function content_rekam_medik(data) {
                         `</label>`;
 
                     setTimeout(function () {
+                        $("input.rek-more-name-" + i.id).val(ccK[i.id].more);
+
                         if (ccK[i.id].name.split("\n").length > 1) {
                             $.each(ccK[i.id].name.split("\n"), function (s, b) {
                                 if (
@@ -628,6 +655,17 @@ function content_rekam_medik(data) {
                             $("input.rek-name-" + i.id + "-" + g.trim()).prop(
                                 "checked",
                                 true
+                            );
+
+                            var num = $("input.rek-name-" + i.id + "-" + g.trim()).data("ck");
+                            var pos = $("input.rek-name-" + i.id + "-" + g.trim()).data("ck-on");
+                            var desc = $(
+                                "input.rek-name-" + i.id + "-" + g.trim()
+                            ).data("ck-desc");
+
+                            $(".info-small-" + pos).html(
+                                `<em class="fa fa-info-circle"></em> ` +
+                                    desc.split("\n")[num]
                             );
                         }
                     }, 500);
@@ -674,7 +712,6 @@ function loadRekamMedikPeriksa(ck) {
         success: function (data) {
             setTimeout(() => {
                 if (ck && ck == "form-load") {
-
                     setTimeout(function () {
                         $("#f-load-rekam-medik-periksa").removeClass("m-b-2");
                         $("#f-load-rekam-medik-periksa").html(
@@ -720,6 +757,21 @@ function loadRekamMedik(ck) {
                 } else {
                     $("#f-load-rekam-medik").html(content_rekam_medik(data));
                 }
+
+                $("#f-load-rekam-medik").delegate(
+                    ".on-label-click",
+                    "click",
+                    function () {
+                        var num = $(this).data("ck");
+                        var pos = $(this).data("ck-on");
+                        var desc = $(this).data("ck-desc");
+
+                        $(".info-small-" + pos).html(
+                            `<em class="fa fa-info-circle"></em> ` +
+                                desc.split("\n")[num]
+                        );
+                    }
+                );
             }, 500);
         },
     });
@@ -3509,7 +3561,7 @@ function savePeriksa(ev) {
         $(".display-future").addClass("blocking-content");
 
         var data = new FormData(event);
-        var url = ev.data('routes')
+        var url = ev.data("routes");
 
         $.ajaxSetup({
             headers: {
