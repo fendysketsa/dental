@@ -91,17 +91,17 @@
     </tr>
     <tr>
         <td>
-            <div class="content-circle area-18 permanen no-action-posisi">
+            <div class="content-circle area-18 permanen no-action-posisi" data-no-gigi="18">
 
                 <table border="1" cellspacing="0" class="table-main">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,8 +109,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part"></td>
-                            <td class="border-2-sub area-posisi-gigi-part"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1002,38 +1004,38 @@
     </tr>
 
     <tr>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_48.png') }}" alt="gigi 48"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_47.png') }}" alt="gigi 47"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_46.png') }}" alt="gigi 46"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_45.png') }}" alt="gigi 45"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_44.png') }}" alt="gigi 44"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_43.png') }}" alt="gigi 43"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_42.png') }}" alt="gigi 42"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_41.png') }}" alt="gigi 41"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_31.png') }}" alt="gigi 31"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_32.png') }}" alt="gigi 32"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_33.png') }}" alt="gigi 33"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_34.png') }}" alt="gigi 34"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_35.png') }}" alt="gigi 35"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_36.png') }}" alt="gigi 36"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_37.png') }}" alt="gigi 37"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_38.png') }}" alt="gigi 38"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_48.png') }}"
+                alt="gigi 48"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_47.png') }}"
+                alt="gigi 47"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_46.png') }}"
+                alt="gigi 46"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_45.png') }}"
+                alt="gigi 45"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_44.png') }}"
+                alt="gigi 44"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_43.png') }}"
+                alt="gigi 43"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_42.png') }}"
+                alt="gigi 42"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_41.png') }}"
+                alt="gigi 41"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_31.png') }}"
+                alt="gigi 31"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_32.png') }}"
+                alt="gigi 32"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_33.png') }}"
+                alt="gigi 33"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_34.png') }}"
+                alt="gigi 34"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_35.png') }}"
+                alt="gigi 35"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_36.png') }}"
+                alt="gigi 36"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_37.png') }}"
+                alt="gigi 37"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_38.png') }}"
+                alt="gigi 38"></td>
     </tr>
 
     <tr>
@@ -1050,7 +1052,7 @@
             <div class="square-number-bawah labeling-gigi" data-number-gigi="45">45</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="45">44</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="44">44</div>
         </td>
         <td class="center-div">
             <div class="square-number-bawah labeling-gigi" data-number-gigi="43">43</div>
@@ -1059,7 +1061,7 @@
             <div class="square-number-bawah labeling-gigi" data-number-gigi="42">42</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="51">41</div>
+            <div class="square-number-bawah labeling-gigi" data-number-gigi="41">41</div>
         </td>
         <td class="center-div">
             <div class="square-number-bawah labeling-gigi" data-number-gigi="31">31</div>
@@ -1090,8 +1092,11 @@
         <td colspan="16">
             <div class="row col-md-12 mt-20">
                 Gigi yang telah dipilih:
+                <div class="row">
+                    <div class="col-lg-12 load-selected-gigi"></div>
+                </div>
             </div>
-            <div class="row col-md-3 mt-20">
+            <div class="row col-md-3 mt-30">
                 <button class="btn btn-info col-md-12 load-f-per-gigi" data-toggle="modal">Pilih Tindakan</button>
             </div>
         </td>

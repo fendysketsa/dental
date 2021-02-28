@@ -657,8 +657,12 @@ function content_rekam_medik(data) {
                                 true
                             );
 
-                            var num = $("input.rek-name-" + i.id + "-" + g.trim()).data("ck");
-                            var pos = $("input.rek-name-" + i.id + "-" + g.trim()).data("ck-on");
+                            var num = $(
+                                "input.rek-name-" + i.id + "-" + g.trim()
+                            ).data("ck");
+                            var pos = $(
+                                "input.rek-name-" + i.id + "-" + g.trim()
+                            ).data("ck-on");
                             var desc = $(
                                 "input.rek-name-" + i.id + "-" + g.trim()
                             ).data("ck-desc");
@@ -3345,6 +3349,60 @@ function load_formLeftPeriksaGigi() {
     );
 }
 
+function removeGigiSelected() {
+    $(".load-selected-gigi").delegate(
+        ".removed-selected-gigi",
+        "click",
+        function () {
+            var Id = $(this).closest(".cont-selected-gigi").attr("id");
+
+            loadGigiSelected(Id, "remove", "parent");
+        }
+    );
+}
+
+function loadGigiSelected(no, param, parent) {
+    var html = ``;
+
+    html +=
+        `<div class="cont-sel-gigi sel-gigi-` +
+        no +
+        `">
+                <div id="` +
+        no +
+        `" class="cont-selected-gigi">
+                    <span class="t-selected">
+                        Gigi ` +
+        no +
+        ` <span class="text-gigi-act"></span>
+                    </span>
+                    <div class="cont-selected-gigi-remove">
+                        <em class="fa fa-times removed-selected-gigi"></em>
+                    </div>
+                </div>
+            </div>`;
+
+    if (param == "created") {
+        $(".sel-gigi-" + no).remove();
+        $(".load-selected-gigi").append(html);
+    } else if (param == "remove") {
+        $(".sel-gigi-" + no).remove();
+
+        if (parent && parent == "parent") {
+            $(".load-content-gigi-img")
+                .find(`[data-number-gigi="` + no + `"]`)
+                .removeClass("sn-active");
+
+            $(".area-" + no).addClass("no-action-posisi");
+
+            $(".area-" + no)
+                .find("td")
+                .removeClass("ar-gg-active")
+                .removeClass("ar-gg-active-part");
+        }
+    }
+}
+
 function load_gigi(param) {
     var cont = $(".load-content-gigi-img");
 
@@ -3382,6 +3440,10 @@ function load_gigi(param) {
                             var sn = itm.data("number-gigi");
 
                             $(".area-" + sn).removeClass("no-action-posisi");
+
+                            loadGigiSelected(sn, "created");
+
+                            removeGigiSelected();
                         }
                     );
 
@@ -3400,6 +3462,10 @@ function load_gigi(param) {
                                 .find("td")
                                 .removeClass("ar-gg-active")
                                 .removeClass("ar-gg-active-part");
+
+                            loadGigiSelected(sn, "remove");
+
+                            removeGigiSelected();
                         }
                     );
 
@@ -3409,6 +3475,8 @@ function load_gigi(param) {
                         function (e) {
                             var itm = $(this);
                             itm.addClass("ar-gg-active");
+
+                            loadSelectGigiText(itm)
                         }
                     );
 
@@ -3418,6 +3486,8 @@ function load_gigi(param) {
                         function (e) {
                             var itm = $(this);
                             itm.removeClass("ar-gg-active");
+
+                            loadSelectGigiText(itm);
                         }
                     );
 
@@ -3455,6 +3525,27 @@ function load_gigi(param) {
             }
         }
     );
+}
+
+function loadSelectGigiText(itm) {
+    var noGigi = itm.closest(".content-circle").data("no-gigi");
+
+    var textGigi = "";
+
+    var dataGigiSelect = $(".area-" + noGigi).find("td.ar-gg-active");
+
+    $.each(dataGigiSelect, function (e, f) {
+        var classColorSelectedNo = $(this).data("color-no");
+        var classColorSelectedNama = $(this).data("color-name");
+
+        var tit = parseInt(dataGigiSelect.length) - 1 == e ? "" : ", ";
+
+        textGigi += classColorSelectedNama + tit;
+    });
+
+    $(".sel-gigi-" + noGigi)
+        .find(".text-gigi-act")
+        .html(textGigi);
 }
 
 function load_formUbah() {

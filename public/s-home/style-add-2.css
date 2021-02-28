@@ -170,7 +170,42 @@
 }
 
 .part-susu-margin {
-    margin: 26.5px 13.5px !important;
+    margin: 26.7px 13.5px !important;
+}
+
+.cont-selected-gigi {
+    background: #ffffff;
+    border: 2px solid #bd66da;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: auto;
+    display: table-cell;
+    padding: 4px 10px;
+    top: 5px;
+    position: relative;
+}
+
+.cont-sel-gigi {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.removed-selected-gigi {
+    margin: 3.55px 4.5px;
+    font-size: 11px;
+}
+
+.cont-selected-gigi-remove {
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    margin: 2px -3px 3px 9px;
+    font-size: 9px !important;
+    display: inline-block;
+    background: #bd66da;
+    color: #fff;
+    position: relative;
 }
 
 .table-part {
