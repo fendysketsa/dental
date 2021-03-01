@@ -301,7 +301,7 @@ class OrderController extends Controller
             ->where('status', 2)
             ->where('status_pembayaran', 'pendaftaran')
             ->where(DB::RAW('DATE(waktu_reservasi)'), '=', DATE('Y-m-d'))
-            ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 15 minute)'), '<', DATE('H:i'));
+            ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 1 day)'), '<', DATE('H:i'));
 
         if (!empty($cekPrint->get())) {
             foreach ($cekPrint->get() as $r) {
@@ -310,7 +310,7 @@ class OrderController extends Controller
                         ->where('status', 2)
                         ->where('status_pembayaran', 'pendaftaran')
                         ->where(DB::RAW('DATE(waktu_reservasi)'), '=', DATE('Y-m-d'))
-                        ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 15 minute)'), '<', DATE('H:i'))->where('id', $r->id)
+                        ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 1 day)'), '<', DATE('H:i'))->where('id', $r->id)
                         ->update([
                             'status' => 4
                         ]);
@@ -1301,7 +1301,7 @@ class OrderController extends Controller
                         . DATE('Y-m-d')
                         . "', IF((date_add(TIME("
                         . $this->table
-                        . ".waktu_reservasi),interval 15 minute) < '"
+                        . ".waktu_reservasi),interval 1 day) < '"
                         . DATE('H:i')
                         . "') AND (transaksi.print_act is null OR transaksi.print_act = 0), 'lebih',''),'') as button_aktif"),
                     $this->table . '.id',
