@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 use Validator as Validasi;
 use App\Models\User;
 
@@ -21,10 +22,13 @@ class OrderController extends Controller
     protected $table_detail = 'transaksi_detail';
     protected $table_tambahan = 'transaksi_tambahan';
     protected $table_rekam = 'transaksi_rekam';
+    protected $table_rekam_gigi = 'transaksi_rekam_gigi';
     protected $table_member = 'member';
     protected $table_pegawai = 'pegawai';
     protected $table_layanan = 'layanan';
     protected $table_user = 'users';
+
+    private $dir = 'app/public/master-data/upload/gigi/pasien/';
 
     private $validate_messageMember = [
         'nama' => 'required',
@@ -32,6 +36,24 @@ class OrderController extends Controller
         'telepon' => 'required',
     ];
 
+    private $validateGigi_message = [
+        'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
+        'gigi' => 'required'
+    ];
+
+    public function fieldsGigi($request, $gambar)
+    {
+        $data_add = !empty($gambar) ? ['foto' => $gambar] : ['foto' => null];
+        $data = [
+            'gigi' => $request->gigi,
+            'transaksi_id' => $request->id,
+            'ringkasan' => $request->ringkasan_gigi ? $request->ringkasan_gigi : '-',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ];
+
+        return array_merge($data_add, $data);
+    }
 
     public function fields($request, $last_id)
     {
@@ -58,6 +80,22 @@ class OrderController extends Controller
             'room_id' => $request->room,
             'dokter_id' => $request->dokter,
         ];
+    }
+
+    public function validatedGigi($mess, $request)
+    {
+        $validator = \Validator::make($request->all(), $this->validateGigi_message);
+        if ($validator->fails()) {
+            $d_error = '<ul>';
+            foreach ($validator->errors()->all() as $row) {
+                $d_error .= '<li>' . $row . '</li>';
+            }
+            $d_error .= '</ul>';
+            $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
+            $mess['cd'] = 500;
+            echo json_encode($mess);
+            exit;
+        }
     }
 
     public function validated($mess, $request)
@@ -296,6 +334,7 @@ class OrderController extends Controller
             'js' => [
                 's-home/dist/js/sprintf.js',
                 's-home/monitoring/order/js/order.js',
+                's-home/monitoring/order/js/gigi.js',
                 // 'https://cdn.jsdelivr.net/npm/recta/dist/recta.js'
                 's-home/dist/js/recta.js'
             ],
@@ -308,7 +347,7 @@ class OrderController extends Controller
             'data' => null,
             'terapis' => null,
             'layanan' => null,
-            'action' => ''
+            'action' => '',
         ]);
     }
 
@@ -430,6 +469,10 @@ class OrderController extends Controller
                 ->select('name', 'price')
                 ->where('transaksi_id', $id)->get();
 
+            $dataGigi = DB::table($this->table_rekam_gigi)
+                ->select('gigi', 'ringkasan', 'foto')
+                ->where('transaksi_id', $id)->get();
+
             $dataRekam_ = DB::table($this->table_rekam)
                 ->select('id', 'name', 'more_keterangan', 'position')
                 ->where('transaksi_id', $id)
@@ -450,6 +493,7 @@ class OrderController extends Controller
             'services' => !empty($id) ? $dataLayanan : null,
             'services_add' => !empty($id) ? $dataLayananTambahan : null,
             'rekam' => !empty($id) ? json_encode($dataRekam, true) : null,
+            'rekam_gigi' => !empty($id) ? json_encode($dataGigi, true) : null,
             'action' => ""
         ]);
     }
@@ -570,6 +614,7 @@ class OrderController extends Controller
     public function storePeriksa(Request $request)
     {
         $mess = null;
+        $this->validatedGigi($mess, $request);
 
         $total_harga = 0;
         DB::transaction(function () use ($request, $mess, $total_harga) {
@@ -694,6 +739,38 @@ class OrderController extends Controller
                 if ($cekRekam == 0) {
                     DB::table($this->table_rekam)->insert($dataRekam);
                 }
+            }
+
+            $filename = null;
+            if ($request->hasFile('gambar_gigi') == 1) {
+                $extension = $request->file('gambar_gigi')->getClientOriginalExtension();
+                if (!empty($request->id)) {
+                    $image = DB::table($this->table_rekam_gigi)->where('transaksi_id', $request->id);
+                    if ($image->count() > 0 && !empty($image->first()->foto)) {
+                        File::delete(storage_path($this->dir) . $image->first()->foto);
+                    }
+                }
+                $filename = uniqid() . '_' . time() . '.' . $extension;
+                $request->file('gambar_gigi')->move(storage_path($this->dir), $filename);
+            } else {
+                if (!empty($request->id)) {
+                    if (empty($request->old_img_gigi) && $request->old_img_gigi == '') {
+                        $image = DB::table($this->table_rekam_gigi)->where('transaksi_id', $request->id);
+                        if ($image->count() > 0 && !empty($image->first()->foto)) {
+                            File::delete(storage_path($this->dir) . $image->first()->foto);
+                        }
+                    } else {
+                        $filename = $request->old_img_gigi;
+                    }
+                }
+            }
+
+            $GigiRekam = DB::table($this->table_rekam_gigi)->where('transaksi_id', $request->id);
+
+            if ($GigiRekam->count() > 0) {
+                $GigiRekam->update($this->fieldsGigi($request, $filename));
+            } else {
+                DB::table($this->table_rekam_gigi)->insert($this->fieldsGigi($request, $filename));
             }
 
             if ($transId) {
@@ -829,6 +906,8 @@ class OrderController extends Controller
                     'hutang_biaya' => $total_harga - $request->dp,
                     'created_at' => date("Y-m-d H:i:s"),
                 ]);
+
+
 
                 $dataRekam = array();
                 if (!empty($_POST['rekam'])) {

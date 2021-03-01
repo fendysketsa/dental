@@ -94,6 +94,10 @@ function load_formPeriksa() {
                                     content_info_member(data[0])
                                 );
 
+                                $(".load-informasi-right-periksa")
+                                    .find(".next-one-info")
+                                    .prop("type", "button");
+
                                 $(".load-informasi-right-periksa").delegate(
                                     ".next-one-info",
                                     "click",
@@ -115,6 +119,12 @@ function load_formPeriksa() {
                                         $(this)
                                             .removeClass("next-one-info")
                                             .addClass("next-two-info");
+
+                                        setTimeout(function () {
+                                            $(".load-informasi-right-periksa")
+                                                .find(".next-two-info")
+                                                .prop("type", "button");
+                                        }, 500);
                                     }
                                 );
 
@@ -502,10 +512,12 @@ function content_rekam_medik_periksa(data) {
                             ccK[i.id].name.split(" ").join("-").trim() ==
                                 g.split(" ").join("-").trim()
                         ) {
-                            $("input.rek-name-" + i.id + "-" + g.trim()).prop(
-                                "checked",
-                                true
-                            );
+                            $(
+                                "input.rek-name-" +
+                                    i.id +
+                                    "-" +
+                                    g.split(" ").join("-").trim()
+                            ).prop("checked", true);
 
                             var num = $(
                                 "input.rek-name-" + i.id + "-" + g.trim()
@@ -519,7 +531,7 @@ function content_rekam_medik_periksa(data) {
 
                             $(".info-small-" + pos).html(
                                 `<em class="fa fa-info-circle"></em> ` +
-                                    desc.split("\n")[num]
+                                    (!desc ? "" : desc.split("\n")[num])
                             );
                         }
                     }, 500);
@@ -2433,8 +2445,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
 
         $(".n-f-layanan-tambahan")
             .find("input")
-            .removeAttr("disabled")
-            .prop("required", true);
+            .removeAttr("disabled");
 
         onInputRupiah();
 
@@ -2459,8 +2470,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
 
             $(".n-f-layanan-tambahan")
                 .find("input")
-                .removeAttr("disabled")
-                .prop("required", true);
+                .removeAttr("disabled");
 
             var DataTambahan = $("input[name=id]").data("layanan-tambahan")[
                 idLayanan - 1
@@ -2536,8 +2546,7 @@ function load_row_layanan_tambahan_periksa(idLayanan, idTerapis) {
 
         $(".n-f-layanan-tambahan-periksa")
             .find("input")
-            .removeAttr("disabled")
-            .prop("required", true);
+            .removeAttr("disabled");
 
         onInputRupiah();
 
@@ -2562,8 +2571,7 @@ function load_row_layanan_tambahan_periksa(idLayanan, idTerapis) {
 
             $(".n-f-layanan-tambahan")
                 .find("input")
-                .removeAttr("disabled")
-                .prop("required", true);
+                .removeAttr("disabled");
 
             var DataTambahan = $("input[name=id]").data("layanan-tambahan")[
                 idLayanan - 1
@@ -3109,6 +3117,12 @@ function load_formLeftPeriksa(input) {
                                 $("button[name=next_one]").html(
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
+
+                                setTimeout(function () {
+                                    $(".load-informasi-right-periksa")
+                                        .find(".next-one-info")
+                                        .prop("type", "button");
+                                }, 500);
                             } else if (li == 2) {
                                 $("#f-load-rekam-medik-periksa")
                                     .removeClass("show")
@@ -3129,6 +3143,12 @@ function load_formLeftPeriksa(input) {
                                 $("button[name=next_one]").html(
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
+
+                                setTimeout(function () {
+                                    $(".load-informasi-right-periksa")
+                                        .find(".next-two-info")
+                                        .prop("type", "button");
+                                }, 500);
                             } else if (li == 3) {
                                 $("#f-load-rekam-medik-periksa")
                                     .removeClass("show")
@@ -3151,6 +3171,12 @@ function load_formLeftPeriksa(input) {
                                 $(".load-informasi-right-periksa")
                                     .find(".next-three-info")
                                     .prop("type", "submit");
+
+                                setTimeout(function () {
+                                    $(".load-informasi-right-periksa")
+                                        .find(".next-three-info")
+                                        .prop("type", "submit");
+                                }, 500);
                             }
 
                             $(".progressbar_order")
@@ -3343,10 +3369,50 @@ function load_formLeftPeriksaGigi() {
 
                 $("table").css({ "border-collapse": "unset !important" });
 
-                load_gigi("permanen");
+                var dataId = $("input[name=id]").data("rekam-medik-gigi");
+
+                setTimeout(function () {
+                    if (!dataId) {
+                        $(".opt-gigi-value").val("permanen");
+                        load_gigi("permanen");
+                    }
+
+                    switch_gigi();
+                    if (dataId) {
+                        fEditGigi(dataId[0]);
+                    }
+                }, 1000);
             }
         }
     );
+}
+
+function getImgGigi(data) {
+    var img = !data
+        ? "/images/noimage.jpg"
+        : "/storage/master-data/upload/gigi/pasien/" + data;
+
+    $("#preview_image_gigi").attr("src", base_url + img);
+}
+
+function fEditGigi(data) {
+    $(".opt-gigi").removeClass("active-gigi");
+    $(".opt-gigi-value").val(data.gigi);
+
+    $("#f-load-rekam-medik-periksa-gigi")
+        .find(`[data-gigi="` + data.gigi + `"]`)
+        .addClass("active-gigi");
+
+    load_gigi(data.gigi);
+
+    $("textarea[name=ringkasan_gigi]").val(data.ringkasan);
+
+    getImgGigi(data.foto)
+
+    if (data.foto) {
+        var flnme = $("#file_gigi_name")
+        flnme.val(data.foto);
+    }
 }
 
 function removeGigiSelected() {
@@ -3425,10 +3491,9 @@ function load_gigi(param) {
 
                 $(".load-content-gigi-img").html(e);
 
-                switch_gigi();
-
                 setTimeout(function () {
-                    $(".opt-gigi").prop("disabled", false);
+                    var OptGigi = $(".opt-gigi");
+                    OptGigi.prop("disabled", false);
 
                     $(".load-content-gigi-img").delegate(
                         ".labeling-gigi",
@@ -3476,7 +3541,7 @@ function load_gigi(param) {
                             var itm = $(this);
                             itm.addClass("ar-gg-active");
 
-                            loadSelectGigiText(itm)
+                            loadSelectGigiText(itm);
                         }
                     );
 
@@ -3497,6 +3562,8 @@ function load_gigi(param) {
                         function (e) {
                             var itm = $(this);
                             itm.addClass("ar-gg-active-part");
+
+                            loadSelectGigiText(itm);
                         }
                     );
 
@@ -3506,6 +3573,8 @@ function load_gigi(param) {
                         function (e) {
                             var itm = $(this);
                             itm.removeClass("ar-gg-active-part");
+
+                            loadSelectGigiText(itm);
                         }
                     );
 
@@ -3533,6 +3602,7 @@ function loadSelectGigiText(itm) {
     var textGigi = "";
 
     var dataGigiSelect = $(".area-" + noGigi).find("td.ar-gg-active");
+    var dataGigiSelectPart = $(".area-" + noGigi).find("td.ar-gg-active-part");
 
     $.each(dataGigiSelect, function (e, f) {
         var classColorSelectedNo = $(this).data("color-no");
@@ -3540,7 +3610,19 @@ function loadSelectGigiText(itm) {
 
         var tit = parseInt(dataGigiSelect.length) - 1 == e ? "" : ", ";
 
-        textGigi += classColorSelectedNama + tit;
+        textGigi +=
+            classColorSelectedNama +
+            tit +
+            (dataGigiSelectPart.length >= 1 ? ", " : "");
+    });
+
+    $.each(dataGigiSelectPart, function (e, f) {
+        var classColorSelectedNoPart = $(this).data("color-no");
+        var classColorSelectedNamaPart = $(this).data("color-name");
+
+        var titPart = parseInt(dataGigiSelectPart.length) - 1 == e ? "" : ", ";
+
+        textGigi += classColorSelectedNamaPart + titPart;
     });
 
     $(".sel-gigi-" + noGigi)
@@ -3575,14 +3657,17 @@ function load_formUbah() {
                         theme: "bootstrap",
                     });
 
-                    $(".cancel-form-tindakan").on("click", function () {
-                        $("#formModalMontrgOrderPeriksaGigi").modal("hide");
+                    $(".cancel-form-tindakan,.mod-vol-1").on(
+                        "click",
+                        function () {
+                            $("#formModalMontrgOrderPeriksaGigi").modal("hide");
 
-                        $(".modal").css({
-                            "overflow-x": "hidden",
-                            "overflow-y": "auto",
-                        });
-                    });
+                            $(".modal").css({
+                                "overflow-x": "hidden",
+                                "overflow-y": "auto",
+                            });
+                        }
+                    );
 
                     $(".save-form-tindakan").on("click", function () {
                         $("#formModalMontrgOrderPeriksaGigi").modal("hide");
@@ -3599,8 +3684,10 @@ function load_formUbah() {
 }
 
 function switch_gigi() {
-    $(".form-group").delegate(".opt-gigi", "click", function (e) {
+    $(".on-c-gigi-chg").delegate(".opt-gigi", "click", function (e) {
         var gigi = $(this).data("gigi");
+
+        $(".opt-gigi-value").val(gigi);
 
         $(".opt-gigi").removeClass("active-gigi").prop("disabled", true);
 

@@ -63,17 +63,17 @@
 
         <td>
 
-            <div class="content-circle area-55 susu no-action-posisi">
+            <div class="content-circle area-55 susu no-action-posisi" data-no-gigi="55">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -81,7 +81,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -91,17 +91,17 @@
 
         <td>
 
-            <div class="content-circle area-54 susu no-action-posisi">
+            <div class="content-circle area-54 susu no-action-posisi" data-no-gigi="54">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,7 +109,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -119,17 +119,17 @@
 
         <td>
 
-            <div class="content-circle area-53 susu no-action-posisi">
+            <div class="content-circle area-53 susu no-action-posisi" data-no-gigi="53">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -137,7 +137,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -147,17 +147,17 @@
 
         <td>
 
-            <div class="content-circle area-52 susu no-action-posisi">
+            <div class="content-circle area-52 susu no-action-posisi" data-no-gigi="52">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -165,7 +165,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -175,17 +175,17 @@
 
         <td>
 
-            <div class="content-circle area-51 susu no-action-posisi">
+            <div class="content-circle area-51 susu no-action-posisi" data-no-gigi="51">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -193,7 +193,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -203,17 +203,17 @@
 
         <td>
 
-            <div class="content-circle area-61 susu no-action-posisi">
+            <div class="content-circle area-61 susu no-action-posisi" data-no-gigi="61">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -221,7 +221,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -231,17 +231,17 @@
 
         <td>
 
-            <div class="content-circle area-62 susu no-action-posisi">
+            <div class="content-circle area-62 susu no-action-posisi" data-no-gigi="62">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -249,7 +249,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -259,17 +259,17 @@
 
         <td>
 
-            <div class="content-circle area-63 susu no-action-posisi">
+            <div class="content-circle area-63 susu no-action-posisi" data-no-gigi="63">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -277,7 +277,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -287,17 +287,17 @@
 
         <td>
 
-            <div class="content-circle area-64 susu no-action-posisi">
+            <div class="content-circle area-64 susu no-action-posisi" data-no-gigi="64">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -305,7 +305,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -315,17 +315,17 @@
 
         <td>
 
-            <div class="content-circle area-65 susu no-action-posisi">
+            <div class="content-circle area-65 susu no-action-posisi" data-no-gigi="65">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -333,7 +333,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -352,17 +352,17 @@
     <tr>
         <td>
 
-            <div class="content-circle area-85 susu no-action-posisi">
+            <div class="content-circle area-85 susu no-action-posisi" data-no-gigi="85">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -370,7 +370,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -380,17 +380,17 @@
 
         <td>
 
-            <div class="content-circle area-84 susu no-action-posisi">
+            <div class="content-circle area-84 susu no-action-posisi" data-no-gigi="84">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -398,7 +398,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -408,17 +408,17 @@
 
         <td>
 
-            <div class="content-circle area-83 susu no-action-posisi">
+            <div class="content-circle area-83 susu no-action-posisi" data-no-gigi="83">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -426,7 +426,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -436,17 +436,17 @@
 
         <td>
 
-            <div class="content-circle area-82 susu no-action-posisi">
+            <div class="content-circle area-82 susu no-action-posisi" data-no-gigi="82">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -454,7 +454,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -464,17 +464,17 @@
 
         <td>
 
-            <div class="content-circle area-81 susu no-action-posisi">
+            <div class="content-circle area-81 susu no-action-posisi" data-no-gigi="81">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -482,7 +482,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -492,17 +492,17 @@
 
         <td>
 
-            <div class="content-circle area-71 susu no-action-posisi">
+            <div class="content-circle area-71 susu no-action-posisi" data-no-gigi="71">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -510,7 +510,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -520,17 +520,17 @@
 
         <td>
 
-            <div class="content-circle area-72 susu no-action-posisi">
+            <div class="content-circle area-72 susu no-action-posisi" data-no-gigi="72">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -538,7 +538,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -548,17 +548,17 @@
 
         <td>
 
-            <div class="content-circle area-73 susu no-action-posisi">
+            <div class="content-circle area-73 susu no-action-posisi" data-no-gigi="73">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -566,7 +566,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -576,17 +576,17 @@
 
         <td>
 
-            <div class="content-circle area-74 susu no-action-posisi">
+            <div class="content-circle area-74 susu no-action-posisi" data-no-gigi="74">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -594,7 +594,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -604,17 +604,17 @@
 
         <td>
 
-            <div class="content-circle area-75 susu no-action-posisi">
+            <div class="content-circle area-75 susu no-action-posisi" data-no-gigi="75">
 
                 <table border="1" cellspacing="0" class="table-main main-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-1 area-posisi-gigi"></td>
-                            <td class="border-2 area-posisi-gigi"></td>
+                            <td class="border-1 area-posisi-gigi" data-color-no="1" data-color-name="Atas"></td>
+                            <td class="border-2 area-posisi-gigi" data-color-no="2" data-color-name="Kanan"></td>
                         </tr>
                         <tr>
-                            <td class="border-3 area-posisi-gigi"></td>
-                            <td class="border-4 area-posisi-gigi"></td>
+                            <td class="border-3 area-posisi-gigi" data-color-no="3" data-color-name="Kiri"></td>
+                            <td class="border-4 area-posisi-gigi" data-color-no="4" data-color-name="Bawah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -622,7 +622,7 @@
                 <table border="1" cellspacing="0" class="table-part part-susu-margin">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -633,26 +633,26 @@
     </tr>
 
     <tr>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_85.png') }}" alt="gigi 85"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_84.png') }}" alt="gigi 84"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_83.png') }}" alt="gigi 83"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_82.png') }}" alt="gigi 82"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_81.png') }}" alt="gigi 81"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_71.png') }}" alt="gigi 71"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_72.png') }}" alt="gigi 72"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_73.png') }}" alt="gigi 73"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_74.png') }}" alt="gigi 74"></td>
-        <td class="img-gigi img-gigi-top"><img class="gigi-bawah"
-                src="{{ asset('s-home/dist/img/gigi/gigi_75.png') }}" alt="gigi 75"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_85.png') }}"
+                alt="gigi 85"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_84.png') }}"
+                alt="gigi 84"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_83.png') }}"
+                alt="gigi 83"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_82.png') }}"
+                alt="gigi 82"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_81.png') }}"
+                alt="gigi 81"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_71.png') }}"
+                alt="gigi 71"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_72.png') }}"
+                alt="gigi 72"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_73.png') }}"
+                alt="gigi 73"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_74.png') }}"
+                alt="gigi 74"></td>
+        <td class="img-gigi img-gigi-top"><img class="gigi-bawah" src="{{ asset('s-home/dist/img/gigi/gigi_75.png') }}"
+                alt="gigi 75"></td>
     </tr>
 
     <tr>
@@ -692,6 +692,9 @@
         <td colspan="16">
             <div class="row col-md-12 mt-20">
                 Gigi yang telah dipilih:
+                <div class="row">
+                    <div class="col-lg-12 load-selected-gigi"></div>
+                </div>
             </div>
             <div class="row col-md-3 mt-20">
                 <button class="btn btn-info col-md-12 load-f-per-gigi" data-toggle="modal">Pilih

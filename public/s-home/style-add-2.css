@@ -185,6 +185,11 @@
     position: relative;
 }
 
+.e-icon-tindakan {
+    font-size: xx-large;
+    position: fixed;
+}
+
 .cont-sel-gigi {
     float: left;
     margin-right: 10px;

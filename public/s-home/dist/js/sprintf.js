@@ -1,8 +1,8 @@
 // Add dummy console.info if not using Firebug.
-if (!("console" in window) || !("firebug" in console)) {
-    window.console = {};
-    window.console.info = function () {}
-}
+// if (!("console" in window) || !("firebug" in console)) {
+//     window.console = {};
+//     window.console.info = function () {}
+// }
 
 function sprintf() {
     if (!arguments || arguments.length < 1 || !RegExp) {
