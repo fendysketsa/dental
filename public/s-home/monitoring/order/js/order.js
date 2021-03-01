@@ -681,7 +681,7 @@ function content_rekam_medik(data) {
 
                             $(".info-small-" + pos).html(
                                 `<em class="fa fa-info-circle"></em> ` +
-                                    desc.split("\n")[num]
+                                    (!desc ? "" : desc.split("\n")[num])
                             );
                         }
                     }, 500);

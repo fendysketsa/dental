@@ -5,14 +5,15 @@
     <div class="col-md-12">
         <div class="box box-default display-future">
             <div class="box-header with-border bg-default">
-                <h3 class="box-title"><em class='fa fa-th-large'></em> Keluhan</h3>
+                <h3 class="box-title"><em class='fa fa-th-large'></em> Treatment</h3>
             </div>
             <div class="box-body clean-sheet on-dutty-off">
                 <div class="load-form-table-layanan">
                     <table class="table hover" width="100%" cellspacing="0">
                         <thead class="bg-navy disabled color-palette">
                             <th style="width:5%;" class="text-center">No</th>
-                            <th @if(empty($_GET['step'])) style="width:85%;" @else style="width:60%;" @endif class="opt-harga @if(!empty($_GET['step'])) harga @endif">Keluhan
+                            <th @if(empty($_GET['step'])) style="width:85%;" @else style="width:60%;" @endif
+                                class="opt-harga @if(!empty($_GET['step'])) harga @endif">Treatment
                             </th>
 
                             @if(!empty($_GET['step']))
@@ -42,14 +43,14 @@
 
         <div class="box box-default display-future hide f-layanan-tambahan" style="display: none;">
             <div class="box-header with-border bg-default">
-                <h3 class="box-title"><em class='fa fa-th-large'></em> Keluhan Tambahan</h3>
+                <h3 class="box-title"><em class='fa fa-th-large'></em> Treatment Tambahan</h3>
             </div>
             <div class="box-body clean-sheet on-dutty-off">
                 <div class="load-form-table-layanan-tambahan">
                     <table class="table hover" width="100%" cellspacing="0">
                         <thead class="bg-navy disabled color-palette">
                             <th style="width:5%;" class="text-center">No</th>
-                            <th style="width:60%;">Keluhan tambahan</th>
+                            <th style="width:60%;">Treatment tambahan</th>
                             <th style="width:25%;">Harga</th>
                             <th style="width:10%;" class="text-center">Action</th>
                         </thead>
@@ -170,6 +171,24 @@
                 </div>
             </div>
 
+            <div class="col-md-12">
+                <hr style="border-top: 1px solid #e8e8e8;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Next Treatment:</label>
+                            <div class="input-group input-group-sm date on-date">
+                                <div class="input-group-addon add-on-daterpicker">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="tanggal_next" class="form-control"
+                                    placeholder="Isikan tanggal..." form="formRegistrasi" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@ function load_formAdd() {
                     }
                 });
             } else {
-                $('.modal-title').html('<em class="fa fa-pencil-square-o"></em> Form Keluhan')
+                $('.modal-title').html('<em class="fa fa-pencil-square-o"></em> Form Treatment')
                 form_attribut();
             }
         });
@@ -34,7 +34,7 @@ function load_formEdit() {
             url: event.data('route'),
             success: function (result) {
                 $('.load-form-modal').html(result);
-                $('.modal-title').html('<em class="fa fa-pencil-square-o"></em> Form Keluhan')
+                $('.modal-title').html('<em class="fa fa-pencil-square-o"></em> Form Treatment')
                 var iD_category = $("select[name=kategori]").data('selected');
                 form_attribut(iD_category);
             },

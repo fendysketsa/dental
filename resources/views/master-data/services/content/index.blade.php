@@ -3,7 +3,7 @@
         <div class="box box-danger display-future">
             <div class="box-header with-border bg-info">
                 <i class="fa fa-list-alt"></i>
-                <h3 class="box-title">Data Keluhan</h3>
+                <h3 class="box-title">Data Treatment</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -13,7 +13,7 @@
                     <div class="input-group input-group-sm" style="margin-left: -103px;">
                         <button type="button" class="btn btn-primary btn-sm btn-form-layanan" data-toggle="modal"
                             data-target="#formModalLayanan" data-backdrop="static" data-keyboard="false">
-                            <em class="glyphicon glyphicon-plus"></em> Keluhan
+                            <em class="glyphicon glyphicon-plus"></em> Treatment
                         </button>
                     </div>
                 </div>

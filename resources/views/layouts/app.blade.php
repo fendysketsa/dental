@@ -204,7 +204,7 @@
                             <li
                                 class="{{ (!empty($attribute['menu_services']) ? $attribute['menu_services'] : null) }}">
                                 <a href="{{ route('services.index') }}"><i class="fa fa-check-circle-o"></i>
-                                    Keluhan</a></li>
+                                    Treatment</a></li>
                             {{-- <li class="{{ (!empty($attribute['menu_package']) ? $attribute['menu_package'] : null) }}">
                             <a href="{{ route('packages.index') }}"><i class="fa fa-check-circle-o"></i>
                                 Paket</a>

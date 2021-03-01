@@ -79,7 +79,7 @@
 </div>
 
 <div class="form-group input-group-sm">
-    <label>Keluhan Tersedia:</label>
+    <label>Treatment Tersedia:</label>
     <select name="services[]" class="form-control select2-multiple-services services" multiple="multiple"
         style="width: 100%;" form="formDiskon" @if(!empty($dataE)) data-selected="[{{ $dataE['services'] }}]"
         @endif></select>

@@ -49,7 +49,7 @@ data-member-id="{{ $data[0]->member_id }}" data-rekam-medik="{{ $rekam }}" form=
                     <div class="box box-danger display-future">
                         <div class="box-header with-border bg-info">
                             <i class="fa fa-list"></i>
-                            <h3 class="box-title">Keluhan Tersedia & Rekam Medik Umum <em class="text-danger">*</em>
+                            <h3 class="box-title">Treatment Tersedia & Rekam Medik Umum <em class="text-danger">*</em>
                             </h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool right-to" data-widget="collapse"><i
