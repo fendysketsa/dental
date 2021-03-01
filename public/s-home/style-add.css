@@ -190,6 +190,10 @@
     margin-top: 30px;
 }
 
+.mb-10 {
+    margin-bottom: 10px;
+}
+
 .word-break {
     word-break: break-all;
 }

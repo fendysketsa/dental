@@ -35,9 +35,9 @@ function loadFile() {
 }
 
 function loadFileTindakan() {
-    $("#file_gigi").click();
+    $("#file_tindakan").click();
 
-    $("#file_gigi").change(function () {
+    $("#file_tindakan").change(function () {
         if ($(this).val() != "") {
             var file = this.files[0];
             var imagefile = file.type;
@@ -49,12 +49,12 @@ function loadFileTindakan() {
                     imagefile == match[2]
                 )
             ) {
-                $("#preview_image_gigi").attr(
+                $("#preview_image_tindakan").attr(
                     "src",
                     base_url + "/images/noimage.jpg"
                 );
-                $("#file_gigi_name").val("");
-                $("#file_gigi").val("");
+                $("#file_gigi_tindakan").val("");
+                $("#file_tindakan").val("");
                 var fls =
                     "Pilih gambar yang sesuai!, hanya diperbolehkan format jpeg, jpg and png!</ul>";
                 toastr.warning(fls, "Oops!", {
@@ -62,7 +62,7 @@ function loadFileTindakan() {
                 });
                 return false;
             } else {
-                readPreview(this);
+                readPreviewTindakan(this);
 
                 return true;
             }
@@ -82,11 +82,31 @@ function readPreview(input) {
     }
 }
 
+function readPreviewTindakan(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $("#preview_image_tindakan").attr("src", e.target.result);
+            $("#file_tindakan_name").val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 function removeFile() {
     if ($("#file_gigi_name").val() != "") {
         $("#preview_image_gigi").attr("src", base_url + "/images/noimage.jpg");
         $("#file_gigi_name").val("");
         $("#file_gigi").val("");
+    }
+}
+
+function removeFileTindakan() {
+    if ($("#file_tindakan_name").val() != "") {
+        $("#preview_image_tindakan").attr("src", base_url + "/images/noimage.jpg");
+        $("#file_tindakan_name").val("");
+        $("#file_tindakan").val("");
     }
 }
 

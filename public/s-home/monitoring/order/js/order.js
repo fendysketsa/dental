@@ -1807,6 +1807,7 @@ function form_attribut_right() {
                 .removeClass("fa-plus")
                 .addClass("fa-minus")
                 .trigger("change");
+
             $(".select2-container").css({
                 width: "100%",
             });
@@ -3110,6 +3111,8 @@ function load_formLeftPeriksa(input) {
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
 
+                                $(".to-ch-title").text('Form Rekam Medik Umum')
+
                                 setTimeout(function () {
                                     $(".load-informasi-right-periksa")
                                         .find(".next-one-info")
@@ -3135,6 +3138,8 @@ function load_formLeftPeriksa(input) {
                                 $("button[name=next_one]").html(
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
+
+                                $(".to-ch-title").text('Form Kontrol')
 
                                 setTimeout(function () {
                                     $(".load-informasi-right-periksa")
@@ -3163,6 +3168,8 @@ function load_formLeftPeriksa(input) {
                                 $(".load-informasi-right-periksa")
                                     .find(".next-three-info")
                                     .prop("type", "submit");
+
+                                $(".to-ch-title").text('Form Update Harga')
 
                                 setTimeout(function () {
                                     $(".load-informasi-right-periksa")
@@ -3605,7 +3612,7 @@ function loadSelectGigiText(itm) {
         textGigi +=
             classColorSelectedNama +
             tit +
-            (dataGigiSelectPart.length >= 1 ? ", " : "");
+            (dataGigiSelectPart.length < 2 ? ", " : "");
     });
 
     $.each(dataGigiSelectPart, function (e, f) {
@@ -3649,6 +3656,12 @@ function load_formUbah() {
                         theme: "bootstrap",
                     });
 
+                    setTimeout(function () {
+                        $(".select2-container").css({
+                            width: "100%",
+                        });
+                    }, 1000);
+
                     $(".cancel-form-tindakan,.mod-vol-1").on(
                         "click",
                         function () {
@@ -3682,7 +3695,7 @@ function fTindakan(val) {
 
     html +=
         `<div class="row fc-tindakan">
-                <div class="col-md-8 data-tindakan-f">
+                <div class="col-md-8 data-tindakan-f mb-10">
                     Diagnosa: <span class="t-diagnosa">` +
         val[0] +
         `</span>
@@ -3784,6 +3797,12 @@ function load_formRight(evv) {
                 setTimeout(function () {
                     loadRekamMedik("form-load");
                 }, 1500);
+
+                setTimeout(function () {
+                    $(".select2-container").css({
+                        width: "100%",
+                    });
+                }, 1000);
 
                 submit(evv);
             }

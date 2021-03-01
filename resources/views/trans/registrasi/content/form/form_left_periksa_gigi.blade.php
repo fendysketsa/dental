@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label class="mt-10">Keterangan:</label>
+                    <label class="mt-10">Catatan:</label>
                     <div>
                         <textarea name="ringkasan_gigi" class="form-control add-style-gigi"
                             placeholder="Tuliskan catatan tambahan..." form="formPeriksa"></textarea>
