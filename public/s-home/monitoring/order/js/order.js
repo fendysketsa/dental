@@ -3721,8 +3721,8 @@ function lTindakanRecord() {
 }
 
 function loadSaveTindakan() {
-    var fDiag = $(".fm-diagnosis");
-    var fTind = $(".fm-tindakan");
+    var fDiag = $(".fm-diagnosis option:selected");
+    var fTind = $(".fm-tindakan option:selected");
 
     if (!fDiag.val() && !fTind.val()) {
         toastr.warning(
