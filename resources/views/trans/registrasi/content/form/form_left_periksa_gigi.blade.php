@@ -16,6 +16,13 @@
             <em class='fa fa-spin fa-spinner'></em> Loading...
         </div>
 
+        <div class="row mt-10">
+            <div class="col-md-12">
+                <h4>Pemeriksaan Gigi: </h4>
+                <div class="cont-tindakan"> </div>
+            </div>
+        </div>
+
         <hr style="border: 2px solid #F2F2F2;">
         <h4>Tambahan Data Untuk Pasien: </h4>
         <div class="row">
@@ -31,7 +38,8 @@
                 <div class="form-group">
                     <label class="mt-10">Pratinjau File:</label>
                     <div style="width:100%; height: 450px; text-align: center; position: relative" id="image_gigi">
-                        <img width="100%" height="100%" id="preview_image_gigi" src="{{ asset('images/noimage.jpg') }}" />
+                        <img width="100%" height="100%" id="preview_image_gigi"
+                            src="{{ asset('images/noimage.jpg') }}" />
                     </div>
                     <div class="row mt-5">
                         <div class="col-md-6 col-xs-6 col-sm-6">
@@ -47,7 +55,7 @@
                     </div>
 
                     <input type="file" id="file_gigi" name="gambar_gigi" class="hide" form="formPeriksa" />
-                    <input type="hidden" id="file_gigi_name" form="formPeriksa" name="old_img_gigi"/>
+                    <input type="hidden" id="file_gigi_name" form="formPeriksa" name="old_img_gigi" />
                 </div>
             </div>
         </div>

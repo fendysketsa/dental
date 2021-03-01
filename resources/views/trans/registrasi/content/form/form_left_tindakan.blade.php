@@ -12,15 +12,15 @@
                             <div class="col-md-12">
                                 <div class="form-group input-group-sm">
                                     <label>Diagnosis: <em class="text-danger">*</em></label>
-                                    <select name="diagnosis" class="form-control select2-tindakan" style="width: 100%;"
-                                        form="formPeriksa"></select>
+                                    <select name="diagnosis" class="form-control select2-tindakan fm-diagnosis"
+                                        style="width: 100%;"></select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group input-group-sm">
                                     <label>Tindakan: <em class="text-danger">*</em></label>
-                                    <select name="tindakan" class="form-control select2-tindakan" style="width: 100%;"
-                                        form="formPeriksa"></select>
+                                    <select name="tindakan" class="form-control select2-tindakan fm-tindakan"
+                                        style="width: 100%;"></select>
                                 </div>
                             </div>
                         </div>
@@ -30,8 +30,8 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-edit"></i>
                                 </div>
-                                <textarea name="more_catatan" class="form-control add-style-ta" id="more_catatan"
-                                    placeholder="Catatan Tambahan..." form="formPeriksa"></textarea>
+                                <textarea class="form-control add-style-ta" id="more_catatan"
+                                    placeholder="Catatan Tambahan..."></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -54,10 +54,8 @@
                                 </div>
                             </div>
 
-                            <input type="file" id="file_tindakan" name="gambar_tindakan" class="hide"
-                                form="formPeriksa" />
-                            <input type="hidden" id="file_name_tindakan" form="formPeriksa" name="old_img_tindakan"
-                                value="" />
+                            <input type="file" id="file_tindakan" name="gambar_tindakan" class="hide" />
+                            <input type="hidden" id="file_name_tindakan" name="old_img_tindakan" value="" />
                         </div>
                     </div>
                     <div class=" button-action box-footer bg-gray-light hide">
@@ -70,8 +68,8 @@
                             </div>
                             <div class="col-md-6 col-xs-6 col-sm-6">
                                 <button type="submit"
-                                    class="btn btn-info col-md-12 col-xs-12 col-sm-12 save-form-tindakan"
-                                    form="formPeriksa"><em class="fa fa-envelope"></em> Save</button>
+                                    class="btn btn-info col-md-12 col-xs-12 col-sm-12 save-form-tindakan"><em
+                                        class="fa fa-envelope"></em> Save</button>
                             </div>
                         </div>
                     </div>

@@ -2443,9 +2443,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
             .removeClass("blocking-loading-row")
             .addClass("hide");
 
-        $(".n-f-layanan-tambahan")
-            .find("input")
-            .removeAttr("disabled");
+        $(".n-f-layanan-tambahan").find("input").removeAttr("disabled");
 
         onInputRupiah();
 
@@ -2468,9 +2466,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
             //     );
             // }, 2000);
 
-            $(".n-f-layanan-tambahan")
-                .find("input")
-                .removeAttr("disabled");
+            $(".n-f-layanan-tambahan").find("input").removeAttr("disabled");
 
             var DataTambahan = $("input[name=id]").data("layanan-tambahan")[
                 idLayanan - 1
@@ -2544,9 +2540,7 @@ function load_row_layanan_tambahan_periksa(idLayanan, idTerapis) {
             .removeClass("blocking-loading-row")
             .addClass("hide");
 
-        $(".n-f-layanan-tambahan-periksa")
-            .find("input")
-            .removeAttr("disabled");
+        $(".n-f-layanan-tambahan-periksa").find("input").removeAttr("disabled");
 
         onInputRupiah();
 
@@ -2569,9 +2563,7 @@ function load_row_layanan_tambahan_periksa(idLayanan, idTerapis) {
             //     );
             // }, 2000);
 
-            $(".n-f-layanan-tambahan")
-                .find("input")
-                .removeAttr("disabled");
+            $(".n-f-layanan-tambahan").find("input").removeAttr("disabled");
 
             var DataTambahan = $("input[name=id]").data("layanan-tambahan")[
                 idLayanan - 1
@@ -3407,10 +3399,10 @@ function fEditGigi(data) {
 
     $("textarea[name=ringkasan_gigi]").val(data.ringkasan);
 
-    getImgGigi(data.foto)
+    getImgGigi(data.foto);
 
     if (data.foto) {
-        var flnme = $("#file_gigi_name")
+        var flnme = $("#file_gigi_name");
         flnme.val(data.foto);
     }
 }
@@ -3670,6 +3662,8 @@ function load_formUbah() {
                     );
 
                     $(".save-form-tindakan").on("click", function () {
+                        loadSaveTindakan();
+
                         $("#formModalMontrgOrderPeriksaGigi").modal("hide");
 
                         $(".modal").css({
@@ -3681,6 +3675,74 @@ function load_formUbah() {
             }
         }
     );
+}
+
+function fTindakan(val) {
+    var html = ``;
+
+    html +=
+        `<div class="row fc-tindakan">
+                <div class="col-md-8 data-tindakan-f">
+                    Diagnosa: <span class="t-diagnosa">` +
+        val[0] +
+        `</span>
+                    Tindakan: <span class="t-tindakan">` +
+        val[1] +
+        `</span>
+                    <span class="t-catatan">` +
+        val[2] +
+        `</span>
+                    <span class="t-gambar"></span>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-groups" role="group">
+                        <a class="btn btn-info text-success btn-xs btn-3d edit-tindakan e-icon-tindakan"
+                            data-tindakan="">
+                            <em class="fa fa-pencil-square-o"></em>
+                        </a>
+                        <a class="btn btn-warning text-danger btn-id-1 btn-xs btn-3d remove-tindakan e-icon-tindakan"
+                            data-remove-id-tindakan="">
+                            <em class="fa fa-trash"></em>
+                        </a>
+                    </div>
+                </div>
+            </div>`;
+
+    return $(".cont-tindakan").append(html);
+}
+
+function lTindakanRecord() {
+    $("#formModalMontrgOrderPeriksaGigi").modal({
+        backdrop: "static",
+        keyboard: false,
+    });
+
+    load_formUbah();
+}
+
+function loadSaveTindakan() {
+    var fDiag = $(".fm-diagnosis");
+    var fTind = $(".fm-tindakan");
+
+    if (!fDiag.val() && !fTind.val()) {
+        toastr.warning(
+            "Pilih diagnosis dan tindakan yang akan dilakukan!",
+            "Oops!",
+            {
+                timeOut: 2000,
+            }
+        );
+
+        return false;
+    }
+
+    var fCatatan = $("#more_catatan");
+
+    var dataStind = new Array(fDiag.text(), fTind.text(), fCatatan.text());
+
+    fTindakan(dataStind);
+
+    lTindakanRecord();
 }
 
 function switch_gigi() {
