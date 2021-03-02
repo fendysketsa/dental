@@ -57,6 +57,10 @@ function addOn(date) {
     $(".on-date input").val(date.format("DD-MM-YYYY"));
 }
 
+function addOnNex(date) {
+    $(".on-date-next input").val(date.format("DD-MM-YYYY"));
+}
+
 function f_member(data) {
     var html = "";
     html +=
@@ -1201,6 +1205,23 @@ function form_attribut() {
             .addClass("fa-question-circle");
         $(".f-reservasi").html("");
     });
+
+    setTimeout(function () {
+        $(".add-on-daterpicker-next-treatment").daterangepicker(
+            {
+                drops: "up",
+                singleDatePicker: true,
+                autoUpdateInput: true,
+                showDropdowns: true,
+                startDate: moment(),
+                minDate: moment(),
+                locale: {
+                    format: "DD-MM-YYYY",
+                },
+            },
+            addOnNex
+        );
+    }, 500);
 }
 
 function select_(table, pkt) {

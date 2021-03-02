@@ -343,6 +343,39 @@ function load_formEdit() {
                         }
                         $(".load-row-paket").append(load_row_paket);
 
+                        $("input[name=tanggal_next]")
+                            .val(inputId.data("nexdate"))
+                            .trigger("change");
+
+                        setTimeout(function () {
+                            $(
+                                ".add-on-daterpicker-next-treatment"
+                            ).daterangepicker(
+                                {
+                                    drops: "up",
+                                    singleDatePicker: true,
+                                    autoUpdateInput: true,
+                                    showDropdowns: true,
+                                    startDate: !$(
+                                        "input[name=tanggal_next]"
+                                    ).val()
+                                        ? moment()
+                                        : moment()
+                                              .add()
+                                              .format(
+                                                  $(
+                                                      "input[name=tanggal_next]"
+                                                  ).val()
+                                              ),
+                                    minDate: moment(),
+                                    locale: {
+                                        format: "DD-MM-YYYY",
+                                    },
+                                },
+                                addOnNex
+                            );
+                        }, 500);
+
                         $("input[name=jumlah_orang]")
                             .val(inputId.data("jum_org"))
                             .trigger("change");
@@ -3111,7 +3144,7 @@ function load_formLeftPeriksa(input) {
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
 
-                                $(".to-ch-title").text('Form Rekam Medik Umum')
+                                $(".to-ch-title").text("Form Rekam Medik Umum");
 
                                 setTimeout(function () {
                                     $(".load-informasi-right-periksa")
@@ -3139,7 +3172,7 @@ function load_formLeftPeriksa(input) {
                                     `<em class="fa fa-arrow-right"></em> Lanjutkan`
                                 );
 
-                                $(".to-ch-title").text('Form Kontrol')
+                                $(".to-ch-title").text("Form Kontrol");
 
                                 setTimeout(function () {
                                     $(".load-informasi-right-periksa")
@@ -3169,7 +3202,7 @@ function load_formLeftPeriksa(input) {
                                     .find(".next-three-info")
                                     .prop("type", "submit");
 
-                                $(".to-ch-title").text('Form Update Harga')
+                                $(".to-ch-title").text("Form Update Harga");
 
                                 setTimeout(function () {
                                     $(".load-informasi-right-periksa")
@@ -3208,6 +3241,10 @@ function load_formLeftPeriksa(input) {
             }
         }
     );
+}
+
+function addOnNex(date) {
+    $(".on-date-next input").val(date.format("DD-MM-YYYY"));
 }
 
 function load_formUbahStep(inputId) {
@@ -3273,6 +3310,35 @@ function load_formUbahStep(inputId) {
                         load_row_layanan_tambahan_periksa
                     );
 
+                    $("input[name=tanggal_next]")
+                        .val(inputId.data("nexdate"))
+                        .trigger("change");
+
+                    setTimeout(function () {
+                        $(".add-on-daterpicker-next-treatment").daterangepicker(
+                            {
+                                drops: "up",
+                                singleDatePicker: true,
+                                autoUpdateInput: true,
+                                showDropdowns: true,
+                                startDate: !$("input[name=tanggal_next]").val()
+                                    ? moment()
+                                    : moment()
+                                          .add()
+                                          .format(
+                                              $(
+                                                  "input[name=tanggal_next]"
+                                              ).val()
+                                          ),
+                                minDate: moment(),
+                                locale: {
+                                    format: "DD-MM-YYYY",
+                                },
+                            },
+                            addOnNex
+                        );
+                    }, 500);
+
                     $("input[name=jumlah_orang]")
                         .val(inputId.data("jum_org"))
                         .trigger("change");
@@ -3296,7 +3362,7 @@ function load_formUbahStep(inputId) {
                         $(".select2-container").css({
                             width: "100%",
                         });
-                    }, 1000);
+                    }, 1500);
 
                     if (inputId.data("reservasi") !== "") {
                         var attr_ = $("button#show");

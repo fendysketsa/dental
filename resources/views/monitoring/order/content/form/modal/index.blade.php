@@ -9,7 +9,9 @@
     data-dokter="{{ $data[0]->dokter_id }}" data-total-biaya="{{ RupiahFormat($data[0]->total_biaya) }}"
     data-paket="[{{ $paket[0]->paket }}]" @foreach($posisi as $numpos=> $pos)
 data-paket-terapis-{{ $pos->posisi }}="[{{ $pktservices[$numpos]->terapis }}]" @endforeach
-data-member-id="{{ $data[0]->member_id }}" data-rekam-medik="{{ $rekam }}" form="formRegistrasi">
+data-member-id="{{ $data[0]->member_id }}"
+data-nexdate="{{ empty($data[0]->tanggal_comeback) ? date("d-m-Y") : date("d-m-Y", strtotime($data[0]->tanggal_comeback)) }}"
+data-rekam-medik="{{ $rekam }}" form="formRegistrasi">
 @endif
 
 <div class="load-form-modal">

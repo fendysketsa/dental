@@ -47,6 +47,7 @@ class ReservationController extends Controller
             'dp' => 0, //$request->dp,
             //'paket_id' => $request->paket,
             'agent' => 'Web Based',
+            'tanggal_comeback' => empty($request->tanggal_next) ? null : date('Y-m-d H:i:s', strtotime($request->tanggal_next)),
             'room_id' => $request->room,
             'dokter_id' => $request->dokter,
             'status_pembayaran' => 'pendaftaran',

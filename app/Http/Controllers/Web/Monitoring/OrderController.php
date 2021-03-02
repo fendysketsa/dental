@@ -68,6 +68,7 @@ class OrderController extends Controller
             'room_id' => $request->room,
             'dokter_id' => $request->dokter,
             //'paket_id' => $request->paket,
+            'tanggal_comeback' => empty($request->tanggal_next) ? null : date('Y-m-d H:i:s', strtotime($request->tanggal_next)),
             'status' => 2,
         ];
     }
@@ -849,11 +850,12 @@ class OrderController extends Controller
                 //     }
                 // }
 
-                if ($request->has('layanan')) {
+                if ($request->has('layanan') && !empty($request->layanan)) {
                     DB::table('transaksi_detail')
                         ->where('transaksi_id', $request->id)
                         ->whereNull('paket_id')
                         ->delete();
+
                     foreach ($request->layanan as $num => $lay) {
                         if (!empty($lay)) {
                             $dataDetailIns2 = array();
