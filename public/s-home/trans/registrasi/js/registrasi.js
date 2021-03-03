@@ -1558,7 +1558,7 @@ function rePrint(events, dataTrans, onsave) {
                         sprintf("%3s", ": ") +
                         sprintf(
                             "%20s",
-                            "GW-" +
+                            "MD-" +
                                 operatorCbangCode +
                                 "-" +
                                 dataTrans.data.no_transaksi

@@ -18,8 +18,8 @@ class RegMember extends Model
         if (empty($no_member)) {
             $value = sprintf("%09d", 1);
         } else {
-            $value = sprintf("%09d", (str_replace('GW-', '', ltrim($no_member->no_member)) + 1));
+            $value = sprintf("%09d", (str_replace('MD-', '', ltrim($no_member->no_member)) + 1));
         }
-        return 'GW-' . $value;
+        return 'MD-' . $value;
     }
 }

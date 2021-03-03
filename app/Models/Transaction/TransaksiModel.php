@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransaksiModel extends Model
 {
+    protected $table = 'transaksi';
+
     public static function getAutoNoTransaksi()
     {
         $no_transaksi = DB::table('transaksi')->orderBy('id', 'asc')->get()->last();

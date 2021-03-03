@@ -25,14 +25,14 @@
                         class="fa fa-search"></em>
                     Periksa</a>
         </li>
-        <li>
+        {{-- <li>
             <a style="display:-webkit-box;"
                 class="btn @if($status==1 || $status==4) btn-default btn-disabled @else print @endif btn-xs btn-3d"
                 @if($status>1 && $status<4) data-id-cetak="{{ $id }}"
                     data-route="{{ route('monitoring.order.printOut') }}" @endif>
                     <em class="fa fa-print"></em> Cetak
             </a>
-        </li>
+        </li> --}}
 
         @if($print_act >= 0 && $status<4 && $status>1)
             <li>

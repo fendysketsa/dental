@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Validator as Validasi;
 use App\Models\User;
+use App\Models\Transaction\TransaksiModel as TransactionModel;
+use App\TransaksiDetailModel as TransactionDetailModel;
+use App\Models\MemberModel;
 
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
@@ -294,6 +297,26 @@ class OrderController extends Controller
             'paket' => $dTPaket,
             'produk' => $dTProduk
         ]);
+    }
+
+    public function print(Request $request)
+    {
+        if (empty($request))
+            show(404);
+
+        $id = $request->id;
+
+        $data['transaksi'] = TransactionModel::find($id)->toArray();
+
+        $data['det_transaksi'] = TransactionDetailModel::leftJoin('transaksi', 'transaksi.id', '=', 'transaksi_detail.transaksi_id')
+            ->where('transaksi_id', $data['transaksi']['id'])
+            ->select('transaksi_detail.*', 'transaksi.*')
+            ->get()
+            ->toArray();
+
+        $data['member'] = MemberModel::where('user_id', $data['transaksi']['member_id'])->first()->toArray();
+
+        return view('monitoring.order.content.print', $data);
     }
 
     protected function cekOrder()

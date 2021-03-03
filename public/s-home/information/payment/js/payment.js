@@ -852,7 +852,7 @@ function rePrint(events, dataTrans) {
 
         printer.align('center').text("--------------------------------").text('REPRINT')
             .feed(1)
-            .align('left').text('No. Trans' + sprintf('%3s', ': ') + sprintf('%20s', 'GW-' + operatorCbangCode + '-' + dataTrans.data.no_transaksi))
+            .align('left').text('No. Trans' + sprintf('%3s', ': ') + sprintf('%20s', 'MD-' + operatorCbangCode + '-' + dataTrans.data.no_transaksi))
             .align('left').text('Tanggal' + sprintf('%5s', ': ') + sprintf('%20s', getIndoDate(dataTrans.data.created_at)))
             .align('left').text('Cetak' + sprintf('%7s', ': ') + sprintf('%20s', currentDate()))
             .align('left').text('No. Member' + sprintf('%2s', ': ') + sprintf('%20s', dataTrans.data.no_member))

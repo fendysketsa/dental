@@ -446,6 +446,7 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
     Route::get('monitoring/order/det/{id}', 'Web\Monitoring\OrderController@detTrans');
     Route::get('monitoring/order/data', 'Web\Monitoring\OrderController@_data');
     Route::get('monitoring/order/json', 'Web\Monitoring\OrderController@_json');
+    Route::post('monitoring/print', 'Web\Monitoring\OrderController@print');
     Route::resource('monitoring/order', 'Web\Monitoring\OrderController', [
         'names' => [
             'index' => 'orders.index',

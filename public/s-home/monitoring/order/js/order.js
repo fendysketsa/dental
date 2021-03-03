@@ -1090,7 +1090,7 @@ function rePrint(events, dataTrans, onsave) {
                         sprintf("%3s", ": ") +
                         sprintf(
                             "%20s",
-                            "GW-" +
+                            "MD-" +
                                 operatorCbangCode +
                                 "-" +
                                 dataTrans.data.no_transaksi
@@ -2452,7 +2452,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
         `<td class="input-layanan-tambahan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
                 <div class="input-group-sm">
-                    <input type="text" name="layanan_tambahan[]" form="formRegistrasi" placeholder="layanan tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
+                    <input type="text" name="layanan_tambahan[]" form="formRegistrasi" placeholder="treatment tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
         numb +
         `">` +
         `
@@ -3655,6 +3655,34 @@ function load_gigi(param) {
                             load_formUbah();
                         }
                     );
+
+                    $(".cont-tindakan").delegate(
+                        ".edit-tindakan",
+                        "click",
+                        function () {
+                            $("#formModalMontrgOrderPeriksaGigi").modal({
+                                backdrop: "static",
+                                keyboard: false,
+                            });
+
+                            var tCatatan = $(this)
+                                .closest(".fc-tindakan")
+                                .find(".t-catatan").text();
+
+                            var dataTindakan = [tCatatan];
+
+                            load_formUbah(dataTindakan);
+                        }
+                    );
+
+                    $(".cont-tindakan").delegate(
+                        ".remove-tindakan",
+                        "click",
+                        function () {
+                            $(this).closest('.cont-tindakan').find('.fc-tindakan').remove()
+                            toastr.success('Data pemeriksaan dihapus!')
+                        }
+                    );
                 }, 1000);
             }
         }
@@ -3695,7 +3723,7 @@ function loadSelectGigiText(itm) {
         .html(textGigi);
 }
 
-function load_formUbah() {
+function load_formUbah(data) {
     var cont = $(".load-form-periksa-gigi");
     $(".display-future").addClass("blocking-content");
 
@@ -3711,6 +3739,10 @@ function load_formUbah() {
             } else {
                 $(".display-future").removeClass("blocking-content");
                 $(".button-action").removeClass("hide");
+
+                if (data) {
+                    $("#more_catatan").html(data[0]);
+                }
 
                 setTimeout(function () {
                     select_("diagnosis");
@@ -3764,10 +3796,10 @@ function fTindakan(val) {
                 <div class="col-md-8 data-tindakan-f mb-10">
                     Diagnosa: <span class="t-diagnosa">` +
         val[0] +
-        `</span>
+        `</span><br>
                     Tindakan: <span class="t-tindakan">` +
         val[1] +
-        `</span>
+        `</span><br>
                     <span class="t-catatan">` +
         val[2] +
         `</span>
@@ -3817,7 +3849,7 @@ function loadSaveTindakan() {
 
     var fCatatan = $("#more_catatan");
 
-    var dataStind = new Array(fDiag.text(), fTind.text(), fCatatan.text());
+    var dataStind = new Array(fDiag.text(), fTind.text(), fCatatan.val());
 
     fTindakan(dataStind);
 

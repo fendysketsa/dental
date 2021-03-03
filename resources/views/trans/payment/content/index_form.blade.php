@@ -41,7 +41,7 @@ data-member="{{ $data[0]->member_id }}" form="formKasir">
         <div class="box box-danger display-future">
             <div class="box-header with-border bg-info">
                 <i class="fa fa-list"></i>
-                <h3 class="box-title">Treatment dan Produk Tersedia</h3>
+                <h3 class="box-title">Treatment dan Layanan Tambahan</h3>
             </div>
             <div class="box-body">
                 <div class="load-form-right-order"><em class='fa fa-spin fa-spinner'></em> Loading order...
