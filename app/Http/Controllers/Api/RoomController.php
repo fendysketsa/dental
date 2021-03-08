@@ -14,9 +14,17 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new RoomsCollection(RoomsModel::all());
+        if (empty($request->cabang)) {
+            $room = RoomsModel::all();
+        }
+
+        if (!empty($request->cabang)) {
+            $room = RoomsModel::where('branch_id', $request->cabang)->get();
+        }
+
+        return new RoomsCollection($room);
     }
 
     /**
