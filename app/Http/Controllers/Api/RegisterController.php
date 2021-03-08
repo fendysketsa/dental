@@ -81,11 +81,18 @@ class RegisterController extends Controller
         if ($cekUserData->count() == 0) {
 
             $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:8|same:konfirmasi_password',
-                'telepon' => 'required|numeric|min:7',
-                'jenis_kelamin' => 'required|string'
+                'name'          => 'required|string|max:255',
+                'email'         => 'required|string|email|max:255|unique:users',
+                'password'      => 'required|string|min:8|same:konfirmasi_password',
+                'telepon'       => 'required|numeric|min:7',
+                'jenis_kelamin' => 'required|string',
+                'tgl_lahir'     => 'required|string',
+                'alamat'        => 'required|string',
+                'nik'           => 'required|string',
+                'profesi'       => 'required|string',
+                'agama'         => 'required|string',
+                'status_member' => 'required|string',
+                'instansi'      => 'required|string',
             ]);
 
             $memberData = new RegMember();
@@ -112,6 +119,15 @@ class RegisterController extends Controller
                     $memberData['user_id'] = $userData->id;
                     $memberData['nama'] = $request->name;
                     $memberData['no_member'] = $memberData->getAutoNoMember();
+
+                    $memberData['tgl_lahir'] = $request->tgl_lahir;
+                    $memberData['alamat'] = $request->alamat;
+                    $memberData['nik'] = $request->nik;
+                    $memberData['profesi'] = $request->profesi;
+                    $memberData['agama'] = $request->agama;
+                    $memberData['status_member'] = $request->status_member;
+                    $memberData['instansi'] = $request->instansi;
+
                     $memberData->fill($request->all());
 
                     if ($request->has('from_new_session') && $request->from_new_session == 'gugel_opo_fesbuk') {
