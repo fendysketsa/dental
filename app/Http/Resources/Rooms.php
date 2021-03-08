@@ -26,7 +26,7 @@ class Rooms extends JsonResource
     private function ArImage($image)
     {
         $img = null;
-        if (is_array($image)) {
+        if (is_array(json_decode($image, true))) {
             $img = array();
 
             foreach ($image as $im) {
