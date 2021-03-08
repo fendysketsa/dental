@@ -16,15 +16,10 @@ class RoomController extends Controller
      */
     public function index(Request $request)
     {
-        if (empty($request->cabang)) {
-            $room = RoomsModel::all();
-        }
+        $room = new RoomsModel;
+        $dataRoom = empty($request->cabang) ? $room->all() : $room->where('branch_id', $request->cabang)->get();
 
-        if (!empty($request->cabang)) {
-            $room = RoomsModel::where('branch_id', $request->cabang)->get();
-        }
-
-        return new RoomsCollection($room);
+        return new RoomsCollection($dataRoom);
     }
 
     /**
