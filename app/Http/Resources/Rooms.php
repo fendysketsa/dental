@@ -26,11 +26,12 @@ class Rooms extends JsonResource
     private function ArImage($image)
     {
         $img = null;
-        if (is_array(json_decode($image, true))) {
+        if (is_array(json_decode($image, true)) && !empty($image)) {
             $img = array();
+            $newImage = json_decode($image, true);
 
-            foreach ($image as $im) {
-                array_push($image, asset('/storage/master-data/room/uploads/' . $this->im));
+            foreach ($newImage as $im) {
+                array_push($img, asset('/storage/master-data/room/uploads/' . $im));
             }
         }
 
