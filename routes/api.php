@@ -40,6 +40,7 @@ Route::apiResource('terapist', 'Api\TerapistController');
 Route::apiResource('cabang', 'Api\Cabang\CabangController');
 Route::apiResource('bank', 'Api\BankController');
 Route::apiResource('slide', 'Api\SlideController');
+Route::apiResource('room', 'Api\RoomController');
 Route::apiResource('promo', 'Api\PromoController');
 Route::apiResource('news', 'Api\NewsController');
 Route::apiResource('cat/layanan', 'Api\CategoryService');
