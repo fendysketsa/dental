@@ -194,7 +194,7 @@ class RegisterController extends Controller
                     $mail->SMTPSecure = 'ssl';
                     $mail->Priority = 1;
 
-                    $mail->SetFrom('admin@gula.layana.id', 'Admin - Medina Dental');
+                    $mail->SetFrom('admin@medinadental.clinic', 'Admin - Medina Dental');
                     $mail->Subject = $subject;
                     $mail->IsHTML(true);
                     $mail->Body = $message;

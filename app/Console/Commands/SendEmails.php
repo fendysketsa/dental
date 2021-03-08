@@ -117,7 +117,7 @@ class SendEmails extends Command
         $mail->SMTPSecure = 'ssl';
         $mail->Priority = 1;
 
-        $mail->SetFrom('admin@gula.layana.id', 'Administrator - Medina Dental');
+        $mail->SetFrom('admin@medinadental.clinic', 'Administrator - Medina Dental');
         $mail->Subject = $subject;
         $mail->IsHTML(true);
         $mail->Body = $this->index();
