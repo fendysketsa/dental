@@ -30,13 +30,13 @@ class Rooms extends JsonResource
             $img = array();
             $newImage = json_decode($image, true);
 
-            if (sizeof($newImage) < 2) {
-                $img = asset('/storage/master-data/room/uploads/' . $newImage[0]);
-            } else {
-                foreach ($newImage as $im) {
-                    array_push($img, asset('/storage/master-data/room/uploads/' . $im));
-                }
+            // if (sizeof($newImage) < 2) {
+            //     $img = asset('/storage/master-data/room/uploads/' . $newImage[0]);
+            // } else {
+            foreach ($newImage as $im) {
+                array_push($img, asset('/storage/master-data/room/uploads/' . $im));
             }
+            // }
         }
 
         return $img;
