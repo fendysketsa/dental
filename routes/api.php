@@ -51,7 +51,7 @@ Route::put('produk/show/{id}', 'Api\ProdukController@show');
 Route::put('promo/show/{id}', 'Api\PromoController@show');
 Route::put('list/cat/layanan/{id}', 'Api\LayananController@index');
 Route::put('layanan/show/{id}', 'Api\LayananController@show');
-Route::get('actived/member/{generated}', 'Api\RegisterController@index');
+Route::post('actived/member', 'Api\RegisterController@index');
 Route::apiResource('reg/member', 'Api\RegisterController');
 
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');

@@ -27,40 +27,39 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($generated = false)
+    public function index(Request $request)
     {
-        if (empty($generated)) {
-            return abort(404);
-        }
+        $request->validate([
+            'referal'   => 'required|string|max:255',
+            'email'     => 'required|string|email|max:255',
+        ]);
 
-        $email = DB::table('member')->where('email', base64_decode($generated));
+        $email = DB::table('member')->where('email', $request->email)->where('referal_code', $request->referal);
+
         if (!empty($email->get())) {
-            $type = [];
-            if ($email->get()->first()->status == 2) {
-                $data = [
-                    'header' => 'Oops!',
-                    'images' => asset('images/timeout.png'),
-                    'message' => 'Aktivasi expired!',
-                    'messageFoot' => ''
-                ];
 
-                return response()
-                    ->view('setting.congrate.index', $data, 200)
-                    ->header('Content-Type', $type);
+            if ($email->get()->first()->status == 2) {
+                $mess['msg'] = 'Oops!, Akun Anda sudah aktif!';
+                $mess['cd'] = 500;
+                return response()->json($mess);
             }
 
             $email->update(['status' => 2]);
 
-            $data = [
-                'header' => 'Selamat!',
-                'images' => asset('images/handshake.png'),
-                'message' => 'Akun Anda berhasil diaktifkan!',
-                'messageFoot' => 'Silakan login melalui Medina Dental Apps untuk melakukan proses selanjutnya.'
-            ];
+            $mess['msg'] = 'Akun Anda berhasil diaktifkan!';
+            $mess['cd'] = 200;
+            return response()->json($mess);
 
-            return response()
-                ->view('setting.congrate.index', $data, 200)
-                ->header('Content-Type', $type);
+            // $data = [
+            //     'header' => 'Selamat!',
+            //     'images' => asset('images/handshake.png'),
+            //     'message' => 'Akun Anda berhasil diaktifkan!',
+            //     'messageFoot' => 'Silakan login melalui Medina Dental Apps untuk melakukan proses selanjutnya.'
+            // ];
+
+            // return response()
+            //     ->view('setting.congrate.index', $data, 200)
+            //     ->header('Content-Type', $type);
         }
     }
 
@@ -150,71 +149,71 @@ class RegisterController extends Controller
                     }
                 }
 
-                if (empty($request->has('from_new_session'))) {
+                //     if (empty($request->has('from_new_session'))) {
 
-                    require_once './../vendor/autoload.php';
+                //         require_once './../vendor/autoload.php';
 
-                    $account    = "informasi@portalams.co.id";
-                    $password   = "sampleajalah&&**123";
+                //         $account    = "informasi@portalams.co.id";
+                //         $password   = "sampleajalah&&**123";
 
-                    $url = url('/api/actived/member/' . base64_encode($request->email));
-                    $subject = "New Member";
-                    $greeting = 'Hello, ' . $request->name;
+                //         $url = url('/api/actived/member/' . base64_encode($request->email));
+                //         $subject = "New Member";
+                //         $greeting = 'Hello, ' . $request->name;
 
-                    $message = '<html><body><h3>' . $greeting . '</h3>';
-                    $message .= '<p>Silakan klik button di bawah ini untuk mengaktivasi akun Anda!</p>';
-                    $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
-                    $message .= "<tr style='background: #eee;'><td><strong>Name:</strong> </td><td>" . strip_tags($request->name) . "</td></tr>";
-                    $message .= "<tr style='background: #eee;'><td><strong>Email:</strong> </td><td>" . strip_tags($request->email) . "</td></tr>";
-                    $addURLS = $url;
+                //         $message = '<html><body><h3>' . $greeting . '</h3>';
+                //         $message .= '<p>Silakan klik button di bawah ini untuk mengaktivasi akun Anda!</p>';
+                //         $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+                //         $message .= "<tr style='background: #eee;'><td><strong>Name:</strong> </td><td>" . strip_tags($request->name) . "</td></tr>";
+                //         $message .= "<tr style='background: #eee;'><td><strong>Email:</strong> </td><td>" . strip_tags($request->email) . "</td></tr>";
+                //         $addURLS = $url;
 
-                    if (($addURLS) != '') {
-                        $message .= "<tr><td><strong>Aktivasi Link:</strong> </td><td> <a target='_blank' href='" . strip_tags($addURLS) . "' > <button> Klik Aktivasi </button> </a></td></tr>";
-                    }
+                //         if (($addURLS) != '') {
+                //             $message .= "<tr><td><strong>Aktivasi Link:</strong> </td><td> <a target='_blank' href='" . strip_tags($addURLS) . "' > <button> Klik Aktivasi </button> </a></td></tr>";
+                //         }
 
-                    $message .= "<tr><td><strong>Alternatif Link:</strong> </td>
-                                        <td> " . strip_tags($addURLS) . "
-                                </td></tr>";
+                //         $message .= "<tr><td><strong>Alternatif Link:</strong> </td>
+                //                             <td> " . strip_tags($addURLS) . "
+                //                     </td></tr>";
 
-                    $message .= "</table>";
-                    $message .= "</body>
-            <p>Terimakasih, telah menggunakan aplikasi ini untuk kemudahan Anda bertransaksi!</p>
-            </html>";
+                //         $message .= "</table>";
+                //         $message .= "</body>
+                // <p>Terimakasih, telah menggunakan aplikasi ini untuk kemudahan Anda bertransaksi!</p>
+                // </html>";
 
-                    $mail = new PHPMailer();
-                    $mail->IsSMTP();
+                //         $mail = new PHPMailer();
+                //         $mail->IsSMTP();
 
-                    $mail->SMTPDebug = 0;
-                    $mail->CharSet = 'UTF-8';
-                    $mail->Host = 'portalams.co.id';
-                    $mail->SMTPAuth = true;
-                    $mail->Port = 465;
-                    $mail->Username = $account;
-                    $mail->Password = $password;
-                    $mail->SMTPSecure = 'ssl';
-                    $mail->Priority = 1;
+                //         $mail->SMTPDebug = 0;
+                //         $mail->CharSet = 'UTF-8';
+                //         $mail->Host = 'portalams.co.id';
+                //         $mail->SMTPAuth = true;
+                //         $mail->Port = 465;
+                //         $mail->Username = $account;
+                //         $mail->Password = $password;
+                //         $mail->SMTPSecure = 'ssl';
+                //         $mail->Priority = 1;
 
-                    $mail->SetFrom('admin@medinadental.clinic', 'Admin - Medina Dental');
-                    $mail->Subject = $subject;
-                    $mail->IsHTML(true);
-                    $mail->Body = $message;
+                //         $mail->SetFrom('admin@medinadental.clinic', 'Admin - Medina Dental');
+                //         $mail->Subject = $subject;
+                //         $mail->IsHTML(true);
+                //         $mail->Body = $message;
 
-                    $address = $request->email;
-                    $mail->AddAddress($address, "New Member - " . $request->name);
+                //         $address = $request->email;
+                //         $mail->AddAddress($address, "New Member - " . $request->name);
 
-                    $address2 = "cafeynu_88@yahoo.com";
-                    $mail->AddAddress($address2, "CC - Aktivasi - Yahoo");
+                //         $address2 = "cafeynu_88@yahoo.com";
+                //         $mail->AddAddress($address2, "CC - Aktivasi - Yahoo");
 
-                    $address3 = "fendysketsa@gmail.com";
-                    $mail->AddAddress($address3, "CC - Aktivasi - Google");
+                //         $address3 = "fendysketsa@gmail.com";
+                //         $mail->AddAddress($address3, "CC - Aktivasi - Google");
 
-                    $sending = $mail->send();
+                //         $sending = $mail->send();
 
-                    if (!$sending) {
-                        Notification::route('mail', $request->email)
-                            ->notify(new ApiNotifAuth($userData));
-                    }
-                }
+                //         if (!$sending) {
+                //             Notification::route('mail', $request->email)
+                //                 ->notify(new ApiNotifAuth($userData));
+                //         }
+                //     }
             });
 
             if (empty($request->has('from_new_session'))) {
