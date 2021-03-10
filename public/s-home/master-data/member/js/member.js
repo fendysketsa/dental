@@ -244,8 +244,8 @@ function data_attribut() {
                 className: "text-center td-height-img",
             },
             {
-                data: "no_member",
-                name: "no_member",
+                data: "referal_code",
+                name: "referal_code",
                 className: "td-height-img",
             },
             {
