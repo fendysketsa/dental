@@ -61,6 +61,10 @@ class RegisterController extends Controller
             //     ->view('setting.congrate.index', $data, 200)
             //     ->header('Content-Type', $type);
         }
+
+        $mess['msg'] = 'Akun tidak ditemukan!';
+        $mess['cd'] = 500;
+        return response()->json($mess);
     }
 
     /**
