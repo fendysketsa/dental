@@ -271,6 +271,7 @@ class MemberController extends Controller
                     $this->table . '.id',
                     $this->table . '.foto',
                     $this->table . '.no_member',
+                    $this->table . '.referal_code',
                     $this->table . '.nama',
                     $this->table . '.email',
                     $this->table . '.telepon',

@@ -69,6 +69,26 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    function uniq_referal_code($id)
+    {
+        $random = mt_rand(100000, 999999);
+
+        $refCode = DB::table("member")
+            ->where('user_id', $id)
+            ->first();
+
+        if (empty($refCode)) {
+            return $random;
+        } else {
+            if (!empty($refCode) && !empty($refCode->referal_code)) {
+                return $refCode->referal_code;
+            } else {
+                return $random;
+            }
+        }
+    }
+
     public function store(Request $request)
     {
 
@@ -116,6 +136,7 @@ class RegisterController extends Controller
 
                     $memberData['telepon'] = $request->telepon;
                     $memberData['user_id'] = $userData->id;
+                    $memberData['referal_code'] = $this->uniq_referal_code($userData->id);
                     $memberData['nama'] = $request->name;
                     $memberData['no_member'] = $memberData->getAutoNoMember();
 

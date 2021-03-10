@@ -221,62 +221,66 @@ function getImg(data, type, full, meta) {
 
 function data_attribut() {
 
-    var dTable = $('#data-table-view').DataTable({
+    var dTable = $("#data-table-view").DataTable({
         responsive: true,
         processing: true,
         serverSide: true,
         ajax: {
             url: base_url + "/members/json",
-            type: 'GET',
+            type: "GET",
         },
-        columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex',
+        columns: [
+            {
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
                 orderable: false,
                 searchable: false,
-                className: "td-height-img"
+                className: "td-height-img",
             },
             {
-                data: 'foto',
-                name: 'foto',
+                data: "foto",
+                name: "foto",
                 render: getImg,
-                className: "text-center td-height-img"
+                className: "text-center td-height-img",
             },
             {
-                data: 'no_member',
-                name: 'no_member',
-                className: "td-height-img"
+                data: "no_member",
+                name: "no_member",
+                className: "td-height-img",
             },
             {
-                data: 'nama',
-                name: 'nama',
-                className: "td-height-img"
+                data: "no_member",
+                name: "no_member",
+                className: "td-height-img",
             },
             {
-                data: 'email',
-                name: 'email',
-                className: "td-height-img"
+                data: "nama",
+                name: "nama",
+                className: "td-height-img",
             },
             {
-                data: 'telepon',
-                name: 'telepon',
-                className: "td-height-img"
+                data: "email",
+                name: "email",
+                className: "td-height-img",
             },
             {
-                data: 'saldo',
-                name: 'saldo',
-                className: "td-height-img"
+                data: "telepon",
+                name: "telepon",
+                className: "td-height-img",
             },
             {
-                data: 'action',
-                name: 'action',
+                data: "saldo",
+                name: "saldo",
+                className: "td-height-img",
+            },
+            {
+                data: "action",
+                name: "action",
                 orderable: false,
-                className: "text-center td-height-img"
+                className: "text-center td-height-img",
             },
         ],
-        order: [
-            [0, 'desc']
-        ]
+        order: [[0, "desc"]],
     });
     dTable.ajax.reload();
     $("select[name=data-table-view_length]").on('change', function () {
