@@ -36,7 +36,7 @@ class RegisterController extends Controller
 
         $email = DB::table('member')->where('email', $request->email)->where('referal_code', $request->referal);
 
-        if (!empty($email->get())) {
+        if ($email->count() > 0) {
 
             if ($email->get()->first()->status == 2) {
                 $mess['msg'] = 'Oops!, Akun Anda sudah aktif!';
