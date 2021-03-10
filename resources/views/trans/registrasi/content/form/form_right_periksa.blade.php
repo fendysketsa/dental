@@ -171,6 +171,27 @@
                 </div>
             </div>
 
+            <div class="col-md-12">
+                <hr style="border-top: 1px solid #e8e8e8;">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Next Treatment:</label>
+                            <div class="input-group input-group-sm date on-date-next">
+                                <div class="input-group-addon add-on-daterpicker-next-treatment">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="tanggal_next" class="form-control"
+                                    placeholder="Isikan tanggal..." form="formRegistrasi" readonly="">
+                            </div>
+                            <small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em>
+                                Pengaturan kapan akan dilakukan kontrol ulang
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -171,6 +171,7 @@
                 </div>
             </div>
 
+            @if(!empty($_GET['step']))
             <div class="col-md-12">
                 <hr style="border-top: 1px solid #e8e8e8;">
                 <div class="row">
@@ -190,8 +191,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+            @endif
+
         </div>
     </div>
 </div>
