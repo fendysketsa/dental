@@ -387,24 +387,24 @@ class OrderController extends Controller
                 $dataOrder = DB::table($this->table)
                     ->where('id', $request->order_id);
 
-                if ($dataOrder->first()->print_act == 0) {
-                    $mess['msg'] = 'Data gagal dikirim ke pembayaran, Akses ditolak!';
-                    $mess['cd'] = 500;
+                // if ($dataOrder->first()->print_act == 0) {
+                //     $mess['msg'] = 'Data gagal dikirim ke pembayaran, Akses ditolak!';
+                //     $mess['cd'] = 500;
+                // } else {
+
+                $dataOrder_ = DB::table($this->table)
+                    ->where('id', $request->order_id)->update([
+                        'status_pembayaran' => 'pembayaran'
+                    ]);
+
+                if ($dataOrder) {
+                    $mess['msg'] = 'Data sukses disimpan' . ($dataOrder_ == 0 ? ", namun belum ke proses pembayaran" : " dan terkirim ke pembayaran");
+                    $mess['cd'] = 200;
                 } else {
-
-                    $dataOrder_ = DB::table($this->table)
-                        ->where('id', $request->order_id)->update([
-                            'status_pembayaran' => 'pembayaran'
-                        ]);
-
-                    if ($dataOrder) {
-                        $mess['msg'] = 'Data sukses disimpan' . ($dataOrder_ == 0 ? ", namun belum ke proses pembayaran" : " dan terkirim ke pembayaran");
-                        $mess['cd'] = 200;
-                    } else {
-                        $mess['msg'] = 'Data gagal disimpan dan dikirim';
-                        $mess['cd'] = 500;
-                    }
+                    $mess['msg'] = 'Data gagal disimpan dan dikirim';
+                    $mess['cd'] = 500;
                 }
+                // }
                 echo json_encode($mess);
             });
         }
