@@ -65,7 +65,7 @@ class ReservationController extends Controller
 
         $message = array(
             'sno_member' => 'required|not_in:0',
-            'jumlah_orang' => 'required',
+            // 'jumlah_orang' => 'required',
             'dokter' => 'required|not_in:0',
             'room' => 'required|not_in:0',
         );
