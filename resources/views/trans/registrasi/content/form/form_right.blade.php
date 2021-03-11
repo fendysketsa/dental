@@ -173,9 +173,9 @@
 
             @if(!empty($_GET['step']))
             <div class="col-md-4">
-                <hr style="border-top: 1px solid #e8e8e8;">
+                {{-- <hr style="border-top: 1px solid #e8e8e8;"> --}}
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Next Treatment:</label>
                             <div class="input-group input-group-sm date on-date-next">
