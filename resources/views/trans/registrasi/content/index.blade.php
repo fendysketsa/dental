@@ -40,20 +40,20 @@
             </div>
             <div class="button-action box-footer bg-gray-light hide">
                 <div class="row">
-                    <div class="col-md-4 col-xs-4 col-sm-4">
+                    <div class="col-md-6 col-xs-6 col-sm-6">
                         <a role="button" class="btn btn-warning col-md-12 col-xs-12 col-sm-12 cancel-form"><em
                                 class="fa fa-undo"></em>
                             Cancel</a>
                     </div>
-                    <div class="col-md-4 col-xs-4 col-sm-4">
+                    <div class="col-md-6 col-xs-6 col-sm-6">
                         <button disabled name="saveit" type="submit" class="btn btn-info col-md-12 col-xs-12 col-sm-12"
                             form="formRegistrasi"><em class="fa fa-envelope"></em> Save</button>
                     </div>
-                    <div class="col-md-4 col-xs-4 col-sm-4">
+                    {{-- <div class="col-md-4 col-xs-4 col-sm-4">
                         <button disabled name="saveprint" type="submit"
                             class="btn btn-success col-md-12 col-xs-12 col-sm-12" form="formRegistrasi"><em
                                 class="fa fa-print"></em> Save Dan Cetak</button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

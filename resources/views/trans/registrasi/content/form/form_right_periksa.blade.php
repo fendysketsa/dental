@@ -158,7 +158,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="form-group">
                     <label>Berapa orang ? <em class="text-danger">*</em></label>
                     <div class="input-group input-group-sm col-xs-12 date">
@@ -169,9 +169,9 @@
                             form="formPeriksa">
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <hr style="border-top: 1px solid #e8e8e8;">
                 <div class="row">
                     <div class="col-md-5">
