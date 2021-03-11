@@ -89,6 +89,10 @@ function changeProfile() {
     $("#file").click();
 }
 
+function changeProfileIcon() {
+    $("#file_icon").click();
+}
+
 function readPreview(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -100,11 +104,30 @@ function readPreview(input) {
     }
 }
 
+function readPreviewIcon(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#preview_image_icon").attr("src", e.target.result);
+            $("#file_name_icon").val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 function removeFile() {
     if ($("#file_name").val() != "") {
         $("#preview_image").attr("src", base_url + "/images/noimage.jpg");
         $("#file_name").val("");
         $("#file").val("");
+    }
+}
+
+function removeFileIcon() {
+    if ($("#file_name_icon").val() != "") {
+        $("#preview_image_icon").attr("src", base_url + "/images/noimage.jpg");
+        $("#file_name_icon").val("");
+        $("#file_icon").val("");
     }
 }
 
@@ -143,6 +166,36 @@ function form_attribut() {
                 return false;
             } else {
                 readPreview(this);
+            }
+        }
+    });
+
+    $("#file_icon").change(function () {
+        if ($(this).val() != "") {
+            var file = this.files[0];
+            var imagefile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg"];
+            if (
+                !(
+                    imagefile == match[0] ||
+                    imagefile == match[1] ||
+                    imagefile == match[2]
+                )
+            ) {
+                $("#preview_image_icon").attr(
+                    "src",
+                    base_url + "/images/noimage.jpg"
+                );
+                $("#file_name_icon").val("");
+                $("#file_icon").val("");
+                var fls =
+                    "Pilih gambar yang sesuai!, hanya diperbolehkan format jpeg, jpg and png!</ul>";
+                toastr.warning(fls, "Oops!", {
+                    timeOut: 2000,
+                });
+                return false;
+            } else {
+                readPreviewIcon(this);
             }
         }
     });
@@ -250,7 +303,8 @@ function getImg(data, type, full, meta) {
 }
 
 function getVideo(url) {
-    return (
+
+    return !url ? '-' : (
         `<a href="https://www.youtube.com/watch?v=` +
         url +
         `" target="_blank"><img alt="" width="100" height="55" src="https://i.ytimg.com/vi/` +

@@ -13,34 +13,38 @@ class HomePagesController extends Controller
     protected $table = 'home_page';
 
     private $dir = 'app/public/master-data/home-page/uploads/';
+    private $dir_icon = 'app/public/master-data/home-page/uploads/icon/';
+
     private $validate_message = [
         'judul' => 'required',
         'deskripsi' => 'required',
     ];
 
-    public function fields($request, $gambar)
+    public function fields($request, $gambar, $icon)
     {
         $data_add = !empty($gambar) ? ['gambar' => $gambar] : [];
+
+        $data_add2 = !empty($icon) ? (!empty($data_add) ? array_merge($data_add, ['icon' => $icon]) : ['icon' => $icon]) : [];
+
         $data = [
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi ? $request->deskripsi : '-',
             'video' => $request->video
         ];
-        return array_merge($data_add, $data);
+        return array_merge($data_add2, $data);
     }
 
     public function validated($mess, $request)
     {
-        // $vGambar = $request->has('id') ? (empty($request->old_img) ? [
-        //     'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        // ] : [
-        //     'gambar' => 'image|mimes:jpeg,png,jpg|max:2048',
-        // ]) : [
-        //     'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        // ];
+        $vIcon = $request->has('id') ? (empty($request->old_img_icon) ? [
+            'icon' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ] : [
+            'icon' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]) : [
+            'icon' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ];
 
-        // $validator = \Validator::make($request->all(), array_merge($this->validate_message, $vGambar));
-        $validator = \Validator::make($request->all(), $this->validate_message);
+        $validator = \Validator::make($request->all(), array_merge($this->validate_message, $vIcon));
         if ($validator->fails()) {
             $d_error = '<ul>';
             foreach ($validator->errors()->all() as $row) {
@@ -74,6 +78,8 @@ class HomePagesController extends Controller
     {
         $mess = null;
         $filename = null;
+        $filename_icon = null;
+
         $this->validated($mess, $request);
 
         if ($request->hasFile('gambar') == 1) {
@@ -95,8 +101,31 @@ class HomePagesController extends Controller
             }
         }
 
+        if ($request->hasFile('icons') == 1) {
+            $extension = $request->file('icons')->getClientOriginalExtension();
+            if (!empty($request->id)) {
+                $icon = DB::table($this->table)->where('id', $request->id)->first();
+                if (!empty($icon) && !empty($icon->icon)) {
+                    File::delete(storage_path($this->dir_icon) . $icon->icon);
+                }
+            }
+            $filename_icon = uniqid() . '_' . time() . '.' . $extension;
+            $request->file('icons')->move(storage_path($this->dir_icon), $filename_icon);
+        } else {
+            if (!empty($request->id)) {
+                if (empty($request->old_img_icon) && $request->old_img_icon == '') {
+                    $icon = DB::table($this->table)->where('id', $request->id)->first();
+                    if (!empty($icon) && !empty($icon->icon)) {
+                        File::delete(storage_path($this->dir_icon) . $icon->icon);
+                    }
+                } else {
+                    $filename_icon = $request->old_img_icon;
+                }
+            }
+        }
+
         if (empty($request->id)) {
-            $tambah = DB::table($this->table)->insert($this->fields($request, $filename));
+            $tambah = DB::table($this->table)->insert($this->fields($request, $filename, $filename_icon));
             if ($tambah) {
                 $mess['msg'] = 'Data sukses ditambahkan';
                 $mess['cd'] = 200;
@@ -108,7 +137,7 @@ class HomePagesController extends Controller
 
         if (!empty($request->id)) {
             try {
-                $affected = DB::table($this->table)->where('id', $request->id)->update($this->fields($request, $filename));
+                $affected = DB::table($this->table)->where('id', $request->id)->update($this->fields($request, $filename, $filename_icon));
                 $mess['msg'] = 'Data sukses disimpan' . ($affected == 0 ? ", namun tidak ada perubahan" : " dan diubah");
                 $mess['cd'] = 200;
             } catch (Exception $ex) {
@@ -179,6 +208,11 @@ class HomePagesController extends Controller
         $image = $data->first()->gambar;
         if (!empty($image)) {
             File::delete(storage_path($this->dir) . $image);
+        }
+
+        $icon = $data->first()->icon;
+        if (!empty($icon)) {
+            File::delete(storage_path($this->dir_icon) . $icon);
         }
 
         $hapus = $data->delete();
