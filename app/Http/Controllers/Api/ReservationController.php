@@ -226,7 +226,7 @@ class ReservationController extends Controller
     {
         $request->validate([
             'member_id' => 'required|numeric',
-            'jumlah_orang' => 'required|numeric',
+            // 'jumlah_orang' => 'required|numeric',
             'waktu_reservasi' => 'required',
         ]);
 
