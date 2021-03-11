@@ -248,6 +248,8 @@ class ReservationController extends Controller
             $transaksi->forceFill([
                 'no_transaksi' => TransaksiModel::getAutoNoTransaksi(),
                 'status' => 2,
+                'uniq_transaksi' => TransaksiModel::getCodeUniqTransaksi(15),
+                'room_id' => $request->room_id,
                 'agent' => 'Android',
                 'status_pembayaran' => 'pendaftaran',
                 'dp' => 0,
