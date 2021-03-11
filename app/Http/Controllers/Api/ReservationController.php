@@ -259,8 +259,8 @@ class ReservationController extends Controller
 
             foreach ($request->category as $fills) {
                 $transaksiDetail = new ReservationDetailModel();
-                $transaksiDetail->fill($fills);
-                $transaksiDetail->transaksi_ids = $transaksi->id;
+                $transaksiDetail->fill($request->all());
+                $transaksiDetail->transaksi_id = $transaksi->id;
                 $transaksiDetail->save();
             }
         });
