@@ -41,7 +41,6 @@ Route::apiResource('cabang', 'Api\Cabang\CabangController');
 Route::apiResource('bank', 'Api\BankController');
 Route::apiResource('slide', 'Api\SlideController');
 Route::apiResource('medina', 'Api\MedinaController');
-Route::apiResource('medina/{id}', 'Api\MedinaController');
 Route::apiResource('room', 'Api\RoomController');
 Route::apiResource('promo', 'Api\PromoController');
 Route::apiResource('news', 'Api\NewsController');
