@@ -16,7 +16,7 @@ class Rooms extends JsonResource
     {
         return [
             'id' => $this->id,
-            'images' => (empty($this->images) ? asset('/images/noimage.jpg') : $this->ArImage($this->images)),
+            'images' => (empty($this->images) ? array(asset('/images/noimage.jpg')) : $this->ArImage($this->images)),
             'name' => $this->name,
             'desription' => $this->description,
             'price' => $this->price,
