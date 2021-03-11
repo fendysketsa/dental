@@ -20,7 +20,7 @@ class Medinas extends JsonResource
             'icon' => (empty($this->icon) ? asset('/images/noimage.jpg') : asset('/storage/master-data/home-page/uploads/icon/' . $this->icon)),
             'video' => $this->video,
             'name' => $this->judul,
-            'desription' => $this->deskripsi,
+            'description' => $this->deskripsi,
         ];
     }
 }
