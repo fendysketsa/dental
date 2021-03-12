@@ -681,6 +681,7 @@ function content_rekam_medik(data) {
                         `</label>`;
 
                     setTimeout(function () {
+
                         $("input.rek-more-name-" + i.id).val(ccK[i.id].more);
 
                         if (ccK[i.id].name.split("\n").length > 1) {
@@ -810,6 +811,8 @@ function loadRekamMedik(ck) {
                         }
                     }, 1500);
                 } else {
+                    alert('setan')
+
                     $("#f-load-rekam-medik").html(content_rekam_medik(data));
                 }
 

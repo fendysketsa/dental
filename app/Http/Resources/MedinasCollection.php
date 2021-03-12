@@ -17,7 +17,7 @@ class MedinasCollection extends ResourceCollection
         return [
             'code' => 200,
             'message' => 'Berhasil ambil data about medina',
-            'data' => $this->collection
+            'data' => count($this->collection) < 2 ? $this->collection[0] : $this->collection,
         ];
     }
 }
