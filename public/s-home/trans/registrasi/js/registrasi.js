@@ -1263,7 +1263,7 @@ function select_(table, pkt) {
                         `<option ` +
                         layanan_ +
                         `value='` +
-                        data[i].id +
+                        (table == "member" ? data[i].user_id : data[i].id) +
                         `'>` +
                         pegawai +
                         data[i].nama +

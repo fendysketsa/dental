@@ -9,8 +9,9 @@
                     <table class="table hover" width="100%" cellspacing="0">
                         <thead class="bg-navy disabled color-palette">
                             <th style="width:5%;" class="text-center">No</th>
-                            <th @if(!empty($_GET['loaded']) && $_GET['loaded']=='detail' ) style="width:70%;" @else
-                                style="width:60%;" @endif>Layanan</th>
+                            <th style="width:25%;">Kategori</th>
+                            <th @if(!empty($_GET['loaded']) && $_GET['loaded']=='detail' ) style="width:45%;" @else
+                                style="width:35%;" @endif>Layanan</th>
                             <th style="width:25%;">Harga</th>
                             @if(empty($_GET['loaded']))
                             <th style="width:10%;" class="text-center">Action</th>

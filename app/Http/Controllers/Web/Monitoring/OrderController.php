@@ -121,7 +121,7 @@ class OrderController extends Controller
 
         $message_inp = array(
             'ino_member' => 'required|unique:member,no_member',
-            'jumlah_orang' => 'required',
+            // 'jumlah_orang' => 'required',
             'dokter' => 'required|not_in:0',
             'room' => 'required|not_in:0',
         );
@@ -171,12 +171,36 @@ class OrderController extends Controller
             foreach ($validator->errors()->all() as $row) {
                 $d_error .= '<li>' . $row . '</li>';
             }
+
+            if ($this->arrayIsNotEmpty($request->layanan) > 0) {
+                $d_error .= '<li>Bidang pilihan layanan wajib dipilih</li>';
+            }
+
+            if ($this->arrayIsNotEmpty($request->category) > 0) {
+                $d_error .= '<li>Bidang pilihan kategori wajib dipilih</li>';
+            }
+
             $d_error .= '</ul>';
             $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
             $mess['cd'] = 500;
             echo json_encode($mess);
             exit;
         }
+    }
+
+    private function arrayIsNotEmpty($arr)
+    {
+        $fls = 0;
+        foreach ($arr as $key => $value) {
+            if (empty($value)) {
+                $fls++;
+            }
+        }
+        if (empty($arr)) {
+            $fls;
+        }
+
+        return $fls;
     }
 
     function metode_bayars($met)
@@ -494,6 +518,7 @@ class OrderController extends Controller
             $dataLayanan = DB::table($this->table_detail)
                 ->select(
                     DB::raw('GROUP_CONCAT(IF(layanan_id, layanan_id, 0)) as layanan'),
+                    DB::raw('GROUP_CONCAT(IF(category_id, category_id, 0)) as category'),
                     DB::raw('GROUP_CONCAT(IF(harga_fix, harga_fix, 0)) as price_fix'),
                     DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
                 )
@@ -542,6 +567,7 @@ class OrderController extends Controller
             $dataLayanan = DB::table($this->table_detail)
                 ->select(
                     DB::raw('GROUP_CONCAT(IF(layanan_id, layanan_id, 0)) as layanan'),
+                    DB::raw('GROUP_CONCAT(IF(category_id, category_id, 0)) as category'),
                     DB::raw('GROUP_CONCAT(IF(harga_fix, harga_fix, 0)) as price_fix'),
                     DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
                 )
@@ -895,6 +921,7 @@ class OrderController extends Controller
                             $dataDetailIns2 = array();
                             $dataDetailIns2[] = array(
                                 'transaksi_id' => $request->id,
+                                'category_id' => empty($request->category[$num]) ? null : $request->category[$num],
                                 'layanan_id' => $lay,
                                 'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
                                 'kuantitas' => null,
@@ -1025,7 +1052,7 @@ class OrderController extends Controller
                     die;
                 }
 
-                $member = DB::table($this->table_member)->where('id', $request->sno_member);
+                $member = DB::table($this->table_member)->where('user_id', $request->sno_member);
 
                 if ($request->has('email')) {
 
@@ -1119,6 +1146,7 @@ class OrderController extends Controller
                                 $dataDetailIns2[] = array(
                                     'transaksi_id' => $request->id,
                                     'layanan_id' => $lay,
+                                    'category_id' => empty($request->category[$num]) ? null : $request->category[$num],
                                     'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
                                     'kuantitas' => null,
                                     'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
@@ -1327,7 +1355,7 @@ class OrderController extends Controller
             $data = DB::table($this->table)
                 ->leftJoin(
                     $this->table_member,
-                    $this->table_member . '.id',
+                    $this->table_member . '.user_id',
                     '=',
                     $this->table . '.member_id'
                 )

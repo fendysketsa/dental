@@ -12,10 +12,13 @@
                     <table class="table hover" width="100%" cellspacing="0">
                         <thead class="bg-navy disabled color-palette">
                             <th style="width:5%;" class="text-center">No</th>
-                            <th @if(empty($_GET['step'])) style="width:85%;" @else style="width:60%;" @endif
+                            @if(!empty($_GET['step']))
+                            <th style="width:25%;">Kategori</th>
+                            @endif
+
+                            <th @if(empty($_GET['step'])) style="width:60%;" @else style="width:35%;" @endif
                                 class="opt-harga @if(!empty($_GET['step'])) harga @endif">Treatment
                             </th>
-
                             @if(!empty($_GET['step']))
                             <th style="width:25%;">Harga</th>
                             @endif

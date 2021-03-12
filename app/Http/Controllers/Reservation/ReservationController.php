@@ -25,6 +25,7 @@ class ReservationController extends Controller
     protected $table_paket = 'paket';
     protected $table_pegawai = 'pegawai';
     protected $table_user = 'users';
+    protected $table_category = 'kategori';
 
     private $validate_messageMember = [
         'nama' => 'required',
@@ -199,7 +200,7 @@ class ReservationController extends Controller
             return abort(403);
         }
 
-        if (in_array($request->table, array('layanan', 'ruangan', 'paket'))) {
+        if (in_array($request->table, array('category','layanan', 'ruangan', 'paket'))) {
             $data = array();
 
             if ($request->table == 'layanan') {
@@ -260,6 +261,9 @@ class ReservationController extends Controller
             }
             if ($request->table == 'paket') {
                 $data = DB::table($this->table_paket)->get();
+            }
+            if ($request->table == 'category') {
+                $data = DB::table($this->table_category)->get();
             }
             echo json_encode($data);
         }
@@ -400,7 +404,7 @@ class ReservationController extends Controller
     public function _detail(Request $request)
     {
         echo json_encode(DB::table($this->table_member)
-            ->where('id', $request->id)
+            ->where('user_id', $request->id)
             ->get());
     }
 
@@ -645,7 +649,7 @@ class ReservationController extends Controller
             } else {
 
                 $cekMailUser = DB::table($this->table_member)
-                    ->where('id', $request->sno_member);
+                    ->where('user_id', $request->sno_member);
 
                 if ($request->has('email')) {
 
@@ -674,7 +678,7 @@ class ReservationController extends Controller
                         //     }
                         // }
 
-                        $member = DB::table($this->table_member)->where('id', $request->sno_member);
+                        $member = DB::table($this->table_member)->where('user_id', $request->sno_member);
 
                         if ($member->count() > 0) {
                             $member->update([
