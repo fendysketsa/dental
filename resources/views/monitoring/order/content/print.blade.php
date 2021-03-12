@@ -93,8 +93,12 @@
                             <td>{{ $rt['price'] }}</td>
                             <td>{{ $rt['price'] }}</td>
                         </tr>
-                        {{ $subTotal += $rt['price'] }}
-                        {{ $Total += $rt['price'] }}
+
+                        @php
+                        $subTotal += $rt['price'];
+                        $Total += $rt['price'];
+                        @endphp
+
                         @endforeach
 
                         <tr>
