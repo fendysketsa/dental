@@ -45,7 +45,7 @@ class LoginController extends Controller
             ->where('status', 2)
             ->where('status_pembayaran', 'pendaftaran')
             ->where(DB::RAW('DATE(waktu_reservasi)'), '=', DATE('Y-m-d'))
-            ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 1 day)'), '<', DATE('H:i'));
+            ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 360 minute)'), '<', DATE('H:i'));
 
         if (!empty($cekPrint->get())) {
             foreach ($cekPrint->get() as $r) {
@@ -54,7 +54,7 @@ class LoginController extends Controller
                         ->where('status', 2)
                         ->where('status_pembayaran', 'pendaftaran')
                         ->where(DB::RAW('DATE(waktu_reservasi)'), '=', DATE('Y-m-d'))
-                        ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 1 day)'), '<', DATE('H:i'))->where('id', $r->id)
+                        ->where(DB::RAW('date_add(TIME(waktu_reservasi),interval 360 minute)'), '<', DATE('H:i'))->where('id', $r->id)
                         ->update([
                             'status' => 4
                         ]);

@@ -414,6 +414,12 @@ function load_formEdit() {
                                 format: "dd-mm-yyyy",
                                 startDate: "today",
                             });
+                            $(".datepicker-reservation").datepicker({
+                                minDate: "0",
+                                format: "dd-mm-yyyy",
+                                startDate: "today",
+                            });
+
                             var waktu = inputId.data("reservasi").split(" ");
                             $("input[name=jam_reservasi]")
                                 .timepicker({
@@ -1464,7 +1470,7 @@ function f_reservasi() {
                     <div class="form-group">
                         <label>Tanggal: <em class="text-danger">*</em></label>
                         <div class="input-group input-group-sm date">
-                            <input readonly type="text" name="tgl_reservasi" class="form-control datepicker" placeholder="Tanggal..." form="formRegistrasi">
+                            <input readonly type="text" name="tgl_reservasi" class="form-control datepicker-reservation" placeholder="Tanggal..." form="formRegistrasi">
                             <div class="input-group-addon bg-gray">
                                 <i class="fa fa-calendar"></i>
                             </div>
@@ -2978,6 +2984,11 @@ function form_attribut() {
             format: "dd-mm-yyyy",
             startDate: "today",
         });
+        $(".datepicker-reservation").datepicker({
+            minDate: "0",
+            format: "dd-mm-yyyy",
+            startDate: "today",
+        });
         $(".timepicker").timepicker({
             showInputs: false,
             showMeridian: false,
@@ -3383,6 +3394,13 @@ function load_formUbahStep(inputId) {
                             format: "dd-mm-yyyy",
                             startDate: "today",
                         });
+
+                        $(".datepicker-reservation").datepicker({
+                            minDate: "0",
+                            format: "dd-mm-yyyy",
+                            startDate: "today",
+                        });
+
                         var waktu = inputId.data("reservasi").split(" ");
                         $("input[name=jam_reservasi]")
                             .timepicker({
@@ -3667,7 +3685,8 @@ function load_gigi(param) {
 
                             var tCatatan = $(this)
                                 .closest(".fc-tindakan")
-                                .find(".t-catatan").text();
+                                .find(".t-catatan")
+                                .text();
 
                             var dataTindakan = [tCatatan];
 
@@ -3679,8 +3698,11 @@ function load_gigi(param) {
                         ".remove-tindakan",
                         "click",
                         function () {
-                            $(this).closest('.cont-tindakan').find('.fc-tindakan').remove()
-                            toastr.success('Data pemeriksaan dihapus!')
+                            $(this)
+                                .closest(".cont-tindakan")
+                                .find(".fc-tindakan")
+                                .remove();
+                            toastr.success("Data pemeriksaan dihapus!");
                         }
                     );
                 }, 1000);
@@ -4225,7 +4247,7 @@ function getIndoDate(date, hours, row, this_) {
               ? "default"
               : elemnt.toJSON().slice(0, 10) > kaleNow
               ? "info"
-              : row.print_act == 1
+              : row.print_act == 0
               ? "warning"
               : "danger") +
           ' btn-xs text-bold">' +

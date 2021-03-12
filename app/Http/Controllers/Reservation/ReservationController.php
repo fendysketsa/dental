@@ -122,6 +122,11 @@ class ReservationController extends Controller
             foreach ($validator->errors()->all() as $row) {
                 $d_error .= '<li>' . $row . '</li>';
             }
+
+            if($this->arrayIsNotEmpty($request->layanan) > 0) {
+                $d_error .= '<li>Bidang pilihan layanan wajib dipilih</li>';
+            }
+
             $d_error .= '</ul>';
             $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
             $mess['cd'] = 500;
@@ -463,11 +468,27 @@ class ReservationController extends Controller
         }
     }
 
+    private function arrayIsNotEmpty($arr)
+    {
+        $fls = 0;
+        foreach ($arr as $key => $value) {
+            if (empty($value)) {
+                $fls++;
+            }
+        }
+        if (empty($arr)) {
+            $fls;
+        }
+
+        return $fls;
+    }
+
     public function store(Request $request)
     {
         $mess = null;
         $this->validated($mess, $request);
         $total_harga = 0;
+
         DB::transaction(function () use ($request, $mess, $total_harga) {
 
             if (!empty($request->ino_member)) {

@@ -17,23 +17,36 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home', [
-            'js' => [
-                's-home/bower_components/raphael/raphael.min.js',
-                's-home/bower_components/morris.js/morris.min.js',
-                's-home/dist/js/pages/dashboard.js',
-                's-home/dist/js/charts/Chart.min.js',
-                's-home/dist/js/charts/utils.js',
-            ],
-            'css' => [
-                's-home/bower_components/morris.js/morris.css',
-            ],
-            'attribute' => [
-                'dashboard' => 'true menu-open',
-                'title_bc' => 'Dashboard',
-                'desc_bc' => 'Control Panel',
-            ]
-        ]);
+        if (auth()->user()->roles()->get()[0]->id != 3) {
+            return view('home', [
+                'js' => [
+                    's-home/bower_components/raphael/raphael.min.js',
+                    's-home/bower_components/morris.js/morris.min.js',
+                    's-home/dist/js/pages/dashboard.js',
+                    's-home/dist/js/charts/Chart.min.js',
+                    's-home/dist/js/charts/utils.js',
+                ],
+                'css' => [
+                    's-home/bower_components/morris.js/morris.css',
+                ],
+                'attribute' => [
+                    'dashboard' => 'true menu-open',
+                    'title_bc' => 'Dashboard',
+                    'desc_bc' => 'Control Panel',
+                ]
+            ]);
+        } else {
+            return view('home_pasien', [
+                'js' => [
+                    's-home/dist/js/pages/dashboard_pasien.js',
+                ],
+                'attribute' => [
+                    'dashboard' => 'true menu-open',
+                    'title_bc' => 'Dashboard',
+                    'desc_bc' => 'Daftar Pasien',
+                ]
+            ]);
+        }
     }
 
     public function data(Request $request)
