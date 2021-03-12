@@ -1066,7 +1066,7 @@ class OrderController extends Controller
 
                     DB::table($this->table)
                         ->where('id', $request->id)
-                        ->update($this->fields($request, $member->first()->id));
+                        ->update($this->fields($request, $member->first()->user_id));
 
                     // if ($request->has('paket')) {
                     //     DB::table('transaksi_detail')

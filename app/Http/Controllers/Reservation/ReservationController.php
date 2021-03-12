@@ -693,7 +693,7 @@ class ReservationController extends Controller
                             ]);
 
                             if (!empty($member->first()->user_id)) {
-                                $user = DB::table($this->table_user)->where('user_id', $member->first()->user_id);
+                                $user = DB::table($this->table_user)->where('id', $member->first()->user_id);
                                 if ($user->count() > 0 && !empty($request->email)) {
                                     $user->update([
                                         'name' => $request->nama,
