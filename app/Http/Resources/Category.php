@@ -16,7 +16,8 @@ class Category extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama' => $this->nama
+            'nama' => $this->nama,
+            'icon' => (empty($this->icon) ? asset('/images/noimage.jpg') : asset('/storage/master-data/category/uploads/icon/' . $this->icon)),
         ];
     }
 }

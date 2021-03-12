@@ -1,88 +1,150 @@
-$(".load-data").delegate('.edit', 'click', function (e) {
+$(".load-data").delegate(".edit", "click", function (e) {
     var event = $(this);
     load_formEdit(event);
 });
 
-$(".button-action").delegate('.cancel-form', 'click', function () {
+$(".button-action").delegate(".cancel-form", "click", function () {
     load_formAdd();
     refresh_action_table();
 });
 
 function load_formAdd() {
     var cont = $(".load-form");
-    $(".display-future").addClass('blocking-content');
-    cont.load(base_url + '/categories/add', function (e, s, f) {
-        if (s == 'error') {
-            var fls = 'Gagal memuat form!';
-            toastr.error(fls, 'Oops!', {
-                timeOut: 2000
-            })
+    $(".display-future").addClass("blocking-content");
+    cont.load(base_url + "/categories/add", function (e, s, f) {
+        if (s == "error") {
+            var fls = "Gagal memuat form!";
+            toastr.error(fls, "Oops!", {
+                timeOut: 2000,
+            });
             $(this).html('<em class="fa fa-warning"></em> ' + fls);
         } else {
-            $(".display-future").removeClass('blocking-content');
-            $(".button-action").removeClass('hide');
+            $(".display-future").removeClass("blocking-content");
+            $(".button-action").removeClass("hide");
+            form_atribute();
             submit();
         }
     });
 }
 
+function changeProfileIcon() {
+    $("#file_icon").click();
+}
+
+function readPreviewIcon(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#preview_image_icon").attr("src", e.target.result);
+            $("#file_name_icon").val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function removeFileIcon() {
+    if ($("#file_name_icon").val() != "") {
+        $("#preview_image_icon").attr("src", base_url + "/images/noimage.jpg");
+        $("#file_name_icon").val("");
+        $("#file_icon").val("");
+    }
+}
+
+function form_atribute() {
+    $("#file_icon").change(function () {
+        if ($(this).val() != "") {
+            var file = this.files[0];
+            var imagefile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg"];
+            if (
+                !(
+                    imagefile == match[0] ||
+                    imagefile == match[1] ||
+                    imagefile == match[2]
+                )
+            ) {
+                $("#preview_image_icon").attr(
+                    "src",
+                    base_url + "/images/noimage.jpg"
+                );
+                $("#file_name_icon").val("");
+                $("#file_icon").val("");
+                var fls =
+                    "Pilih gambar yang sesuai!, hanya diperbolehkan format jpeg, jpg and png!</ul>";
+                toastr.warning(fls, "Oops!", {
+                    timeOut: 2000,
+                });
+                return false;
+            } else {
+                readPreviewIcon(this);
+            }
+        }
+    });
+}
+
 function refresh_action_table() {
-    var ths = $('tbody');
-    var attrbt = ths.find('a.edit');
+    var ths = $("tbody");
+    var attrbt = ths.find("a.edit");
     attrbt.each(function (e, f) {
-        $(f).closest('tr').find('a.btn-remove-id').removeClass('disabled').attr('data-route', $(f).data('route'));
+        $(f)
+            .closest("tr")
+            .find("a.btn-remove-id")
+            .removeClass("disabled")
+            .attr("data-route", $(f).data("route"));
     });
 }
 
 function load_formEdit(e) {
-    var elemtTb = $('#data-table-view').DataTable();
+    var elemtTb = $("#data-table-view").DataTable();
     var dTbPageInfo = elemtTb.page.info().page;
 
     var cont = $(".load-form");
-    $(".display-future").addClass('blocking-content');
+    $(".display-future").addClass("blocking-content");
     var ths = $(e);
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val()
-        }
+            "X-CSRF-TOKEN": $('input[name="_token"]').val(),
+        },
     });
 
     $.ajax({
-        type: 'PUT',
-        url: ths.data('route'),
+        type: "PUT",
+        url: ths.data("route"),
         success: function (result) {
             refresh_action_table();
             cont.html(result);
-            $(".display-future").removeClass('blocking-content');
-            $(".button-action").removeClass('hide');
-            var attrbt = ths.parents('div.btn-group').find('a.btn-remove-id');
-            attrbt.addClass('disabled');
-            attrbt.removeAttr('data-route');
+            $(".display-future").removeClass("blocking-content");
+            $(".button-action").removeClass("hide");
+            var attrbt = ths.parents("div.btn-group").find("a.btn-remove-id");
+            attrbt.addClass("disabled");
+            attrbt.removeAttr("data-route");
+
+            form_atribute();
             submit(dTbPageInfo);
         },
         error: function () {
-            toastr.error('Gagal mengambil data', 'Oops!', {
-                timeOut: 2000
+            toastr.error("Gagal mengambil data", "Oops!", {
+                timeOut: 2000,
             });
-        }
+        },
     });
 }
 
 function load_data() {
     var cont = $(".load-data");
-    $(".button-action").addClass('hide');
-    $(".display-future").addClass('blocking-content');
-    cont.load(base_url + '/categories/data', function (e, s, f) {
-        if (s == 'error') {
-            var fls = 'Gagal memuat data!';
-            toastr.error(fls, 'Oops!', {
-                timeOut: 2000
-            })
+    $(".button-action").addClass("hide");
+    $(".display-future").addClass("blocking-content");
+    cont.load(base_url + "/categories/data", function (e, s, f) {
+        if (s == "error") {
+            var fls = "Gagal memuat data!";
+            toastr.error(fls, "Oops!", {
+                timeOut: 2000,
+            });
             $(this).html('<em class="fa fa-warning"></em> ' + fls);
         } else {
-            $(".display-future").removeClass('blocking-content');
-            $(".button-action").removeClass('hide');
+            $(".display-future").removeClass("blocking-content");
+            $(".button-action").removeClass("hide");
             data_attribut();
         }
     });
@@ -91,66 +153,69 @@ function load_data() {
 function data_attribut() {
     var response_load_dt = function () {
         var ins = $("input[name=id]").val() || 0;
-        $(".btn-id-" + ins).addClass('disabled').removeAttr('data-route');
-    }
+        $(".btn-id-" + ins)
+            .addClass("disabled")
+            .removeAttr("data-route");
+    };
 
-    var dTable = $('#data-table-view').DataTable({
+    var dTable = $("#data-table-view").DataTable({
         responsive: true,
         processing: true,
         serverSide: true,
         ajax: {
             url: base_url + "/categories/json",
-            type: 'GET',
+            type: "GET",
         },
-        columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex',
+        columns: [
+            {
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
                 orderable: false,
-                searchable: false
+                searchable: false,
             },
             {
-                data: 'jenis',
-                name: 'jenis'
+                data: "jenis",
+                name: "jenis",
             },
             {
-                data: 'nama',
-                name: 'nama'
+                data: "nama",
+                name: "nama",
             },
             {
-                data: 'keterangan',
-                name: 'keterangan'
+                data: "keterangan",
+                name: "keterangan",
             },
             {
-                data: 'action',
-                name: 'action',
+                data: "action",
+                name: "action",
                 orderable: false,
-                className: "text-center"
+                className: "text-center",
             },
         ],
-        order: [
-            [0, 'desc']
-        ]
+        order: [[0, "desc"]],
     });
     dTable.ajax.reload();
 
-    $("select[name=data-table-view_length]").on('change', function () {
+    $("select[name=data-table-view_length]").on("change", function () {
         dTable.ajax.reload(response_load_dt);
     });
-    $("input[type=search]").on('input', function (e) {
+    $("input[type=search]").on("input", function (e) {
         dTable.ajax.reload(response_load_dt);
     });
     remove();
 }
 
 function remove() {
-    $('tbody').delegate('.btn-remove-id', 'click', function () {
+    $("tbody").delegate(".btn-remove-id", "click", function () {
         var event = $(this);
-        var target = event.data('route');
-        var tables = event.closest('table');
+        var target = event.data("route");
+        var tables = event.closest("table");
 
         var ins = $("input[name=id]").val() || 0;
         var response_load_dt = function () {
-            $(".btn-id-" + ins).addClass('disabled').removeAttr('data-load');
+            $(".btn-id-" + ins)
+                .addClass("disabled")
+                .removeAttr("data-load");
         };
 
         swal({
@@ -163,36 +228,38 @@ function remove() {
             if (willExec) {
                 $.ajaxSetup({
                     headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    }
+                        "X-CSRF-TOKEN": $('input[name="_token"]').val(),
+                    },
                 });
                 $.ajax({
                     url: target,
-                    type: 'DELETE',
-                    dataType: 'JSON',
+                    type: "DELETE",
+                    dataType: "JSON",
                     success: function (data) {
                         switch (data.cd) {
                             case 200:
-                                tables.DataTable().ajax.reload(response_load_dt);
-                                toastr.success(data.msg, 'Success!', {
-                                    timeOut: 2000
-                                })
+                                tables
+                                    .DataTable()
+                                    .ajax.reload(response_load_dt);
+                                toastr.success(data.msg, "Success!", {
+                                    timeOut: 2000,
+                                });
                                 break;
                             default:
-                                toastr.warning(data.msg, 'Peringatan!', {
-                                    timeOut: 2000
-                                })
+                                toastr.warning(data.msg, "Peringatan!", {
+                                    timeOut: 2000,
+                                });
                                 break;
                         }
                     },
                     error: function () {
-                        toastr.error('Kesalahan system!', 'Error!', {
-                            timeOut: 2000
-                        })
-                    }
+                        toastr.error("Kesalahan system!", "Error!", {
+                            timeOut: 2000,
+                        });
+                    },
                 });
             } else {
-                swal.close()
+                swal.close();
             }
         });
     });
@@ -204,18 +271,18 @@ function submit(page) {
 
         var event = $(this)[0];
 
-        $(".display-future").addClass('blocking-content');
+        $(".display-future").addClass("blocking-content");
         var data = new FormData(event);
         var url = event.action;
 
         var reload_form = function () {
             load_formAdd();
-        }
+        };
 
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val()
-            }
+                "X-CSRF-TOKEN": $('input[name="_token"]').val(),
+            },
         });
 
         $.ajax({
@@ -223,24 +290,29 @@ function submit(page) {
             data: data,
             contentType: false,
             processData: false,
-            type: 'POST',
-            dataType: 'JSON',
+            type: "POST",
+            dataType: "JSON",
             success: function (data) {
                 switch (data.cd) {
                     case 200:
-                        $('table#data-table-view').DataTable().ajax.reload(reload_form);
+                        $("table#data-table-view")
+                            .DataTable()
+                            .ajax.reload(reload_form);
                         if (page) {
-                            $('table#data-table-view').DataTable().page(page).draw('page');
+                            $("table#data-table-view")
+                                .DataTable()
+                                .page(page)
+                                .draw("page");
                         }
-                        toastr.success(data.msg, 'Success!', {
-                            timeOut: 2000
-                        })
+                        toastr.success(data.msg, "Success!", {
+                            timeOut: 2000,
+                        });
                         break;
                     default:
-                        $(".display-future").removeClass('blocking-content');
-                        toastr.warning(data.msg, 'Peringatan!', {
-                            timeOut: 2000
-                        })
+                        $(".display-future").removeClass("blocking-content");
+                        toastr.warning(data.msg, "Peringatan!", {
+                            timeOut: 2000,
+                        });
                         break;
                 }
             },
@@ -249,16 +321,19 @@ function submit(page) {
                 (function customSwal() {
                     swal({
                         title: "Kesalahan sistem!",
-                        text: "Sistem error, menutup otomatis pada " + timer + ' detik !',
+                        text:
+                            "Sistem error, menutup otomatis pada " +
+                            timer +
+                            " detik !",
                         timer: timer * 1000,
                         button: false,
-                        icon: base_url + '/images/icons/loader.gif',
+                        icon: base_url + "/images/icons/loader.gif",
                         closeOnClickOutside: false,
-                        closeOnEsc: false
+                        closeOnEsc: false,
                     }).then(() => {
                         setTimeout(function () {
-                            swal.close()
-                        }, 1000)
+                            swal.close();
+                        }, 1000);
                     });
 
                     if (timer) {
@@ -268,7 +343,7 @@ function submit(page) {
                         }
                     }
                 })();
-            }
+            },
         });
     });
 }

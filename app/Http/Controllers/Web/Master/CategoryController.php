@@ -5,30 +5,47 @@ namespace App\Http\Controllers\Web\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use function GuzzleHttp\json_encode;
 
 class CategoryController extends Controller
 {
     protected $table = 'kategori';
+
+    private $dir_icon = 'app/public/master-data/category/uploads/icon/';
+
     private $validate_message = [
         'nama' => 'required',
         'slug' => 'required|max:10',
         'jenis' => 'required|not_in:0',
     ];
 
-    public function fields($request)
+    public function fields($request, $icon)
     {
-        return [
+        $data_add = !empty($icon) ? ['icon' => $icon] : [];
+
+        $data = [
             'nama' => $request->nama,
             'slug' => $request->slug,
             'jenis' => $request->jenis,
             'keterangan' => $request->keterangan ? $request->keterangan : '-',
         ];
+
+        return array_merge($data_add, $data);
     }
 
     public function validated($mess, $request)
     {
-        $validator = \Validator::make($request->all(), $this->validate_message);
+        $vIcon = $request->has('id') ? (empty($request->old_img_icon) ? [
+            'icon' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ] : [
+            'icon' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]) : [
+            'icon' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ];
+
+        $validator = \Validator::make($request->all(), array_merge($this->validate_message, $vIcon));
+
         if ($validator->fails()) {
             $d_error = '<ul>';
             foreach ($validator->errors()->all() as $row) {
@@ -58,9 +75,35 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $mess = null;
+        $filename_icon = null;
+
         $this->validated($mess, $request);
+
+        if ($request->hasFile('icons') == 1) {
+            $extension = $request->file('icons')->getClientOriginalExtension();
+            if (!empty($request->id)) {
+                $icon = DB::table($this->table)->where('id', $request->id)->first();
+                if (!empty($icon) && !empty($icon->icon)) {
+                    File::delete(storage_path($this->dir_icon) . $icon->icon);
+                }
+            }
+            $filename_icon = uniqid() . '_' . time() . '.' . $extension;
+            $request->file('icons')->move(storage_path($this->dir_icon), $filename_icon);
+        } else {
+            if (!empty($request->id)) {
+                if (empty($request->old_img_icon) && $request->old_img_icon == '') {
+                    $icon = DB::table($this->table)->where('id', $request->id)->first();
+                    if (!empty($icon) && !empty($icon->icon)) {
+                        File::delete(storage_path($this->dir_icon) . $icon->icon);
+                    }
+                } else {
+                    $filename_icon = $request->old_img_icon;
+                }
+            }
+        }
+
         if (empty($request->id)) {
-            $tambah = DB::table($this->table)->insert($this->fields($request));
+            $tambah = DB::table($this->table)->insert($this->fields($request, $filename_icon));
             if ($tambah) {
                 $mess['msg'] = 'Data sukses ditambahkan';
                 $mess['cd'] = 200;
@@ -72,7 +115,7 @@ class CategoryController extends Controller
 
         if (!empty($request->id)) {
             try {
-                $affected = DB::table($this->table)->where('id', $request->id)->update($this->fields($request));
+                $affected = DB::table($this->table)->where('id', $request->id)->update($this->fields($request, $filename_icon));
                 $mess['msg'] = 'Data sukses disimpan' . ($affected == 0 ? ", namun tidak ada perubahan" : " dan diubah");
                 $mess['cd'] = 200;
             } catch (Exception $ex) {
@@ -138,7 +181,15 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $mess = null;
-        $hapus = DB::table($this->table)->where('id', $id)->delete();
+        $data = DB::table($this->table)->where('id', $id);
+
+        $icon = $data->first()->icon;
+        if (!empty($icon)) {
+            File::delete(storage_path($this->dir_icon) . $icon);
+        }
+
+        $hapus = $data->delete();
+
         if ($hapus) {
             $mess['msg'] = 'Data sukses dihapus!';
             $mess['cd'] = 200;
