@@ -520,7 +520,7 @@ class PaymentCashierController extends Controller
     {
         if (request()->ajax()) {
             $data = DB::table($this->table)
-                ->leftJoin($this->table_member, $this->table . '.member_id', '=', $this->table_member . '.id')
+                ->leftJoin($this->table_member, $this->table . '.member_id', '=', $this->table_member . '.user_id')
                 ->select($this->table . '.*', $this->table_member . '.no_member as no_member', $this->table_member . '.nama as nama_member');
 
             if (!empty(session('cabang_id'))) {
