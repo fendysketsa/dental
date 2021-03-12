@@ -11,6 +11,7 @@ use Validator as Validasi;
 use App\Models\User;
 use App\Models\Transaction\TransaksiModel as TransactionModel;
 use App\TransaksiDetailModel as TransactionDetailModel;
+use App\TransaksiDetailTambahanModel;
 use App\Models\MemberModel;
 
 use LaravelFCM\Message\OptionsBuilder;
@@ -314,7 +315,17 @@ class OrderController extends Controller
             ->get()
             ->toArray();
 
+        $data['det_transaksi_tambahan'] = TransaksiDetailTambahanModel::leftJoin('transaksi', 'transaksi.id', '=', 'transaksi_tambahan.transaksi_id')
+            ->where('transaksi_id', $data['transaksi']['id'])
+            ->select('transaksi_tambahan.*')
+            ->get()
+            ->toArray();
+
         $data['member'] = MemberModel::where('user_id', $data['transaksi']['member_id'])->first()->toArray();
+
+        $data['noUrut'] = 0;
+        $data['subTotal'] = 0;
+        $data['Total'] = 0;
 
         return view('monitoring.order.content.print', $data);
     }

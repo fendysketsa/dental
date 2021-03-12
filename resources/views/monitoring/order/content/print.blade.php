@@ -20,8 +20,12 @@
         }
 
         .signature {
-            width: 120px;
-            margin-top: 70px;
+            width: 150px;
+            margin-top: 50px;
+        }
+
+        .text-bold {
+            font-weight: bold;
         }
     </style>
 
@@ -38,7 +42,7 @@
                 </div>
 
                 <hr style="border-color: #bdbdbd;">
-                <h4 class="text-center">KWITANSI</h4>
+                <h4 class="text-center text-bold">KWITANSI</h4>
                 <div style="margin-top:25px;">
                     <table class="table" cellspacing="0" style="border:0;">
                         <tr>
@@ -82,29 +86,40 @@
                             <th style="width:20%">Jumlah</th>
                         </tr>
 
+                        @foreach($det_transaksi_tambahan as $rt)
+                        <tr>
+                            <td>{{ $noUrut += 1 }}</td>
+                            <td>{{ $rt['name'] }}</td>
+                            <td>{{ $rt['price'] }}</td>
+                            <td>{{ $rt['price'] }}</td>
+                        </tr>
+                        {{ $subTotal += $rt['price'] }}
+                        {{ $Total += $rt['price'] }}
+                        @endforeach
+
                         <tr>
                             <td colspan="2" style="text-align:right;">Sub total</td>
-                            <td style="width:15%;">0</td>
-                            <td style="width:20%">0</td>
+                            <td style="width:15%;">{{ $subTotal }}</td>
+                            <td style="width:20%">{{ $Total }}</td>
                         </tr>
 
                         <tr style="border-top:2px solid #BDBDBD;">
                             <td colspan="2" style="text-transform: uppercase;">Total Pembayaran Diterima</td>
-                            <td style="width:15%;">0</td>
-                            <td style="width:20%">0</td>
+                            <td style="width:15%;">{{ $subTotal }}</td>
+                            <td style="width:20%; font-weight:bold;">{{ $Total }}</td>
                         </tr>
 
-                        <tr style="border-top:2px solid #BDBDBD;">
-                            <td colspan="4">Catatan: </td>
+                        <tr>
+                            <td style="border-top:0px;" colspan="4">Catatan: </td>
                         </tr>
                     </table>
 
-                    <table class="table" cellspacing="0" style="border:0; width:80%;">
+                    <table class="table" cellspacing="0" style="border:0; width:90%;">
                         <tr>
                             <td style="text-transform: uppercase; border-top:0px; float: right; text-align: center;">
                                 Admin
                                 <div class="signature">
-                                    <hr style="1.5px solid #BDBDBD;">
+                                    <hr style="border:1px solid #BDBDBD;">
                                 </div>
                             </td>
                         </tr>
