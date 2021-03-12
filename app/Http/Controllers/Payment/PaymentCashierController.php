@@ -13,6 +13,8 @@ class PaymentCashierController extends Controller
 {
     protected $table = 'transaksi';
     protected $table_detail = 'transaksi_detail';
+    protected $table_tambahan = 'transaksi_tambahan';
+    protected $table_room = 'room';
     protected $table_produk = 'produk';
     protected $table_member = 'member';
     protected $table_diskon = 'diskon';
@@ -159,7 +161,9 @@ class PaymentCashierController extends Controller
     {
         if (!empty($id)) :
             $dataTrans = DB::table($this->table)
-                ->where('id', $id)->get();
+                ->leftJoin($this->table_room, $this->table_room . '.id', '=', $this->table . '.room_id')
+                ->select($this->table . '.*', $this->table_room . '.price as harga_ruangan')
+                ->where($this->table . '.id', $id)->get();
 
             $dataLayanan = DB::table($this->table_detail)
                 ->select(
@@ -167,6 +171,10 @@ class PaymentCashierController extends Controller
                     DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
                 )
                 ->whereNull('paket_id')
+                ->where('transaksi_id', $id)->get();
+
+            $dataLayananTambahan = DB::table($this->table_tambahan)
+                ->select('name', 'price')
                 ->where('transaksi_id', $id)->get();
 
             $dataProduk = DB::table($this->table_detail)
@@ -208,6 +216,7 @@ class PaymentCashierController extends Controller
         return view('trans.payment.content.index_form', [
             'data' => !empty($id) ? $dataTrans : null,
             'services' => !empty($id) ? $dataLayanan : null,
+            'services_add' => !empty($id) ? $dataLayananTambahan : null,
             'produk' => !empty($id) ? $dataProduk : null,
             'posisi' => !empty($id) ? $dataPaketLayananPosisi : null,
             'pktservices' => !empty($id) ? $dataPaketLayanan : null,

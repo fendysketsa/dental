@@ -1002,6 +1002,14 @@ function loadTotal(idLayanan) {
     var total_harga_layanan = 0;
     var total_harga_produk = 0;
 
+    var total_harga_ruangan = 0;
+
+    var rHarga = $("input[name=id]").data("ruangan-harga");
+
+    if (!isNaN(rHarga)) {
+        total_harga_ruangan += rHarga;
+    }
+
     $(".price-layanan-unique").remove();
     $(".load-form-pembayaran").append(
         '<div class="price-layanan-unique"></div>'
@@ -1074,7 +1082,11 @@ function loadTotal(idLayanan) {
         }
 
         var RealTagihan =
-            total_harga_paket + total_harga_layanan + total_harga_produk;
+            total_harga_paket +
+            total_harga_layanan +
+            total_harga_produk +
+            total_harga_ruangan;
+
         var Price = RealTagihan;
 
         var elemt = $("#diskon");

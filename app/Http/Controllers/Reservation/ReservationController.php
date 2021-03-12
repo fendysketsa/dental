@@ -541,7 +541,7 @@ class ReservationController extends Controller
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
 
-                $transId = DB::table($this->table)->insertGetId($this->fields($request, $last_id));
+                $transId = DB::table($this->table)->insertGetId($this->fields($request, $UserMail));
 
                 // if ($request->has('paket')) {
                 //     foreach ($request->paket as $numP => $pkt) {
@@ -693,7 +693,7 @@ class ReservationController extends Controller
                             ]);
 
                             if (!empty($member->first()->user_id)) {
-                                $user = DB::table($this->table_user)->where('id', $member->first()->user_id);
+                                $user = DB::table($this->table_user)->where('user_id', $member->first()->user_id);
                                 if ($user->count() > 0 && !empty($request->email)) {
                                     $user->update([
                                         'name' => $request->nama,
@@ -702,7 +702,7 @@ class ReservationController extends Controller
                                 }
                             }
 
-                            $transId = DB::table($this->table)->insertGetId($this->fields($request, $member->first()->id));
+                            $transId = DB::table($this->table)->insertGetId($this->fields($request, $member->first()->user_id));
 
                             // if ($request->has('paket')) {
                             //     foreach ($request->paket as $numP => $pkt) {

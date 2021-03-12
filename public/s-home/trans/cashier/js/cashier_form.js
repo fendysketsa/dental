@@ -1108,7 +1108,25 @@ function peringatan(value) {
     return failin;
 }
 
+function loadHargaRuangan() {
+    var total_harga_ruangan = 0;
+
+    var hRg = $("input[name=id]").data("ruangan-harga");
+
+    if (!isNaN(hRg)) {
+        total_harga_ruangan += hRg;
+    }
+
+    setTimeout(function () {
+        $(".price-room").text(total_harga_ruangan);
+    }, 500);
+}
+
 function form_attribut_rightOrder() {
+    loadTotal();
+
+    loadHargaRuangan();
+
     $("button.collap-paket").on("click", function (e) {
         var exp = $(this).attr("aria-expanded");
         if (exp == "true") {
