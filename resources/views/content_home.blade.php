@@ -23,7 +23,7 @@
     <div class="col-lg-12 col-xs-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Layanan</h3>
+                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Tindakan Medis</h3>
             </div>
             <div class="panel-body">
                 <canvas class="chart tab-pane active" id="services-chart"
