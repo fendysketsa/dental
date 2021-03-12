@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class MedinasCollection extends ResourceCollection
+class RoomsCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,7 +16,7 @@ class MedinasCollection extends ResourceCollection
     {
         return [
             'code' => 200,
-            'message' => 'Berhasil ambil data about medina',
+            'message' => 'Berhasil ambil data room',
             'data' => $this->collection
         ];
     }
