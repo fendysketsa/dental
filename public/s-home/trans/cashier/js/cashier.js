@@ -265,7 +265,54 @@ function toPrint(event, onsave) {
         url: target + "/" + idCetak,
         type: "GET",
         success: function (data) {
-            rePrint(event, data, onsave);
+            rePrintManual(idCetak);
+            // rePrint(event, data, onsave);
+        },
+    });
+}
+
+function rePrintManual(id) {
+    var target = base_url + "/monitoring/print";
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        type: "POST",
+        url: target,
+        data: {
+            id: id,
+        },
+        success: function (result) {
+            var myWidth = 650;
+            var myHeight = 750;
+            var left = (screen.width - myWidth) / 2;
+            var top = (screen.height - myHeight) / 4;
+
+            w = window.open(
+                "",
+                "_blank",
+                "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=" +
+                    myWidth +
+                    ", height=" +
+                    myHeight +
+                    ", top=" +
+                    top +
+                    ", left=" +
+                    left
+            );
+            w.document.open();
+            w.document.write(result);
+            w.document.close();
+            // w.window.print();
+        },
+        error: function () {
+            toastr.error("Gagal mengambil data", "Oops!", {
+                timeOut: 2000,
+            });
         },
     });
 }
