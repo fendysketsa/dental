@@ -462,7 +462,7 @@ class PaymentCashierController extends Controller
     public function _detail(Request $request)
     {
         echo json_encode(DB::table($this->table_member)
-            ->where('id', $request->id)
+            ->where('user_id', $request->id)
             ->get());
     }
 
