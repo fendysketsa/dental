@@ -812,7 +812,6 @@ function loadRekamMedik(ck) {
                         }
                     }, 1500);
                 } else {
-
                     $("#f-load-rekam-medik").html(content_rekam_medik(data));
                 }
 
@@ -2256,8 +2255,6 @@ function load_row_layanan(idLayanan, idTerapis) {
     var thisElem = $(".n-f-layanan");
     var numb = thisElem.length + 1;
 
-    var idKat = $("input[name=id]").data("category");
-
     var cekTh = thisElem.closest(".load-form-table-layanan").find(".opt-harga");
 
     var html = `<tr class="n-f-layanan">`;
@@ -2267,18 +2264,9 @@ function load_row_layanan(idLayanan, idTerapis) {
     html +=
         `<td class="select-categorys td-height-img">
                 <div class="input-group-sm">
-                    <select ` +
-        (!idKat[numb] ? ` name="category[]" ` : "") +
-        ` form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-category-` +
+                    <select name="category[]" required form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-category-` +
         numb +
         `"></select>
-                    ` +
-        (idKat[numb]
-            ? `<input id="inpt-select-cat-` +
-              numb +
-              `" name="category[]" form="formRegistrasi" type="hidden">`
-            : "") +
-        `
                 </div>
             </td>`;
 
@@ -2286,18 +2274,9 @@ function load_row_layanan(idLayanan, idTerapis) {
         `<td class="select-layanan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
                 <div class="input-group-sm">
-                    <select ` +
-        (!idLayanan ? ` name="layanan[]" ` : "") +
-        ` form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
+                    <select name="layanan[]" required form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
         numb +
         `"></select>
-                    ` +
-        (idLayanan
-            ? `<input id="inpt-select-` +
-              numb +
-              `" name="layanan[]" form="formRegistrasi" type="hidden">`
-            : "") +
-        `
                 </div>
             </td>`;
 
@@ -2370,10 +2349,14 @@ function load_row_layanan(idLayanan, idTerapis) {
                 if (layId) {
                     // $("#on-select-terapis-" + numb).removeAttr("disabled");
 
-                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
+                    var prcs = $(
+                        "#on-select-layanan-" + numb + " option:selected"
+                    ).data("harga");
 
                     $("#on-select-price-custom-" + numb).removeAttr("disabled");
-                    $("#on-select-price-custom-" + numb).val(convertRupiah(prcs));
+                    $("#on-select-price-custom-" + numb).val(
+                        convertRupiah(prcs)
+                    );
                     // load_avail_layanan("terapis", numb, layId);
                 } else {
                     // var trps = $("#on-select-terapis-" + numb);
@@ -2408,18 +2391,10 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
     html +=
         `<td class="select-categorys td-height-img">
                 <div class="input-group-sm">
-                    <select ` +
-        (!idKat[numb] ? ` name="category[]" ` : "") +
-        ` form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-category-` +
+                    <select name="category[]" form="formRegistrasi" class="select2 form-control input-group-sm" required disabled id="on-select-category-` +
         numb +
         `"></select>
-                    ` +
-        (idKat[numb]
-            ? `<input id="inpt-select-cat-` +
-              numb +
-              `" name="category[]" form="formRegistrasi" type="hidden">`
-            : "") +
-        `
+
                 </div>
             </td>`;
 
@@ -2427,18 +2402,9 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
         `<td class="select-layanan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
                 <div class="input-group-sm">
-                    <select ` +
-        (!idLayanan ? ` name="layanan[]" ` : "") +
-        ` form="formPeriksa" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
+                    <select name="layanan[]" form="formPeriksa" class="select2 form-control input-group-sm" required disabled id="on-select-layanan-` +
         numb +
         `"></select>
-                    ` +
-        (idLayanan
-            ? `<input id="inpt-select-` +
-              numb +
-              `" name="layanan[]" form="formPeriksa" type="hidden">`
-            : "") +
-        `
                 </div>
             </td>`;
 
@@ -2509,10 +2475,14 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
                 if (layId) {
                     // $("#on-select-terapis-" + numb).removeAttr("disabled");
 
-                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
+                    var prcs = $(
+                        "#on-select-layanan-" + numb + " option:selected"
+                    ).data("harga");
 
                     $("#on-select-price-custom-" + numb).removeAttr("disabled");
-                    $("#on-select-price-custom-" + numb).val(convertRupiah(prcs));
+                    $("#on-select-price-custom-" + numb).val(
+                        convertRupiah(prcs)
+                    );
                     // load_avail_layanan("terapis", numb, layId);
                 } else {
                     // var trps = $("#on-select-terapis-" + numb);
@@ -2614,10 +2584,14 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
                 if (layId) {
                     // $("#on-select-terapis-" + numb).removeAttr("disabled");
 
-                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
+                    var prcs = $(
+                        "#on-select-layanan-" + numb + " option:selected"
+                    ).data("harga");
 
                     $("#on-select-price-custom-" + numb).removeAttr("disabled");
-                    $("#on-select-price-custom-" + numb).val(convertRupiah(prcs));
+                    $("#on-select-price-custom-" + numb).val(
+                        convertRupiah(prcs)
+                    );
                     // load_avail_layanan("terapis", numb, layId);
                 } else {
                     // var trps = $("#on-select-terapis-" + numb);
@@ -2718,7 +2692,9 @@ function load_row_layanan_tambahan_periksa(idLayanan, idTerapis) {
                 // loadTotal(layId);
                 if (layId) {
                     // $("#on-select-terapis-" + numb).removeAttr("disabled");
-                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
+                    var prcs = $(
+                        "#on-select-layanan-" + numb + " option:selected"
+                    ).data("harga");
 
                     $("#on-select-price-custom-" + numb).removeAttr("disabled");
                     $("#on-select-price-custom-" + numb).val(

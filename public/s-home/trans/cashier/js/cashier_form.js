@@ -1465,7 +1465,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
         `<td class="input-layanan-tambahan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
                 <div class="input-group-sm">
-                    <input type="text" name="layanan_tambahan[]" form="formKasir" placeholder="treatment tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
+                    <input type="text" name="layanan_tambahan[]" form="formKasir" required placeholder="treatment tambahan..." disabled class="form-control input-group-sm" id="on-input-layanan-tambahan-` +
         numb +
         `">` +
         `
@@ -1475,7 +1475,7 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
     html +=
         `<td class="input-layanan-harga td-height-img">
                 <div class="input-group-sm">
-                    <input type="rupiah" placeholder="harga..." name="harga_tambahan[]" disabled form="formKasir" class="form-control input-group-sm" id="on-input-harga-tambahan-` +
+                    <input type="rupiah" placeholder="harga..." name="harga_tambahan[]" required disabled form="formKasir" class="form-control input-group-sm" id="on-input-harga-tambahan-` +
         numb +
         `">
                 </div>
@@ -1591,8 +1591,6 @@ function load_row_layanan(idLayanan, idTerapis) {
     var thisElem = $(".n-f-layanan");
     var numb = thisElem.length + 1;
 
-    var idKat = $("input[name=id]").data("category");
-
     var html = `<tr class="n-f-layanan">`;
     html +=
         `<td class="nom-layanan td-height-img text-center">` + numb + `</td>`;
@@ -1600,18 +1598,10 @@ function load_row_layanan(idLayanan, idTerapis) {
     html +=
         `<td class="select-categorys td-height-img">
                 <div class="input-group-sm">
-                    <select ` +
-        (!idKat[numb] ? ` name="category[]" ` : "") +
-        ` form="formKasir" class="select2 form-control input-group-sm" disabled id="on-select-category-` +
+                    <select name="category[]" form="formKasir" required class="select2 form-control input-group-sm" disabled id="on-select-category-` +
         numb +
         `"></select>
-                    ` +
-        (idKat[numb]
-            ? `<input id="inpt-select-cat-` +
-              numb +
-              `" name="category[]" form="formKasir" type="hidden">`
-            : "") +
-        `
+
                 </div>
             </td>`;
 
@@ -1619,7 +1609,7 @@ function load_row_layanan(idLayanan, idTerapis) {
         `<td class="select-layanan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
                 <div class="input-group-sm">
-                    <select name="layanan[]" form="formKasir" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
+                    <select name="layanan[]" required form="formKasir" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
         numb +
         `"></select>
                 </div>

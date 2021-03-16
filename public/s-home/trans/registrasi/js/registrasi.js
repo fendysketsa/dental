@@ -706,7 +706,7 @@ function load_row_layanan() {
         `<td class="select-layanan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
                 <div class="input-group-sm">
-                    <select name="layanan[]" form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
+                    <select name="layanan[]" required form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-layanan-` +
         numb +
         `"></select>
                 </div>

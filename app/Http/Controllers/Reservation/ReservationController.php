@@ -124,7 +124,7 @@ class ReservationController extends Controller
                 $d_error .= '<li>' . $row . '</li>';
             }
 
-            if($this->arrayIsNotEmpty($request->layanan) > 0) {
+            if ($this->arrayIsNotEmpty($request->layanan) > 0) {
                 $d_error .= '<li>Bidang pilihan layanan wajib dipilih</li>';
             }
 
@@ -133,6 +133,25 @@ class ReservationController extends Controller
             $mess['cd'] = 500;
             echo json_encode($mess);
             exit;
+        } else {
+
+            $kesalahan = 0;
+
+            $d_error = '<ul>';
+
+            if ($this->arrayIsNotEmpty($request->layanan) > 0) {
+                $kesalahan += 1;
+                $d_error .= '<li>Bidang pilihan layanan wajib dipilih</li>';
+            }
+
+            $d_error .= '</ul>';
+
+            if ($kesalahan > 0) {
+                $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
+                $mess['cd'] = 500;
+                echo json_encode($mess);
+                exit;
+            }
         }
     }
 
@@ -200,7 +219,7 @@ class ReservationController extends Controller
             return abort(403);
         }
 
-        if (in_array($request->table, array('category','layanan', 'ruangan', 'paket'))) {
+        if (in_array($request->table, array('category', 'layanan', 'ruangan', 'paket'))) {
             $data = array();
 
             if ($request->table == 'layanan') {

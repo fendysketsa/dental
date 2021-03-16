@@ -265,6 +265,30 @@ class PaymentCashierController extends Controller
             $mess['cd'] = 500;
             echo json_encode($mess);
             exit;
+        } else {
+
+            $kesalahan = 0;
+
+            $d_error = '<ul>';
+
+            if ($this->arrayIsNotEmpty($request->layanan) > 0) {
+                $kesalahan += 1;
+                $d_error .= '<li>Bidang pilihan layanan wajib dipilih</li>';
+            }
+
+            if ($this->arrayIsNotEmpty($request->category) > 0) {
+                $kesalahan += 1;
+                $d_error .= '<li>Bidang pilihan kategori wajib dipilih</li>';
+            }
+
+            $d_error .= '</ul>';
+
+            if ($kesalahan > 0) {
+                $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
+                $mess['cd'] = 500;
+                echo json_encode($mess);
+                exit;
+            }
         }
     }
 
