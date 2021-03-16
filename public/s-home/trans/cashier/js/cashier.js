@@ -1078,14 +1078,12 @@ function loadTotal(idLayanan) {
     // var IdLayananNew = [];
     for (var vl = 1; vl <= $(".n-f-layanan").length; vl++) {
         var vvl = $("input#on-select-price-custom-" + vl).val();
+        var vvl_ = vvl.split(".").join("");
 
         // var vvl2 = $("select#on-select-layanan-" + (vl - 1)).val()
         // var vvl3 = $("select#on-select-layanan-" + vl).val()
-        if (
-            !isNaN(vvl) &&
-            $("input#on-select-price-custom-" + vl).val() != "undefined"
-        ) {
-            total_harga_layanan += parseInt(vvl.split(".").join(""));
+        if (!isNaN(vvl_) && vvl != "undefined") {
+            total_harga_layanan += parseInt(vvl_);
 
             // if (idLayanan) {
             //     if (vvl2 === idLayanan) {
@@ -1099,15 +1097,13 @@ function loadTotal(idLayanan) {
 
     for (var vlt = 1; vlt <= $(".n-f-layanan-tambahan").length; vlt++) {
         var vvlt = $("input#on-input-harga-tambahan-" + vlt).val();
+        var vvlt_ = vvlt.split(".").join("");
 
         // var vvl2 = $("select#on-select-layanan-" + (vl - 1)).val()
         // var vvl3 = $("select#on-select-layanan-" + vl).val()
-        if (
-            !isNaN(vvlt) &&
-            $("input#on-input-harga-tambahan-" + vlt).val() != "undefined"
-        ) {
-            total_harga_layanan_tambahan += parseInt(vvlt.split(".").join(""));
 
+        if (!isNaN(vvlt_) && vvlt != "undefined") {
+            total_harga_layanan_tambahan += parseInt(vvlt_);
             // if (idLayanan) {
             //     if (vvl2 === idLayanan) {
             //         toastr.warning('Oops!, Layanan telah dipesan, harga akan dikalkulasi per layanan', 'Peringatan!');
