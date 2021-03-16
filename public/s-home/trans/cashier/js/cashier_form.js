@@ -1556,6 +1556,25 @@ function load_row_layanan(idLayanan, idTerapis) {
     var html = `<tr class="n-f-layanan">`;
     html +=
         `<td class="nom-layanan td-height-img text-center">` + numb + `</td>`;
+
+    html +=
+        `<td class="select-categorys td-height-img">
+                <div class="input-group-sm">
+                    <select ` +
+        (!idLayanan ? ` name="category[]" ` : "") +
+        ` form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-category-` +
+        numb +
+        `"></select>
+                    ` +
+        (idLayanan
+            ? `<input id="inpt-select-cat-` +
+              numb +
+              `" name="category[]" form="formRegistrasi" type="hidden">`
+            : "") +
+        `
+                </div>
+            </td>`;
+
     html +=
         `<td class="select-layanan td-height-img">
                 <div id="block" class="blocking-loading-row"><em class="fa fa-spinner fa-spin"></em> Loading...</div>
@@ -1605,12 +1624,23 @@ function load_row_layanan(idLayanan, idTerapis) {
 
             loadTotal(layId);
             if (layId) {
-                $("#on-select-terapis-" + numb).removeAttr("disabled");
-                load_avail_layanan("terapis", numb, layId);
+                // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                // load_avail_layanan("terapis", numb, layId);
+
+                $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                $("#on-select-price-custom-" + numb).val(
+                    $("#on-select-layanan-" + numb + " option:selected").data(
+                        "harga"
+                    )
+                );
             } else {
-                var trps = $("#on-select-terapis-" + numb);
-                trps.attr("disabled", true);
-                trps.val("").trigger("change");
+                // var trps = $("#on-select-terapis-" + numb);
+                // trps.attr("disabled", true);
+                // trps.val("").trigger("change");
+
+                var prc_cus = $("#on-select-price-custom-" + numb);
+                prc_cus.attr("disabled", true);
+                prc_cus.val("").trigger("change");
             }
         });
     }, 500);

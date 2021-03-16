@@ -191,6 +191,7 @@ class OrderController extends Controller
     private function arrayIsNotEmpty($arr)
     {
         $fls = 0;
+
         foreach ($arr as $key => $value) {
             if (empty($value)) {
                 $fls++;
@@ -849,6 +850,7 @@ class OrderController extends Controller
     {
         $mess = null;
         $this->validated($mess, $request);
+
         $total_harga = 0;
         DB::transaction(function () use ($request, $mess, $total_harga) {
             if (!empty($request->ino_member)) {
@@ -910,7 +912,7 @@ class OrderController extends Controller
                 //     }
                 // }
 
-                if ($request->has('layanan') && !empty($request->layanan)) {
+                if ($request->has('layanan') && !empty($request->layanan) && $request->has('category')) {
                     DB::table('transaksi_detail')
                         ->where('transaksi_id', $request->id)
                         ->whereNull('paket_id')
@@ -956,12 +958,22 @@ class OrderController extends Controller
 
                 $harga_transaksi = DB::table($this->table_detail)
                     // ->select(DB::raw('DISTINCT(layanan_id), harga'))
-                    ->select(DB::raw('layanan_id, harga'))
+                    ->select(DB::raw('layanan_id, harga_fix'))
                     ->where('transaksi_id', $request->id)
                     ->get();
 
                 foreach ($harga_transaksi as $harga) {
-                    $total_harga += $harga->harga;
+                    $total_harga += $harga->harga_fix;
+                }
+
+                $harga_transaksi_tambahan = DB::table($this->table_tambahan)
+                    // ->select(DB::raw('DISTINCT(layanan_id), harga'))
+                    ->select(DB::raw('price'))
+                    ->where('transaksi_id', $request->id)
+                    ->get();
+
+                foreach ($harga_transaksi_tambahan as $price) {
+                    $total_harga += $price->price;
                 }
 
                 $transId = DB::table($this->table)->where('id', $request->id)->update([
@@ -969,8 +981,6 @@ class OrderController extends Controller
                     'hutang_biaya' => $total_harga - $request->dp,
                     'created_at' => date("Y-m-d H:i:s"),
                 ]);
-
-
 
                 $dataRekam = array();
                 if (!empty($_POST['rekam'])) {
@@ -1135,11 +1145,12 @@ class OrderController extends Controller
                     //     }
                     // }
 
-                    if ($request->has('layanan')) {
+                    if ($request->has('layanan') && $request->has('category')) {
                         DB::table('transaksi_detail')
                             ->where('transaksi_id', $request->id)
                             ->whereNull('paket_id')
                             ->delete();
+
                         foreach ($request->layanan as $num => $lay) {
                             if (!empty($lay)) {
                                 $dataDetailIns2 = array();
@@ -1181,12 +1192,22 @@ class OrderController extends Controller
 
                     $harga_transaksi = DB::table($this->table_detail)
                         // ->select(DB::raw('DISTINCT(layanan_id), harga'))
-                        ->select(DB::raw('layanan_id, harga'))
+                        ->select(DB::raw('layanan_id, harga_fix'))
                         ->where('transaksi_id', $request->id)
                         ->get();
 
                     foreach ($harga_transaksi as $harga) {
-                        $total_harga += $harga->harga;
+                        $total_harga += $harga->harga_fix;
+                    }
+
+                    $harga_transaksi_tambahan = DB::table($this->table_tambahan)
+                        // ->select(DB::raw('DISTINCT(layanan_id), harga'))
+                        ->select(DB::raw('price'))
+                        ->where('transaksi_id', $request->id)
+                        ->get();
+
+                    foreach ($harga_transaksi_tambahan as $price) {
+                        $total_harga += $price->price;
                     }
 
                     $transId = DB::table($this->table)->where('id', $request->id)->update([

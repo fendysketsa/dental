@@ -2257,6 +2257,8 @@ function load_row_layanan(idLayanan, idTerapis) {
     var thisElem = $(".n-f-layanan");
     var numb = thisElem.length + 1;
 
+    var idKat = $("input[name=id]").data("category");
+
     var cekTh = thisElem.closest(".load-form-table-layanan").find(".opt-harga");
 
     var html = `<tr class="n-f-layanan">`;
@@ -2267,12 +2269,12 @@ function load_row_layanan(idLayanan, idTerapis) {
         `<td class="select-categorys td-height-img">
                 <div class="input-group-sm">
                     <select ` +
-        (!idLayanan ? ` name="category[]" ` : "") +
+        (!idKat[numb] ? ` name="category[]" ` : "") +
         ` form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-category-` +
         numb +
         `"></select>
                     ` +
-        (idLayanan
+        (idKat[numb]
             ? `<input id="inpt-select-cat-` +
               numb +
               `" name="category[]" form="formRegistrasi" type="hidden">`
@@ -2344,7 +2346,8 @@ function load_row_layanan(idLayanan, idTerapis) {
             onInputRupiah();
 
             setTimeout(() => {
-                $("#on-select-layanan-" + idLayanan).attr("disabled", true);
+                // $("#on-select-layanan-" + idLayanan).attr("disabled", true);
+
                 $("#on-select-price-custom-" + numb).removeAttr("disabled");
                 $("#inpt-select-" + numb).val(
                     $("#on-select-layanan-" + idLayanan).val()
@@ -2358,28 +2361,32 @@ function load_row_layanan(idLayanan, idTerapis) {
             load_avail_category("category", numb);
         }
 
-        $("#on-select-layanan-" + numb).on("change", function (e) {
-            var layId = $(this).val();
-            loadTotal(layId);
-            if (layId) {
-                // $("#on-select-terapis-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).val(
-                    $("#on-select-layanan-" + numb + " option:selected").data(
-                        "harga"
-                    )
-                );
-                // load_avail_layanan("terapis", numb, layId);
-            } else {
-                // var trps = $("#on-select-terapis-" + numb);
-                // trps.attr("disabled", true);
-                // trps.val("").trigger("change");
+        //ganti delegate
+        $(".load-row-layanan").delegate(
+            "#on-select-layanan-" + numb,
+            "change",
+            function (e) {
+                var layId = $(this).val();
+                loadTotal(layId);
+                if (layId) {
+                    // $("#on-select-terapis-" + numb).removeAttr("disabled");
 
-                var prc_cus = $("#on-select-price-custom-" + numb);
-                prc_cus.attr("disabled", true);
-                prc_cus.val("").trigger("change");
+                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
+
+                    $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                    $("#on-select-price-custom-" + numb).val(convertRupiah(prcs));
+                    // load_avail_layanan("terapis", numb, layId);
+                } else {
+                    // var trps = $("#on-select-terapis-" + numb);
+                    // trps.attr("disabled", true);
+                    // trps.val("").trigger("change");
+
+                    var prc_cus = $("#on-select-price-custom-" + numb);
+                    prc_cus.attr("disabled", true);
+                    prc_cus.val("").trigger("change");
+                }
             }
-        });
+        );
     }, 500);
 
     return html;
@@ -2393,6 +2400,8 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
         .closest(".load-form-table-layanan-periksa")
         .find(".opt-harga");
 
+    var idKat = $("input[name=id]").data("category");
+
     var html = `<tr class="n-f-layanan-periksa">`;
     html +=
         `<td class="nom-layanan td-height-img text-center">` + numb + `</td>`;
@@ -2401,12 +2410,12 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
         `<td class="select-categorys td-height-img">
                 <div class="input-group-sm">
                     <select ` +
-        (!idLayanan ? ` name="category[]" ` : "") +
+        (!idKat[numb] ? ` name="category[]" ` : "") +
         ` form="formRegistrasi" class="select2 form-control input-group-sm" disabled id="on-select-category-` +
         numb +
         `"></select>
                     ` +
-        (idLayanan
+        (idKat[numb]
             ? `<input id="inpt-select-cat-` +
               numb +
               `" name="category[]" form="formRegistrasi" type="hidden">`
@@ -2478,7 +2487,7 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
             onInputRupiah();
 
             setTimeout(() => {
-                $("#on-select-layanan-" + idLayanan).attr("disabled", true);
+                // $("#on-select-layanan-" + idLayanan).attr("disabled", true);
                 $("#on-select-price-custom-" + numb).removeAttr("disabled");
                 $("#inpt-select-" + numb).val(
                     $("#on-select-layanan-" + idLayanan).val()
@@ -2492,28 +2501,31 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
             load_avail_category("category", numb);
         }
 
-        $("#on-select-layanan-" + numb).on("change", function (e) {
-            var layId = $(this).val();
-            loadTotal(layId);
-            if (layId) {
-                // $("#on-select-terapis-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).val(
-                    $("#on-select-layanan-" + numb + " option:selected").data(
-                        "harga"
-                    )
-                );
-                // load_avail_layanan("terapis", numb, layId);
-            } else {
-                // var trps = $("#on-select-terapis-" + numb);
-                // trps.attr("disabled", true);
-                // trps.val("").trigger("change");
+        $(".load-row-layanan").delegate(
+            "#on-select-layanan-" + numb,
+            "change",
+            function (e) {
+                var layId = $(this).val();
+                loadTotal(layId);
+                if (layId) {
+                    // $("#on-select-terapis-" + numb).removeAttr("disabled");
 
-                var prc_cus = $("#on-select-price-custom-" + numb);
-                prc_cus.attr("disabled", true);
-                prc_cus.val("").trigger("change");
+                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
+
+                    $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                    $("#on-select-price-custom-" + numb).val(convertRupiah(prcs));
+                    // load_avail_layanan("terapis", numb, layId);
+                } else {
+                    // var trps = $("#on-select-terapis-" + numb);
+                    // trps.attr("disabled", true);
+                    // trps.val("").trigger("change");
+
+                    var prc_cus = $("#on-select-price-custom-" + numb);
+                    prc_cus.attr("disabled", true);
+                    prc_cus.val("").trigger("change");
+                }
             }
-        });
+        );
     }, 500);
 
     return html;
@@ -2594,24 +2606,31 @@ function load_row_layanan_tambahan(idLayanan, idTerapis) {
             // load_avail_layanan("layanan", numb);
         }
 
-        $("#on-select-layanan-" + numb).on("change", function (e) {
-            var layId = $(this).val();
-            // loadTotal(layId);
-            if (layId) {
-                // $("#on-select-terapis-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).val($(this).data("harga"));
-                // load_avail_layanan("terapis", numb, layId);
-            } else {
-                // var trps = $("#on-select-terapis-" + numb);
-                // trps.attr("disabled", true);
-                // trps.val("").trigger("change");
+        $(".load-row-layanan").delegate(
+            "#on-select-layanan-" + numb,
+            "change",
+            function (e) {
+                var layId = $(this).val();
+                // loadTotal(layId);
+                if (layId) {
+                    // $("#on-select-terapis-" + numb).removeAttr("disabled");
 
-                var prc_cus = $("#on-select-price-custom-" + numb);
-                prc_cus.attr("disabled", true);
-                prc_cus.val("").trigger("change");
+                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
+
+                    $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                    $("#on-select-price-custom-" + numb).val(convertRupiah(prcs));
+                    // load_avail_layanan("terapis", numb, layId);
+                } else {
+                    // var trps = $("#on-select-terapis-" + numb);
+                    // trps.attr("disabled", true);
+                    // trps.val("").trigger("change");
+
+                    var prc_cus = $("#on-select-price-custom-" + numb);
+                    prc_cus.attr("disabled", true);
+                    prc_cus.val("").trigger("change");
+                }
             }
-        });
+        );
     }, 500);
 
     return html;
@@ -2692,24 +2711,32 @@ function load_row_layanan_tambahan_periksa(idLayanan, idTerapis) {
             // load_avail_layanan("layanan", numb);
         }
 
-        $("#on-select-layanan-" + numb).on("change", function (e) {
-            var layId = $(this).val();
-            // loadTotal(layId);
-            if (layId) {
-                // $("#on-select-terapis-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).removeAttr("disabled");
-                $("#on-select-price-custom-" + numb).val($(this).data("harga"));
-                // load_avail_layanan("terapis", numb, layId);
-            } else {
-                // var trps = $("#on-select-terapis-" + numb);
-                // trps.attr("disabled", true);
-                // trps.val("").trigger("change");
+        $(".load-row-layanan").delegate(
+            "#on-select-layanan-" + numb,
+            "change",
+            function (e) {
+                var layId = $(this).val();
+                // loadTotal(layId);
+                if (layId) {
+                    // $("#on-select-terapis-" + numb).removeAttr("disabled");
+                    var prcs = $("#on-select-layanan-" + numb + " option:selected").data("harga");
 
-                var prc_cus = $("#on-select-price-custom-" + numb);
-                prc_cus.attr("disabled", true);
-                prc_cus.val("").trigger("change");
+                    $("#on-select-price-custom-" + numb).removeAttr("disabled");
+                    $("#on-select-price-custom-" + numb).val(
+                        convertRupiah(prcs)
+                    );
+                    // load_avail_layanan("terapis", numb, layId);
+                } else {
+                    // var trps = $("#on-select-terapis-" + numb);
+                    // trps.attr("disabled", true);
+                    // trps.val("").trigger("change");
+
+                    var prc_cus = $("#on-select-price-custom-" + numb);
+                    prc_cus.attr("disabled", true);
+                    prc_cus.val("").trigger("change");
+                }
             }
-        });
+        );
     }, 500);
 
     return html;
