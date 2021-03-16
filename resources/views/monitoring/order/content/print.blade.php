@@ -86,6 +86,21 @@
                             <th style="width:20%">Jumlah</th>
                         </tr>
 
+                        @foreach($det_transaksi as $r)
+                        <tr>
+                            <td>{{ $noUrut += 1 }}</td>
+                            <td>{{ $r['name'] }}</td>
+                            <td>{{ $r['price_fix'] }}</td>
+                            <td>{{ $r['price_fix'] }}</td>
+                        </tr>
+
+                        @php
+                        $subTotal += $r['price_fix'];
+                        $Total += $r['price_fix'];
+                        @endphp
+
+                        @endforeach
+
                         @foreach($det_transaksi_tambahan as $rt)
                         <tr>
                             <td>{{ $noUrut += 1 }}</td>
@@ -101,10 +116,16 @@
 
                         @endforeach
 
+                        <tr style="border-top:2px solid #BDBDBD;">
+                            <td colspan="2" style="text-transform: uppercase;">Ruang: {{ $ruang['name'] }}</td>
+                            <td style="width:15%;">{{ $ruang['price'] }}</td>
+                            <td style="width:20%; font-weight:bold;">{{ $ruang['price'] }}</td>
+                        </tr>
+
                         <tr>
                             <td colspan="2" style="text-align:right;">Sub total</td>
-                            <td style="width:15%;">{{ $subTotal }}</td>
-                            <td style="width:20%">{{ $Total }}</td>
+                            <td style="width:15%;">{{ $subTotal += $ruang['price'] }}</td>
+                            <td style="width:20%">{{ $Total += $ruang['price'] }}</td>
                         </tr>
 
                         <tr style="border-top:2px solid #BDBDBD;">

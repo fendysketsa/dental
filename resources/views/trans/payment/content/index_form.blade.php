@@ -1,6 +1,7 @@
 <form action="{{ $action }}" id="formKasir"></form>
 @if(!empty($data))
 <input type="hidden" name="id" data-jam-transaksi="{{ date('H:i', strtotime($data[0]->created_at)) }}"
+    data-category="[{{ $services[0]->category }}]" data-price-layanan="[{{ $services[0]->price_fix }}]"
     data-tanggal-transaksi="{{ date('Y-m-d', strtotime($data[0]->created_at)) }}"
     data-transaksi-no="{{$data[0]->no_transaksi }}" value="{{ $data[0]->id }}" data-produk="[{{ $produk[0]->produk }}]"
     data-produk-jumlah="[{{ $produk[0]->jumlah }}]" data-produk-harga="[{{ $produk[0]->harga }}]"

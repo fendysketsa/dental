@@ -13,7 +13,7 @@ use App\Models\Transaction\TransaksiModel as TransactionModel;
 use App\TransaksiDetailModel as TransactionDetailModel;
 use App\TransaksiDetailTambahanModel;
 use App\Models\MemberModel;
-
+use App\Models\RoomsModel;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
@@ -334,9 +334,12 @@ class OrderController extends Controller
 
         $data['transaksi'] = TransactionModel::find($id)->toArray();
 
+        $data['ruang'] = RoomsModel::find($data['transaksi']['room_id'])->toArray();
+
         $data['det_transaksi'] = TransactionDetailModel::leftJoin('transaksi', 'transaksi.id', '=', 'transaksi_detail.transaksi_id')
-            ->where('transaksi_id', $data['transaksi']['id'])
-            ->select('transaksi_detail.*', 'transaksi.*')
+            ->leftJoin('layanan', 'transaksi_detail.layanan_id', '=', 'layanan.id')
+            ->where('transaksi_detail.transaksi_id', $data['transaksi']['id'])
+            ->select('transaksi_detail.*', 'transaksi.*', 'layanan.nama as name', 'transaksi_detail.harga_fix as price_fix')
             ->get()
             ->toArray();
 

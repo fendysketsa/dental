@@ -168,6 +168,8 @@ class PaymentCashierController extends Controller
             $dataLayanan = DB::table($this->table_detail)
                 ->select(
                     DB::raw('GROUP_CONCAT(IF(layanan_id, layanan_id, 0)) as layanan'),
+                    DB::raw('GROUP_CONCAT(IF(category_id, category_id, 0)) as category'),
+                    DB::raw('GROUP_CONCAT(IF(harga_fix, harga_fix, 0)) as price_fix'),
                     DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
                 )
                 ->whereNull('paket_id')
@@ -225,6 +227,22 @@ class PaymentCashierController extends Controller
         ]);
     }
 
+    private function arrayIsNotEmpty($arr)
+    {
+        $fls = 0;
+
+        foreach ($arr as $key => $value) {
+            if (empty($value)) {
+                $fls++;
+            }
+        }
+        if (empty($arr)) {
+            $fls;
+        }
+
+        return $fls;
+    }
+
     public function validated($mess, $request)
     {
         $validator = \Validator::make($request->all(), $this->validate_message);
@@ -233,6 +251,15 @@ class PaymentCashierController extends Controller
             foreach ($validator->errors()->all() as $row) {
                 $d_error .= '<li>' . $row . '</li>';
             }
+
+            if ($this->arrayIsNotEmpty($request->layanan) > 0) {
+                $d_error .= '<li>Bidang pilihan layanan wajib dipilih</li>';
+            }
+
+            if ($this->arrayIsNotEmpty($request->category) > 0) {
+                $d_error .= '<li>Bidang pilihan kategori wajib dipilih</li>';
+            }
+
             $d_error .= '</ul>';
             $mess['msg'] = 'Ada beberapa masalah dengan inputan Anda!' . $d_error;
             $mess['cd'] = 500;
@@ -249,50 +276,52 @@ class PaymentCashierController extends Controller
 
         DB::transaction(function () use ($request, $mess, $total_harga, $LogStokProdukModel) {
 
-            if ($request->has('paket')) {
-                DB::table('transaksi_detail')
-                    ->where('transaksi_id', $request->id)
-                    ->whereNotNull('paket_id')
-                    ->delete();
-                foreach ($request->paket as $numP => $pkt) {
-                    if (!empty($pkt)) {
-                        $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
-                        if ($paket_layanan->count() > 0) {
-                            $dataDetailIns1 = array();
-                            foreach ($paket_layanan->get() as $num => $pl) {
-                                $dataDetailIns1[] = array(
-                                    'transaksi_id' => $request->id,
-                                    'posisi' => $numP + 1,
-                                    'paket_id' => $pkt,
-                                    'layanan_id' => $pl->layanan_id,
-                                    'pegawai_id' =>
-                                    empty($request->pkt_layanan_terapis[$numP + 1][$num]) ? null : $request->pkt_layanan_terapis[$numP + 1][$num],
-                                    'kuantitas' => null,
-                                    'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
-                                    'created_at' => date("Y-m-d H:i:s"),
-                                );
-                            }
-                            DB::table($this->table_detail)->insert($dataDetailIns1);
-                        }
-                    }
-                }
-            }
+            // if ($request->has('paket')) {
+            //     DB::table('transaksi_detail')
+            //         ->where('transaksi_id', $request->id)
+            //         ->whereNotNull('paket_id')
+            //         ->delete();
+            //     foreach ($request->paket as $numP => $pkt) {
+            //         if (!empty($pkt)) {
+            //             $paket_layanan = DB::table('paket_detail')->where('paket_id', $pkt);
+            //             if ($paket_layanan->count() > 0) {
+            //                 $dataDetailIns1 = array();
+            //                 foreach ($paket_layanan->get() as $num => $pl) {
+            //                     $dataDetailIns1[] = array(
+            //                         'transaksi_id' => $request->id,
+            //                         'posisi' => $numP + 1,
+            //                         'paket_id' => $pkt,
+            //                         'layanan_id' => $pl->layanan_id,
+            //                         'pegawai_id' =>
+            //                         empty($request->pkt_layanan_terapis[$numP + 1][$num]) ? null : $request->pkt_layanan_terapis[$numP + 1][$num],
+            //                         'kuantitas' => null,
+            //                         'harga' => DB::table('paket')->where('id', $pkt)->first()->harga / $paket_layanan->count(),
+            //                         'created_at' => date("Y-m-d H:i:s"),
+            //                     );
+            //                 }
+            //                 DB::table($this->table_detail)->insert($dataDetailIns1);
+            //             }
+            //         }
+            //     }
+            // }
 
-            if ($request->has('layanan')) {
+            if ($request->has('layanan') && !empty($request->layanan) && $request->has('category')) {
                 DB::table('transaksi_detail')
                     ->where('transaksi_id', $request->id)
                     ->whereNull('paket_id')
-                    ->whereNotNull('layanan_id')
                     ->delete();
+
                 foreach ($request->layanan as $num => $lay) {
                     if (!empty($lay)) {
                         $dataDetailIns2 = array();
                         $dataDetailIns2[] = array(
                             'transaksi_id' => $request->id,
+                            'category_id' => empty($request->category[$num]) ? null : $request->category[$num],
                             'layanan_id' => $lay,
                             'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
                             'kuantitas' => null,
                             'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
+                            'harga_fix' => empty($request->harga_custom[$num]) ? null : unRupiahFormat($request->harga_custom[$num]),
                             'created_at' => date("Y-m-d H:i:s"),
                         );
                         DB::table($this->table_detail)->insert($dataDetailIns2);
@@ -300,139 +329,184 @@ class PaymentCashierController extends Controller
                 }
             }
 
-            if ($request->has('produk')) {
-                $Notransaksi = DB::table($this->table)
-                    ->select(DB::raw('no_transaksi'))
-                    ->where('id', $request->id)
-                    ->first()->no_transaksi;
-
-                $dataProdukInDB = DB::table('transaksi_detail')
+            if (!empty($request->layanan_tambahan)) {
+                DB::table('transaksi_tambahan')
                     ->where('transaksi_id', $request->id)
-                    ->whereNotNull('produk_id')
-                    ->select('produk_id', 'kuantitas')
-                    ->orderBy('id', 'ASC')->get();
+                    ->delete();
 
-                foreach ($dataProdukInDB as $jumP => $rP) {
-                    if ($request->produk[$jumP] != $rP->produk_id) {
-                        DB::table('produk')->where('id', $rP->produk_id)->update([
-                            'stok' => DB::table('produk')->where('id', $rP->produk_id)->first()->stok + $rP->kuantitas,
-                        ]);
-
-                        $data[$num]['produk_id'] = $rP->produk_id;
-                        $data[$num]['tanggal'] = date('Y-m-d H:i:s');
-                        $data[$num]['masuk'] = $rP->kuantitas;
-                        $data[$num]['keluar'] = 0;
-                        $data[$num]['sisa'] = DB::table('produk')->where('id', $rP->produk_id)->first()->stok;
-                        $data[$num]['keterangan'] = "<strong>Penjualan Produk (Batal)</strong> No Nota: " . $Notransaksi;
-
-                        $LogStokProdukModel->forceFill($data[$num]);
-                        $LogStokProdukModel->save();
-
-                        DB::table('transaksi_detail')
-                            ->where('transaksi_id', $request->id)
-                            ->where('produk_id', $rP->produk_id)
-                            ->delete();
-                    }
-                }
-
-                foreach ($request->produk as $num => $prd) {
-
-                    if (!empty($prd)) {
-
-                        $onStok[$num] = DB::table($this->table_detail)
-                            ->where('transaksi_id', $request->id)
-                            ->where('produk_id', $prd)->first();
-
-                        if (empty($onStok[$num])) {
-                            $dataDetailIns3 = array();
-                            $dataDetailIns3[] = array(
-                                'transaksi_id' => $request->id,
-                                'produk_id' => $prd,
-                                'layanan_id' => null,
-                                'pegawai_id' => null,
-                                'kuantitas' => $request->jml_produk[$num],
-                                'harga' => DB::table('produk')->where('id', $prd)->first()->harga_jual_member,
-                                'created_at' => date("Y-m-d H:i:s"),
-                            );
-
-                            $updateStok = DB::table($this->table_detail)->insert($dataDetailIns3);
-
-                            if ($updateStok) {
-                                DB::table('produk')->where('id', $prd)->update([
-                                    'stok' => DB::table('produk')->where('id', $prd)->first()->stok - $request->jml_produk[$num],
-                                ]);
-
-                                $data[$num]['produk_id'] = $prd;
-                                $data[$num]['tanggal'] = date('Y-m-d H:i:s');
-                                $data[$num]['masuk'] = 0;
-                                $data[$num]['keluar'] = $request->jml_produk[$num];
-                                $data[$num]['sisa'] = DB::table('produk')->where('id', $prd)->first()->stok;
-                                $data[$num]['keterangan'] = "<strong>Penjualan Produk</strong> No Nota: " . $Notransaksi;
-
-                                $LogStokProdukModel->forceFill($data[$num]);
-                                $LogStokProdukModel->save();
-                            }
-                        } else if (!empty($onStok[$num]) && ($onStok[$num]->kuantitas > $request->jml_produk[$num])) {
-                            $updateStok = DB::table($this->table_detail)
-                                ->where('transaksi_id', $request->id)
-                                ->where('produk_id', $prd)
-                                ->update([
-                                    'kuantitas' => $request->jml_produk[$num]
-                                ]);
-
-                            if ($updateStok) {
-                                DB::table('produk')->where('id', $prd)->update([
-                                    'stok' => DB::table('produk')->where('id', $prd)->first()->stok + ($onStok[$num]->kuantitas - $request->jml_produk[$num]),
-                                ]);
-
-                                $data[$num]['produk_id'] = $prd;
-                                $data[$num]['tanggal'] = date('Y-m-d H:i:s');
-                                $data[$num]['masuk'] = $onStok[$num]->kuantitas - $request->jml_produk[$num];
-                                $data[$num]['keluar'] = $request->jml_produk[$num];
-                                $data[$num]['sisa'] = DB::table('produk')->where('id', $prd)->first()->stok;
-                                $data[$num]['keterangan'] = "<strong>Penjualan Produk (Update Kuantiti - <i>kurang</i>)</strong> No Nota: " . $Notransaksi;
-
-                                $LogStokProdukModel->forceFill($data[$num]);
-                                $LogStokProdukModel->save();
-                            }
-                        } else if (!empty($onStok[$num]) && ($request->jml_produk[$num] > $onStok[$num]->kuantitas)) {
-
-                            $updateStok = DB::table($this->table_detail)
-                                ->where('transaksi_id', $request->id)
-                                ->where('produk_id', $prd)
-                                ->update([
-                                    'kuantitas' => $request->jml_produk[$num]
-                                ]);
-
-                            if ($updateStok) {
-                                DB::table('produk')->where('id', $prd)->update([
-                                    'stok' => DB::table('produk')->where('id', $prd)->first()->stok - ($request->jml_produk[$num] - $onStok[$num]->kuantitas),
-                                ]);
-
-                                $data[$num]['produk_id'] = $prd;
-                                $data[$num]['tanggal'] = date('Y-m-d H:i:s');
-                                $data[$num]['masuk'] = 0;
-                                $data[$num]['keluar'] = $request->jml_produk[$num] - $onStok[$num]->kuantitas;
-                                $data[$num]['sisa'] = DB::table('produk')->where('id', $prd)->first()->stok;
-                                $data[$num]['keterangan'] = "<strong>Penjualan Produk (Update Kuantiti  - <i>tambah</i>)</strong> No Nota: " . $Notransaksi;
-
-                                $LogStokProdukModel->forceFill($data[$num]);
-                                $LogStokProdukModel->save();
-                            }
-                        }
+                foreach ($request->layanan_tambahan as $num => $layTam) {
+                    if (!empty($layTam)) {
+                        $dataTambahan = array();
+                        $dataTambahan[] = array(
+                            'transaksi_id' => $request->id,
+                            'name' => $layTam,
+                            'price' => empty($request->harga_tambahan[$num]) ? null : unRupiahFormat($request->harga_tambahan[$num]),
+                            'created_at' => date("Y-m-d H:i:s"),
+                            'updated_at' => date("Y-m-d H:i:s"),
+                        );
+                        DB::table($this->table_tambahan)->insert($dataTambahan);
                     }
                 }
             }
 
+            // if ($request->has('produk')) {
+            //     $Notransaksi = DB::table($this->table)
+            //         ->select(DB::raw('no_transaksi'))
+            //         ->where('id', $request->id)
+            //         ->first()->no_transaksi;
+
+            //     $dataProdukInDB = DB::table('transaksi_detail')
+            //         ->where('transaksi_id', $request->id)
+            //         ->whereNotNull('produk_id')
+            //         ->select('produk_id', 'kuantitas')
+            //         ->orderBy('id', 'ASC')->get();
+
+            //     foreach ($dataProdukInDB as $jumP => $rP) {
+            //         if ($request->produk[$jumP] != $rP->produk_id) {
+            //             DB::table('produk')->where('id', $rP->produk_id)->update([
+            //                 'stok' => DB::table('produk')->where('id', $rP->produk_id)->first()->stok + $rP->kuantitas,
+            //             ]);
+
+            //             $data[$num]['produk_id'] = $rP->produk_id;
+            //             $data[$num]['tanggal'] = date('Y-m-d H:i:s');
+            //             $data[$num]['masuk'] = $rP->kuantitas;
+            //             $data[$num]['keluar'] = 0;
+            //             $data[$num]['sisa'] = DB::table('produk')->where('id', $rP->produk_id)->first()->stok;
+            //             $data[$num]['keterangan'] = "<strong>Penjualan Produk (Batal)</strong> No Nota: " . $Notransaksi;
+
+            //             $LogStokProdukModel->forceFill($data[$num]);
+            //             $LogStokProdukModel->save();
+
+            //             DB::table('transaksi_detail')
+            //                 ->where('transaksi_id', $request->id)
+            //                 ->where('produk_id', $rP->produk_id)
+            //                 ->delete();
+            //         }
+            //     }
+
+            //     foreach ($request->produk as $num => $prd) {
+
+            //         if (!empty($prd)) {
+
+            //             $onStok[$num] = DB::table($this->table_detail)
+            //                 ->where('transaksi_id', $request->id)
+            //                 ->where('produk_id', $prd)->first();
+
+            //             if (empty($onStok[$num])) {
+            //                 $dataDetailIns3 = array();
+            //                 $dataDetailIns3[] = array(
+            //                     'transaksi_id' => $request->id,
+            //                     'produk_id' => $prd,
+            //                     'layanan_id' => null,
+            //                     'pegawai_id' => null,
+            //                     'kuantitas' => $request->jml_produk[$num],
+            //                     'harga' => DB::table('produk')->where('id', $prd)->first()->harga_jual_member,
+            //                     'created_at' => date("Y-m-d H:i:s"),
+            //                 );
+
+            //                 $updateStok = DB::table($this->table_detail)->insert($dataDetailIns3);
+
+            //                 if ($updateStok) {
+            //                     DB::table('produk')->where('id', $prd)->update([
+            //                         'stok' => DB::table('produk')->where('id', $prd)->first()->stok - $request->jml_produk[$num],
+            //                     ]);
+
+            //                     $data[$num]['produk_id'] = $prd;
+            //                     $data[$num]['tanggal'] = date('Y-m-d H:i:s');
+            //                     $data[$num]['masuk'] = 0;
+            //                     $data[$num]['keluar'] = $request->jml_produk[$num];
+            //                     $data[$num]['sisa'] = DB::table('produk')->where('id', $prd)->first()->stok;
+            //                     $data[$num]['keterangan'] = "<strong>Penjualan Produk</strong> No Nota: " . $Notransaksi;
+
+            //                     $LogStokProdukModel->forceFill($data[$num]);
+            //                     $LogStokProdukModel->save();
+            //                 }
+            //             } else if (!empty($onStok[$num]) && ($onStok[$num]->kuantitas > $request->jml_produk[$num])) {
+            //                 $updateStok = DB::table($this->table_detail)
+            //                     ->where('transaksi_id', $request->id)
+            //                     ->where('produk_id', $prd)
+            //                     ->update([
+            //                         'kuantitas' => $request->jml_produk[$num]
+            //                     ]);
+
+            //                 if ($updateStok) {
+            //                     DB::table('produk')->where('id', $prd)->update([
+            //                         'stok' => DB::table('produk')->where('id', $prd)->first()->stok + ($onStok[$num]->kuantitas - $request->jml_produk[$num]),
+            //                     ]);
+
+            //                     $data[$num]['produk_id'] = $prd;
+            //                     $data[$num]['tanggal'] = date('Y-m-d H:i:s');
+            //                     $data[$num]['masuk'] = $onStok[$num]->kuantitas - $request->jml_produk[$num];
+            //                     $data[$num]['keluar'] = $request->jml_produk[$num];
+            //                     $data[$num]['sisa'] = DB::table('produk')->where('id', $prd)->first()->stok;
+            //                     $data[$num]['keterangan'] = "<strong>Penjualan Produk (Update Kuantiti - <i>kurang</i>)</strong> No Nota: " . $Notransaksi;
+
+            //                     $LogStokProdukModel->forceFill($data[$num]);
+            //                     $LogStokProdukModel->save();
+            //                 }
+            //             } else if (!empty($onStok[$num]) && ($request->jml_produk[$num] > $onStok[$num]->kuantitas)) {
+
+            //                 $updateStok = DB::table($this->table_detail)
+            //                     ->where('transaksi_id', $request->id)
+            //                     ->where('produk_id', $prd)
+            //                     ->update([
+            //                         'kuantitas' => $request->jml_produk[$num]
+            //                     ]);
+
+            //                 if ($updateStok) {
+            //                     DB::table('produk')->where('id', $prd)->update([
+            //                         'stok' => DB::table('produk')->where('id', $prd)->first()->stok - ($request->jml_produk[$num] - $onStok[$num]->kuantitas),
+            //                     ]);
+
+            //                     $data[$num]['produk_id'] = $prd;
+            //                     $data[$num]['tanggal'] = date('Y-m-d H:i:s');
+            //                     $data[$num]['masuk'] = 0;
+            //                     $data[$num]['keluar'] = $request->jml_produk[$num] - $onStok[$num]->kuantitas;
+            //                     $data[$num]['sisa'] = DB::table('produk')->where('id', $prd)->first()->stok;
+            //                     $data[$num]['keterangan'] = "<strong>Penjualan Produk (Update Kuantiti  - <i>tambah</i>)</strong> No Nota: " . $Notransaksi;
+
+            //                     $LogStokProdukModel->forceFill($data[$num]);
+            //                     $LogStokProdukModel->save();
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            // $harga_transaksi = DB::table($this->table_detail)
+            //     // ->select(DB::raw('DISTINCT(layanan_id), harga, kuantitas'))
+            //     ->select(DB::raw('layanan_id, harga, kuantitas'))
+            //     ->where('transaksi_id', $request->id)
+            //     ->get();
+
             $harga_transaksi = DB::table($this->table_detail)
-                // ->select(DB::raw('DISTINCT(layanan_id), harga, kuantitas'))
-                ->select(DB::raw('layanan_id, harga, kuantitas'))
+                // ->select(DB::raw('DISTINCT(layanan_id), harga'))
+                ->select(DB::raw('layanan_id, harga_fix'))
                 ->where('transaksi_id', $request->id)
                 ->get();
 
             foreach ($harga_transaksi as $harga) {
-                $total_harga += $harga->kuantitas ? ($harga->kuantitas * $harga->harga) : $harga->harga;
+                $total_harga += $harga->harga_fix;
             }
+
+            $harga_transaksi_tambahan = DB::table($this->table_tambahan)
+                // ->select(DB::raw('DISTINCT(layanan_id), harga'))
+                ->select(DB::raw('price'))
+                ->where('transaksi_id', $request->id)
+                ->get();
+
+            foreach ($harga_transaksi_tambahan as $price) {
+                $total_harga += $price->price;
+            }
+
+            $total_harga += DB::table($this->table)
+                ->leftJoin($this->table_room, $this->table_room . '.id', '=', $this->table . '.room_id')
+                ->where($this->table . '.id', $request->id)
+                ->select($this->table_room . '.price')->first()->price;
+
+            // foreach ($harga_transaksi as $harga) {
+            //     $total_harga += $harga->kuantitas ? ($harga->kuantitas * $harga->harga) : $harga->harga;
+            // }
 
             $transId = DB::table($this->table)->where('id', $request->id)->update([
                 'cara_bayar_kasir' => $request->cara_bayar,

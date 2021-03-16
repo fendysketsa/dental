@@ -202,7 +202,7 @@ function load_formPembayaran() {
                     $(".loading-data-produk").html("");
 
                     setTimeout(() => {
-                        $(".total-belanja").html(inputId.data("total-biaya"));
+                        loadTotal();
                     }, 500);
 
                     $(".load-form-pembayaran").append(
@@ -1047,6 +1047,7 @@ function getHarga(table, el, i) {
 function loadTotal(idLayanan) {
     var total_harga_paket = 0;
     var total_harga_layanan = 0;
+    var total_harga_layanan_tambahan = 0;
     var total_harga_produk = 0;
 
     var total_harga_ruangan = 0;
@@ -1076,16 +1077,37 @@ function loadTotal(idLayanan) {
 
     // var IdLayananNew = [];
     for (var vl = 1; vl <= $(".n-f-layanan").length; vl++) {
-        var vvl = $("select#on-select-layanan-" + vl)
-            .find("option:selected")
-            .data("harga");
+        var vvl = $("input#on-select-price-custom-" + vl).val();
+
         // var vvl2 = $("select#on-select-layanan-" + (vl - 1)).val()
         // var vvl3 = $("select#on-select-layanan-" + vl).val()
         if (
             !isNaN(vvl) &&
-            $("select#on-select-layanan-" + vl).val() != "undefined"
+            $("input#on-select-price-custom-" + vl).val() != "undefined"
         ) {
-            total_harga_layanan += parseInt(vvl);
+            total_harga_layanan += parseInt(vvl.split(".").join(""));
+
+            // if (idLayanan) {
+            //     if (vvl2 === idLayanan) {
+            //         toastr.warning('Oops!, Layanan telah dipesan, harga akan dikalkulasi per layanan', 'Peringatan!');
+            //         return false;
+            //     }
+            // }
+        }
+        // IdLayananNew.push(vvl3)
+    }
+
+    for (var vlt = 1; vlt <= $(".n-f-layanan-tambahan").length; vlt++) {
+        var vvlt = $("input#on-input-harga-tambahan-" + vlt).val();
+
+        // var vvl2 = $("select#on-select-layanan-" + (vl - 1)).val()
+        // var vvl3 = $("select#on-select-layanan-" + vl).val()
+        if (
+            !isNaN(vvlt) &&
+            $("input#on-input-harga-tambahan-" + vlt).val() != "undefined"
+        ) {
+            total_harga_layanan_tambahan += parseInt(vvlt.split(".").join(""));
+
             // if (idLayanan) {
             //     if (vvl2 === idLayanan) {
             //         toastr.warning('Oops!, Layanan telah dipesan, harga akan dikalkulasi per layanan', 'Peringatan!');
@@ -1131,10 +1153,13 @@ function loadTotal(idLayanan) {
         var RealTagihan =
             total_harga_paket +
             total_harga_layanan +
+            total_harga_layanan_tambahan +
             total_harga_produk +
             total_harga_ruangan;
 
         var Price = RealTagihan;
+
+        console.log(Price, total_harga_layanan_tambahan);
 
         var elemt = $("#diskon");
         var value = elemt.val();
@@ -1169,7 +1194,7 @@ function loadTotal(idLayanan) {
         setTimeout(function () {
             $(".total-belanja").text(Price);
         }, 0);
-    }, 2500);
+    }, 1000);
 }
 
 function rangeDate(range_, back) {
