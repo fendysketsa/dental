@@ -812,7 +812,6 @@ function loadRekamMedik(ck) {
                         }
                     }, 1500);
                 } else {
-                    alert("setan");
 
                     $("#f-load-rekam-medik").html(content_rekam_medik(data));
                 }

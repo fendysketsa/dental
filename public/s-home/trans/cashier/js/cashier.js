@@ -1159,8 +1159,6 @@ function loadTotal(idLayanan) {
 
         var Price = RealTagihan;
 
-        console.log(Price, total_harga_layanan_tambahan);
-
         var elemt = $("#diskon");
         var value = elemt.val();
         var diskon = elemt.find("option:selected");

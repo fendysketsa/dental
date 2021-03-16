@@ -1424,6 +1424,21 @@ function loadRekamMedik() {
                 $("#f-load-rekam-medik").html(content_rekam_medik(data));
 
                 $(".noMember").removeClass("on-dutty-off loading-member-reg");
+
+                $("#f-load-rekam-medik").delegate(
+                    ".on-label-click",
+                    "click",
+                    function () {
+                        var num = $(this).data("ck");
+                        var pos = $(this).data("ck-on");
+                        var desc = $(this).data("ck-desc");
+
+                        $(".info-small-" + pos).html(
+                            `<em class="fa fa-info-circle"></em> ` +
+                                desc.split("\n")[num]
+                        );
+                    }
+                );
             }, 500);
         },
     });
