@@ -2391,7 +2391,7 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
     html +=
         `<td class="select-categorys td-height-img">
                 <div class="input-group-sm">
-                    <select name="category[]" form="formRegistrasi" class="select2 form-control input-group-sm" required disabled id="on-select-category-` +
+                    <select name="category[]" form="formPeriksa" class="select2 form-control input-group-sm" required disabled id="on-select-category-` +
         numb +
         `"></select>
 
@@ -2466,7 +2466,7 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
             load_avail_category("category", numb);
         }
 
-        $(".load-row-layanan").delegate(
+        $(".load-row-layanan-periksa").delegate(
             "#on-select-layanan-" + numb,
             "change",
             function (e) {
@@ -3847,11 +3847,15 @@ function loadSelectGigiText(itm) {
 
         var tit = parseInt(dataGigiSelect.length) - 1 == e ? "" : ", ";
 
-        textGigi +=
-            classColorSelectedNama +
-            tit +
-            (dataGigiSelectPart.length < 2 ? ", " : "");
+        textGigi += classColorSelectedNama + tit;
+        // +            (dataGigiSelectPart.length < 2 ? ", " : "");
     });
+
+    textGigi +=
+        parseInt(dataGigiSelect.length) > 0 &&
+        parseInt(dataGigiSelectPart.length) > 0
+            ? ", "
+            : "";
 
     $.each(dataGigiSelectPart, function (e, f) {
         var classColorSelectedNoPart = $(this).data("color-no");

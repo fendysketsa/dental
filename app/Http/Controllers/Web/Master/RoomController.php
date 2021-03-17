@@ -19,7 +19,7 @@ class RoomController extends Controller
     private $validate_message = [
         'cabang' => 'required|not_in:0',
         'nama' => 'required',
-        'harga' => 'required',
+        // 'harga' => 'required',
     ];
 
     public function fields($request, $images)

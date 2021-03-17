@@ -27,7 +27,7 @@
     </div>
     <div class="col-lg-5">
         <div class="form-group">
-            <label>Harga: <em class="text-danger">*</em></label>
+            <label>Harga:</label>
             <div class="input-group input-group-sm date">
                 <div class="input-group-addon">
                     <i class="fa fa-money"></i>

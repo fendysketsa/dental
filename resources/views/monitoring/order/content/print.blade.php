@@ -27,12 +27,16 @@
         .text-bold {
             font-weight: bold;
         }
+
+        .width-500 {
+            width: 500px !important;
+        }
     </style>
 
 </head>
 
 <body>
-    <div class="col-lg-12">
+    <div class="col-lg-12 width-500">
         <div class="card">
             <div class="col-lg-12">
                 <div class="header-address">
@@ -185,12 +189,83 @@
             $(".to-print-view").show()
         }, 2000);
 
-    $(".to-print-view").on('click', function() {
-        $(this).hide()
-        window.print()
-        $(this).show()
-    });
+        $(".to-print-view").on("click", function () {
+
+            var events_ = localStorage.getItem("events");
+            var onsave_ = localStorage.getItem("onSave");
+            var id_ = localStorage.getItem("id");
+
+            if(id_) {
+                setTimeout(function() {
+                    toSendInfoPembayaran(id_);
+
+                }, 500)
+
+            $(this).hide();
+            window.print();
+            $(this).show();
+            }
+
+        });
+
 })
+
+function toSendInfoPembayaran(idCetak) {
+    var target = "{{ URL::to('/') }}" + '/cashiers/print';
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": '{{ csrf_token() }}',
+        },
+    });
+
+    $.ajax({
+        url: target,
+        type: "POST",
+        data: {
+            order_id: idCetak,
+        },
+        dataType: "JSON",
+        success: function (data) {
+            switch (data.cd) {
+                case 200:
+                    window.close()
+                    alert("Success! " + data.msg)
+                    setTimeout(function() {
+                        localStorage.setItem("error-print", "");
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                    },1000)
+
+                    localStorage.removeItem("events");
+                    localStorage.removeItem("onSave");
+                    localStorage.removeItem("id");
+                    break;
+                default:
+                    window.close()
+                    alert("Peringatan! " + data.msg)
+                    setTimeout(function() {
+                        localStorage.setItem("error-print", "");
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                    },1000)
+                    break;
+            }
+        },
+        error: function () {
+            window.close()
+            alert("Kesalahan system! " + data.msg)
+            setTimeout(function() {
+                localStorage.setItem("error-print", "");
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3000);
+            },1000)
+        },
+    });
+}
 </script>
 
 </html>

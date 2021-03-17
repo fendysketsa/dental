@@ -265,14 +265,15 @@ function toPrint(event, onsave) {
         url: target + "/" + idCetak,
         type: "GET",
         success: function (data) {
-            rePrintManual(idCetak);
+            rePrintManual(idCetak, event, onsave);
             // rePrint(event, data, onsave);
         },
     });
 }
 
-function rePrintManual(id) {
+function rePrintManual(id, events, onsave) {
     var target = base_url + "/monitoring/print";
+    var onSave = onsave;
 
     $.ajaxSetup({
         headers: {
@@ -314,7 +315,16 @@ function rePrintManual(id) {
                 timeOut: 2000,
             });
         },
+        finally: function () {
+            sendInfoPemb(events, onSave, id);
+        },
     });
+}
+
+function sendInfoPemb(events, onSave, id) {
+    localStorage.setItem("events", events);
+    localStorage.setItem("onSave", onSave);
+    localStorage.setItem("id", id);
 }
 
 function convertRupiah(bilangan_) {
@@ -790,6 +800,8 @@ function load_printCase() {
                 id: event.data("id-cetak"),
             },
             success: function (result) {
+                sendInfoPemb(event, '', event.data("id-cetak"));
+
                 var myWidth = 650;
                 var myHeight = 750;
                 var left = (screen.width - myWidth) / 2;

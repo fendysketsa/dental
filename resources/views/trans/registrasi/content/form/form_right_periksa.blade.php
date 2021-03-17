@@ -183,7 +183,7 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" name="tanggal_next" class="form-control"
-                                    placeholder="Isikan tanggal..." form="formRegistrasi" readonly="">
+                                    placeholder="Isikan tanggal..." form="formPeriksa" readonly="">
                             </div>
                             <small id="emailHelp" class="form-text text-info"><em class="fa fa-info-circle"></em>
                                 Pengaturan kapan akan dilakukan kontrol ulang
