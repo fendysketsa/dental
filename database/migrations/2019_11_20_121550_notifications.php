@@ -26,7 +26,7 @@ class Notifications extends Migration
             $table->timestamps();
 
             $table->foreign('transaksi_id')->references('id')->on('transaksi');
-            $table->foreign('member_id')->references('id')->on('member');
+            // $table->foreign('member_id')->references('id')->on('member');
         });
     }
 
