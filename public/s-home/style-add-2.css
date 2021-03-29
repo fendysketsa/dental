@@ -2,6 +2,11 @@
     width: 100%;
 }
 
+.tind-pos {
+    margin: 23px 0px;
+    position: relative;
+}
+
 .progressbar_order li {
     list-style: none;
     display: inline-block;

@@ -2470,6 +2470,8 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
             "#on-select-layanan-" + numb,
             "change",
             function (e) {
+                onInputRupiah();
+
                 var layId = $(this).val();
                 loadTotal(layId);
                 if (layId) {
@@ -3805,12 +3807,35 @@ function load_gigi(param) {
                                 keyboard: false,
                             });
 
+                            var tImage = $(this)
+                                .closest(".fc-tindakan")
+                                .find(".t-gambar")
+                                .data("image");
+
                             var tCatatan = $(this)
                                 .closest(".fc-tindakan")
                                 .find(".t-catatan")
                                 .text();
 
-                            var dataTindakan = [tCatatan];
+                            var tTindakan = $(this)
+                                .closest(".fc-tindakan")
+                                .find(".t-tindakan");
+
+                            var tDiagnosis = $(this)
+                                .closest(".fc-tindakan")
+                                .find(".t-diagnosa");
+
+                            var tIdEdit = $(this)
+                                .closest(".fc-tindakan")
+                                .attr("id");
+
+                            var dataTindakan = [
+                                tDiagnosis,
+                                tTindakan,
+                                tCatatan,
+                                tIdEdit,
+                                tImage,
+                            ];
 
                             load_formUbah(dataTindakan);
                         }
@@ -3820,10 +3845,9 @@ function load_gigi(param) {
                         ".remove-tindakan",
                         "click",
                         function () {
-                            $(this)
-                                .closest(".cont-tindakan")
-                                .find(".fc-tindakan")
-                                .remove();
+                            $(this).closest(".fc-tindakan").remove();
+
+                            loadSyncRowTindakan();
                             toastr.success("Data pemeriksaan dihapus!");
                         }
                     );
@@ -3831,6 +3855,18 @@ function load_gigi(param) {
             }
         }
     );
+}
+
+function loadSyncRowTindakan() {
+    var noUrut = $(".cont-tindakan").find(".fc-tindakan");
+
+    // noUrut.removeClass(function (index, className) {
+    //     return (className.match(/(^|\s)list-tind-\S+/g) || []).join(" ");
+    // });
+
+    $.each(noUrut, function (e, i) {
+        $(i).attr("id", "list-tind-" + e);
+    });
 }
 
 function loadSelectGigiText(itm) {
@@ -3888,10 +3924,6 @@ function load_formUbah(data) {
                 $(".display-future").removeClass("blocking-content");
                 $(".button-action").removeClass("hide");
 
-                if (data) {
-                    $("#more_catatan").html(data[0]);
-                }
-
                 setTimeout(function () {
                     select_("diagnosis");
                     select_("tindakan");
@@ -3930,6 +3962,28 @@ function load_formUbah(data) {
                             "overflow-y": "auto",
                         });
                     });
+
+                    setTimeout(function () {
+                        if (data) {
+                            $(".fm-diagnosis")
+                                .val(data[0].data("id-dg"))
+                                .change();
+                            $(".fm-tindakan")
+                                .val(data[1].data("id-td"))
+                                .change();
+                            $("#more_catatan").html(data[2]);
+
+                            $("#preview_image_tindakan").attr("src", data[4]);
+
+                            $("#formModalMontrgOrderPeriksaGigi")
+                                .find(".modal-body")
+                                .prepend(
+                                    '<input id="edit_div_tindakan" class="form-control" type="hidden" readonly value="' +
+                                        data[3] +
+                                        '">'
+                                );
+                        }
+                    }, 500);
                 }, 800);
             }
         }
@@ -3939,22 +3993,47 @@ function load_formUbah(data) {
 function fTindakan(val) {
     var html = ``;
 
+    var noUrut = $(".cont-tindakan").find(".fc-tindakan").length;
+
+    var IdEdit = $("#edit_div_tindakan").val();
+
+    if (!IdEdit) {
+        html += `<div class="row fc-tindakan" id="list-tind-` + noUrut + `">`;
+    }
+
     html +=
-        `<div class="row fc-tindakan">
-                <div class="col-md-8 data-tindakan-f mb-10">
-                    Diagnosa: <span class="t-diagnosa">` +
-        val[0] +
+        `<div class="col-md-8 data-tindakan-f mb-10">
+        <input type="text" name="diagnosa_id[]" form="formPeriksa" value="` +
+        val[0].val() +
+        `">
+        <input type="text" name="tindakan_id[]" form="formPeriksa" value="` +
+        val[1].val() +
+        `">
+        <textarea type="text" name="catatan_tindakan[]" form="formPeriksa">` +
+        val[2] +
+        `</textarea>
+        <input type="text" name="tindakan_image[]" form="formPeriksa" value="` +
+        val[3] +
+        `">
+                    Diagnosa: <span class="t-diagnosa" data-id-dg="` +
+        val[0].val() +
+        `">` +
+        val[0].text() +
         `</span><br>
-                    Tindakan: <span class="t-tindakan">` +
-        val[1] +
+                    Tindakan: <span class="t-tindakan" data-id-td="` +
+        val[1].val() +
+        `">` +
+        val[1].text() +
         `</span><br>
                     <span class="t-catatan">` +
         val[2] +
         `</span>
-                    <span class="t-gambar"></span>
+                    <span class="t-gambar" data-image="` +
+        val[3] +
+        `"></span>
                 </div>
                 <div class="col-md-4">
-                    <div class="btn-groups" role="group">
+                    <div class="btn-groups tind-pos" role="group">
                         <a class="btn btn-info text-success btn-xs btn-3d edit-tindakan e-icon-tindakan"
                             data-tindakan="">
                             <em class="fa fa-pencil-square-o"></em>
@@ -3964,10 +4043,17 @@ function fTindakan(val) {
                             <em class="fa fa-trash"></em>
                         </a>
                     </div>
-                </div>
-            </div>`;
+                </div>`;
 
-    return $(".cont-tindakan").append(html);
+    if (!IdEdit) {
+        html += `</div>`;
+    }
+
+    if (!IdEdit) {
+        return $(".cont-tindakan").append(html);
+    } else {
+        return $("#" + IdEdit).html(html);
+    }
 }
 
 function lTindakanRecord() {
@@ -3996,8 +4082,9 @@ function loadSaveTindakan() {
     }
 
     var fCatatan = $("#more_catatan");
+    var fImage = $("#preview_image_tindakan");
 
-    var dataStind = new Array(fDiag.text(), fTind.text(), fCatatan.val());
+    var dataStind = new Array(fDiag, fTind, fCatatan.val(), fImage.attr("src"));
 
     fTindakan(dataStind);
 

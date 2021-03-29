@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app/public/master-data/employee/uploads/'),
         ],
 
+        'tindakan' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/master-data/upload/gigi/pasien/tindakan/'),
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

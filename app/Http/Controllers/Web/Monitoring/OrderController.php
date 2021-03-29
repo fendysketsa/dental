@@ -18,6 +18,7 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -31,8 +32,10 @@ class OrderController extends Controller
     protected $table_pegawai = 'pegawai';
     protected $table_layanan = 'layanan';
     protected $table_user = 'users';
+    protected $table_tindakan_gigi = 'transaksi_tindakan_gigi';
 
     private $dir = 'app/public/master-data/upload/gigi/pasien/';
+    private $dirTindakan = 'app/public/master-data/upload/gigi/pasien/tindakan/';
 
     private $validate_messageMember = [
         'nama' => 'required',
@@ -734,6 +737,24 @@ class OrderController extends Controller
         }
     }
 
+    public function createImageTindakan($id, $num, $img)
+    {
+        $image = $img;
+
+        $image = str_replace('data:image/jpeg;base64,', '', $image);
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace('data:image/jpg;base64,', '', $image);
+
+        $image = str_replace(' ', '+', $image);
+        $imageName = $id . "-" . $num . '.png';
+
+        File::delete(storage_path($this->dirTindakan) . $imageName);
+
+        Storage::disk('tindakan')->put($imageName, base64_decode($image));
+
+        return $imageName;
+    }
+
     public function storePeriksa(Request $request)
     {
         $mess = null;
@@ -745,6 +766,29 @@ class OrderController extends Controller
             DB::table($this->table)
                 ->where('id', $request->id)
                 ->update($this->fieldsPeriksa($request));
+
+            if (!empty($request->diagnosa_id) && !empty($request->tindakan_id)) {
+
+                DB::table('transaksi_tindakan_gigi')
+                    ->where('transaksi_id', $request->id)
+                    ->delete();
+
+                foreach ($request->diagnosa_id as $num => $dg) {
+                    if (!empty($dg) && !empty($request->tindakan_id[$num])) {
+                        $dataDetailTindGigi = array();
+
+                        $dataDetailTindGigi[] = array(
+                            'transaksi_id' => $request->id,
+                            'tindakan_id' => empty($request->tindakan_id[$num]) ? null : $request->tindakan_id[$num],
+                            'diagnosa_id' => $dg,
+                            'catatan' =>  empty($request->catatan_tindakan[$num]) ? null : $request->catatan_tindakan[$num],
+                            'image' => empty($request->tindakan_image[$num]) ? null : $this->createImageTindakan($request->id, $num, $request->tindakan_image[$num]),
+                            'created_at' => date("Y-m-d H:i:s"),
+                        );
+                        DB::table($this->table_tindakan_gigi)->insert($dataDetailTindGigi);
+                    }
+                }
+            }
 
             if ($request->has('layanan') && $request->has('category')) {
 
