@@ -3606,7 +3606,7 @@ function load_formLeftPeriksaGigi() {
     );
 }
 
-function fRekTindakanEdit(param) {
+function fRekTindakanEdit(param, gigi) {
     setTimeout(function () {
         $(".g-" + param.gigi_no).addClass("sn-active");
         $(".area-" + param.gigi_no).removeClass("no-action-posisi");
@@ -3617,9 +3617,19 @@ function fRekTindakanEdit(param) {
                 .addClass("ar-gg-active-part");
         }
 
-        loadGigiSelected(param.gigi_no, "created");
+        var valGigi = $("input[name=gigi]").val();
 
-        loadSelectGigiTextEdit(param.gigi_no);
+        if (gigi && valGigi == gigi[0].gigi) {
+            setTimeout(function () {
+                loadGigiSelected(param.gigi_no, "created");
+                loadSelectGigiTextEdit(param.gigi_no);
+            }, 500);
+        }
+
+        if (!gigi) {
+            loadGigiSelected(param.gigi_no, "created");
+            loadSelectGigiTextEdit(param.gigi_no);
+        }
     }, 500);
 }
 
@@ -4272,6 +4282,20 @@ function switch_gigi() {
         $(this).addClass("active-gigi");
 
         load_gigi(gigi);
+
+        setTimeout(function () {
+            var dataRekTindakanId = $("input[name=id]").data(
+                "rekam-tindakan-gigi"
+            );
+
+            var dataGIGI = $("input[name=id]").data("rekam-medik-gigi");
+
+            setTimeout(function () {
+                $.each(dataRekTindakanId, function (e, i) {
+                    fRekTindakanEdit(i, dataGIGI);
+                });
+            }, 1000);
+        }, 500);
     });
 }
 
