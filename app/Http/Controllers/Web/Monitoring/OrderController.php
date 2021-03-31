@@ -33,6 +33,8 @@ class OrderController extends Controller
     protected $table_layanan = 'layanan';
     protected $table_user = 'users';
     protected $table_tindakan_gigi = 'transaksi_tindakan_gigi';
+    protected $table_rekam_tindakan_gigi = 'transaksi_rekam_tindakan_gigi';
+    protected $table_diagnosis = 'diagnosis';
 
     private $dir = 'app/public/master-data/upload/gigi/pasien/';
     private $dirTindakan = 'app/public/master-data/upload/gigi/pasien/tindakan/';
@@ -598,6 +600,16 @@ class OrderController extends Controller
                 ->select('gigi', 'ringkasan', 'foto')
                 ->where('transaksi_id', $id)->get();
 
+            $dataTindakanGigi = DB::table($this->table_tindakan_gigi)
+                ->leftJoin($this->table_diagnosis, $this->table_diagnosis . '.id', '=', $this->table_tindakan_gigi . '.diagnosa_id')
+                ->leftJoin($this->table_layanan, $this->table_layanan . '.id', '=', $this->table_tindakan_gigi . '.tindakan_id')
+                ->select('diagnosa_id', 'tindakan_id', 'catatan', 'image', $this->table_diagnosis . '.nama as diagnosa_text', $this->table_layanan . '.nama as tindakan_text')
+                ->where('transaksi_id', $id)->get();
+
+            $dataRekTindakanGigi = DB::table($this->table_rekam_tindakan_gigi)
+                ->select('gigi_no', 'gigi_no_posisi')
+                ->where('transaksi_id', $id)->get();
+
             $dataRekam_ = DB::table($this->table_rekam)
                 ->select('id', 'name', 'more_keterangan', 'position')
                 ->where('transaksi_id', $id)
@@ -619,6 +631,8 @@ class OrderController extends Controller
             'services_add' => !empty($id) ? $dataLayananTambahan : null,
             'rekam' => !empty($id) ? json_encode($dataRekam, true) : null,
             'rekam_gigi' => !empty($id) ? json_encode($dataGigi, true) : null,
+            'tindakan_gigi' => !empty($id) ? json_encode($dataTindakanGigi, true) : null,
+            'rekam_tindakan_gigi' => !empty($id) ? json_encode($dataRekTindakanGigi, true) : null,
             'action' => ""
         ]);
     }
@@ -757,6 +771,7 @@ class OrderController extends Controller
 
     public function storePeriksa(Request $request)
     {
+
         $mess = null;
         $this->validatedGigi($mess, $request);
 
@@ -766,6 +781,39 @@ class OrderController extends Controller
             DB::table($this->table)
                 ->where('id', $request->id)
                 ->update($this->fieldsPeriksa($request));
+
+            if (!empty($request->gigi_no)) {
+
+                DB::table('transaksi_rekam_tindakan_gigi')
+                    ->where('transaksi_id', $request->id)
+                    ->delete();
+
+                foreach ($request->gigi_no as $num => $rdg) {
+
+                    if (!empty($rdg)) {
+
+                        $dataDetailRekamTindGigi = array();
+                        $dataDetailRekamTindGigiPss[$num] = array();
+
+                        if (!empty($request->gigi_no_posisi[$rdg])) {
+                            foreach ($request->gigi_no_posisi[$rdg] as $rdg_idx) {
+                                if (!empty($rdg_idx)) {
+                                    array_push($dataDetailRekamTindGigiPss[$num], (int) $rdg_idx);
+                                }
+                            }
+                        }
+
+                        $dataDetailRekamTindGigi[] = array(
+                            'transaksi_id' => $request->id,
+                            'gigi_no' => $rdg,
+                            'gigi_no_posisi' => json_encode($dataDetailRekamTindGigiPss[$num], true),
+                            'created_at' => date("Y-m-d H:i:s"),
+                        );
+
+                        DB::table($this->table_rekam_tindakan_gigi)->insert($dataDetailRekamTindGigi);
+                    }
+                }
+            }
 
             if (!empty($request->diagnosa_id) && !empty($request->tindakan_id)) {
 

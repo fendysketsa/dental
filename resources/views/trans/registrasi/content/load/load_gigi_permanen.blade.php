@@ -7,52 +7,52 @@
     </tr>
     <tr>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="18">18</div>
+            <div class="square-number labeling-gigi g-18" data-number-gigi="18">18</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="17">17</div>
+            <div class="square-number labeling-gigi g-17" data-number-gigi="17">17</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="16">16</div>
+            <div class="square-number labeling-gigi g-16" data-number-gigi="16">16</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="15">15</div>
+            <div class="square-number labeling-gigi g-15" data-number-gigi="15">15</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="14">14</div>
+            <div class="square-number labeling-gigi g-14" data-number-gigi="14">14</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="13">13</div>
+            <div class="square-number labeling-gigi g-13" data-number-gigi="13">13</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="12">12</div>
+            <div class="square-number labeling-gigi g-12" data-number-gigi="12">12</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="11">11</div>
+            <div class="square-number labeling-gigi g-11" data-number-gigi="11">11</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="21">21</div>
+            <div class="square-number labeling-gigi g-21" data-number-gigi="21">21</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="22">22</div>
+            <div class="square-number labeling-gigi g-22" data-number-gigi="22">22</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="23">23</div>
+            <div class="square-number labeling-gigi g-23" data-number-gigi="23">23</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="24">24</div>
+            <div class="square-number labeling-gigi g-24" data-number-gigi="24">24</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="25">25</div>
+            <div class="square-number labeling-gigi g-25" data-number-gigi="25">25</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="26">26</div>
+            <div class="square-number labeling-gigi g-26" data-number-gigi="26">26</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="27">27</div>
+            <div class="square-number labeling-gigi g-27" data-number-gigi="27">27</div>
         </td>
         <td class="center-div">
-            <div class="square-number labeling-gigi" data-number-gigi="28">28</div>
+            <div class="square-number labeling-gigi g-28" data-number-gigi="28">28</div>
         </td>
     </tr>
     <tr>
@@ -139,8 +139,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -167,8 +169,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -196,7 +200,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -224,7 +229,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -252,7 +258,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -280,7 +287,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -308,7 +316,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -336,7 +345,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -364,7 +374,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -392,7 +403,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -420,7 +432,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -448,7 +461,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -476,8 +490,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -505,8 +521,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -534,8 +552,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -570,8 +590,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -598,8 +620,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -626,8 +650,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -655,7 +681,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -683,7 +710,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -711,7 +739,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -739,7 +768,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -767,7 +797,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -795,7 +826,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -823,7 +855,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -851,7 +884,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -879,7 +913,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -907,7 +942,8 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah"></td>
+                            <td class="border-single area-posisi-gigi-part" data-color-no="7" data-color-name="Tengah">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -935,8 +971,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -964,8 +1002,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -993,8 +1033,10 @@
                 <table border="1" cellspacing="0" class="table-part">
                     <tbody>
                         <tr>
-                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5" data-color-name="Tengah Kiri"></td>
-                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6" data-color-name="Tengah Kanan"></td>
+                            <td class="border-1-sub area-posisi-gigi-part" data-color-no="5"
+                                data-color-name="Tengah Kiri"></td>
+                            <td class="border-2-sub area-posisi-gigi-part" data-color-no="6"
+                                data-color-name="Tengah Kanan"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1040,52 +1082,52 @@
 
     <tr>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="48">48</div>
+            <div class="square-number-bawah labeling-gigi g-48" data-number-gigi="48">48</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="47">47</div>
+            <div class="square-number-bawah labeling-gigi g-47" data-number-gigi="47">47</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="46">46</div>
+            <div class="square-number-bawah labeling-gigi g-46" data-number-gigi="46">46</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="45">45</div>
+            <div class="square-number-bawah labeling-gigi g-45" data-number-gigi="45">45</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="44">44</div>
+            <div class="square-number-bawah labeling-gigi g-44" data-number-gigi="44">44</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="43">43</div>
+            <div class="square-number-bawah labeling-gigi g-43" data-number-gigi="43">43</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="42">42</div>
+            <div class="square-number-bawah labeling-gigi g-42" data-number-gigi="42">42</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="41">41</div>
+            <div class="square-number-bawah labeling-gigi g-41" data-number-gigi="41">41</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="31">31</div>
+            <div class="square-number-bawah labeling-gigi g-31" data-number-gigi="31">31</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="32">32</div>
+            <div class="square-number-bawah labeling-gigi g-32" data-number-gigi="32">32</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="33">33</div>
+            <div class="square-number-bawah labeling-gigi g-33" data-number-gigi="33">33</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="34">34</div>
+            <div class="square-number-bawah labeling-gigi g-34" data-number-gigi="34">34</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="35">35</div>
+            <div class="square-number-bawah labeling-gigi g-35" data-number-gigi="35">35</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="36">36</div>
+            <div class="square-number-bawah labeling-gigi g-36" data-number-gigi="36">36</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="37">37</div>
+            <div class="square-number-bawah labeling-gigi g-37" data-number-gigi="37">37</div>
         </td>
         <td class="center-div">
-            <div class="square-number-bawah labeling-gigi" data-number-gigi="38">38</div>
+            <div class="square-number-bawah labeling-gigi g-38" data-number-gigi="38">38</div>
         </td>
     </tr>
     <tr>

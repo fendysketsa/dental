@@ -2,7 +2,8 @@
 
 @if(!empty($data))
 <input type="hidden" name="id" value="{{ $data[0]->id }}" data-layanan="[{{ $services[0]->layanan }}]"
-    data-category="[{{ $services[0]->category }}]" data-layanan-tambahan="{{ $services_add }}"
+    data-category="[{{ $services[0]->category }}]" data-tindakan-gigi="{{ $tindakan_gigi }}"
+    data-rekam-tindakan-gigi="{{ $rekam_tindakan_gigi }}" data-layanan-tambahan="{{ $services_add }}"
     data-price-layanan="[{{ $services[0]->price_fix }}]" data-terapis="[{{ $services[0]->terapis }}]"
     data-lokasi="{{ $data[0]->lokasi_id }}" data-reservasi="{{ $data[0]->waktu_reservasi }}"
     data-dp="{{ $data[0]->dp }}" data-dokter="{{ $data[0]->dokter_id }}" data-jum_org="{{ $data[0]->jumlah_orang }}"

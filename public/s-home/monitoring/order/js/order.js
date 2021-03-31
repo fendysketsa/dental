@@ -3576,6 +3576,10 @@ function load_formLeftPeriksaGigi() {
                 $("table").css({ "border-collapse": "unset !important" });
 
                 var dataId = $("input[name=id]").data("rekam-medik-gigi");
+                var dataTindakanId = $("input[name=id]").data("tindakan-gigi");
+                var dataRekTindakanId = $("input[name=id]").data(
+                    "rekam-tindakan-gigi"
+                );
 
                 setTimeout(function () {
                     if (!dataId) {
@@ -3588,10 +3592,94 @@ function load_formLeftPeriksaGigi() {
                     if (dataId) {
                         fEditGigi(dataId[0]);
                     }
+
+                    $.each(dataTindakanId, function (e, i) {
+                        fTindakanEdit(e, i);
+                    });
+
+                    $.each(dataRekTindakanId, function (e, i) {
+                        fRekTindakanEdit(i);
+                    });
                 }, 1000);
             }
         }
     );
+}
+
+function fRekTindakanEdit(param) {
+    setTimeout(function () {
+        $(".g-" + param.gigi_no).addClass("sn-active");
+        $(".area-" + param.gigi_no).removeClass("no-action-posisi");
+
+        for (var i = 0; i < param.gigi_no_posisi.length; i++) {
+            $(".area-" + param.gigi_no)
+                .find('*[data-color-no="' + param.gigi_no_posisi[i] + '"]')
+                .addClass("ar-gg-active-part");
+        }
+
+        loadGigiSelected(param.gigi_no, "created");
+
+        loadSelectGigiTextEdit(param.gigi_no);
+    }, 500);
+}
+
+function fTindakanEdit(indx, param) {
+    var html = ``;
+
+    html += `<div class="row fc-tindakan" id="list-tind-` + indx + `">`;
+
+    var img = !param.image
+        ? "/images/noimage.jpg"
+        : "/storage/master-data/upload/gigi/pasien/tindakan/" + param.image;
+
+    html +=
+        `<div class="col-md-8 data-tindakan-f mb-10">
+        <input type="hidden" name="diagnosa_id[]" form="formPeriksa" value="` +
+        param.diagnosa_id +
+        `">
+        <input type="hidden" name="tindakan_id[]" form="formPeriksa" value="` +
+        param.tindakan_id +
+        `">
+        <textarea class="hide" name="catatan_tindakan[]" form="formPeriksa">` +
+        param.catatan +
+        `</textarea>
+        <input type="hidden" name="tindakan_image[]" form="formPeriksa" value="` +
+        param.image +
+        `">
+                    Diagnosa: <span class="t-diagnosa" data-id-dg="` +
+        param.diagnosa_id +
+        `">` +
+        param.diagnosa_text +
+        `</span><br>
+                    Tindakan: <span class="t-tindakan" data-id-td="` +
+        param.tindakan_id +
+        `">` +
+        param.tindakan_text +
+        `</span><br>
+                    <span class="t-catatan">` +
+        param.catatan +
+        `</span>
+                    <span class="t-gambar" data-image="` +
+        base_url +
+        img +
+        `"></span>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-groups tind-pos" role="group">
+                        <a class="btn btn-info text-success btn-xs btn-3d edit-tindakan e-icon-tindakan"
+                            data-tindakan="">
+                            <em class="fa fa-pencil-square-o"></em>
+                        </a>
+                        <a class="btn btn-warning text-danger btn-id-1 btn-xs btn-3d remove-tindakan e-icon-tindakan"
+                            data-remove-id-tindakan="">
+                            <em class="fa fa-trash"></em>
+                        </a>
+                    </div>
+                </div>`;
+
+    html += `</div>`;
+
+    return $(".cont-tindakan").append(html);
 }
 
 function getImgGigi(data) {
@@ -3644,10 +3732,16 @@ function loadGigiSelected(no, param, parent) {
                 <div id="` +
         no +
         `" class="cont-selected-gigi">
+        <input type="hidden" name="gigi_no[` +
+        no +
+        `]" form="formPeriksa" value="` +
+        no +
+        `">
                     <span class="t-selected">
                         Gigi ` +
         no +
         ` <span class="text-gigi-act"></span>
+          <div class="text-gigi-act-inp"></div>
                     </span>
                     <div class="cont-selected-gigi-remove">
                         <em class="fa fa-times removed-selected-gigi"></em>
@@ -3877,9 +3971,18 @@ function loadSelectGigiText(itm) {
     var dataGigiSelect = $(".area-" + noGigi).find("td.ar-gg-active");
     var dataGigiSelectPart = $(".area-" + noGigi).find("td.ar-gg-active-part");
 
+    var htmlInp = "";
+
     $.each(dataGigiSelect, function (e, f) {
         var classColorSelectedNo = $(this).data("color-no");
         var classColorSelectedNama = $(this).data("color-name");
+
+        htmlInp +=
+            '<input type="hidden" name="gigi_no_posisi[' +
+            noGigi +
+            '][]" form="formPeriksa" value="' +
+            classColorSelectedNo +
+            '">';
 
         var tit = parseInt(dataGigiSelect.length) - 1 == e ? "" : ", ";
 
@@ -3897,6 +4000,13 @@ function loadSelectGigiText(itm) {
         var classColorSelectedNoPart = $(this).data("color-no");
         var classColorSelectedNamaPart = $(this).data("color-name");
 
+        htmlInp +=
+            '<input type="hidden" name="gigi_no_posisi[' +
+            noGigi +
+            '][]" form="formPeriksa" value="' +
+            classColorSelectedNoPart +
+            '">';
+
         var titPart = parseInt(dataGigiSelectPart.length) - 1 == e ? "" : ", ";
 
         textGigi += classColorSelectedNamaPart + titPart;
@@ -3905,6 +4015,66 @@ function loadSelectGigiText(itm) {
     $(".sel-gigi-" + noGigi)
         .find(".text-gigi-act")
         .html(textGigi);
+
+    $(".sel-gigi-" + noGigi)
+        .find(".text-gigi-act-inp")
+        .html(htmlInp);
+}
+
+function loadSelectGigiTextEdit(noGigi) {
+    var textGigi = "";
+
+    var dataGigiSelect = $(".area-" + noGigi).find("td.ar-gg-active");
+    var dataGigiSelectPart = $(".area-" + noGigi).find("td.ar-gg-active-part");
+
+    var htmlInp = "";
+
+    $.each(dataGigiSelect, function (e, f) {
+        var classColorSelectedNo = $(this).data("color-no");
+        var classColorSelectedNama = $(this).data("color-name");
+
+        htmlInp +=
+            '<input type="hidden" name="gigi_no_posisi[' +
+            noGigi +
+            '][]" form="formPeriksa" value="' +
+            classColorSelectedNo +
+            '">';
+
+        var tit = parseInt(dataGigiSelect.length) - 1 == e ? "" : ", ";
+
+        textGigi += classColorSelectedNama + tit;
+        // +            (dataGigiSelectPart.length < 2 ? ", " : "");
+    });
+
+    textGigi +=
+        parseInt(dataGigiSelect.length) > 0 &&
+        parseInt(dataGigiSelectPart.length) > 0
+            ? ", "
+            : "";
+
+    $.each(dataGigiSelectPart, function (e, f) {
+        var classColorSelectedNoPart = $(this).data("color-no");
+        var classColorSelectedNamaPart = $(this).data("color-name");
+
+        htmlInp +=
+            '<input type="hidden" name="gigi_no_posisi[' +
+            noGigi +
+            '][]" form="formPeriksa" value="' +
+            classColorSelectedNoPart +
+            '">';
+
+        var titPart = parseInt(dataGigiSelectPart.length) - 1 == e ? "" : ", ";
+
+        textGigi += classColorSelectedNamaPart + titPart;
+    });
+
+    $(".sel-gigi-" + noGigi)
+        .find(".text-gigi-act")
+        .html(textGigi);
+
+    $(".sel-gigi-" + noGigi)
+        .find(".text-gigi-act-inp")
+        .html(htmlInp);
 }
 
 function load_formUbah(data) {
@@ -4003,16 +4173,16 @@ function fTindakan(val) {
 
     html +=
         `<div class="col-md-8 data-tindakan-f mb-10">
-        <input type="text" name="diagnosa_id[]" form="formPeriksa" value="` +
+        <input type="hidden" name="diagnosa_id[]" form="formPeriksa" value="` +
         val[0].val() +
         `">
-        <input type="text" name="tindakan_id[]" form="formPeriksa" value="` +
+        <input type="hidden" name="tindakan_id[]" form="formPeriksa" value="` +
         val[1].val() +
         `">
-        <textarea type="text" name="catatan_tindakan[]" form="formPeriksa">` +
+        <textarea class="hide" name="catatan_tindakan[]" form="formPeriksa">` +
         val[2] +
         `</textarea>
-        <input type="text" name="tindakan_image[]" form="formPeriksa" value="` +
+        <input type="hidden" name="tindakan_image[]" form="formPeriksa" value="` +
         val[3] +
         `">
                     Diagnosa: <span class="t-diagnosa" data-id-dg="` +

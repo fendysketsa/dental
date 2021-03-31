@@ -184,7 +184,7 @@
     box-sizing: border-box;
     border-radius: 10px;
     width: auto;
-    display: table-cell;
+    display: inline-flex;
     padding: 4px 10px;
     top: 5px;
     position: relative;
@@ -211,7 +211,7 @@
     width: 18px;
     margin: 2px -3px 3px 9px;
     font-size: 9px !important;
-    display: inline-block;
+    display: inline-flex;
     background: #bd66da;
     color: #fff;
     position: relative;
