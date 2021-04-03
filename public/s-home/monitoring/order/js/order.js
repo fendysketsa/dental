@@ -3803,6 +3803,8 @@ function load_gigi(param) {
                 $(".load-content-gigi-img").html(e);
 
                 setTimeout(function () {
+                    switch_gigi()
+
                     var OptGigi = $(".opt-gigi");
                     OptGigi.prop("disabled", false);
 
@@ -3955,6 +3957,22 @@ function load_gigi(param) {
                             toastr.success("Data pemeriksaan dihapus!");
                         }
                     );
+
+                    setTimeout(function () {
+                        var dataRekTindakanId = $(
+                            "input#form-periksa-gigi"
+                        ).data("rekam-tindakan-gigi");
+
+                        var dataGIGI = $("input#form-periksa-gigi").data(
+                            "rekam-medik-gigi"
+                        );
+
+                        setTimeout(function () {
+                            $.each(dataRekTindakanId, function (e, i) {
+                                fRekTindakanEdit(i, dataGIGI);
+                            });
+                        }, 1000);
+                    }, 500);
                 }, 1000);
             }
         }
@@ -4284,11 +4302,13 @@ function switch_gigi() {
         load_gigi(gigi);
 
         setTimeout(function () {
-            var dataRekTindakanId = $("input[name=id]").data(
+            var dataRekTindakanId = $("input#form-periksa-gigi").data(
                 "rekam-tindakan-gigi"
             );
 
-            var dataGIGI = $("input[name=id]").data("rekam-medik-gigi");
+            var dataGIGI = $("input#form-periksa-gigi").data(
+                "rekam-medik-gigi"
+            );
 
             setTimeout(function () {
                 $.each(dataRekTindakanId, function (e, i) {

@@ -10,7 +10,7 @@
     data-ruang="{{ $data[0]->room_id }}" data-total-biaya="{{ RupiahFormat($data[0]->total_biaya) }}"
     data-member-id="{{ $data[0]->member_id }}"
     data-nexdate="{{ empty($data[0]->tanggal_comeback) ? date("d-m-Y") : date("d-m-Y", strtotime($data[0]->tanggal_comeback)) }}"
-    data-rekam-medik="{{ $rekam }}" data-rekam-medik-gigi="{{ $rekam_gigi }}" form="formPeriksa">
+    data-rekam-medik="{{ $rekam }}" data-rekam-medik-gigi="{{ $rekam_gigi }}" id="form-periksa-gigi" form="formPeriksa">
 @endif
 
 <div class="load-form-modal-periksa">
