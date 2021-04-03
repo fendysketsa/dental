@@ -585,6 +585,7 @@ class OrderController extends Controller
             $dataLayanan = DB::table($this->table_detail)
                 ->select(
                     DB::raw('GROUP_CONCAT(IF(layanan_id, layanan_id, 0)) as layanan'),
+                    DB::raw('GROUP_CONCAT(IF(from_index, from_index, -1)) as from_index'),
                     DB::raw('GROUP_CONCAT(IF(category_id, category_id, 0)) as category'),
                     DB::raw('GROUP_CONCAT(IF(harga_fix, harga_fix, 0)) as price_fix'),
                     DB::raw('GROUP_CONCAT(IF(pegawai_id, pegawai_id, 0)) as terapis')
@@ -614,7 +615,8 @@ class OrderController extends Controller
                     'tindakan_id' => $row->tindakan_id,
                     'tindakan_text' => $row->tindakan_text,
                     'catatan' => $row->catatan,
-                    'image' => $this->convB64($row->image),
+                    'image' => empty($row->image) ? "" : $this->convB64($row->image)['image'],
+                    'image_show' => empty($row->image) ? "tidak" : $this->convB64($row->image)['show'],
                 ]);
             }
 
@@ -657,7 +659,10 @@ class OrderController extends Controller
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        return $base64;
+        $r['image'] = $base64;
+        $r['show'] = count(explode("noimagejpg", $base64)) > 1 ? 'tidak' : 'ok';
+
+        return $r;
     }
 
     public function update($id)
@@ -774,6 +779,14 @@ class OrderController extends Controller
         }
     }
 
+    public function removeImgTind($id, $num)
+    {
+        $imageName = $id . "-" . $num . '.png';
+        File::delete(storage_path($this->dirTindakan) . $imageName);
+
+        return null;
+    }
+
     public function createImageTindakan($id, $num, $img)
     {
         $image = $img;
@@ -853,7 +866,7 @@ class OrderController extends Controller
                             'tindakan_id' => empty($request->tindakan_id[$num]) ? null : $request->tindakan_id[$num],
                             'diagnosa_id' => $dg,
                             'catatan' =>  empty($request->catatan_tindakan[$num]) ? null : $request->catatan_tindakan[$num],
-                            'image' => empty($request->tindakan_image[$num]) ? null : $this->createImageTindakan($request->id, $num, $request->tindakan_image[$num]),
+                            'image' => empty($request->tindakan_image[$num]) ? $this->removeImgTind($request->id, $num) : $this->createImageTindakan($request->id, $num, $request->tindakan_image[$num]),
                             'created_at' => date("Y-m-d H:i:s"),
                         );
                         DB::table($this->table_tindakan_gigi)->insert($dataDetailTindGigi);
@@ -877,6 +890,7 @@ class OrderController extends Controller
                                 'category_id' => empty($request->category[$num]) ? null : $request->category[$num],
                                 'layanan_id' => $lay,
                                 'pegawai_id' => empty($request->terapis[$num]) ? null : $request->terapis[$num],
+                                'from_index' => empty($request->from[$num]) ? null : $request->from[$num],
                                 'kuantitas' => null,
                                 'harga' => DB::table('layanan')->where('id', $lay)->first()->harga,
                                 'harga_fix' => empty($request->harga_custom[$num]) ? null : unRupiahFormat($request->harga_custom[$num]),

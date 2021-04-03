@@ -2460,6 +2460,29 @@ function load_row_layanan_periksa(idLayanan, idTerapis) {
                 $("#inpt-select-cat-" + numb).val(
                     $("#on-select-category-" + idLayanan).val()
                 );
+
+                var tindIndx = $("input[name=id]").data("from-index")[
+                    idLayanan - 1
+                ];
+
+                if (tindIndx == numb) {
+                    var cekCat = $("#on-select-category-" + idLayanan);
+
+                    cekCat
+                        .closest(".n-f-layanan-periksa")
+                        .attr("id", "load-tindakan-ke-" + tindIndx);
+
+                    cekCat
+                        .closest(".n-f-layanan-periksa")
+                        .find(".select-categorys")
+                        .prepend(
+                            "<input form='formPeriksa' type='hidden' name='from[" +
+                                tindIndx +
+                                "]' value='" +
+                                tindIndx +
+                                "'>"
+                        );
+                }
             }, 2000);
         } else {
             load_avail_layanan("layanan", numb);
@@ -3645,7 +3668,11 @@ function fTindakanEdit(indx, param) {
 
     html += `<div class="row fc-tindakan" id="list-tind-` + indx + `">`;
 
-    var img = !param.image ? base_url + "/images/noimage.jpg" : param.image;
+    var img =
+        param.image_show == "tidak"
+            ? base_url + "/images/noimage.jpg"
+            : param.image;
+    var img_value = param.image_show == "tidak" ? "" : param.image;
     // : "/storage/master-data/upload/gigi/pasien/tindakan/" + param.image;
 
     html +=
@@ -3660,7 +3687,7 @@ function fTindakanEdit(indx, param) {
         param.catatan +
         `</textarea>
         <input type="hidden" name="tindakan_image[]" class="to-image-select" form="formPeriksa" value="` +
-        param.image +
+        img_value +
         `">
                     Diagnosa: <span class="t-diagnosa" data-id-dg="` +
         param.diagnosa_id +
@@ -4184,7 +4211,9 @@ function load_formUbah(data) {
 
                             $("#preview_image_tindakan").attr("src", data[4]);
 
-                            $("input#file_name_tindakan").val(data[5]);
+                            var imgss = data[4] == data[5] ? data[5] : data[4];
+
+                            $("input#file_name_tindakan").val(imgss);
 
                             $("#formModalMontrgOrderPeriksaGigi")
                                 .find(".modal-body")
@@ -4212,6 +4241,12 @@ function fTindakan(val) {
         html += `<div class="row fc-tindakan" id="list-tind-` + noUrut + `">`;
     }
 
+    var fileTind =
+        $("input#file_tindakan").val() !=
+        $("#preview_image_tindakan").attr("src")
+            ? $("#preview_image_tindakan").attr("src")
+            : val[3];
+
     html +=
         `<div class="col-md-8 data-tindakan-f mb-10">
         <input type="hidden" name="diagnosa_id[]" form="formPeriksa" value="` +
@@ -4224,7 +4259,7 @@ function fTindakan(val) {
         val[2] +
         `</textarea>
         <input type="hidden" name="tindakan_image[]" class="to-image-select" form="formPeriksa" value="` +
-        val[3] +
+        fileTind +
         `">
                     Diagnosa: <span class="t-diagnosa" data-id-dg="` +
         val[0].val() +
@@ -4313,16 +4348,61 @@ function loadToStep3(tind) {
     var cekCat = $("#on-select-category-" + jmBar);
     var cekLay = $("#on-select-layanan-" + jmBar);
 
-    if (!cekCat.val()) {
-        cekCat.val(cat_id).change();
+    if (
+        $("input#edit_div_tindakan").val() == "" ||
+        $("input#edit_div_tindakan").val() == undefined
+    ) {
+        if (!cekCat.val()) {
+            cekCat.val(cat_id).change();
+        }
+
+        if (!cekLay.val()) {
+            cekLay.val(idSelc).change();
+        }
+
+        if (cekCat.val() && cekLay.val()) {
+            cekCat
+                .closest(".n-f-layanan-periksa")
+                .attr("id", "load-tindakan-ke-" + jmBar);
+
+            cekCat
+                .closest(".n-f-layanan-periksa")
+                .find(".select-categorys")
+                .prepend(
+                    "<input form='formPeriksa' type='hidden' name='from[" +
+                        jmBar +
+                        "]' value='" +
+                        jmBar +
+                        "'>"
+                );
+
+            $(".load-row-layanan-periksa").append(load_row_layanan_periksa);
+        }
+
+        var msg =
+            "Dengan menyimpan data tindakan ini, data akan otomatis ditambahkan di step 3!";
+        toastr.info(msg, "Informasi!", {
+            timeOut: 3000,
+        });
     }
 
-    if (!cekLay.val()) {
-        cekLay.val(idSelc).change();
-    }
+    if ($("input#edit_div_tindakan").val() != "") {
+        var numBar = $("#edit_div_tindakan").val().split("list-tind-")[1];
 
-    if (cekCat.val() && cekLay.val()) {
-        $(".load-row-layanan-periksa").append(load_row_layanan_periksa);
+        var loadTindkTr = $("#load-tindakan-ke-" + (parseInt(numBar) + 1));
+
+        if (loadTindkTr.length == 1) {
+            var cekCats = $("#on-select-category-" + (parseInt(numBar) + 1));
+            var cekLays = $("#on-select-layanan-" + (parseInt(numBar) + 1));
+
+            if (!cekCats.val()) {
+                cekCats.val(cat_id).change();
+            }
+
+            if (!cekLays.val()) {
+                cekLays.val(idSelc).change();
+            }
+        }
     }
 }
 
