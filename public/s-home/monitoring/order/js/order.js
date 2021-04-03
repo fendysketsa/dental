@@ -4313,15 +4313,15 @@ function loadToStep3(tind) {
     var cekCat = $("#on-select-category-" + jmBar);
     var cekLay = $("#on-select-layanan-" + jmBar);
 
-    if (!cekCat) {
+    if (!cekCat.val()) {
         cekCat.val(cat_id).change();
     }
 
-    if (!cekLay) {
+    if (!cekLay.val()) {
         cekLay.val(idSelc).change();
     }
 
-    if (cekCat && cekLay) {
+    if (cekCat.val() && cekLay.val()) {
         $(".load-row-layanan-periksa").append(load_row_layanan_periksa);
     }
 }
