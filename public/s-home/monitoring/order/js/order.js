@@ -4310,15 +4310,18 @@ function loadToStep3(tind) {
     var cat_id = tind.data("id-category");
     var idSelc = tind.val();
 
-    $("#on-select-category-" + jmBar)
-        .val(cat_id)
-        .change();
+    var cekCat = $("#on-select-category-" + jmBar);
+    var cekLay = $("#on-select-layanan-" + jmBar);
 
-    $("#on-select-layanan-" + jmBar)
-        .val(idSelc)
-        .change();
+    if (!cekCat) {
+        cekCat.val(cat_id).change();
+    }
 
-    if (idSelc) {
+    if (!cekLay) {
+        cekLay.val(idSelc).change();
+    }
+
+    if (cekCat && cekLay) {
         $(".load-row-layanan-periksa").append(load_row_layanan_periksa);
     }
 }
