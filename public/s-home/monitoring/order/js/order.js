@@ -3169,6 +3169,13 @@ function select_(table, pkt) {
                         : data[i].id;
                 html +=
                     `<option ` +
+                    (table == "tindakan"
+                        ? `data-id-category="` +
+                          data[i].id_cat +
+                          `" data-category="` +
+                          data[i].category +
+                          `"`
+                        : "") +
                     layanan_ +
                     `value='` +
                     id_ +
@@ -3638,9 +3645,8 @@ function fTindakanEdit(indx, param) {
 
     html += `<div class="row fc-tindakan" id="list-tind-` + indx + `">`;
 
-    var img = !param.image
-        ? "/images/noimage.jpg"
-        : "/storage/master-data/upload/gigi/pasien/tindakan/" + param.image;
+    var img = !param.image ? base_url + "/images/noimage.jpg" : param.image;
+    // : "/storage/master-data/upload/gigi/pasien/tindakan/" + param.image;
 
     html +=
         `<div class="col-md-8 data-tindakan-f mb-10">
@@ -3653,7 +3659,7 @@ function fTindakanEdit(indx, param) {
         <textarea class="hide" name="catatan_tindakan[]" form="formPeriksa">` +
         param.catatan +
         `</textarea>
-        <input type="hidden" name="tindakan_image[]" form="formPeriksa" value="` +
+        <input type="hidden" name="tindakan_image[]" class="to-image-select" form="formPeriksa" value="` +
         param.image +
         `">
                     Diagnosa: <span class="t-diagnosa" data-id-dg="` +
@@ -3670,7 +3676,6 @@ function fTindakanEdit(indx, param) {
         param.catatan +
         `</span>
                     <span class="t-gambar" data-image="` +
-        base_url +
         img +
         `"></span>
                 </div>
@@ -3803,7 +3808,7 @@ function load_gigi(param) {
                 $(".load-content-gigi-img").html(e);
 
                 setTimeout(function () {
-                    switch_gigi()
+                    switch_gigi();
 
                     var OptGigi = $(".opt-gigi");
                     OptGigi.prop("disabled", false);
@@ -3918,6 +3923,11 @@ function load_gigi(param) {
                                 .find(".t-gambar")
                                 .data("image");
 
+                            var tImageSelect = $(this)
+                                .closest(".fc-tindakan")
+                                .find(".to-image-select")
+                                .val();
+
                             var tCatatan = $(this)
                                 .closest(".fc-tindakan")
                                 .find(".t-catatan")
@@ -3941,6 +3951,7 @@ function load_gigi(param) {
                                 tCatatan,
                                 tIdEdit,
                                 tImage,
+                                tImageSelect,
                             ];
 
                             load_formUbah(dataTindakan);
@@ -4173,6 +4184,8 @@ function load_formUbah(data) {
 
                             $("#preview_image_tindakan").attr("src", data[4]);
 
+                            $("input#file_name_tindakan").val(data[5]);
+
                             $("#formModalMontrgOrderPeriksaGigi")
                                 .find(".modal-body")
                                 .prepend(
@@ -4210,7 +4223,7 @@ function fTindakan(val) {
         <textarea class="hide" name="catatan_tindakan[]" form="formPeriksa">` +
         val[2] +
         `</textarea>
-        <input type="hidden" name="tindakan_image[]" form="formPeriksa" value="` +
+        <input type="hidden" name="tindakan_image[]" class="to-image-select" form="formPeriksa" value="` +
         val[3] +
         `">
                     Diagnosa: <span class="t-diagnosa" data-id-dg="` +
@@ -4287,6 +4300,27 @@ function loadSaveTindakan() {
     fTindakan(dataStind);
 
     lTindakanRecord();
+
+    loadToStep3(fTind);
+}
+
+function loadToStep3(tind) {
+    var jmBar = $(".n-f-layanan-periksa").length;
+
+    var cat_id = tind.data("id-category");
+    var idSelc = tind.val();
+
+    $("#on-select-category-" + jmBar)
+        .val(cat_id)
+        .change();
+
+    $("#on-select-layanan-" + jmBar)
+        .val(idSelc)
+        .change();
+
+    if (idSelc) {
+        $(".load-row-layanan-periksa").append(load_row_layanan_periksa);
+    }
 }
 
 function switch_gigi() {

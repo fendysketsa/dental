@@ -606,6 +606,18 @@ class OrderController extends Controller
                 ->select('diagnosa_id', 'tindakan_id', 'catatan', 'image', $this->table_diagnosis . '.nama as diagnosa_text', $this->table_layanan . '.nama as tindakan_text')
                 ->where('transaksi_id', $id)->get();
 
+            $dataTindakanGigiRow = array();
+            foreach ($dataTindakanGigi as $row) {
+                array_push($dataTindakanGigiRow, [
+                    'diagnosa_id' => $row->diagnosa_id,
+                    'diagnosa_text' => $row->diagnosa_text,
+                    'tindakan_id' => $row->tindakan_id,
+                    'tindakan_text' => $row->tindakan_text,
+                    'catatan' => $row->catatan,
+                    'image' => $this->convB64($row->image),
+                ]);
+            }
+
             $dataRekTindakanGigi = DB::table($this->table_rekam_tindakan_gigi)
                 ->select('gigi_no', 'gigi_no_posisi')
                 ->where('transaksi_id', $id)->get();
@@ -631,10 +643,21 @@ class OrderController extends Controller
             'services_add' => !empty($id) ? $dataLayananTambahan : null,
             'rekam' => !empty($id) ? json_encode($dataRekam, true) : null,
             'rekam_gigi' => !empty($id) ? json_encode($dataGigi, true) : null,
-            'tindakan_gigi' => !empty($id) ? json_encode($dataTindakanGigi, true) : null,
+            'tindakan_gigi' => !empty($id) ? json_encode($dataTindakanGigiRow, true) : null,
             'rekam_tindakan_gigi' => !empty($id) ? json_encode($dataRekTindakanGigi, true) : null,
             'action' => ""
         ]);
+    }
+
+    function convB64($img)
+    {
+        $path = storage_path($this->dirTindakan . $img);
+
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return $base64;
     }
 
     public function update($id)

@@ -88,7 +88,7 @@ function readPreviewTindakan(input) {
 
         reader.onload = function (e) {
             $("#preview_image_tindakan").attr("src", e.target.result);
-            $("#file_tindakan_name").val(e.target.result);
+            $("#file_name_tindakan").val(e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -103,9 +103,12 @@ function removeFile() {
 }
 
 function removeFileTindakan() {
-    if ($("#file_tindakan_name").val() != "") {
-        $("#preview_image_tindakan").attr("src", base_url + "/images/noimage.jpg");
-        $("#file_tindakan_name").val("");
+    if ($("#file_name_tindakan").val() != "") {
+        $("#preview_image_tindakan").attr(
+            "src",
+            base_url + "/images/noimage.jpg"
+        );
+        $("#file_name_tindakan").val("");
         $("#file_tindakan").val("");
     }
 }

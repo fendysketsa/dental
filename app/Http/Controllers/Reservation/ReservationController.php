@@ -378,12 +378,17 @@ class ReservationController extends Controller
                     ]);
                 }
             } else if ($request->table == 'tindakan') {
-                $get_data = DB::table($this->table_layanan)->get();
+                $get_data = DB::table($this->table_layanan)
+                    ->leftJoin('kategori', 'kategori.id', '=', $this->table_layanan . '.kategori_id')
+                    ->select('layanan.id', 'layanan.nama', 'kategori.id as id_kategori', 'kategori.nama as kategori')
+                    ->get();
                 $data = array();
                 foreach ($get_data as $row) {
                     array_push($data, [
                         'id' => $row->id,
-                        'name' => $row->nama
+                        'name' => $row->nama,
+                        'id_cat' => $row->id_kategori,
+                        'category' => $row->kategori,
                     ]);
                 }
             } else {
