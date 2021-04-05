@@ -4247,10 +4247,15 @@ function fTindakan(val) {
             ? $("#preview_image_tindakan").attr("src")
             : val[3];
 
+    var jumBarStp = $(".n-f-layanan-periksa").length;
+
     html +=
         `<div class="col-md-8 data-tindakan-f mb-10">
         <input type="hidden" name="diagnosa_id[]" form="formPeriksa" value="` +
         val[0].val() +
+        `">
+        <input type="hidden" name="indexing[]" form="formPeriksa" value="` +
+        jumBarStp +
         `">
         <input type="hidden" name="tindakan_id[]" form="formPeriksa" value="` +
         val[1].val() +
@@ -4276,6 +4281,9 @@ function fTindakan(val) {
         `</span>
                     <span class="t-gambar" data-image="` +
         val[3] +
+        `"></span>
+                    <span class="t-indexing" data-indexing="` +
+        jumBarStp +
         `"></span>
                 </div>
                 <div class="col-md-4">
@@ -4386,7 +4394,7 @@ function loadToStep3(tind) {
         });
     }
 
-    if ($("input#edit_div_tindakan").val() != "") {
+    if ($("input#edit_div_tindakan").length == 1) {
         var numBar = $("#edit_div_tindakan").val().split("list-tind-")[1];
 
         var loadTindkTr = $("#load-tindakan-ke-" + (parseInt(numBar) + 1));
