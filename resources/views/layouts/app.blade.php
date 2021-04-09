@@ -315,6 +315,9 @@
                             class="{{ (!empty($attribute['menu_inf_payment']) ? $attribute['menu_inf_payment'] : null) }}">
                             <a href="{{ route('payments.index') }}"><i class="fa fa-check-circle-o"></i>
                                 Pembayaran</a></li>
+                        <li class="{{ (!empty($attribute['menu_his_member']) ? $attribute['menu_his_member'] : null) }}">
+                            <a href="{{ route('members-history.index') }}"><i class="fa fa-check-circle-o"></i>
+                                History Rekam Medik</a></li>
                         <li
                             class="{{ (!empty($attribute['menu_salesProdServ']) ? $attribute['menu_salesProdServ'] : null) }}">
                             <a href="{{ route('salesprodserv.index') }}"><i class="fa fa-check-circle-o"></i>
@@ -422,6 +425,7 @@
             @yield('content')
         </div>
         @yield('ext-modal')
+        @yield('ext-modal-detail-history')
         @yield('ext-modal-1')
         @yield('ext-modal-periksa')
         @yield('ext-modal-periksa-gigi')

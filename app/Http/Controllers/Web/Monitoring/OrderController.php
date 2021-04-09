@@ -461,6 +461,7 @@ class OrderController extends Controller
                 's-home/dist/js/sprintf.js',
                 's-home/monitoring/order/js/order.js',
                 's-home/monitoring/order/js/gigi.js',
+                's-home/monitoring/order/js/history.js',
                 // 'https://cdn.jsdelivr.net/npm/recta/dist/recta.js'
                 's-home/dist/js/recta.js'
             ],
@@ -574,6 +575,10 @@ class OrderController extends Controller
                 echo json_encode($mess);
             });
         }
+    }
+
+    public function history()
+    {
     }
 
     public function periksas($id)
@@ -1608,6 +1613,7 @@ class OrderController extends Controller
                     $this->table . '.agent',
                     $this->table . '.status',
                     $this->table . '.print_act',
+                    $this->table . '.member_id as user_id',
                     $this->table_member . '.nama'
                 );
 

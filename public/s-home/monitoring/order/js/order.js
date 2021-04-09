@@ -4998,6 +4998,15 @@ function data_attribut() {
     load_sendPembayaranCase();
     load_voidPembayaranCase();
 
+    $(".load-data").delegate(
+        ".detail-history",
+        "click",
+        function (e) {
+            var event = $(this);
+            load_detail_history(event);
+        }
+    );
+
     $(".add-on-daterpicker").daterangepicker({
         alwaysShowCalendars: true,
         showCustomRangeLabel: true,

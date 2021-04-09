@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class MembersInformation extends Controller
+class MembersHistory extends Controller
 {
 
     protected $table = 'member';
@@ -17,27 +17,50 @@ class MembersInformation extends Controller
 
     public function index()
     {
-        return view('information.member.index', [
+        return view('information.his_member.index', [
             'js' => [
-                's-home/information/member/js/member.js',
+                's-home/information/his_member/js/his_member.js',
             ],
             'attribute' => [
                 'm_info' => 'true',
-                'menu_inf_member' => 'active menu-open',
-                'title_bc' => 'Informasi - Pelanggan',
-                'desc_bc' => 'Digunakan untuk media menampilkan informasi , history transaksi dan layanan',
+                'menu_his_member' => 'active menu-open',
+                'title_bc' => 'Informasi - History Rekam Medik',
+                'desc_bc' => 'Digunakan untuk media menampilkan informasi history rekam medik member',
             ]
         ]);
     }
 
     public function _data()
     {
-        return view('information.member.content.data.table');
+        return view('information.his_member.content.data.table');
     }
 
     public function _data_history(Request $request)
     {
-        return view('information.member.content.data.table_' . $request->table);
+        return view('information.his_member.content.data.table_' . $request->table);
+    }
+
+    public function _data_detail_history(Request $request)
+    {
+        $load = $request->get('load');
+        $id = $request->get('id');
+
+        if (!empty($load)) {
+            if ($load == 'rekam') {
+                $data['rekam'] = DB::table('transaksi_rekam')
+                    ->leftJoin('rekam_medik', 'rekam_medik.id', '=', 'transaksi_rekam.position')
+                    ->select('rekam_medik.nama', 'transaksi_rekam.name', 'transaksi_rekam.more_keterangan')->where('transaksi_id', $id)->get();
+            }
+
+            if ($load == 'catatan') {
+                $data['catatan'] = DB::table('transaksi_rekam_gigi')
+                    ->select('gigi', 'ringkasan', 'foto')->where('transaksi_id', $id)->get();
+            }
+
+            echo json_encode($data, true);
+        } else {
+            return view('information.his_member.content.data.load_detail');
+        }
     }
 
     public function _json()
@@ -54,6 +77,7 @@ class MembersInformation extends Controller
                     $this->table . '.jenis_kelamin',
                     $this->table . '.email',
                     $this->table . '.telepon',
+                    'member.user_id as muser_id',
                     DB::raw('IF(' . $this->table . '.saldo, ' . $this->table . '.saldo, 0) as saldo'),
                     DB::raw('CONCAT((SELECT COUNT(id) FROM transaksi WHERE member_id = member.user_id AND status_pembayaran = "terbayar"), " kali") as count_trans')
                 );
@@ -61,7 +85,7 @@ class MembersInformation extends Controller
                 ->get();
 
             return datatables()->of($dJson)
-                ->addColumn('action', 'information.member.content.data.action_button')
+                ->addColumn('action', 'information.his_member.content.data.action_button')
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
@@ -73,22 +97,22 @@ class MembersInformation extends Controller
         if (request()->ajax()) {
             if ($request->table == 'layanan') {
                 return datatables()->of(DB::table($this->table_transaksi)
-                    ->leftJoin($this->table_transaksi_detail, $this->table_transaksi . '.id', '=', $this->table_transaksi_detail . '.transaksi_id')
-                    ->leftJoin($this->table_layanan, $this->table_layanan . '.id', '=', $this->table_transaksi_detail . '.layanan_id')
+                    ->leftJoin('pegawai', 'pegawai.id', '=', $this->table_transaksi . '.dokter_id')
+                    ->leftJoin('room', 'room.id', '=', $this->table_transaksi . '.room_id')
                     ->select(
-                        $this->table_transaksi . '.status',
-                        $this->table_transaksi . '.created_at as waktu',
-                        $this->table_layanan . '.nama',
+                        $this->table_transaksi . '.created_at as tanggal',
                         $this->table_transaksi . '.id',
-                        $this->table_transaksi_detail . '.harga as harga'
+                        'room.name as ruangan',
+                        'pegawai.nama as dokter',
+                        $this->table_transaksi . '.no_transaksi as no_trans',
                     )
                     ->where($this->table_transaksi . '.member_id', $request->member)
                     ->where($this->table_transaksi . '.status_pembayaran', 'terbayar')
-                    ->whereNull($this->table_transaksi_detail . '.produk_id')
+                    ->where('pegawai.role', 3)
                     ->orderBy(DB::raw('DATE(transaksi.created_at)'), 'DESC')
                     ->get())
-                    ->addColumn('status', 'information.member.content.data.status_info')
-                    ->rawColumns(['status'])
+                    ->addColumn('action', 'information.his_member.content.data.action_history_button')
+                    ->rawColumns(['action'])
                     ->addIndexColumn()
                     ->make(true);
             }
@@ -110,7 +134,7 @@ class MembersInformation extends Controller
                     ->whereNotNull($this->table_transaksi_detail . '.produk_id')
                     ->orderBy(DB::raw('DATE(transaksi.created_at)'), 'DESC')
                     ->get())
-                    ->addColumn('status', 'information.member.content.data.status_info')
+                    ->addColumn('status', 'information.his_member.content.data.status_info')
                     ->rawColumns(['status'])
                     ->addIndexColumn()
                     ->make(true);
@@ -120,7 +144,7 @@ class MembersInformation extends Controller
 
     public function show($id)
     {
-        return view('information.member.content.detail.modal.detail', [
+        return view('information.his_member.content.detail.modal.detail', [
             'data' => $id
         ]);
     }

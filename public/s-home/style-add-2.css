@@ -194,6 +194,11 @@
     font-size: 13px;
 }
 
+.class-row {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .cont-sel-gigi {
     float: left;
     margin-right: 10px;

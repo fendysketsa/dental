@@ -12,30 +12,14 @@
     </ol>
 </section>
 <section class="content">
-    @include('monitoring.order.content.index')
+    @include('information.his_member.content.index')
 </section>
 @endsection
 
 @section('ext-modal')
-<div id="formModalMontrgOrder" class="modal fade" role="dialog">
+<div id="detMember" class="modal fade" role="dialog">
     <div class="modal-dialog modal-xlg">
-        @include('monitoring.order.content.form.modal.index')
-    </div>
-</div>
-@endsection
-
-@section('ext-modal-periksa')
-<div id="formModalMontrgOrderPeriksa" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-xlg">
-        @include('monitoring.order.content.form.modal.index_periksa')
-    </div>
-</div>
-@endsection
-
-@section('ext-modal-periksa-gigi')
-<div id="formModalMontrgOrderPeriksaGigi" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
-        @include('monitoring.order.content.form.modal.index_periksa_gigi')
+        @include('information.his_member.content.detail.modal.detail')
     </div>
 </div>
 @endsection

@@ -7,6 +7,14 @@
     </button>
     <ul class="dropdown-menu" role="menu" style="min-width:0px !important; left:8px !important;">
         <li>
+            <a style="display:-webkit-box;" class="btn detail-history btn-xs btn-3d" data-toggle="modal"
+                data-target="#detHisMember" data-id-member="{{ $user_id }}" data-id-trans="{{ $id }}"
+                data-route="{{ route('members-history.show', $user_id) }}" data-toggle="modal" data-target="#detMember"
+                data-backdrop="static" data-keyboard="false"><em class="fa fa-th-list"></em>
+                History
+            </a>
+        </li>
+        <li>
             <a style="display:-webkit-box;"
                 class="btn @if($status==4 || $status==1) btn-default btn-disabled @else edit @endif btn-xs btn-3d "
                 @if($status>1 && $status<4) data-id-cetak-on="{{ $id }}"
@@ -21,17 +29,17 @@
                 class="btn @if($status==4 || $status==1) btn-default btn-disabled @else periksa @endif btn-xs btn-3d "
                 @if($status>1
                 && $status<4) data-toggle="modal" data-target="#formModalMontrgOrderPeriksa" data-backdrop="static"
-                    data-keyboard="false" data-routes="{{ route('monitoring.order.saveperiksa') }}" data-route="{{ route('monitoring.order.periksa', $id) }}" @endif><em
-                        class="fa fa-search"></em>
+                    data-keyboard="false" data-routes="{{ route('monitoring.order.saveperiksa') }}"
+                    data-route="{{ route('monitoring.order.periksa', $id) }}" @endif><em class="fa fa-search"></em>
                     Periksa</a>
         </li>
         {{-- <li>
             <a style="display:-webkit-box;"
                 class="btn @if($status==1 || $status==4) btn-default btn-disabled @else print @endif btn-xs btn-3d"
                 @if($status>1 && $status<4) data-id-cetak="{{ $id }}"
-                    data-route="{{ route('monitoring.order.printOut') }}" @endif>
-                    <em class="fa fa-print"></em> Cetak
-            </a>
+        data-route="{{ route('monitoring.order.printOut') }}" @endif>
+        <em class="fa fa-print"></em> Cetak
+        </a>
         </li> --}}
 
         @if($print_act >= 0 && $status<4 && $status>1)

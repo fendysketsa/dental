@@ -362,6 +362,20 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
         'edit'
     ]);
     //-----------------------------------------------------------------------------
+    Route::get('members-history/data/history/detail', 'Web\Information\MembersHistory@_data_detail_history');
+    Route::get('members-history/data/history', 'Web\Information\MembersHistory@_data_history');
+    Route::get('members-history/json/history', 'Web\Information\MembersHistory@_json_history');
+    Route::get('members-history/data', 'Web\Information\MembersHistory@_data');
+    Route::get('members-history/json', 'Web\Information\MembersHistory@_json');
+    Route::resource('members-history', 'Web\Information\MembersHistory', [
+        'names' => [
+            'index' => 'members-history.index',
+            'show' => 'members-history.show',
+        ]
+    ])->except([
+        'edit'
+    ]);
+    //-----------------------------------------------------------------------------
     Route::get('sales-prod-serv/data', 'Web\Information\ProdukLayananTerjualController@_data');
     Route::get('sales-prod-serv/json', 'Web\Information\ProdukLayananTerjualController@_json');
     Route::resource('sales-prod-serv', 'Web\Information\ProdukLayananTerjualController', [
@@ -442,6 +456,7 @@ Route::middleware(['auth' => 'role:kasir|super-admin|owner'])->group(function ()
     Route::get('monitoring/order/activ/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.actived');
     Route::put('monitoring/order/buy/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.pembayaran');
     Route::put('monitoring/order/periksa/{id}', 'Web\Monitoring\OrderController@periksas')->name('monitoring.order.periksa');
+    Route::put('monitoring/order/history/{id}', 'Web\Monitoring\OrderController@history')->name('monitoring.order.history');
     Route::get('monitoring/order/reload', 'Web\Monitoring\OrderController@_reload');
     Route::get('monitoring/order/det/{id}', 'Web\Monitoring\OrderController@detTrans');
     Route::get('monitoring/order/data', 'Web\Monitoring\OrderController@_data');
@@ -516,6 +531,7 @@ Route::middleware(['auth' => 'role:super-admin|kasir|dokter'])->group(function (
     Route::get('monitoring/order/activ/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.actived');
     Route::put('monitoring/order/buy/{id}', 'Web\Monitoring\OrderController@activations')->name('monitoring.order.pembayaran');
     Route::put('monitoring/order/periksa/{id}', 'Web\Monitoring\OrderController@periksas')->name('monitoring.order.periksa');
+    Route::put('monitoring/order/history/{id}', 'Web\Monitoring\OrderController@history')->name('monitoring.order.history');
     Route::get('monitoring/order/reload', 'Web\Monitoring\OrderController@_reload');
     Route::get('monitoring/order/det/{id}', 'Web\Monitoring\OrderController@detTrans');
     Route::get('monitoring/order/data', 'Web\Monitoring\OrderController@_data');
