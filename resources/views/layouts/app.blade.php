@@ -425,6 +425,7 @@
             @yield('content')
         </div>
         @yield('ext-modal')
+        @yield('ext-modal-detail')
         @yield('ext-modal-detail-history')
         @yield('ext-modal-1')
         @yield('ext-modal-periksa')

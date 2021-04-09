@@ -7,8 +7,8 @@
     </button>
     <ul class="dropdown-menu" role="menu" style="min-width:0px !important; left:8px !important;">
         <li>
-            <a style="display:-webkit-box;" class="btn detail-history btn-xs btn-3d" data-toggle="modal"
-                data-target="#detHisMember" data-id-member="{{ $user_id }}" data-id-trans="{{ $id }}"
+            <a style="display:-webkit-box;" class="btn detail-hstry btn-xs btn-3d" data-toggle="modal"
+                data-id-member="{{ $user_id }}" data-id-trans="{{ $id }}"
                 data-route="{{ route('members-history.show', $user_id) }}" data-toggle="modal" data-target="#detMember"
                 data-backdrop="static" data-keyboard="false"><em class="fa fa-th-list"></em>
                 History

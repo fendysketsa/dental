@@ -4999,11 +4999,11 @@ function data_attribut() {
     load_voidPembayaranCase();
 
     $(".load-data").delegate(
-        ".detail-history",
+        ".detail-hstry",
         "click",
         function (e) {
             var event = $(this);
-            load_detail_history(event);
+            load_detailHisTable(event);
         }
     );
 

@@ -1,3 +1,119 @@
+function load_detailHisTable(e) {
+    var ths = $(e);
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        type: "GET",
+        url: ths.data("route"),
+        success: function (result) {
+            $(".modal-title").html(
+                '<em class="fa fa-pencil-square-o"></em> History Rekam Medik'
+            );
+            load_detail_dataHis("layanan", ths.data("id-member"));
+        },
+        error: function () {
+            toastr.error("Gagal mengambil data", "Oops!", {
+                timeOut: 2000,
+            });
+        },
+    });
+}
+
+function load_detail_dataHis(table, idm) {
+    var cont = $(".load-detail-history-" + table);
+    cont.load(
+        base_url + "/members-history/data/history?table=" + table,
+        function (e, s, f) {
+            if (s == "error") {
+                var fls = "Gagal memuat data!";
+                toastr.error(fls, "Oops!", {
+                    timeOut: 2000,
+                });
+                $(this).html('<em class="fa fa-warning"></em> ' + fls);
+            } else {
+                data_attribut_history("layanan", idm);
+            }
+        }
+    );
+}
+
+function data_attribut_history(table, member) {
+    var dTable_left = $("#data-table-view-" + table).DataTable({
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url:
+                base_url +
+                "/members-history/json/history?table=" +
+                table +
+                "&member=" +
+                member,
+            type: "GET",
+        },
+        columns: [
+            {
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+                orderable: false,
+                searchable: false,
+                className: "td-height-img",
+            },
+            {
+                data: "tanggal",
+                name: "tanggal",
+                className: "text-center",
+                render: function (data, type, row) {
+                    return data ? getIndoDate(data) : "";
+                },
+            },
+            {
+                data: "no_trans",
+                name: "no_trans",
+                className: "td-height-img",
+            },
+            {
+                data: "dokter",
+                name: "dokter",
+                className: "td-height-img",
+            },
+            {
+                data: "ruangan",
+                name: "ruangan",
+                className: "td-height-img",
+            },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                className: "text-center td-height-img",
+            },
+        ],
+        order: [[0, "desc"]],
+    });
+    dTable_left.ajax.reload();
+    $("select[name=data-table-view_length]").on("change", function () {
+        dTable_left.ajax.reload();
+    });
+    $("input[type=search]").on("input", function (e) {
+        dTable_left.ajax.reload();
+    });
+
+    $(".load-detail-history-layanan").delegate(
+        ".detail-history",
+        "click",
+        function (e) {
+            var event = $(this);
+            load_detail_history(event);
+        }
+    );
+}
+
 function load_detail_history(e) {
     var ths = $(e);
 

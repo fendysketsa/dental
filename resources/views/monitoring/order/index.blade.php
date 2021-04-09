@@ -40,6 +40,14 @@
 </div>
 @endsection
 
+@section('ext-modal-detail')
+<div id="detMember" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-xlg">
+        @include('information.his_member.content.detail.modal.detail')
+    </div>
+</div>
+@endsection
+
 @section('ext-modal-detail-history')
 <div id="detHisMember" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
