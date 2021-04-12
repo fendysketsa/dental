@@ -1,0 +1,6 @@
+php 7.4
+laravel
+js
+html5
+error case bugsnag
+api token JWT

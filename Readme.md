@@ -17,3 +17,4 @@ Medina Dental Web merupakan aplikasi berbasis web untuk mengelola data rekam med
     a. `BASE_API_URL` untuk url api, misalnya `http://localhost:8000`
 
     b. `JWT` untuk token api `Bearer yourtokenhere`
+
