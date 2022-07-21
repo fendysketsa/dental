@@ -12,7 +12,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name_', 'Medina Dental') }}</title>
+    <title>{{ config('app.name_', 'C-MORE') }}</title>
     <link rel="stylesheet" href="{{ asset('s-home/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('s-home/dist/css/offline-theme-default.css') }}" />
     <link rel="stylesheet" href="{{ asset('s-home/dist/css/offline-language-english.css') }}" />
@@ -75,8 +75,8 @@
         <header class="main-header">
             <a href="@role('kasir') {{ url('registrations') }} @endrole  @role('super-admin|owner|manager') {{ url('home') }} @endrole"
                 class="logo">
-                <span class="logo-mini"><b>M</b>D</span>
-                <span class="logo-lg"><b>Medina</b> Dental</span>
+                <span class="logo-mini"><b>C</b>M</span>
+                <span class="logo-lg"><b>C</b> - More</span>
             </a>
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -384,11 +384,11 @@
                 </li>
                 @endrole
 
-                @role('super-admin|owner')
+                {{-- @role('super-admin|owner')
                 <li class="bg-hover-menu">
                     <a href="https://akunting.medinadental.clinic" target="_blank"><i class="fa fa-balance-scale"></i>
                         <span>Akunting</span></a></li>
-                @endrole
+                @endrole --}}
 
                 @role('super-admin|owner')
                 <li class="treeview {{ (!empty($attribute['m_other']) ? 'active ' . $attribute['m_other'] : null) }}">
@@ -435,7 +435,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; 2021 <a href="#">Medina Dental</a></strong>
+            <strong>Copyright &copy; 2021 <a href="#">C-MORE</a></strong>
         </footer>
 
     </div>

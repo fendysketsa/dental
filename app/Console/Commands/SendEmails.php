@@ -99,7 +99,7 @@ class SendEmails extends Command
 
         $account    = "informasi@portalams.co.id";
         $password   = "sampleajalah&&**123";
-        $subject = 'Daily Sales Summary - Medina Dental';
+        $subject = 'Daily Sales Summary - C-MORE';
 
         //yahoo saja
         // $email = '';
@@ -117,7 +117,7 @@ class SendEmails extends Command
         $mail->SMTPSecure = 'ssl';
         $mail->Priority = 1;
 
-        $mail->SetFrom('admin@medinadental.clinic', 'Administrator - Medina Dental');
+        $mail->SetFrom('admin@medinadental.clinic', 'Administrator - C-MORE');
         $mail->Subject = $subject;
         $mail->IsHTML(true);
         $mail->Body = $this->index();

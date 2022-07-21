@@ -24,7 +24,7 @@ body {
     color: #999;
     font-size: 12px;
     margin: 0;
-    background-color: #E8AD64;
+    background-color: #69227D;
     z-index: 1;
 }
 
@@ -167,7 +167,7 @@ ul {
 
 a {
     text-decoration: none;
-    color: #E38C4C;
+    color: #89429E;
     transition: all 0.3s ease;
 }
 
@@ -220,7 +220,7 @@ h3 {
     font-family: "ElMessiri-SemiBold";
     text-align: center;
     margin-bottom: 27px;
-    color: #E38C4C;
+    color: #89429E;
 }
 
 h4 {
@@ -228,7 +228,7 @@ h4 {
     font-family: "Montserrat-Regular";
     text-align: center;
     margin-bottom: 10px;
-    color: #E38C4C;
+    color: #89429E;
     margin-top: -33px;
 }
 
@@ -245,7 +245,7 @@ h4 {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    border: 2px solid #E38C4C;
+    border: 2px solid #89429E;
     position: absolute;
     left: 1px;
     top: 50%;
@@ -254,7 +254,7 @@ h4 {
 
 .form-holder.active:before {
     border: 2px solid transparent;
-    background: #E38C4C;
+    background: #89429E;
 }
 
 .notif-false {
@@ -379,7 +379,7 @@ button {
     align-items: center;
     justify-content: center;
     padding: 13px;
-    background: #E38C4C;
+    background: #89429E;
     font-size: 15px;
     color: #fff;
     text-transform: uppercase;
@@ -409,7 +409,7 @@ button {
     align-items: center;
     justify-content: center;
     padding: 0;
-    background: #E38C4C;
+    background: #89429E;
     font-size: 15px;
     color: #fff;
     text-transform: uppercase;
@@ -470,7 +470,7 @@ button:hover {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: #E38C4C;
+    background: #89429E;
     position: absolute;
     display: none;
 }
@@ -513,7 +513,7 @@ button:hover {
     height: 100%;
     position: fixed;
     z-index: 1;
-    background: #E8AD64;
+    background: #69227D;
 }
 
 .loader {

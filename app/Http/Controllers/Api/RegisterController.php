@@ -54,7 +54,7 @@ class RegisterController extends Controller
             //     'header' => 'Selamat!',
             //     'images' => asset('images/handshake.png'),
             //     'message' => 'Akun Anda berhasil diaktifkan!',
-            //     'messageFoot' => 'Silakan login melalui Medina Dental Apps untuk melakukan proses selanjutnya.'
+            //     'messageFoot' => 'Silakan login melalui C-MORE Apps untuk melakukan proses selanjutnya.'
             // ];
 
             // return response()
@@ -218,7 +218,7 @@ class RegisterController extends Controller
                 //         $mail->SMTPSecure = 'ssl';
                 //         $mail->Priority = 1;
 
-                //         $mail->SetFrom('admin@medinadental.clinic', 'Admin - Medina Dental');
+                //         $mail->SetFrom('admin@medinadental.clinic', 'Admin - C-MORE');
                 //         $mail->Subject = $subject;
                 //         $mail->IsHTML(true);
                 //         $mail->Body = $message;

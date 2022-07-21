@@ -1,7 +1,7 @@
-# Medina Dental Web
+# C-MORE Web
 
 ## Tentang
-Medina Dental Web merupakan aplikasi berbasis web untuk mengelola data rekam medik gigi, transaksi dan riwayat pemeriksaan pasien 
+C-MORE Web merupakan aplikasi berbasis web untuk mengelola data rekam medik gigi, transaksi dan riwayat pemeriksaan pasien 
 
 ## Instalasi
 1. Buat file **.env**, isi bisa salin dari file **.env.example**. Sesuaikan konfigurasi nama aplikasi, url, kredensial database.

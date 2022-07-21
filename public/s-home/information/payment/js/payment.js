@@ -832,7 +832,7 @@ function rePrint(events, dataTrans) {
     var printer = new Recta('7963354012', '1811')
     printer.open().then(function () {
         printer.align('center')
-            .text('Medina Dental - Make Up');
+            .text('C-MORE - Make Up');
 
         if (operatorCbang == 2 || !operatorCbang) {
             printer.align('center').text('Jl. Gejayan No. 11').text('Yogyakarta').text('(0274)-589946');

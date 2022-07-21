@@ -1,6 +1,6 @@
 <div bgcolor="#fff" marginheight="0" marginwidth="0"
     style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif;height:100%;width:100%!important">
-    <table bgcolor="#E8AD64"
+    <table bgcolor="#69227D"
         style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif;width:100%;border-radius:10px;">
         <tbody>
             <tr style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif">
@@ -63,7 +63,7 @@
                                         style="margin:0;padding:0;font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif">
                                         <h1
                                             style="margin:0;padding:0;font-family:HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;line-height:1.1;margin-bottom:15px;color:#2c3e50;font-weight:800;font-size:30px;text-align:center;margin-top:10px">
-                                            Medina Dental</h1>
+                                            C-MORE</h1>
                                     </td>
                                 </tr>
                                 <tr>

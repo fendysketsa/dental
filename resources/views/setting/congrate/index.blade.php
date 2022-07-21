@@ -35,11 +35,11 @@
         html,
         body {
             height: 100%;
-            background-color: #E8AD64;
+            background-color: #69227D;
         }
 
         body {
-            color: #E38C4C;
+            color: #89429E;
             text-align: center;
             text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
         }
@@ -190,7 +190,7 @@
 
                 <div class="mastfoot">
                     <div class="inner">
-                        <a target="_blank" href="https://medinadental.clinic">Medina Dental</a>
+                        <a target="_blank" href="https://medinadental.clinic">C-MORE</a>
                     </div>
                 </div>
             </div>

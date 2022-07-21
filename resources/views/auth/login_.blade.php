@@ -18,7 +18,7 @@
                                         style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;color:#bbbfc3;font-size:19px;font-weight:bold;text-decoration:none"
                                         target="_blank"
                                         data-saferedirecturl="https://www.google.com/url?q=http://localhost&amp;source=gmail&amp;ust=1574399869865000&amp;usg=AFQjCNFv-0KXV-UoXzD0tLNeDg2HtGkZWQ">
-                                        Medina Dental
+                                        C-MORE
                                     </a>
                                 </td>
                             </tr>
@@ -88,7 +88,7 @@
                                                     <p
                                                         style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;color:#3d4852;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                         Regards,<br>
-                                                        Medina Dental</p>
+                                                        C-MORE</p>
 
                                                     <table width="100%" cellpadding="0" cellspacing="0"
                                                         role="presentation"
@@ -130,7 +130,7 @@
                                                     style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;padding:35px">
                                                     <p
                                                         style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;line-height:1.5em;margin-top:0;color:#aeaeae;font-size:12px;text-align:center">
-                                                        © 2019 Medina Dental. All rights reserved.</p>
+                                                        © 2019 C-MORE. All rights reserved.</p>
                                                 </td>
                                             </tr>
                                         </tbody>

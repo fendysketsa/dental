@@ -30,6 +30,6 @@ class sendMailSales extends Mailable
      */
     public function build()
     {
-        return $this->subject('Daily Mail Sales - Administrator Medina Dental')->view('daily.report.mail2');
+        return $this->subject('Daily Mail Sales - Administrator C-MORE')->view('daily.report.mail2');
     }
 }

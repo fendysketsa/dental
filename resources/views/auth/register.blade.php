@@ -7,7 +7,7 @@
             <img src="{{ asset('s-login/images/left-pict.png') }}" alt="">
         </div>
         <form method="POST" class="more-top" action="{{ route('register') }}">
-            <h3>Medina Dental</h3>
+            <h3>C-MORE</h3>
             <h4>Sign Up</h4>
             @error('name')
             <div class="notif-false">

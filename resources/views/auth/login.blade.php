@@ -8,7 +8,7 @@
             {{-- <img src="https://hdmall.id/system/image_attachments/images/000/024/960/medium/Kawat_Gigi_Metal__Cetak_Gigi_dan_Pembersihan_Karang_Gigi_1x_di_AM_Dental_Care_%281%29.jpg" alt=""> --}}
         </div>
         <form method="POST" action="{{ route('login') }}">
-            <h3>Medina Dental</h3>
+            <h3>C-MORE</h3>
             <h4>Sign In</h4>
             @error('email')
             <div class="notif-false">

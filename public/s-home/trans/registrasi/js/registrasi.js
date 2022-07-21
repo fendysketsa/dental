@@ -1529,7 +1529,7 @@ function rePrint(events, dataTrans, onsave) {
     printer
         .open()
         .then(function () {
-            printer.align("center").text("Medina Dental - Make Up");
+            printer.align("center").text("C-MORE - Make Up");
 
             if (operatorCbang == 2 || !operatorCbang) {
                 printer
